@@ -1,0 +1,29 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+install:
+- cmd: >-
+    set PATH=C:\Python37;C:\Python37\\Scripts;%PATH%
+
+    python -m pip install --upgrade pip
+
+    pip install pythonnet
+
+    pip install robotframework
+
+    pip install robotframework-stringformat
+build:
+  verbosity: minimal
+test_script:
+- cmd: .\local_install.cmd
+artifacts:
+- path: result/
+  name: results
+- path: dist/
+  name: distribution
+- path: keywords/
+  name: documentation
+on_finish:
+- ps: >-
+    $wc = New-Object 'System.Net.WebClient'
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\xunit.xml))

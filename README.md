@@ -1,4 +1,6 @@
-# Robotframework-Flaui Library
+# Robotframework-FlaUI Library
+
+[<img src="https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui">](https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests)
 
 ## Introduction
 
@@ -38,9 +40,9 @@ Examples of use can be found in the atests folder.
 * Install [Python](https://www.python.org/downloads/), if not already installed. Only Python 3 is supported.
 * To install Robot Framework and Python for .NET, run
 ```
-pip install robotframework pythonnet
-pip install robotframework robotframework
-pip install robotframework robotframework-stringformat
+pip install pythonnet
+pip install robotframework
+pip install robotframework-stringformat
 ```
 
 Alternatively you could use the provided requirements file:
