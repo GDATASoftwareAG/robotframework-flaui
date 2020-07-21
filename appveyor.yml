@@ -11,6 +11,8 @@ install:
     pip install robotframework
 
     pip install robotframework-stringformat
+
+    pip install wheel
 build:
   verbosity: minimal
 test_script:

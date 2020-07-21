@@ -11,8 +11,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Test Setup      Start Test Application
+Test Teardown   Close Test Application
 
 *** Variables ***
 ${SCREENSHOT_FOLDER} =  screenshots
@@ -32,7 +32,7 @@ Take No Screenshot If Module Is Disabled
 
 Take Screenshot If XPath Not Found Multiple Times No Setup Usage
     [Setup]  NONE
-    Start Application
+    Start Test Application
 
     Set Screenshot Directory  screenshots
     : FOR    ${INDEX}    IN RANGE    1    10
@@ -54,13 +54,13 @@ Take Screenshot If XPath Not Found Multiple Times No Teardown Usage
     \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
     \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
-    Stop Application
+    Close Test Application
 
 Take Screenshot If XPath Not Found Multiple Times No Teardown And Setup Usage
     [Setup]  NONE
     [Teardown]  NONE
 
-    Start Application
+    Start Test Application
     Set Screenshot Directory  screenshots
     : FOR    ${INDEX}    IN RANGE    1    10
     \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
@@ -69,7 +69,7 @@ Take Screenshot If XPath Not Found Multiple Times No Teardown And Setup Usage
     \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
     \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
-    Stop Application
+    Close Test Application
 
 Take Screenshot If XPath Not Found Multiple Times
     Set Screenshot Directory  screenshots
@@ -136,18 +136,13 @@ Create Screenshot From Desktop By A Teardown Fail
     Log  Test should fail in teardown
 
 *** Keywords ***
-Stop Application
-    Close Application
+Close Test Application
+    Stop Application
     Take Screenshots On Failure  False
 
-Start Application
+Start Test Application
     Take Screenshots On Failure  False
-    ${PID}  Launch Application  ${TEST_APP}
-    Should Not Be Equal As Integers  ${PID}  0
-    Wait Until Keyword Succeeds  10x  20ms  Element Should Exist  ${MAIN_WINDOW}
-    # Test to fast... before window is visible from transparancy 0 to 100 test failed and screnshot is created...
-    # Wait if Window is complete visible is useles for test cases
-    Sleep  500ms
+    Start Application
     Take Screenshots On Failure  True
 
 Get Expected Filename

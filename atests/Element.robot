@@ -20,13 +20,7 @@ ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='O
 
 *** Test Cases ***
 Focus
-    [Setup]    NONE
-    [Teardown]  NONE
-
-    ${PROCESS}  Start Process  ${TEST_APP}
-    Wait Until Keyword Succeeds  10x  20ms  Element Should Exist  ${MAIN_WINDOW}
     Focus  ${MAIN_WINDOW}
-    Terminate Process  ${PROCESS}  kill=True
 
 Focus Custom Error Message
     Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Focus  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
@@ -34,7 +28,6 @@ Focus Custom Error Message
 Focus Element Not Exist
     [Setup]    NONE
     [Teardown]  NONE
-
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Focus  ${XPATH_NOT_EXISTS}
 

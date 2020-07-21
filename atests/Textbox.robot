@@ -9,7 +9,7 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Run Keywords  Start Application
+Test Setup      Start Application
 Test Teardown   Stop Application
 
 *** Variables ***

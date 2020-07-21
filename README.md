@@ -43,6 +43,7 @@ Examples of use can be found in the atests folder.
 pip install pythonnet
 pip install robotframework
 pip install robotframework-stringformat
+pip install wheel
 ```
 
 Alternatively you could use the provided requirements file:

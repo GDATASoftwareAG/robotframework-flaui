@@ -8,7 +8,7 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Run Keywords  Start Application
+Test Setup      Start Application
 Test Teardown   Stop Application
 
 *** Variables ***
@@ -48,4 +48,3 @@ Set Checkbox State Wrong XPath Custom Error Message
 Set Checkbox State Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Set Checkbox State  ${XPATH_NOT_EXISTS}  ${False}
-
