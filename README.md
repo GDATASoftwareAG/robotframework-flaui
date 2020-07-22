@@ -1,6 +1,10 @@
 # Robotframework-FlaUI Library
 
-[<img src="https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui">](https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests)
+| Badges |
+|---|
+| <img src="https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square">  |
+| [<img src="https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui?style=flat-square">](https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests) |
+| [![](https://img.shields.io/pypi/wheel/robotframework-flaui?style=flat-square)](https://pypi.org/pypi/robotframework-flaui/) |
 
 ## Introduction
 
