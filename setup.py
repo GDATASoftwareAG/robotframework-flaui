@@ -1,26 +1,33 @@
 import os
 from setuptools import setup, find_packages
 
-branch = os.getenv('BRANCH_NAME', 'local')
-build_number = os.getenv('BUILD_ID', 0)
-release = branch == 'master'
+# https://www.appveyor.com/docs/environment-variables/
+repo_tag = os.environ.get('APPVEYOR_REPO_TAG', 'false')
+tag_version = os.environ.get('APPVEYOR_REPO_TAG_NAME', '0')
+build_version = os.environ.get('APPVEYOR_BUILD_VERSION', '0')
+build_number = os.environ.get('APPVEYOR_BUILD_NUMBER', '0')
+release = repo_tag == 'true'
+
+print('---------------------Branch Informations---------------------')
+print('Release: ' + str(release))
+print('APPVEYOR_REPO_TAG: ' + repo_tag)
+print('APPVEYOR_REPO_TAG_NAME: ' + tag_version)
+print('APPVEYOR_BUILD_VERSION: ' + build_version)
+print('APPVEYOR_BUILD_NUMBER: ' + build_number)
+print('-------------------------------------------------------------')
 
 long_description = ''
 with open("Readme.md", "r") as fh:
     long_description = fh.read()
-
-version_data = {}
-with open(os.path.join("src", "FlaUILibrary", "version.py")) as f:
-    exec(f.read(), version_data)
 
 requirements = []
 with open("requirements.txt", "r") as f:
     requirements = list(filter(lambda s: s != "", f.read().split("\n")))
 
 if release:
-    version = "{}".format(version_data["VERSION"])
+    version = "{}".format(tag_version)
 else:
-    version = "{}rc{}".format(version_data["VERSION"], build_number)
+    version = "{}rc{}".format(build_version, build_number)
 
 setup(name="robotframework-flaui",
       version=version,
