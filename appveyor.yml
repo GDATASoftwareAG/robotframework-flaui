@@ -24,6 +24,18 @@ artifacts:
   name: wheels
 - path: keywords/*.html
   name: documentation
+deploy_script:
+  - ps: |
+      if($env:APPVEYOR_REPO_TAG -eq 'true') {
+        Write-Output ("Deploying " + $env:APPVEYOR_REPO_TAG_NAME + " to PyPI...")
+
+        python -m pip install twine
+
+        python -m twine upload -u ${Env:USER} -p ${Env:PASS} --skip-existing dist/*.whl
+
+      } else {
+        Write-Output "No tag for deployment"
+      }
 on_finish:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'

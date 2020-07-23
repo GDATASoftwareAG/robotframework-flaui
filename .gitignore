@@ -211,7 +211,6 @@ PythonWhiteLibrary/MANIFEST
 PythonWhiteLibrary/dist/
 MANIFEST
 dist/
-docs/
 *.egg-info
 
 # WhiteLibrary temporary installed files list
@@ -227,4 +226,5 @@ pylint.txt
 pylint.xml
 
 !src/**
+!docs/**
 __pycache__
