@@ -1,10 +1,5 @@
 version: 1.0.{build}
 image: Visual Studio 2017
-environment:
-  USER:
-    secure: Y4+g8I9xmvNOnAzrfK1fGQ==
-  PASS:
-    secure: 7Qy7fGkabXp0vx1O6Q5HSmlD6JcRVA1GHhGbZZS3VxXXOFjanPZdAobKpasa4/33
 install:
 - cmd: >-
     set PATH=C:\Python37;C:\Python37\\Scripts;%PATH%
@@ -34,15 +29,3 @@ on_finish:
     $wc = New-Object 'System.Net.WebClient'
 
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\xunit.xml))   
-deploy_script:
-  - ps: |
-      if($env:APPVEYOR_REPO_TAG -eq 'true') {
-        Write-Output ("Deploying " + $env:APPVEYOR_REPO_TAG_NAME + " to PyPI...")
-        
-        python -m pip install twine
-        
-        python -m twine upload -u ${Env:USER} -p ${Env:PASS} --skip-existing dist/*.whl
-        
-      } else {
-        Write-Output "No tag for deployment"
-      }
