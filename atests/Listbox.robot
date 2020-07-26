@@ -21,18 +21,12 @@ Get Listbox Items Count
     ${COUNT}  Get Listbox Items Count  ${XPATH_LISTBOX}
     Should Be Equal As Integers  ${COUNT}  2
 
-Get Listbox Items Count Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Listbox Items Count  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Get Listbox Items Count XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Listbox Items Count  ${XPATH_NOT_EXISTS}
 
 Listbox Should Contain
 	Listbox Should Contain  ${XPATH_LISTBOX}  ListBox Item #2
-
-Listbox Should Contain Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Listbox Should Contain  ${XPATH_NOT_EXISTS}  No Such Item  ${CUSTOM_ERR_MSG}
 
 Listbox Should Contain XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -45,9 +39,6 @@ Listbox Should Contain Item Not Exist
 Select Listbox Item By Index
     Select Listbox Item By Index  ${XPATH_LISTBOX}  1
     Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
-
-Select Listbox Item By Index Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Select Listbox Item By Index  ${XPATH_NOT_EXISTS}  0  ${CUSTOM_ERR_MSG}
 
 Select Listbox Item By Index XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -64,9 +55,6 @@ Select Listbox Item By Index String Usage
 Listbox Selection Should Be
     Select Listbox Item By Index  ${XPATH_LISTBOX}  1
     Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
-
-Listbox Selection Should Be Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Listbox Selection Should Be  ${XPATH_NOT_EXISTS}  No Such Item  ${CUSTOM_ERR_MSG}
 
 Listbox Selection Should Be XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

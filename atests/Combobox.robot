@@ -23,9 +23,6 @@ ${COMBO_BOX_ITEM_SELECT}    2
 Combobox Should Contain
     Combobox Should Contain  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM}
 
-Combobox Should Contain Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Combobox Should Contain  ${XPATH_NOT_EXISTS}  ${COMBO_BOX_ITEM}  ${CUSTOM_ERR_MSG}
-
 Combobox Should Contain Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Combobox Should Contain  ${XPATH_NOT_EXISTS}  ${COMBO_BOX_ITEM}
@@ -38,16 +35,10 @@ Get Combobox Items Count
     ${COUNT}  Get Combobox Items Count  ${XPATH_COMBO_BOX}
     Should Be Equal As Integers  ${COUNT}  ${COMBO_BOX_COUNT}
 
-Get Combobox Items Count Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Combobox Items Count  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Select Combobox Item By Index
     Select Combobox Item By Index  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM_SELECT}
     ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
     Should Contain  ${DATA}  Item 3
-
-Select Combobox Item By Index Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Select Combobox Item By Index  -2000  ${XPATH_COMBO_BOX}  ${CUSTOM_ERR_MSG}
 
 Select Combobox Item Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_COMBO_BOX}
@@ -64,6 +55,3 @@ Get Selected Items From Combobox If Nothing Is Selected
 Get Selected Items From Combobox Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error   ${EXP_ERR_MSG}  Get Selected Items From Combobox  ${XPATH_NOT_EXISTS}
-
-Get Selected Items From Combobox Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Selected Items From Combobox  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}

@@ -23,9 +23,6 @@ Get Text From Textbox
     ${TEXT}  Get Text From Textbox  ${XPATH_EDIT_BOX}
     Should Be Equal  ${TEXT}  ${DEFAULT_VALUE_TEXT_BOX}
 
-Get Text From Textbox Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Text From Textbox  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Get Text From Textbox XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Text From Textbox  ${XPATH_NOT_EXISTS}
@@ -38,9 +35,6 @@ Set Text To Textbox
     Set Text To Textbox  ${XPATH_EDIT_BOX}  ${EDIT_BOX_TEXT_ESCAPED}
     ${TEXT}  Get Text From Textbox  ${XPATH_EDIT_BOX}
     Should Be Equal  ${EDIT_BOX_TEXT_ESCAPED}  ${TEXT}
-
-Set Text To Textbox Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Set Text To Textbox  ${XPATH_NOT_EXISTS}  ${EDIT_BOX_TEXT}  ${CUSTOM_ERR_MSG}
 
 Set Text To Textbox XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

@@ -21,9 +21,6 @@ Close Window
     ${ERR_MSG} =  Run Keyword And Expect Error  *  Element Should Exist  ${MAIN_WINDOW}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
-Close Window Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Close Window  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Close Window XPath Not Found
     [Setup]    NONE
     [Teardown]  NONE

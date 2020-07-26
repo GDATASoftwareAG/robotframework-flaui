@@ -20,9 +20,6 @@ Get Radiobutton State
     ${STATE}  Get Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}
     Should Be Equal  ${STATE}  ${False}
 
-Get Radiobutton State Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Radiobutton State  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Get Radiobutton State XPath Not Found
     ${EXP_ERR_MSG} =  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Radiobutton State  ${XPATH_NOT_EXISTS}
@@ -36,9 +33,6 @@ Set Radiobutton State To True
     Set Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}  ${True}
     ${STATE}   Get Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}
     Should Be Equal  ${STATE}  ${True}
-
-Set Radiobutton State Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Set Radiobutton State  ${XPATH_NOT_EXISTS}  ${True}  ${CUSTOM_ERR_MSG}
 
 Set Radiobutton State XPath Not Found
     ${EXP_ERR_MSG} =  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

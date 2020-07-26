@@ -12,7 +12,7 @@ class DebugKeywords:
         self._module = module
 
     @keyword
-    def _get_childs_from_element(self, identifier):
+    def _get_childs_from_element(self, identifier, msg=None):
         """Gets full output from element and childs output. Information to print out are AutomationId, Name,
         ControlType and FrameworkId.
 
@@ -31,6 +31,7 @@ class DebugKeywords:
         Arguments:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
 
         Examples:
         | ${CHILDS}  <XPATH> |
@@ -38,4 +39,4 @@ class DebugKeywords:
 
         """
         return self._module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT,
-                                   self._module.action(Element.Action.GET_ELEMENT, identifier))
+                                   self._module.action(Element.Action.GET_ELEMENT, identifier, msg))

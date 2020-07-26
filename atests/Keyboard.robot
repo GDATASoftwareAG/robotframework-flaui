@@ -31,9 +31,6 @@ Keyboard Type Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error   ${EXP_ERR_MSG}  Press Keys  ${KEYBOARD_INPUT_TEXT_SHORTCUT}  ${XPATH_NOT_EXISTS}
 
-Keyboard Type Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Press Keys  ${KEYBOARD_INPUT_TEXT_SHORTCUT}  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Keyboard Type Text
 	Press Keys  ${KEYBOARD_INPUT_TEXT}  ${XPATH_COMBO_BOX_INPUT}
 	${TEXT}  Get Text From Textbox  ${XPATH_COMBO_BOX_INPUT}

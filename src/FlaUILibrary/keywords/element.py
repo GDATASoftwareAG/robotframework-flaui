@@ -215,5 +215,5 @@ class ElementKeywords:
         | Wait Until Element Is Hidden  <XPATH>  <TIMEOUT=10> |
         | Wait Until Element Is Hidden  <XPATH>  <TIMEOUT=10>  <MSG> |
         """
-        self.element_should_exist(identifier)
+        self.element_should_exist(identifier, msg)
         self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN, [identifier, timeout], msg)

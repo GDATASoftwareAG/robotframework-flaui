@@ -19,12 +19,6 @@ Get Checkbox State
     ${STATE}  Get Checkbox State  ${XPATH_CHECKBOX}
     Should Be Equal  ${STATE}  ${False}
 
-Get Checkbox State Custom Custom Error Message
-    [Setup]    NONE
-    [Teardown]  NONE
-
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Checkbox State  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Get Checkbox State Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Checkbox State  ${XPATH_NOT_EXISTS}
@@ -38,12 +32,6 @@ Set Checkbox State To True
     Set Checkbox State  ${XPATH_CHECKBOX}  ${True}
     ${STATE}   Get Checkbox State  ${XPATH_CHECKBOX}
     Should Be Equal  ${STATE}  ${True}
-
-Set Checkbox State Wrong XPath Custom Error Message
-    [Setup]    NONE
-    [Teardown]  NONE
-
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Set Checkbox State  ${XPATH_NOT_EXISTS}  ${False}  ${CUSTOM_ERR_MSG}
 
 Set Checkbox State Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

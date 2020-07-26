@@ -21,9 +21,6 @@ Get Listview Rows Count
     ${COUNT}  Get Listview Rows Count  ${XPATH_LIST_VIEW}
     Should Be Equal As Integers  ${COUNT}  3
 
-Get Listview Rows Count Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Listview Rows Count  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Get Listview Rows Count XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Listview Rows Count  ${XPATH_NOT_EXISTS}
@@ -33,9 +30,6 @@ Select Listview Row By Index
     Select Listview Row By Index  ${XPATH_LIST_VIEW}  1
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Contain  ${DATA}  | 2 | 20 |
-
-Select Listview Row By Index Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Select Listview Row By Index  ${XPATH_NOT_EXISTS}  2  ${CUSTOM_ERR_MSG}
 
 Select Listview Row By Index XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -53,9 +47,6 @@ Select Listview Row By Name
     Select Listview Row By Name  ${XPATH_LIST_VIEW}  0  1
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Contain  ${DATA}  | 1 | 10 |
-
-Select Listview Row By Name Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Select Listview Row By Name  ${XPATH_NOT_EXISTS}  2  Simple item 1  ${CUSTOM_ERR_MSG}
 
 Select Listview Row By Name XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -83,6 +74,3 @@ Get Selected Listview Rows If Nothing Is Selected
 Get Get Selected Listview Rows Wrong XPath
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error   ${EXP_ERR_MSG}  Get Selected Listview Rows  ${XPATH_NOT_EXISTS}
-
-Get Get Selected Listview Rows Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Get Selected Listview Rows  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}

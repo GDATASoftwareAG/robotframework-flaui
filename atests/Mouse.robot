@@ -23,9 +23,6 @@ Left Click
     Click  ${CLICK_BUTTON}
     Name Should Be  Invoked!  ${CLICK_BUTTON}
 
-Left Click Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Left Click XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
@@ -38,9 +35,6 @@ Double Click
     ${STATE}   Get Checkbox State  ${DOUBLE_CLICK_BUTTON}
     Should Be Equal  ${STATE}  ${False}
 
-Double Click Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Double Click  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
-
 Double Click XPath Not Found
     ${EXP_ERR_MSG} =  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Double Click  ${XPATH_NOT_EXISTS}
@@ -48,9 +42,6 @@ Double Click XPath Not Found
 Right Click
     Right Click  ${RIGHT_CLICK_BUTTON}
     Element Should Exist  ${EXPECTED_CONTEXT_MENU}
-
-Right Click Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Right Click  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
 
 Right Click XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -60,9 +51,6 @@ Move To
     Move To  ${RIGHT_CLICK_BUTTON}
     Right Click  ${RIGHT_CLICK_BUTTON}
     Element Should Exist  ${EXPECTED_CONTEXT_MENU}
-
-Move To Custom Error Message
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Move To  ${XPATH_NOT_EXISTS}  ${CUSTOM_ERR_MSG}
 
 Move To XPath Not Found
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
