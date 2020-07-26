@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test Cases for Component keywords.
+Documentation   Test suite for tab keywords.
 
 Library         FlaUILibrary
 Library         StringFormat
@@ -31,10 +31,6 @@ Tab Should Not Contain Not Present TabItem
     @{CHILD_TAB_ITEMS}  Get Tab Items Names  ${XPATH_TAB}
     List Should Not Contain Value   ${CHILD_TAB_ITEMS}   ${TAB_ITEM_NOT_PRESENT}
 
-Get Tab Items Names Count XPath Not Found
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Tab Items Names  ${XPATH_NOT_EXISTS}
-
 Select Tab Item By Name
     Select Tab Item By Name   ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}
     Element Should Exist      ${MAIN_WINDOW_COMPLEX_CONTROLS}
@@ -42,9 +38,4 @@ Select Tab Item By Name
 Select Tab Itemt By Name Not Exist
     ${EXP_ERR_MSG}  Format String  ${EXP_GENERIC_ERR_MSG}  No TabItem found with text 'Tab Not Exist'
     ${ERR_MSG} =  Run Keyword And Expect Error   *  Select Tab Item By Name  ${XPATH_TAB}  Tab Not Exist
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Select Tab Item By Name XPath Not Found
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    ${ERR_MSG} =  Run Keyword And Expect Error   *  Select Tab Item By Name   ${XPATH_NOT_EXISTS}  Other Controls
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}

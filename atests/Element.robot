@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test Cases for Component keywords.
+Documentation   Test suite for element keywords.
 
 Library         FlaUILibrary
 Library         Process
@@ -22,26 +22,12 @@ ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='O
 Focus
     Focus  ${MAIN_WINDOW}
 
-Focus Element Not Exist
-    [Setup]    NONE
-    [Teardown]  NONE
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Focus  ${XPATH_NOT_EXISTS}
-
 Get Name From Element By XPath
     ${TEXT} =  Get Name From Element  ${XPATH_ELEMENT}
     Should Be Equal  Test Label  ${TEXT}
 
-Get Name From Element Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Name From Element  ${XPATH_NOT_EXISTS}
-
 Element Should Exist
     Element Should Exist  ${XPATH_ELEMENT}
-
-Element Should Exist Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Element Should Exist  ${XPATH_NOT_EXISTS}
 
 Element Should Not Exist
     Element Should Not Exist  ${XPATH_NOT_EXISTS}
@@ -58,24 +44,10 @@ Name Should Be Wrong Name
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_NAME_NOT_EQUALS}  ${EXP_WINDOW_TITLE}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Name Should Be  ${XPATH_NOT_EXISTS}  ${MAIN_WINDOW}
 
-Name Should Be Wrong XPath
-    [Setup]    NONE
-    [Teardown]  NONE
-
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Name Should Be  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
-
 Name Contains Text
     Name Contains Text  Fla   ${MAIN_WINDOW}
     Name Contains Text  WPF   ${MAIN_WINDOW}
     Name Contains Text  Test  ${MAIN_WINDOW}
-
-Name Contains Text Wrong XPath
-    [Setup]    NONE
-    [Teardown]  NONE
-
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Name Contains Text  ${EXP_WINDOW_TITLE}  ${XPATH_NOT_EXISTS}
 
 Name Contains Text Wrong Name
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_NAME_DOES_NOT_CONTAIN}  ${EXP_WINDOW_TITLE}  ${XPATH_NOT_EXISTS}
@@ -89,10 +61,6 @@ Is Element Not Enabled
     ${IS_ENABLED}  Is Element Enabled  ${XPATH_DISABLED_ELEMENT}
     Should Be Equal  ${IS_ENABLED}  ${FALSE}
 
-Is Element Enabled Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${EXP_WINDOW_TITLE}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Is Element Enabled  ${XPATH_NOT_EXISTS}
-
 Is Element Visible
     ${IS_VISIBLE}  Is Element Visible  ${XPATH_ELEMENT}
     Should Be True  ${IS_VISIBLE}
@@ -101,22 +69,12 @@ Is Element Offscreen And Not Visible
     ${IS_VISIBLE}  Is Element Visible  ${XPATH_OFFSCREEN_ELEMENT}
     Should Be Equal  ${IS_VISIBLE}  ${False}
 
-Is Element Visible Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${EXP_WINDOW_TITLE}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Is Element Visible  ${XPATH_NOT_EXISTS}
-
 Element Should Be Visible
     Element Should Be Visible  ${XPATH_ELEMENT}
 
 Element Should Not Be Visible
     Element Should Not Be Visible  ${XPATH_OFFSCREEN_ELEMENT}
 
-Element Should Be Visible Error
-    Click  ${MAIN_WINDOW_COMPLEX_CONTROLS}
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_ELEMENT}
-    ${ERR_MSG} =  Run Keyword And Expect Error   *  Element Should Be Visible  ${XPATH_ELEMENT}
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-    
 Element Should Not Be Visible Error
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_VISIBLE}  ${XPATH_ELEMENT}
     ${ERR_MSG} =  Run Keyword And Expect Error   *  Element Should Not Be Visible  ${XPATH_ELEMENT}
@@ -148,9 +106,4 @@ Wait Until Element Is Hidden Timeout Reached After One Second
 Wait Until Element Is Hidden Timeout Reached Wrong Number Type
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
     ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${MAIN_WINDOW}  "I'm not a number"
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Hidden Timeout Reached Element Does Not Exists
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${XPATH_NOT_EXISTS}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}

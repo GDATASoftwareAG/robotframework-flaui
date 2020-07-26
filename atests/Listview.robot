@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test Cases for Component keywords.
+Documentation   Test suite for list view keywords.
 
 Library         FlaUILibrary  screenshot_on_failure=False
 Library         Process
@@ -21,19 +21,11 @@ Get Listview Rows Count
     ${COUNT}  Get Listview Rows Count  ${XPATH_LIST_VIEW}
     Should Be Equal As Integers  ${COUNT}  3
 
-Get Listview Rows Count XPath Not Found
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Listview Rows Count  ${XPATH_NOT_EXISTS}
-
 Select Listview Row By Index
     Element Should Exist  ${XPATH_LIST_VIEW}
     Select Listview Row By Index  ${XPATH_LIST_VIEW}  1
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Contain  ${DATA}  | 2 | 20 |
-
-Select Listview Row By Index XPath Not Found
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Select Listview Row By Index  ${XPATH_NOT_EXISTS}  2
 
 Select Listview Item Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_LIST_VIEW}
@@ -47,10 +39,6 @@ Select Listview Row By Name
     Select Listview Row By Name  ${XPATH_LIST_VIEW}  0  1
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Contain  ${DATA}  | 1 | 10 |
-
-Select Listview Row By Name XPath Not Found
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Select Listview Row By Name  ${XPATH_NOT_EXISTS}  2  Simple item 1
 
 Select Listview Item By Name Wrong Name Or Index
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}   Simple item which does not exist  -2000
@@ -70,7 +58,3 @@ Select Multiple Listview Row
 Get Selected Listview Rows If Nothing Is Selected
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Be Empty  ${DATA}
-
-Get Get Selected Listview Rows Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error   ${EXP_ERR_MSG}  Get Selected Listview Rows  ${XPATH_NOT_EXISTS}

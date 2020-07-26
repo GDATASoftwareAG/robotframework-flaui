@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test Cases for Windows keywords.
+Documentation   Test suite for keyboard keywords.
 
 Library         FlaUILibrary  screenshot_on_failure=False
 Library         Process
@@ -27,10 +27,6 @@ ${EXP_VALUE_INPUT_TEXT_SHORTCUT} =  ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEX
 @{KEYBOARD_INPUT_TEXT_SHORTCUT}    t'${EXP_VALUE_INPUT_TEXT}'  s'CTRL+A'  s'CTRL+C'  s'END'  s'CTRL+V'
 
 *** Test Cases ***
-Keyboard Type Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error   ${EXP_ERR_MSG}  Press Keys  ${KEYBOARD_INPUT_TEXT_SHORTCUT}  ${XPATH_NOT_EXISTS}
-
 Keyboard Type Text
 	Press Keys  ${KEYBOARD_INPUT_TEXT}  ${XPATH_COMBO_BOX_INPUT}
 	${TEXT}  Get Text From Textbox  ${XPATH_COMBO_BOX_INPUT}

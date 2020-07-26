@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test Cases for screenshot keywords.
+Documentation   Test suite for screenshot keywords.
 
 Library         FlaUILibrary  screenshot_on_failure=True
 Library         StringFormat

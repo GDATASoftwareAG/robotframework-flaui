@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test cases for combobox keywords.
+Documentation   Test suite for combobox keywords.
 
 Library         FlaUILibrary
 Library         Process
@@ -22,10 +22,6 @@ ${COMBO_BOX_ITEM_SELECT}    2
 *** Test Cases ***
 Combobox Should Contain
     Combobox Should Contain  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM}
-
-Combobox Should Contain Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Combobox Should Contain  ${XPATH_NOT_EXISTS}  ${COMBO_BOX_ITEM}
 
 Combobox Should Contain Wrong Item
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}  ${COMBO_BOX_NO_ITEM}
@@ -51,7 +47,3 @@ Select Combobox Item Wrong Index Usage
 Get Selected Items From Combobox If Nothing Is Selected
     ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
     Should Be Empty  ${DATA}
-
-Get Selected Items From Combobox Wrong XPath
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error   ${EXP_ERR_MSG}  Get Selected Items From Combobox  ${XPATH_NOT_EXISTS}

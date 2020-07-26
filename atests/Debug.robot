@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation   Test cases for combobox keywords.
+Documentation   Test suite for debug keywords.
 
 Library         FlaUILibrary
 Library         Process
@@ -19,7 +19,3 @@ Get Childs From Element
     Should Contain  ${CHILDS}  ------> AutomationId:TitleBar, Name:
     Should Contain X Times  ${CHILDS}  ------>  4
     Should Contain X Times  ${CHILDS}  AutomationId  5
-
-Get Childs From Element Wrong XPATH
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Get Childs From Element  ${XPATH_NOT_EXISTS}
