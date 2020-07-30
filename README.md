@@ -29,7 +29,7 @@ pip install --upgrade robotframework-flaui
 
 Under docs/keywords are the necessary .XML files to import the keywords.
 
-These can be imported separately according to their version with the RHUB2-CLI tool or all versions.
+These can be imported separately according to their version with the RFHUB2-CLI tool or all versions.
 
 ```
 rfhub2-cli .\docs\keywords\
