@@ -22,8 +22,10 @@ artifacts:
   name: results
 - path: dist/*.whl
   name: wheels
-- path: keywords/*.html
-  name: documentation
+- path: keywords/keywords.html
+  name: keywords.html
+- path: keywords/keywords.xml
+  name: keywords.xml
 deploy_script:
   - ps: |
       if($env:APPVEYOR_REPO_TAG -eq 'true') {

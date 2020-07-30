@@ -23,6 +23,19 @@ pip install --upgrade robotframework-flaui
 
 *  [Keyword documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
 
+### RFHUB2
+
+[RHUB2](https://pypi.org/project/rfhub2/) is an opensource project aimed to provide nice and easy way of collecting, browsing and sharing documentation of existing keywords written in RobotFramework and python. Built with Material-UI and FastAPI, served by Uvicorn.
+
+Under docs/keywords are the necessary .XML files to import the keywords.
+
+These can be imported separately according to their version with the RHUB2-CLI tool or all versions.
+
+```
+rfhub2-cli .\docs\keywords\
+rfhub2-cli .\docs\keywords\<VERSION>
+```
+
 ## GUI Inspector Tools
 
 There are various tools around which help inspecting application that should be ui tested or automated. 
