@@ -35,24 +35,26 @@ Take Screenshot If XPath Not Found Multiple Times No Setup Usage
     Start Test Application
 
     Set Screenshot Directory  screenshots
-    : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-    \    Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    \    ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-    \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    FOR    ${INDEX}    IN RANGE    1    10
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+        Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
+        File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    END
     Set Screenshot Directory
 
 Take Screenshot If XPath Not Found Multiple Times No Teardown Usage
     [Teardown]  NONE
 
     Set Screenshot Directory  screenshots
-    : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-    \    Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    \    ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-    \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    FOR    ${INDEX}    IN RANGE    1    10
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+        Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
+        File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    END
     Set Screenshot Directory
     Close Test Application
 
@@ -62,32 +64,35 @@ Take Screenshot If XPath Not Found Multiple Times No Teardown And Setup Usage
 
     Start Test Application
     Set Screenshot Directory  screenshots
-    : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-    \    Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    \    ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-    \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    FOR    ${INDEX}    IN RANGE    1    10
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+        Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
+        File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    END
     Set Screenshot Directory
     Close Test Application
 
 Take Screenshot If XPath Not Found Multiple Times
     Set Screenshot Directory  screenshots
-    : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-    \    Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    \    ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-    \    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    FOR    ${INDEX}    IN RANGE    1    10
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+        Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
+        File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    END
     Set Screenshot Directory
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
-    : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-    \    Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    \    ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-    \    Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-    \    File Should Exist  ${OUTPUT DIR}/${FILENAME}
+    FOR    ${INDEX}    IN RANGE    1    10
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+        Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
+        File Should Exist  ${OUTPUT DIR}/${FILENAME}
+    END
 
 Take Screenshot If XPath Not Found
     Set Screenshot Directory  screenshots

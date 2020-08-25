@@ -45,4 +45,5 @@ setup(name="robotframework-flaui",
           "License :: OSI Approved :: MIT License",
           "Operating System :: Microsoft",
       ],
+      platforms=['Windows']
       )

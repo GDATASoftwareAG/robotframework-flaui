@@ -17,6 +17,7 @@ if exist "files.txt" (
 )
 
 REM create wheel file
+call python -m pip install -r requirements-dev.txt
 call python setup.py bdist_wheel
 call python libdoc.py
 
