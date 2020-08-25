@@ -1,5 +1,5 @@
 import os
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Distribution
 
 # https://www.appveyor.com/docs/environment-variables/
 repo_tag = os.environ.get('APPVEYOR_REPO_TAG', 'false')
@@ -15,6 +15,14 @@ print('APPVEYOR_REPO_TAG_NAME: ' + tag_version)
 print('APPVEYOR_BUILD_VERSION: ' + build_version)
 print('APPVEYOR_BUILD_NUMBER: ' + build_number)
 print('-------------------------------------------------------------')
+
+
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+
+    def has_ext_modules(foo):
+        return True
+
 
 long_description = ''
 with open("Readme.md", "r") as fh:
@@ -45,5 +53,6 @@ setup(name="robotframework-flaui",
           "License :: OSI Approved :: MIT License",
           "Operating System :: Microsoft",
       ],
+      distclass=BinaryDistribution,
       platforms=['Windows']
       )
