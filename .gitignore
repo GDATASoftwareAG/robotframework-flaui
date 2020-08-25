@@ -228,3 +228,5 @@ pylint.xml
 !src/**
 !docs/**
 __pycache__
+_site
+Gemfile.lock
