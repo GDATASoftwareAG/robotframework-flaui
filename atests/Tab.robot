@@ -9,8 +9,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Suite Setup      Start Application
+Suite Teardown   Stop Application
 
 *** Variables ***
 ${XPATH_TAB}                                   ${MAIN_WINDOW}/Tab
@@ -35,7 +35,7 @@ Select Tab Item By Name
     Select Tab Item By Name   ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}
     Element Should Exist      ${MAIN_WINDOW_COMPLEX_CONTROLS}
 
-Select Tab Itemt By Name Not Exist
+Select Tab Item By Name Not Exist
     ${EXP_ERR_MSG}  Format String  ${EXP_GENERIC_ERR_MSG}  No TabItem found with text 'Tab Not Exist'
     ${ERR_MSG} =  Run Keyword And Expect Error   *  Select Tab Item By Name  ${XPATH_TAB}  Tab Not Exist
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}

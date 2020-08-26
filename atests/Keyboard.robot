@@ -6,11 +6,11 @@ Library         Process
 Library         StringFormat
 
 Resource        util/Common.robot
-Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Suite Setup      Start Application
+Suite Teardown   Stop Application
+Test Teardown  Reset Textbox
 
 *** Variables ***
 ${XPATH_COMBO_BOX_INPUT}    ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='EditableCombo']
@@ -74,3 +74,7 @@ Keyboard Type Generic Key Combination
 	Press Keys  ${KEYBOARD_INPUT_TEXT_SHORTCUT}  ${XPATH_COMBO_BOX_INPUT}
 	${TEXT}  Get Text From Textbox  ${XPATH_COMBO_BOX_INPUT}
 	Should Be Equal  ${EXP_VALUE_INPUT_TEXT_SHORTCUT}  ${TEXT}
+
+*** Keywords ***
+Reset Textbox
+   Set Text To Textbox  ${XPATH_COMBO_BOX_INPUT}  ${EMPTY}

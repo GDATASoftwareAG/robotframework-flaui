@@ -9,11 +9,9 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-
 *** Test Cases ***
 Close Window
-    [Teardown]  NONE
+    Start Application
     Close Window  ${MAIN_WINDOW}
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${MAIN_WINDOW}
     ${ERR_MSG} =  Run Keyword And Expect Error  *  Element Should Exist  ${MAIN_WINDOW}

@@ -9,8 +9,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Suite Setup      Start Application
+Suite Teardown   Stop Application
 
 *** Variables ***
 ${XPATH_LISTBOX}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/List[@AutomationId='ListBox']

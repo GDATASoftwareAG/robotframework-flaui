@@ -9,14 +9,18 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Run Keywords  Start Application
+Suite Setup      Run Keywords  Start Application
 ...             AND           Click  ${MAIN_WINDOW_COMPLEX_CONTROLS}
-Test Teardown   Stop Application
+Suite Teardown   Stop Application
 
 *** Variables ***
 ${XPATH_LIST_VIEW}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='ListView']/DataGrid[@AutomationId='listView1']
 
 *** Test Cases ***
+Get Selected Listview Rows If Nothing Is Selected
+    ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
+    Should Be Empty  ${DATA}
+
 Get Listview Rows Count
     ${COUNT}  Get Listview Rows Count  ${XPATH_LIST_VIEW}
     Should Be Equal As Integers  ${COUNT}  3
@@ -54,7 +58,3 @@ Select Multiple Listview Row
     ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
     Should Contain  ${DATA}  | 1 | 10 |
     Should Contain  ${DATA}  | 2 | 20 |
-
-Get Selected Listview Rows If Nothing Is Selected
-    ${DATA}  Get Selected Listview Rows  ${XPATH_LIST_VIEW}
-    Should Be Empty  ${DATA}

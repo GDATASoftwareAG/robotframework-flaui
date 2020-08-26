@@ -13,8 +13,8 @@ class RadioButtonKeywords:
         self._module = module
 
     @keyword
-    def set_radiobutton_state(self, identifier, value, msg=None):
-        """Set radiobutton state to ${True} or ${False}
+    def select_radiobutton(self, identifier, msg=None):
+        """Select given radiobutton by xpath.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -23,16 +23,15 @@ class RadioButtonKeywords:
         Arguments:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
-        | value     | bool   | ${True} / ${False}            |
         | msg        | string | Custom error message          |
 
         Examples:
-        | Set Radiobutton State  <XPATH>  ${True} |
+        | Check Radiobutton  <XPATH> |
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
         self._module.action(ToggleButton.Action.SET_TOGGLE_BUTTON_STATE,
-                            [self._module.cast_element_to_type(element, InterfaceType.RADIOBUTTON), value],
+                            [self._module.cast_element_to_type(element, InterfaceType.RADIOBUTTON), True],
                             msg)
 
     @keyword

@@ -9,8 +9,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Suite Setup      Start Application
+Suite Teardown   Stop Application
 
 *** Variables ***
 ${XPATH_COMBO_BOX}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
@@ -20,6 +20,10 @@ ${COMBO_BOX_COUNT}          4
 ${COMBO_BOX_ITEM_SELECT}    2
 
 *** Test Cases ***
+Get Selected Items From Combobox If Nothing Is Selected
+    ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
+    Should Be Empty  ${DATA}
+
 Combobox Should Contain
     Combobox Should Contain  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM}
 
@@ -43,7 +47,3 @@ Select Combobox Item Wrong Index Number
 Select Combobox Item Wrong Index Usage
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  NOT_AN_ARRAY  ${XPATH_COMBO_BOX}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Combobox Item By Index  ${XPATH_COMBO_BOX}  NOT_AN_ARRAY
-
-Get Selected Items From Combobox If Nothing Is Selected
-    ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
-    Should Be Empty  ${DATA}

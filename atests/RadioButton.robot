@@ -6,26 +6,30 @@ Library         Process
 Library         StringFormat
 
 Resource        util/Common.robot
-Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Test Setup      Start Application
-Test Teardown   Stop Application
+Suite Setup      Start Application
+Suite Teardown   Stop Application
 
 *** Variables ***
 ${XPATH_RADIO_BUTTON_ONE}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton1']
+${XPATH_RADIO_BUTTON_TWO}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton2']
 
 *** Test Cases ***
 Get Radiobutton State
     ${STATE}  Get Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}
     Should Be Equal  ${STATE}  ${False}
 
-Set Radiobutton State To False
-    Set Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}  ${False}
+Select Radiobutton State
+    Select Radiobutton  ${XPATH_RADIO_BUTTON_ONE}
     ${STATE}   Get Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}
-    Should Be Equal  ${STATE}  ${False}
+    ${STATE_2}   Get Radiobutton State  ${XPATH_RADIO_BUTTON_TWO}
+    Should Be Equal  ${STATE}    ${True}
+    Should Be Equal  ${STATE_2}  ${False}
 
-Set Radiobutton State To True
-    Set Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}  ${True}
+    Select Radiobutton  ${XPATH_RADIO_BUTTON_TWO}
     ${STATE}   Get Radiobutton State  ${XPATH_RADIO_BUTTON_ONE}
-    Should Be Equal  ${STATE}  ${True}
+    ${STATE_2}   Get Radiobutton State  ${XPATH_RADIO_BUTTON_TWO}
+    Should Be Equal  ${STATE}    ${False}
+    Should Be Equal  ${STATE_2}  ${True}
+
