@@ -1,10 +1,22 @@
 # Robotframework-FlaUI Library
 
-| Badges |
-|---|
-| <img src="https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square">  |
-| [<img src="https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/master?style=flat-square">](https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests) |
-| [![](https://img.shields.io/pypi/wheel/robotframework-flaui?style=flat-square)](https://pypi.org/pypi/robotframework-flaui/) |
+[license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
+[build_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui
+[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x86/master?label=3.7%20x86&style=flat-square
+[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x64/master?label=3.7%20x64&style=flat-square
+[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/master?label=3.8%20x86&style=flat-square
+[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/master?label=3.8%20x64&style=flat-square
+[tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/master?style=flat-square"
+[tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
+[pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
+[pypi_url]: https://pypi.org/pypi/robotframework-flaui
+
+| | |
+|---| --- |
+| License  | ![][license]  |
+| Builds   | [![][py37x86]][build_url] [![][py37x64]][build_url] [![][py38x86]][build_url] [![][py38x64]][build_url] |
+| Tests    | [![][tests]][tests_url] |
+| PyPi     | [![][pypi]][pypi_url] |
 
 ## Introduction
 
@@ -54,18 +66,12 @@ Examples of use can be found in the atests folder.
 
 ### Preconditions
 
-* Install [Python](https://www.python.org/downloads/), if not already installed. Only Python 3 is supported.
+* Install [Python](https://www.python.org/downloads), if not already installed. 
+* Only Python 3 is supported.
 * To install Robot Framework and Python for .NET, run
-```
-pip install pythonnet
-pip install robotframework
-pip install robotframework-stringformat
-pip install wheel
-```
 
-Alternatively you could use the provided requirements file:
 ```
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 ### Test-Applications
