@@ -26,7 +26,7 @@ class RadioButtonKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Check Radiobutton  <XPATH> |
+        | Select Radiobutton  <XPATH> |
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
