@@ -1,11 +1,12 @@
 # Robotframework-FlaUI Library
 
 [license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
-[build_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui
-[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x86/master?label=3.7%20x86&style=flat-square
-[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x64/master?label=3.7%20x64&style=flat-square
-[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/master?label=3.8%20x86&style=flat-square
-[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/master?label=3.8%20x64&style=flat-square
+[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x86/master?label=3.7.9&style=flat-square
+[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x64/master?label=3.7.9&style=flat-square
+[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x86/master?label=3.8.6&style=flat-square
+[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x64/master?label=3.8.6&style=flat-square
+[py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/master?label=3.9&style=flat-square
+[py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/master?label=3.9&style=flat-square
 [tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/master?style=flat-square"
 [tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
 [pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
@@ -14,7 +15,8 @@
 | | |
 |---| --- |
 | License  | ![][license]  |
-| Builds   | [![][py37x86]][build_url] [![][py37x64]][build_url] [![][py38x86]][build_url] [![][py38x64]][build_url] |
+| Python Builds (x86) | ![][py37x86] ![][py38x86] ![][py39x64]  |
+| Python Builds (x64) | ![][py37x64] ![][py38x64] ![][py39x64]  |
 | Tests    | [![][tests]][tests_url] |
 | PyPi     | [![][pypi]][pypi_url] |
 

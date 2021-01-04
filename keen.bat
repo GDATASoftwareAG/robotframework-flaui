@@ -10,6 +10,7 @@ GOTO:MAIN
 EXIT /b 0
 
 :dependency
+    call python -m pip install --upgrade pip setuptools wheel
     call pip install -r requirements-dev.txt
 EXIT /B %ERRORLEVEL%
 

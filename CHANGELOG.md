@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.4] [1.4][1.3.6-1.4] - 2021-02-06
+
+### Updated
+-    Python 3.9 support
+
 ## [Release][1.3.6] [1.3.6][1.3.5-1.3.6] - 2021-02-02
 
 ### Updated
@@ -95,7 +100,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.3.6...master
+[unreleased]: ../../compare/1.4...master
+
+[1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.4
+[1.3.6-1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.6...1.4
 
 [1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.6
 [1.3.5-1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.5...1.3.6
