@@ -24,8 +24,8 @@ class ListBoxKeywords:
         | Argument   | Type            | Description                   |
         | identifier | string          | XPath identifier from element |
         | item       | several strings | Name of items                 |
-        | msg        | string | Custom error message          |
-        
+        | msg        | string | Custom error message                   |
+
         Examples:
         | Listbox Selection Should Be <XPATH>  <STRING>                |
         """
@@ -70,7 +70,7 @@ class ListBoxKeywords:
         | identifier | string | XPath identifier from element |
         | name       | string | Name of item                  |
         | msg        | string | Custom error message          |
-        
+
         Examples:
         | Listbox Should Contain <XPATH>  <STRING> |
 

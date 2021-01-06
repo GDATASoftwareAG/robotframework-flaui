@@ -1,7 +1,7 @@
 from enum import Enum
+from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System import Exception as NetException
 
 
 class Tab(ModuleInterface):
@@ -52,8 +52,8 @@ class Tab(ModuleInterface):
         """
         child_tab_items_names = []
 
-        for tabItem in element.TabItems:
-            child_tab_items_names.append(tabItem.Name)
+        for tab_items in element.TabItems:
+            child_tab_items_names.append(tab_items.Name)
 
         return child_tab_items_names
 
@@ -72,5 +72,5 @@ class Tab(ModuleInterface):
 
         try:
             element.SelectTabItem(name)
-        except NetException as e:
-            raise FlaUiError(FlaUiError.GenericError.format(e.Message))
+        except CSharpException as exception:
+            raise FlaUiError(FlaUiError.GenericError.format(exception.Message))

@@ -1,8 +1,8 @@
-import FlaUI.Core
 from enum import Enum
+import FlaUI.Core  # pylint: disable=import-error
+from System.ComponentModel import Win32Exception  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System.ComponentModel import Win32Exception
 
 
 class Application(ModuleInterface):
@@ -58,6 +58,7 @@ class Application(ModuleInterface):
             values (Object): See supported action definitions for value usage.
         """
 
+        # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.ATTACH_APPLICATION_BY_NAME: lambda: self._attach_application_by_name(values),
             self.Action.ATTACH_APPLICATION_BY_PID: lambda: self._attach_application_by_pid(values),

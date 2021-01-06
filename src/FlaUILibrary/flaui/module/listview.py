@@ -1,7 +1,7 @@
 from enum import Enum
+from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System import ArgumentOutOfRangeException
 
 
 class ListView(ModuleInterface):
@@ -45,8 +45,11 @@ class ListView(ModuleInterface):
 
         switcher = {
             self.Action.GET_LIST_VIEW_ROW_COUNT: lambda: values[0].Rows.Length,
-            self.Action.SELECT_LIST_VIEW_ROW_BY_INDEX: lambda: ListView._select_list_view_row_by_index(values[0], values[1]),
-            self.Action.SELECT_LIST_VIEW_ROW_BY_NAME: lambda: ListView._select_list_view_row_by_name(values[0], values[1], values[2]),
+            self.Action.SELECT_LIST_VIEW_ROW_BY_INDEX: lambda: ListView._select_list_view_row_by_index(values[0],
+                                                                                                       values[1]),
+            self.Action.SELECT_LIST_VIEW_ROW_BY_NAME: lambda: ListView._select_list_view_row_by_name(values[0],
+                                                                                                     values[1],
+                                                                                                     values[2]),
             self.Action.GET_SELECTED_LIST_VIEW_ROWS: lambda: ListView._get_selected_rows(values[0])
         }
 

@@ -49,7 +49,7 @@ class ListViewKeywords:
         | identifier | string | XPath identifier from element |
         | index      | string | IndexNumber                   |
         | msg        | string | Custom error message          |
-        
+
         Examples:
         | Select Listview Row By Index  <XPath>  <INDEX>      |
 
@@ -57,7 +57,7 @@ class ListViewKeywords:
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.LISTVIEW)
         self._module.action(ListView.Action.SELECT_LIST_VIEW_ROW_BY_INDEX, [element, index], msg)
-    
+
     @keyword
     def select_listview_row_by_name(self, identifier, index, name, msg=None):
         """Select rows from list view with the given name in the given column index.
@@ -72,7 +72,7 @@ class ListViewKeywords:
         | index      | string | Column IndexNumber            |
         | name       | string | Column items Name             |
         | msg        | string | Custom error message          |
-        
+
         Examples:
         | Select Listview Row By Index  <XPath>  <INDEX>      |
 

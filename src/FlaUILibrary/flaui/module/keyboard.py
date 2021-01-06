@@ -1,5 +1,5 @@
 from enum import Enum
-from FlaUI.Core.Input import Keyboard as FlaUIKeyboard
+from FlaUI.Core.Input import Keyboard as FlaUIKeyboard  # pylint: disable=import-error
 from FlaUILibrary.flaui.util import KeyboardInputConverter
 from FlaUILibrary.flaui.interface import ModuleInterface
 from FlaUILibrary.flaui.exception import FlaUiError
@@ -61,7 +61,7 @@ class Keyboard(ModuleInterface):
         Parse a sequence of key controls.
 
         Args:
-            keys_combination (String array): Array from String to execute keyboard actions or send input data from keyboard.
+            keys_combination (String array): Array from String to execute keyboard actions or send input data.
         """
         try:
             for key_combination in keys_combination:

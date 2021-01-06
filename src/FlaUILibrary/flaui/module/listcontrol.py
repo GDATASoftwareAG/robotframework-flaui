@@ -17,7 +17,7 @@ class ListControl(ModuleInterface):
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
-        
+
         Supported actions for checkbox usages are:
 
           *  Action.SELECT_LIST_CONTROL_ITEM_BY_INDEX
@@ -83,8 +83,8 @@ class ListControl(ModuleInterface):
 
         values = ""
 
-        for selectedItem in element.SelectedItems:
-            values += selectedItem.Text + "\n"
+        for selected_item in element.SelectedItems:
+            values += selected_item.Text + "\n"
 
         return values
 
@@ -135,8 +135,8 @@ class ListControl(ModuleInterface):
         """
         names = []
 
-        for e in control.SelectedItems:
-            names.append(e.Name)
+        for selected_item in control.SelectedItems:
+            names.append(selected_item.Name)
 
         return names
 

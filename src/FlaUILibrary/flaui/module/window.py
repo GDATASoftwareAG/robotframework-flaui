@@ -1,7 +1,7 @@
 from enum import Enum
+from FlaUI.Core.Exceptions import MethodNotSupportedException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from FlaUI.Core.Exceptions import MethodNotSupportedException
 
 
 class Window(ModuleInterface):

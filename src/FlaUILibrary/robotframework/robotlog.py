@@ -9,7 +9,7 @@ def get_log_directory():
     try:
         return BuiltIn().get_variable_value("${OUTPUT DIR}")
     except RobotNotRunningError:
-        return os.getcwdu()
+        return os.getcwd()
 
 
 def log(message):

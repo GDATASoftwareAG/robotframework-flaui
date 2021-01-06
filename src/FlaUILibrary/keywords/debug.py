@@ -12,7 +12,7 @@ class DebugKeywords:
         self._module = module
 
     @keyword
-    def _get_childs_from_element(self, identifier, msg=None):
+    def get_childs_from_element(self, identifier, msg=None):
         """Gets full output from element and childs output. Information to print out are AutomationId, Name,
         ControlType and FrameworkId.
 

@@ -1,8 +1,8 @@
 from enum import Enum
+import FlaUI.Core.Input  # pylint: disable=import-error
+from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-import FlaUI.Core.Input
-from FlaUI.Core.Exceptions import NoClickablePointException
 
 
 class Mouse(ModuleInterface):
