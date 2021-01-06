@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+    docs:
+        build:
+          context: .
+        container_name: flaui-docs
+        ports:
+            - 4000:4000
+        volumes:
+            - ".:/usr/src/app"
