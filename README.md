@@ -103,6 +103,7 @@ Following arguments are supported:
   * build - Build wheel file
   * install - Install wheel file
   * test - Test robotframework-flaui
+  * pylint - Static code analysis for PEP 8. Generates pylint.html file in results.
 
 ## Acknowledgements
 
