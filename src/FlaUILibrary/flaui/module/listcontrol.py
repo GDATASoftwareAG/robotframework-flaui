@@ -4,10 +4,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class ListControl(ModuleInterface):
-    """List control module wrapper for FlaUI UIA3 usage."""
+    """
+    List control module wrapper for FlaUI usage.
+    Wrapper module executes methods from ListBox.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         SELECT_LIST_CONTROL_ITEM_BY_INDEX = "SELECT_LIST_CONTROL_ITEM_BY_INDEX"
         LIST_CONTROL_SHOULD_CONTAIN = "LIST_CONTROL_SHOULD_CONTAIN"
         GET_LIST_CONTROL_ITEMS_COUNT = "GET_LIST_CONTROL_ITEMS_COUNT"
@@ -48,7 +51,7 @@ class ListControl(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): List control action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
         switcher = {

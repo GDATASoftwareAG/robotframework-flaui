@@ -3,6 +3,9 @@ from FlaUILibrary.flaui.module import (Debug, Element)
 
 
 class DebugKeywords:
+    """
+    Interface implementation from robotframework usage for debugging keywords.
+    """
 
     def __init__(self, module):
         """Constructor for debugging keywords.

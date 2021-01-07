@@ -5,6 +5,9 @@ from FlaUILibrary.flaui.module.screenshot import Screenshot
 
 
 class ScreenshotKeywords:
+    """
+    Interface implementation from robotframework usage for screenshot keywords.
+    """
 
     def __init__(self, module, screenshots):
         """Creates screenshot keywords module to handle image capturing.

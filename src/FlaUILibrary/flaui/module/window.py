@@ -5,10 +5,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Window(ModuleInterface):
-    """Windows control module wrapper for FlaUI UIA3 usage."""
+    """
+    Window module wrapper for FlaUI usage.
+    Wrapper module executes methods from Window.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         CLOSE_WINDOW = "CLOSE_WINDOW"
 
     def __init__(self, automation):
@@ -32,7 +35,7 @@ class Window(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Window action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 

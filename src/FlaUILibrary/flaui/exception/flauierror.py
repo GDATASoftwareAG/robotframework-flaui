@@ -1,7 +1,7 @@
 
 
 class FlaUiError(AttributeError):
-    """Error message handler for FlaUI module"""
+    """Error message handler"""
     GenericError = "{}"
     ArrayOutOfBoundException = "Given index '{}' could not be found by element"
     ValueShouldBeANumber = "Given value '{}' should be number"

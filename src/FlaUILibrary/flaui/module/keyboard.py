@@ -6,10 +6,13 @@ from FlaUILibrary.flaui.exception import FlaUiError
 
 
 class Keyboard(ModuleInterface):
-    """Keyboard control module wrapper for FlaUI UIA3 usage."""
+    """
+    Keyboard control module wrapper for FlaUI usage.
+    Wrapper module executes methods from Keyboard.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration for supported action methods."""
+        """Supported actions for execute action implementation."""
         KEYS_COMBINATION = "KEYS_COMBINATION"
 
     def execute_action(self, action, values=None):
@@ -25,7 +28,7 @@ class Keyboard(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Keyboard action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 

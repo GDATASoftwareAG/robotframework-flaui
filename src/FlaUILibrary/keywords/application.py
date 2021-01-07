@@ -3,6 +3,9 @@ from FlaUILibrary.flaui.module.application import Application
 
 
 class ApplicationKeywords:
+    """
+    Interface implementation from robotframework usage for application keywords.
+    """
 
     def __init__(self, module):
         """Constructor for application keywords.

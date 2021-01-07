@@ -17,9 +17,10 @@ from FlaUILibrary.flaui.exception import FlaUiError
 
 
 class UIA3(WindowsAutomationInterface):
+    """UIA3 window automation module for a centralized communication handling between robot keywords and flaui. """
 
     def __init__(self):
-        """Creates UIA3 module from FlaUI to interact with C# Framework."""
+        """Creates UIA3 window automation module. """
         self._automation = UIA3Automation()
 
         self._modules = [Application(self._automation), Debug(), Element(self._automation), Keyboard(), ListControl(),
@@ -39,7 +40,7 @@ class UIA3(WindowsAutomationInterface):
 
     # pylint: disable=arguments-differ
     def action(self, action, values=None, msg=None):
-        """Performs a application action if supported. If not supported an NotSupported FlaUI error will be thrown.
+        """Performs a application action if supported. If not supported an NotSupported error will be thrown.
 
         Args:
             action (Action) : Application action to perform.

@@ -4,6 +4,9 @@ from FlaUILibrary.flaui.module import (ListControl, Element)
 
 
 class ListBoxKeywords:
+    """
+    Interface implementation from robotframework usage for listbox keywords.
+    """
 
     def __init__(self, module):
         """Constructor for Listbox keywords.

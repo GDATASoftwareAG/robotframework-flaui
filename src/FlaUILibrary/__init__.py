@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from FlaUILibrary import version, clr
@@ -20,7 +21,7 @@ from FlaUILibrary.flaui import UIA3
 from FlaUILibrary.flaui.module import Screenshot
 
 
-# pylint: disable=too-many-instance-attributes
+# pylint: enable=invalid-name
 class FlaUILibrary(DynamicCore):
     """FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
@@ -101,7 +102,6 @@ class FlaUILibrary(DynamicCore):
         }
 
         # Robot init
-        self.screenshotsKeywords = ScreenshotKeywords(self.module, self.screenshots)
         self.ROBOT_LIBRARY_LISTENER = self  # pylint: disable=invalid-name
         self.libraries = self.keyword_modules.values()
         DynamicCore.__init__(self, self.libraries)

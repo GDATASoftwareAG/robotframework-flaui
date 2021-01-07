@@ -4,10 +4,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class ToggleButton(ModuleInterface):
-    """Toggle button module wrapper for FlaUI UIA3 usage."""
+    """
+    ToggleButton module wrapper for FlaUI usage.
+    Wrapper module executes methods from ToggleButton.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_TOGGLE_BUTTON_STATE = "GET_TOGGLE_BUTTON_STATE"
         SET_TOGGLE_BUTTON_STATE = "SET_TOGGLE_BUTTON_STATE"
 
@@ -28,7 +31,7 @@ class ToggleButton(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Toggle button action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
 

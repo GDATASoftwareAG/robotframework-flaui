@@ -4,6 +4,9 @@ from FlaUILibrary.flaui.module import (ToggleButton, Element)
 
 
 class CheckBoxKeywords:
+    """
+    Interface implementation from robotframework usage for checkbox keywords.
+    """
 
     def __init__(self, module):
         """Constructor for checkbox keywords.

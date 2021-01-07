@@ -3,6 +3,9 @@ from FlaUILibrary.flaui.module import (Keyboard, Element)
 
 
 class KeyboardKeywords:
+    """
+    Interface implementation from robotframework usage for keyboard keywords.
+    """
 
     def __init__(self, module):
         """Constructor for element keywords.

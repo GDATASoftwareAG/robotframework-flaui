@@ -7,10 +7,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Element(ModuleInterface):
-    """Element control module wrapper for FlaUI UIA3 usage."""
+    """
+    Element control module wrapper for FlaUI usage.
+    Wrapper module executes methods from AutomationElement.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_ELEMENT = "GET_ELEMENT"
         GET_ELEMENT_NAME = "GET_ELEMENT_NAME"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
@@ -85,7 +88,7 @@ class Element(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Element action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 

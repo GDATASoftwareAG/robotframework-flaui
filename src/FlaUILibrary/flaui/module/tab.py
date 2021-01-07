@@ -5,10 +5,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Tab(ModuleInterface):
-    """Tab module wrapper for FlaUI UIA3 usage."""
+    """
+    Tab module wrapper for FlaUI usage.
+    Wrapper module executes methods from Tab.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_TAB_ITEMS_NAMES = "GET_TAB_ITEMS_NAMES"
         SELECT_TAB_ITEM_BY_NAME = "SELECT_TAB_ITEM_BY_NAME"
 
@@ -29,7 +32,7 @@ class Tab(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Tab action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
 

@@ -12,10 +12,13 @@ from FlaUILibrary.robotframework import robotlog
 
 # pylint: disable=too-many-instance-attributes
 class Screenshot(ModuleInterface):
-    """Screenshot module wrapper for FlaUI usage."""
+    """
+    Screenshot module wrapper for FlaUI usage.
+    Wrapper module executes methods from Capture.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         CAPTURE = "CAPTURE"
         RESET = "RESET"
         DELETE_ALL_SCREENSHOTS = "DELETE_ALL_SCREENSHOTS"
@@ -39,8 +42,8 @@ class Screenshot(ModuleInterface):
         """Get action method to execute a specific method by implementation.
 
         Args:
-            action (Action): Specific action to call for execution.
-            values (Object): Parameter values to use for method execution.
+            action (Action): Action to use.
+            values (Object): See supported action definitions for value usage.
         """
 
         # pylint: disable=unnecessary-lambda

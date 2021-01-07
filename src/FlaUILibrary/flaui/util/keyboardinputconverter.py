@@ -12,7 +12,7 @@ class KeyboardInputConverter:
     SHORTCUT_DELIMITER = r'[+]'
 
     class InputType(Enum):
-        """Enum declaration for supported input types."""
+        """Supported input types."""
         TEXT = 0
         SHORTCUT = 1
 

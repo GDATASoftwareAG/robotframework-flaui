@@ -5,10 +5,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class ListView(ModuleInterface):
-    """List view module wrapper for FlaUI UIA3 usage."""
+    """
+    List view module wrapper for FlaUI usage.
+    Wrapper module executes methods from Grid.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         SELECT_LIST_VIEW_ROW_BY_INDEX = "SELECT_LIST_VIEW_ROW_BY_INDEX"
         GET_LIST_VIEW_ROW_COUNT = "GET_LIST_VIEW_ROW_COUNT"
         SELECT_LIST_VIEW_ROW_BY_NAME = "SELECT_LIST_VIEW_ROW_BY_NAME"
@@ -38,7 +41,7 @@ class ListView(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): List view action to use.
+            action (Action): Action to use.
             values (Object): Specific value for action if needed.
 
         """

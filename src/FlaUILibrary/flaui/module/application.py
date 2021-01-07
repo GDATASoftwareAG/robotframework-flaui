@@ -6,10 +6,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Application(ModuleInterface):
-    """Application control module wrapper for FlaUI UIA3 usage."""
+    """
+    Application control module wrapper for FlaUI usage.
+    Wrapper module executes methods from Application class implementation by Application.cs.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         ATTACH_APPLICATION_BY_NAME = "ATTACH_APPLICATION_BY_NAME"
         ATTACH_APPLICATION_BY_PID = "ATTACH_APPLICATION_BY_PID"
         LAUNCH_APPLICATION = "LAUNCH_APPLICATION"
@@ -54,7 +57,7 @@ class Application(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Application action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 

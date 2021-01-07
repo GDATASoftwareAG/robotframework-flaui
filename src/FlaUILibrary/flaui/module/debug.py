@@ -4,10 +4,14 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Debug(ModuleInterface):
-    """Debugging control module wrapper for FlaUI UIA3 usage."""
+    """
+    Debugging control module wrapper for FlaUI usage.
+    Wrapper module executes methods from implementation IAutomationElementFinder interface implemented
+    by AutomationElementFind.cs.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_CHILDS_FROM_ELEMENT = "GET_CHILDS_FROM_ELEMENT"
 
     def execute_action(self, action, values=None):
@@ -23,7 +27,7 @@ class Debug(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Keyboard action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 

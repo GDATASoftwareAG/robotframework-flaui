@@ -6,10 +6,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Mouse(ModuleInterface):
-    """Mouse module wrapper for FlaUI UIA3 usage."""
+    """
+    Mouse module wrapper for FlaUI usage.
+    Wrapper module executes methods from Mouse.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         LEFT_CLICK = "LEFT_CLICK"
         RIGHT_CLICK = "RIGHT_CLICK"
         DOUBLE_CLICK = "DOUBLE_CLICK"
@@ -28,7 +31,7 @@ class Mouse(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Mouse action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 
