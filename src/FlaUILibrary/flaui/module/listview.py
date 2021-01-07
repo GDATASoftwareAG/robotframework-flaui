@@ -92,11 +92,11 @@ class ListView(ModuleInterface):
             if control.Rows.Length > 0:
                 control.AddToSelection(int(index))
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
     def _select_list_view_row_by_name(control, index, name):
@@ -115,8 +115,8 @@ class ListView(ModuleInterface):
             if control.Rows.Length > 0:
                 control.AddToSelection(int(index), str(name))
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
-            raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index))
+            raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index)) from None

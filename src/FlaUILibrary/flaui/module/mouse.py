@@ -46,25 +46,25 @@ class Mouse(ModuleInterface):
         try:
             return element.Click()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _right_click(element):
         try:
             return element.RightClick()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _double_click(element):
         try:
             return element.DoubleClick()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _move_to(element):
         try:
             FlaUI.Core.Input.Mouse.MoveTo(element.GetClickablePoint())
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None

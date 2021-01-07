@@ -55,4 +55,4 @@ class Window(ModuleInterface):
         try:
             window.Close()
         except MethodNotSupportedException:
-            raise FlaUiError(FlaUiError.WindowCloseNotSupported)
+            raise FlaUiError(FlaUiError.WindowCloseNotSupported) from None

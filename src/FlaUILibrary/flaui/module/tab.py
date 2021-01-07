@@ -73,4 +73,4 @@ class Tab(ModuleInterface):
         try:
             element.SelectTabItem(name)
         except CSharpException as exception:
-            raise FlaUiError(FlaUiError.GenericError.format(exception.Message))
+            raise FlaUiError(FlaUiError.GenericError.format(exception.Message)) from None

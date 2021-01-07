@@ -167,9 +167,9 @@ class Element(ModuleInterface):
             return component
 
         except COMException:
-            raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore)
+            raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore) from None
         except CSharpException:
-            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
+            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath)) from None
 
     def _element_should_not_exist(self, xpath):
         """Try to get element from xpath.
@@ -228,7 +228,7 @@ class Element(ModuleInterface):
         try:
             timeout = int(values[1])
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(values[1]))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(values[1])) from None
 
         while timer < timeout:
 

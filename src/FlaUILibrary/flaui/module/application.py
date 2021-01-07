@@ -81,7 +81,7 @@ class Application(ModuleInterface):
         try:
             self._application = FlaUI.Core.Application.Attach(name)
         except Exception:
-            raise FlaUiError(FlaUiError.ApplicationNameNotFound.format(name))
+            raise FlaUiError(FlaUiError.ApplicationNameNotFound.format(name)) from None
 
     def _attach_application_by_pid(self, pid):
         """Attach to an running application by pid.
@@ -95,7 +95,7 @@ class Application(ModuleInterface):
         try:
             self._application = FlaUI.Core.Application.Attach(int(pid))
         except Exception:
-            raise FlaUiError(FlaUiError.ApplicationPidNotFound.format(pid))
+            raise FlaUiError(FlaUiError.ApplicationPidNotFound.format(pid)) from None
 
     def _launch_application(self, application):
         """Launch an application.
@@ -113,7 +113,7 @@ class Application(ModuleInterface):
             self._application = FlaUI.Core.Application.Launch(application)
             return self._application.ProcessId
         except Win32Exception:
-            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application))
+            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
 
     def _get_main_window_from_application(self):
         """Stores main window from attached application.
@@ -130,7 +130,7 @@ class Application(ModuleInterface):
             return window
 
         except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached)
+            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
 
     def _exit_application(self):
         """Try to close application and detach from window if not an FlaUiError will be thrown.
@@ -142,4 +142,4 @@ class Application(ModuleInterface):
             self._application.Kill()
             self._application = None
         except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached)
+            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None

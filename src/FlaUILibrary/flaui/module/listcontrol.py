@@ -103,9 +103,9 @@ class ListControl(ModuleInterface):
         try:
             element.Items[int(index)].Select()
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
 
     @staticmethod
     def _list_control_should_have_selected_item(control, item):
