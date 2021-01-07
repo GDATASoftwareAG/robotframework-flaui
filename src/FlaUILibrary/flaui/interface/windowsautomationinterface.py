@@ -2,15 +2,15 @@ from abc import ABC, abstractmethod
 
 
 class WindowsAutomationInterface(ABC):
-    """Windows automation interface for all FlaUI components."""
+    """Generic windows automation interface to react on keyword usage from robotframework to FlaUI modules."""
 
     @abstractmethod
     def action(self, action, value=None, msg=None):
-        """Performs a defined windows ui api action.
+        """Performs a defined action like a button click.
 
         Args:
-            action (Action) : Application action to perform.
-            value  (Array)  : Specified arguments for actions as array.
-            msg    (String) : Optional custom error message.
+            action (Action)           : User interface action to perform.
+            value  (Array)            : Specified arguments for actions as array.
+            msg    (String) *Optional : Custom error message.
         """
-        raise NotImplementedError('Subclasses must override action method')
+        raise NotImplementedError('Subclass must override action method')

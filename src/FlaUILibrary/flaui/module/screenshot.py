@@ -3,19 +3,24 @@ import copy
 import platform
 import time
 from enum import Enum
+from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
+from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
 from FlaUILibrary.robotframework import robotlog
-from FlaUI.Core.Capturing import Capture
 
 
+# pylint: disable=too-many-instance-attributes
 class Screenshot(ModuleInterface):
-    """Screenshot module wrapper for FlaUI usage."""
+    """
+    Screenshot module wrapper for FlaUI usage.
+    Wrapper module executes methods from Capture.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
-        CAPTURE = "CAPTURE",
-        RESET = "RESET",
+        """Supported actions for execute action implementation."""
+        CAPTURE = "CAPTURE"
+        RESET = "RESET"
         DELETE_ALL_SCREENSHOTS = "DELETE_ALL_SCREENSHOTS"
 
     def __init__(self, directory, is_enabled):
@@ -26,7 +31,7 @@ class Screenshot(ModuleInterface):
         self.is_enabled = is_enabled
         self.directory = directory
         self.name = ""
-        self._index = 0
+        self._index = 1
         self._hostname = platform.node().lower()
         self._filename = "test_{}_{}_{}.jpg"
         self._files = []
@@ -37,10 +42,11 @@ class Screenshot(ModuleInterface):
         """Get action method to execute a specific method by implementation.
 
         Args:
-            action (Action): Specific action to call for execution.
-            values (Object): Parameter values to use for method execution.
+            action (Action): Action to use.
+            values (Object): See supported action definitions for value usage.
         """
 
+        # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.CAPTURE: lambda: self._capture(),
             self.Action.RESET: lambda: self._reset(),
@@ -54,24 +60,23 @@ class Screenshot(ModuleInterface):
         image = None
 
         try:
-            image = Capture.Screen()
-            self._index += 1
-
             filepath = os.path.join(self._get_path(), self._filename.format(self._hostname, self.name, self._index))
             directory = os.path.dirname(filepath)
             if not os.path.exists(directory):
                 os.makedirs(directory)
 
             try:
+                image = Capture.Screen()
                 image.ToFile(filepath)
-            except:
+            except CSharpException:
                 robotlog.log("Error to save image " + filepath)
 
             self._files.append(filepath)
 
         finally:
+            self._index += 1
             if image is not None:
-                """ C# --> class CaptureImage : IDisposable  """
+                # C# --> class CaptureImage : IDisposable
                 image.Dispose()
 
         return filepath
@@ -112,16 +117,18 @@ class Screenshot(ModuleInterface):
         Returns:
             True if file is removed otherwise False
         """
-        for x in range(self._max_retry):
+        repeat_counter = 0
+        while repeat_counter < self._max_retry:
             try:
                 os.remove(file)
                 return True
-            except:
+            except OSError:
                 time.sleep(self._sleep)
+            repeat_counter += 1
 
         return False
 
     def _reset(self):
         """Reset mechanism for default parameter usage."""
-        self._index = 0
+        self._index = 1
         self._files.clear()

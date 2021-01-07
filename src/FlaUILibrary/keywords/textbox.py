@@ -4,6 +4,9 @@ from FlaUILibrary.flaui.module import (Textbox, Element)
 
 
 class TextBoxKeywords:
+    """
+    Interface implementation from robotframework usage for textbox keywords.
+    """
 
     def __init__(self, module):
         """Constructor for textbox keywords.

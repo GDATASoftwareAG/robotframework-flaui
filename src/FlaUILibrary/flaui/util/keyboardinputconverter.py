@@ -1,7 +1,7 @@
 from re import split, match, search
 from enum import Enum
+from FlaUI.Core.WindowsAPI import VirtualKeyShort  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUI.Core.WindowsAPI import VirtualKeyShort
 
 
 class KeyboardInputConverter:
@@ -12,11 +12,11 @@ class KeyboardInputConverter:
     SHORTCUT_DELIMITER = r'[+]'
 
     class InputType(Enum):
-        """Enum declaration for supported input types."""
+        """Supported input types."""
         TEXT = 0
         SHORTCUT = 1
 
-    """" Supported keyboard keys """
+    # Supported keyboard keys
     Keys = {
         "LBUTTON": VirtualKeyShort.LBUTTON,  # Left mouse button
         "RBUTTON": VirtualKeyShort.RBUTTON,  # Right mouse button
@@ -129,20 +129,19 @@ class KeyboardInputConverter:
         """
         if match(KeyboardInputConverter.SHORTCUT, key_combination):
 
-            (isSuccess, result) = KeyboardInputConverter._try_convert_to_shortcut(key_combination)
+            (is_success, result) = KeyboardInputConverter._try_convert_to_shortcut(key_combination)
 
-            if isSuccess:
+            if is_success:
                 return KeyboardInputConverter.InputType.SHORTCUT, result
-            else:
-                return KeyboardInputConverter.InputType.TEXT, result
 
-        elif match(KeyboardInputConverter.TEXT, key_combination):
+            return KeyboardInputConverter.InputType.TEXT, result
+
+        if match(KeyboardInputConverter.TEXT, key_combination):
             return (KeyboardInputConverter.InputType.TEXT,
                     KeyboardInputConverter._extract_value_from_input(KeyboardInputConverter.TEXT,
                                                                      key_combination))
 
-        else:
-            raise FlaUiError.raise_fla_ui_error(FlaUiError.KeyboardInvalidKeysCombination.format(key_combination))
+        raise FlaUiError.raise_fla_ui_error(FlaUiError.KeyboardInvalidKeysCombination.format(key_combination))
 
     @staticmethod
     def _try_convert_to_shortcut(key_combination: str):
@@ -173,7 +172,7 @@ class KeyboardInputConverter:
         return True, shortcut_keys
 
     @staticmethod
-    def _extract_value_from_input(value_type, input):
+    def _extract_value_from_input(value_type, keyboard_input):
         """
         Extract input, which should be processed, from the following patterns:
         - s'CTRL+A'
@@ -181,7 +180,7 @@ class KeyboardInputConverter:
 
         Args:
             value_type (KeyboardInputConverter.SHORTCUT or TEXT): expected value type.
-            input (String): user input in the format like s'<shortcut>' or t'<text>'.
+            keyboard_input (String): Keyboard input in the format like s'<shortcut>' or t'<text>'.
 
         Raises:
             FlaUiError: If key_combination is impossible to extract.
@@ -190,8 +189,8 @@ class KeyboardInputConverter:
             extracted_value (String): extracted from the input value.
         """
 
-        value = search(value_type, input)
+        value = search(value_type, keyboard_input)
         if value:
             return value.group(1)
-        else:
-            raise FlaUiError.raise_fla_ui_error(FlaUiError.KeyboardExtractionFailed)
+
+        raise FlaUiError.raise_fla_ui_error(FlaUiError.KeyboardExtractionFailed)

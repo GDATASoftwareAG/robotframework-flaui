@@ -4,6 +4,9 @@ from FlaUILibrary.flaui.module import (Tab, Element)
 
 
 class TabKeywords:
+    """
+    Interface implementation from robotframework usage for tab keywords.
+    """
 
     def __init__(self, module):
         """Constructor for tab keywords.

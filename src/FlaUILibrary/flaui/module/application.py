@@ -1,15 +1,18 @@
-import FlaUI.Core
 from enum import Enum
+import FlaUI.Core  # pylint: disable=import-error
+from System.ComponentModel import Win32Exception  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System.ComponentModel import Win32Exception
 
 
 class Application(ModuleInterface):
-    """Application control module wrapper for FlaUI UIA3 usage."""
+    """
+    Application control module wrapper for FlaUI usage.
+    Wrapper module executes methods from Application class implementation by Application.cs.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         ATTACH_APPLICATION_BY_NAME = "ATTACH_APPLICATION_BY_NAME"
         ATTACH_APPLICATION_BY_PID = "ATTACH_APPLICATION_BY_PID"
         LAUNCH_APPLICATION = "LAUNCH_APPLICATION"
@@ -54,10 +57,11 @@ class Application(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Application action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 
+        # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.ATTACH_APPLICATION_BY_NAME: lambda: self._attach_application_by_name(values),
             self.Action.ATTACH_APPLICATION_BY_PID: lambda: self._attach_application_by_pid(values),
@@ -80,7 +84,7 @@ class Application(ModuleInterface):
         try:
             self._application = FlaUI.Core.Application.Attach(name)
         except Exception:
-            raise FlaUiError(FlaUiError.ApplicationNameNotFound.format(name))
+            raise FlaUiError(FlaUiError.ApplicationNameNotFound.format(name)) from None
 
     def _attach_application_by_pid(self, pid):
         """Attach to an running application by pid.
@@ -94,7 +98,7 @@ class Application(ModuleInterface):
         try:
             self._application = FlaUI.Core.Application.Attach(int(pid))
         except Exception:
-            raise FlaUiError(FlaUiError.ApplicationPidNotFound.format(pid))
+            raise FlaUiError(FlaUiError.ApplicationPidNotFound.format(pid)) from None
 
     def _launch_application(self, application):
         """Launch an application.
@@ -112,7 +116,7 @@ class Application(ModuleInterface):
             self._application = FlaUI.Core.Application.Launch(application)
             return self._application.ProcessId
         except Win32Exception:
-            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application))
+            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
 
     def _get_main_window_from_application(self):
         """Stores main window from attached application.
@@ -129,7 +133,7 @@ class Application(ModuleInterface):
             return window
 
         except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached)
+            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
 
     def _exit_application(self):
         """Try to close application and detach from window if not an FlaUiError will be thrown.
@@ -141,4 +145,4 @@ class Application(ModuleInterface):
             self._application.Kill()
             self._application = None
         except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached)
+            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None

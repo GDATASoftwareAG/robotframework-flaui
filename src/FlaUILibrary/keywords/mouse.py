@@ -3,6 +3,9 @@ from FlaUILibrary.flaui.module import (Mouse, Element)
 
 
 class MouseKeywords:
+    """
+    Interface implementation from robotframework usage for mouse keywords.
+    """
 
     def __init__(self, module):
         """Constructor for mouse keywords.

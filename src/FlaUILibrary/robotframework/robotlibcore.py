@@ -18,6 +18,7 @@ examples see the project pages at
 https://github.com/robotframework/PythonLibCore
 """
 
+# pylint: skip-file
 import inspect
 import sys
 

@@ -20,31 +20,33 @@ print('-------------------------------------------------------------')
 class BinaryDistribution(Distribution):
     """Distribution which always forces a binary package with platform name"""
 
-    def has_ext_modules(foo):
+    # pylint: disable=no-self-use
+    def has_ext_modules(self):
+        """Distribution which always forces a binary package with platform name"""
         return True
 
 
-long_description = ''
+LONG_DESCRIPTION = ''
 with open("Readme.md", "r") as fh:
-    long_description = fh.read()
+    LONG_DESCRIPTION = fh.read()
 
-requirements = []
+REQUIREMENTS = []
 with open("requirements.txt", "r") as f:
-    requirements = list(filter(lambda s: s != "", f.read().split("\n")))
+    REQUIREMENTS = list(filter(lambda s: s != "", f.read().split("\n")))
 
 if release:
-    version = "{}".format(tag_version)
+    VERSION = "{}".format(tag_version)
 else:
-    version = "{}rc{}".format(build_version, build_number)
+    VERSION = "{}rc{}".format(build_version, build_number)
 
 setup(name="robotframework-flaui",
-      version=version,
+      version=VERSION,
       description="Windows GUI testing library for Robot Framework",
-      long_description=long_description,
+      long_description=LONG_DESCRIPTION,
       long_description_content_type="text/markdown",
       author="G DATA CyberDefense AG",
       author_email="opensource@gdata.de",
-      install_requires=requirements,
+      install_requires=REQUIREMENTS,
       packages=find_packages("src"),
       package_dir={"FlaUILibrary": "src/FlaUILibrary"},
       package_data={"FlaUILibrary": ["bin/*.dll"]},

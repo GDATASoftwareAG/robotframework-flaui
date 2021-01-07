@@ -4,6 +4,9 @@ from FlaUILibrary.flaui.module import (ToggleButton, Element)
 
 
 class RadioButtonKeywords:
+    """
+    Interface implementation from robotframework usage for radio button keywords.
+    """
 
     def __init__(self, module):
         """Constructor for radiobutton keywords.

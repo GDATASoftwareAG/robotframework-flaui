@@ -3,6 +3,9 @@ from FlaUILibrary.flaui.module import (Keyboard, Element)
 
 
 class KeyboardKeywords:
+    """
+    Interface implementation from robotframework usage for keyboard keywords.
+    """
 
     def __init__(self, module):
         """Constructor for element keywords.
@@ -79,13 +82,10 @@ class KeyboardKeywords:
         | DIVIDE      |                                                 |
 
         Example:
-        | Press Keys  t'Example text'  s'CTRL+A'  s'CTRL+C'  ${textbox_xpath} | Text 'Example text' will be inserted into the textbox control. |
-        |                                                                     | Afterwards will be selected and copied.                        |
-        | Press Keys  s'CTRL+A'  t'Overwrite text'                            | If attached ui control contains text,                          |
-        |                                                                     | it will be selected and overwritten with 'Overwrite text'.     |                                           
+        | Press Keys  t'Example text'  s'CTRL+A'  s'CTRL+C'  ${textbox_xpath} |
+        | Press Keys  s'CTRL+A'  t'Overwrite text'                            |
         """
         if identifier is not None:
             self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
 
         self._module.action(Keyboard.Action.KEYS_COMBINATION, keys_combination, msg)
-

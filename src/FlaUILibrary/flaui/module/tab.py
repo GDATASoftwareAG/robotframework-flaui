@@ -1,14 +1,17 @@
 from enum import Enum
+from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System import Exception as NetException
 
 
 class Tab(ModuleInterface):
-    """Tab module wrapper for FlaUI UIA3 usage."""
+    """
+    Tab module wrapper for FlaUI usage.
+    Wrapper module executes methods from Tab.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_TAB_ITEMS_NAMES = "GET_TAB_ITEMS_NAMES"
         SELECT_TAB_ITEM_BY_NAME = "SELECT_TAB_ITEM_BY_NAME"
 
@@ -29,7 +32,7 @@ class Tab(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Tab action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
 
@@ -52,8 +55,8 @@ class Tab(ModuleInterface):
         """
         child_tab_items_names = []
 
-        for tabItem in element.TabItems:
-            child_tab_items_names.append(tabItem.Name)
+        for tab_items in element.TabItems:
+            child_tab_items_names.append(tab_items.Name)
 
         return child_tab_items_names
 
@@ -72,5 +75,5 @@ class Tab(ModuleInterface):
 
         try:
             element.SelectTabItem(name)
-        except NetException as e:
-            raise FlaUiError(FlaUiError.GenericError.format(e.Message))
+        except CSharpException as exception:
+            raise FlaUiError(FlaUiError.GenericError.format(exception.Message)) from None

@@ -1,3 +1,5 @@
+from FlaUI.UIA3 import UIA3Automation  # pylint: disable=import-error
+from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
 from FlaUILibrary.flaui.util import InterfaceType
 from FlaUILibrary.flaui.interface import WindowsAutomationInterface
 from FlaUILibrary.flaui.module import (Application,
@@ -12,14 +14,13 @@ from FlaUILibrary.flaui.module import (Application,
                                        Element,
                                        Window)
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUI.UIA3 import UIA3Automation
-from FlaUI.Core.AutomationElements import AutomationElementExtensions
 
 
 class UIA3(WindowsAutomationInterface):
+    """UIA3 window automation module for a centralized communication handling between robot keywords and flaui. """
 
     def __init__(self):
-        """Creates UIA3 module from FlaUI to interact with C# Framework."""
+        """Creates UIA3 window automation module. """
         self._automation = UIA3Automation()
 
         self._modules = [Application(self._automation), Debug(), Element(self._automation), Keyboard(), ListControl(),
@@ -34,15 +35,16 @@ class UIA3(WindowsAutomationInterface):
     def __del__(self):
         """Destructor to cleanup all C# interfaces"""
 
-        """ C# --> class UIA3Automation : AutomationBase --> abstract class AutomationBase : IDisposable  """
+        # C# --> class UIA3Automation : AutomationBase --> abstract class AutomationBase : IDisposable
         self._automation.Dispose()
 
+    # pylint: disable=arguments-differ
     def action(self, action, values=None, msg=None):
-        """Performs a application action if supported. If not supported an NotSupported FlaUI error will be thrown.
+        """Performs a application action if supported. If not supported an NotSupported error will be thrown.
 
         Args:
             action (Action) : Application action to perform.
-            values (Object) : Specified argument values for action. By default if not set is None.
+            values (Array)  : Specified argument values for action. By default if not set is None.
                               See action declaration from specific module for value attributes.
             msg    (String) : Optional custom error message.
 

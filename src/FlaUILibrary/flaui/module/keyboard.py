@@ -1,15 +1,18 @@
 from enum import Enum
-from FlaUI.Core.Input import Keyboard as FlaUIKeyboard
+from FlaUI.Core.Input import Keyboard as FlaUIKeyboard  # pylint: disable=import-error
 from FlaUILibrary.flaui.util import KeyboardInputConverter
 from FlaUILibrary.flaui.interface import ModuleInterface
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
 class Keyboard(ModuleInterface):
-    """Keyboard control module wrapper for FlaUI UIA3 usage."""
+    """
+    Keyboard control module wrapper for FlaUI usage.
+    Wrapper module executes methods from Keyboard.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration for supported action methods."""
+        """Supported actions for execute action implementation."""
         KEYS_COMBINATION = "KEYS_COMBINATION"
 
     def execute_action(self, action, values=None):
@@ -25,7 +28,7 @@ class Keyboard(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Keyboard action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 
@@ -61,7 +64,7 @@ class Keyboard(ModuleInterface):
         Parse a sequence of key controls.
 
         Args:
-            keys_combination (String array): Array from String to execute keyboard actions or send input data from keyboard.
+            keys_combination (String array): Array from String to execute keyboard actions or send input data.
         """
         try:
             for key_combination in keys_combination:

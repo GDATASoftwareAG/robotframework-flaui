@@ -1,14 +1,17 @@
 from enum import Enum
+from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System import ArgumentOutOfRangeException
 
 
 class ListView(ModuleInterface):
-    """List view module wrapper for FlaUI UIA3 usage."""
+    """
+    List view module wrapper for FlaUI usage.
+    Wrapper module executes methods from Grid.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         SELECT_LIST_VIEW_ROW_BY_INDEX = "SELECT_LIST_VIEW_ROW_BY_INDEX"
         GET_LIST_VIEW_ROW_COUNT = "GET_LIST_VIEW_ROW_COUNT"
         SELECT_LIST_VIEW_ROW_BY_NAME = "SELECT_LIST_VIEW_ROW_BY_NAME"
@@ -38,15 +41,18 @@ class ListView(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): List view action to use.
+            action (Action): Action to use.
             values (Object): Specific value for action if needed.
 
         """
 
         switcher = {
             self.Action.GET_LIST_VIEW_ROW_COUNT: lambda: values[0].Rows.Length,
-            self.Action.SELECT_LIST_VIEW_ROW_BY_INDEX: lambda: ListView._select_list_view_row_by_index(values[0], values[1]),
-            self.Action.SELECT_LIST_VIEW_ROW_BY_NAME: lambda: ListView._select_list_view_row_by_name(values[0], values[1], values[2]),
+            self.Action.SELECT_LIST_VIEW_ROW_BY_INDEX: lambda: ListView._select_list_view_row_by_index(values[0],
+                                                                                                       values[1]),
+            self.Action.SELECT_LIST_VIEW_ROW_BY_NAME: lambda: ListView._select_list_view_row_by_name(values[0],
+                                                                                                     values[1],
+                                                                                                     values[2]),
             self.Action.GET_SELECTED_LIST_VIEW_ROWS: lambda: ListView._get_selected_rows(values[0])
         }
 
@@ -89,11 +95,11 @@ class ListView(ModuleInterface):
             if control.Rows.Length > 0:
                 control.AddToSelection(int(index))
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
     def _select_list_view_row_by_name(control, index, name):
@@ -112,8 +118,8 @@ class ListView(ModuleInterface):
             if control.Rows.Length > 0:
                 control.AddToSelection(int(index), str(name))
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
-            raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index))
+            raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index)) from None

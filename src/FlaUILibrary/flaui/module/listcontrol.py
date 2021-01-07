@@ -4,10 +4,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class ListControl(ModuleInterface):
-    """List control module wrapper for FlaUI UIA3 usage."""
+    """
+    List control module wrapper for FlaUI usage.
+    Wrapper module executes methods from ListBox.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         SELECT_LIST_CONTROL_ITEM_BY_INDEX = "SELECT_LIST_CONTROL_ITEM_BY_INDEX"
         LIST_CONTROL_SHOULD_CONTAIN = "LIST_CONTROL_SHOULD_CONTAIN"
         GET_LIST_CONTROL_ITEMS_COUNT = "GET_LIST_CONTROL_ITEMS_COUNT"
@@ -17,7 +20,7 @@ class ListControl(ModuleInterface):
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
-        
+
         Supported actions for checkbox usages are:
 
           *  Action.SELECT_LIST_CONTROL_ITEM_BY_INDEX
@@ -48,7 +51,7 @@ class ListControl(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): List control action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
         switcher = {
@@ -83,8 +86,8 @@ class ListControl(ModuleInterface):
 
         values = ""
 
-        for selectedItem in element.SelectedItems:
-            values += selectedItem.Text + "\n"
+        for selected_item in element.SelectedItems:
+            values += selected_item.Text + "\n"
 
         return values
 
@@ -103,9 +106,9 @@ class ListControl(ModuleInterface):
         try:
             element.Items[int(index)].Select()
         except IndexError:
-            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index))
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
 
     @staticmethod
     def _list_control_should_have_selected_item(control, item):
@@ -135,8 +138,8 @@ class ListControl(ModuleInterface):
         """
         names = []
 
-        for e in control.SelectedItems:
-            names.append(e.Name)
+        for selected_item in control.SelectedItems:
+            names.append(selected_item.Name)
 
         return names
 

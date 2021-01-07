@@ -1,16 +1,19 @@
 import time
 from enum import Enum
+from System import Exception as CSharpException  # pylint: disable=import-error
+from System.Runtime.InteropServices import COMException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-from System import Exception
-from System.Runtime.InteropServices import COMException
 
 
 class Element(ModuleInterface):
-    """Element control module wrapper for FlaUI UIA3 usage."""
+    """
+    Element control module wrapper for FlaUI usage.
+    Wrapper module executes methods from AutomationElement.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         GET_ELEMENT = "GET_ELEMENT"
         GET_ELEMENT_NAME = "GET_ELEMENT_NAME"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
@@ -85,7 +88,7 @@ class Element(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Element action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 
@@ -167,9 +170,9 @@ class Element(ModuleInterface):
             return component
 
         except COMException:
-            raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore)
-        except Exception:
-            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
+            raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore) from None
+        except CSharpException:
+            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath)) from None
 
     def _element_should_not_exist(self, xpath):
         """Try to get element from xpath.
@@ -228,7 +231,7 @@ class Element(ModuleInterface):
         try:
             timeout = int(values[1])
         except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(values[1]))
+            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(values[1])) from None
 
         while timer < timeout:
 

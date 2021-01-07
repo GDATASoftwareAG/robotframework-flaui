@@ -1,10 +1,13 @@
+from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.robotframework import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
-from robot.utils import is_truthy
 
 
 class ScreenshotKeywords:
+    """
+    Interface implementation from robotframework usage for screenshot keywords.
+    """
 
     def __init__(self, module, screenshots):
         """Creates screenshot keywords module to handle image capturing.

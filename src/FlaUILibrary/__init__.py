@@ -1,4 +1,6 @@
+# pylint: disable=invalid-name
 from enum import Enum
+from robot.libraries.BuiltIn import BuiltIn
 from FlaUILibrary import version, clr
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
@@ -17,9 +19,9 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
 from FlaUILibrary.robotframework import DynamicCore, robotlog
 from FlaUILibrary.flaui import UIA3
 from FlaUILibrary.flaui.module import Screenshot
-from robot.libraries.BuiltIn import BuiltIn
 
 
+# pylint: enable=invalid-name
 class FlaUILibrary(DynamicCore):
     """FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
@@ -43,8 +45,8 @@ class FlaUILibrary(DynamicCore):
     == XPath locator ==
 
     An XPath is a tree overview from all active module application like a Taskbar or Windows (Outlook, Security Client).
-    FlaUILibrary supports to interact with this XPath to select this module components by a AutomationId, Name, ClassName
-    or HelpText.
+    FlaUILibrary supports to interact with this XPath to select this module components by a AutomationId, Name,
+    ClassName or HelpText.
 
     XPath identifier usage examples:
     | = Attribute = | = Description = | = Example = |
@@ -63,11 +65,11 @@ class FlaUILibrary(DynamicCore):
 
     class RobotMode(Enum):
         """Actual state from test execution by robot framework."""
-        TEST_NOT_RUNNING = 1,
+        TEST_NOT_RUNNING = 1
         TEST_RUNNING = 2
 
     def __init__(self, screenshot_on_failure='True', screenshot_dir=None):
-        """FlaUiLibrary can be imported by following optional arguments ``screenshot_enabled``, ``screenshot_dir``.
+        """FlaUiLibrary can be imported by following optional arguments:
 
         ``screenshot_on_failure`` indicator to disable or enable screenshot feature.
         ``screenshot_dir`` is the directory where screenshots are saved.
@@ -100,7 +102,6 @@ class FlaUILibrary(DynamicCore):
         }
 
         # Robot init
-        self.screenshotsKeywords = ScreenshotKeywords(self.module, self.screenshots)
         self.ROBOT_LIBRARY_LISTENER = self  # pylint: disable=invalid-name
         self.libraries = self.keyword_modules.values()
         DynamicCore.__init__(self, self.libraries)
@@ -110,12 +111,14 @@ class FlaUILibrary(DynamicCore):
         self.screenshots.name = name.replace(" ", "_").lower()
         self.screenshots.execute_action(Screenshot.Action.RESET)
 
-    def _end_test(self, name, attrs):
+    def _end_test(self, name, attrs): # pylint: disable=unused-argument
         self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         if attrs['status'] == 'PASS' and self.screenshots.is_enabled:
             if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS):
                 robotlog.log("Not all files were deleted")
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
-        if attrs['status'] == 'FAIL' and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING and self.screenshots.is_enabled:
+        if attrs['status'] == 'FAIL' \
+                and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
+                and self.screenshots.is_enabled:
             self.keyword_modules['Screenshot'].take_screenshot()  # Keyword usage here to include to robot reporting log

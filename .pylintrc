@@ -1,0 +1,7 @@
+[FORMAT]
+max-line-length=120
+
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+    R0903, # too-few-public-methods

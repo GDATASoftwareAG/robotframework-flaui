@@ -1,15 +1,18 @@
 from enum import Enum
+import FlaUI.Core.Input  # pylint: disable=import-error
+from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
-import FlaUI.Core.Input
-from FlaUI.Core.Exceptions import NoClickablePointException
 
 
 class Mouse(ModuleInterface):
-    """Mouse module wrapper for FlaUI UIA3 usage."""
+    """
+    Mouse module wrapper for FlaUI usage.
+    Wrapper module executes methods from Mouse.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         LEFT_CLICK = "LEFT_CLICK"
         RIGHT_CLICK = "RIGHT_CLICK"
         DOUBLE_CLICK = "DOUBLE_CLICK"
@@ -28,7 +31,7 @@ class Mouse(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Mouse action to use.
+            action (Action): Action to use.
             values (Object): See supported action definitions for value usage.
         """
 
@@ -46,25 +49,25 @@ class Mouse(ModuleInterface):
         try:
             return element.Click()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _right_click(element):
         try:
             return element.RightClick()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _double_click(element):
         try:
             return element.DoubleClick()
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _move_to(element):
         try:
             FlaUI.Core.Input.Mouse.MoveTo(element.GetClickablePoint())
         except NoClickablePointException:
-            raise FlaUiError(FlaUiError.ElementNotClickable)
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None

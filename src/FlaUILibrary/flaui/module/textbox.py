@@ -4,10 +4,13 @@ from FlaUILibrary.flaui.interface import ModuleInterface
 
 
 class Textbox(ModuleInterface):
-    """Textbox module wrapper for FlaUI UIA3 usage."""
+    """
+    Textbox module wrapper for FlaUI usage.
+    Wrapper module executes methods from Textbox.cs implementation.
+    """
 
     class Action(Enum):
-        """Enum declaration."""
+        """Supported actions for execute action implementation."""
         SET_TEXT_TO_TEXTBOX = "SET_TEXT_TO_TEXTBOX"
         GET_TEXT_FROM_TEXTBOX = "GET_TEXT_FROM_TEXTBOX"
 
@@ -28,7 +31,7 @@ class Textbox(ModuleInterface):
             FlaUiError: If action is not supported.
 
         Args:
-            action (Action): Textbox action to use.
+            action (Action): Action to use.
             values (Object): See action definitions for value usage.
         """
 
