@@ -2,6 +2,11 @@
 max-line-length=120
 
 [MASTER]
+load-plugins=pylint_json2html
+
 disable=
     C0114, # missing-module-docstring
     R0903, # too-few-public-methods
+
+[REPORTS]
+output-format=jsonextended

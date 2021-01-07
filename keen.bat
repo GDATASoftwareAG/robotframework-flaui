@@ -27,11 +27,19 @@ EXIT /B %ERRORLEVEL%
 
 :test
     call:install
+    call:pylint
     call cd atests
     call robot -x xunit.xml --outputdir ../result .
     set /A result = %ERRORLEVEL%
     call cd ..
 EXIT /B %result%
+
+:pylint
+  mkdir result
+  pylint src/ > result/lint.json
+  pylint-json2html -f jsonextended -o result/pylint.html < result/lint.json
+EXIT /B %ERRORLEVEL%
+
 
 :MAIN
 IF NOT "%~1" == "" call:%1
