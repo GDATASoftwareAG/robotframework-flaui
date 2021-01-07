@@ -71,7 +71,7 @@ Examples of use can be found in the atests folder.
 * To install Robot Framework and Python for .NET, run
 
 ```
-pip install -r requirements-dev.txt
+.\keen.bat dependency
 ```
 
 ### Test-Applications
@@ -83,16 +83,26 @@ Two test projects were used for the UI automation:
 
 ### Building and testing locally
 
-Use the provided local_install file:
+Use the provided 'Commander Keen' file:
 
 ```
-.\local_install.cmd
+.\keen.bat test
 ```
 
 The script automatically builds the:
-  * library as a wheel file stored in the Dist folder
+  * Library as a wheel file stored in the Dist folder
   * Test documentation located in the Docs folder
   * Automatically installs and runs the robot tests of the library and saves the test results in the Result folder
+
+Following arguments are supported:
+```
+.\keen.bat <argument>
+```
+  * cleanup - Removes all build folders
+  * dependency - Install all python dependencies
+  * build - Build wheel file
+  * install - Install wheel file
+  * test - Test robotframework-flaui
 
 ## Acknowledgements
 

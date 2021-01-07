@@ -32,12 +32,12 @@ install:
 
     python -m pip install --upgrade pip
     
-    python -m pip install -r requirements.txt
+    .\keen.bat dependency
 
 build:
   verbosity: minimal
 test_script:
-- cmd: .\local_install.cmd
+- cmd: .\keen.bat test
 artifacts:
 - path: result/
   name: results
@@ -51,8 +51,6 @@ deploy_script:
   - ps: |
       if($env:APPVEYOR_REPO_TAG -eq 'true') {
         Write-Output ("Deploying " + $env:APPVEYOR_REPO_TAG_NAME + " to PyPI...")
-
-        python -m pip install twine
 
         python -m twine upload -u ${Env:USER} -p ${Env:PASS} --skip-existing dist/*.whl
 
