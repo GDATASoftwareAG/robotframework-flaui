@@ -1,5 +1,6 @@
 from enum import Enum
 from System import ArgumentOutOfRangeException  # pylint: disable=import-error
+from System import NullReferenceException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
 
@@ -100,6 +101,8 @@ class ListView(ModuleInterface):
             raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
+        except NullReferenceException:
+            raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
     def _select_list_view_row_by_name(control, index, name):
@@ -122,4 +125,6 @@ class ListView(ModuleInterface):
         except ValueError:
             raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
+            raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index)) from None
+        except NullReferenceException:
             raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index)) from None
