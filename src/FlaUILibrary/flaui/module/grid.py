@@ -13,28 +13,28 @@ class Grid(ModuleInterface):
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
-        SELECT_LIST_VIEW_ROW_BY_INDEX = "SELECT_LIST_VIEW_ROW_BY_INDEX"
-        GET_LIST_VIEW_ROW_COUNT = "GET_LIST_VIEW_ROW_COUNT"
-        SELECT_LIST_VIEW_ROW_BY_NAME = "SELECT_LIST_VIEW_ROW_BY_NAME"
-        GET_SELECTED_LIST_VIEW_ROWS = "GET_SELECTED_LIST_VIEW_ROWS"
+        SELECT_ROW_BY_INDEX = "SELECT_ROW_BY_INDEX"
+        GET_ROW_COUNT = "GET_ROW_COUNT"
+        SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
+        GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
 
         Supported actions for mouse usages are:
-          *  Action.SELECT_LIST_VIEW_ROW_BY_INDEX
+          *  Action.SELECT_ROW_BY_INDEX
             * values (Array): [Element, Number]
             * Returns : None
 
-          *  Action.GET_LIST_VIEW_ROW_COUNT
+          *  Action.GET_ROW_COUNT
             * values (Array): [Element]
             * Returns : None
 
-         *  Action.SELECT_LIST_VIEW_ROW_BY_NAME
+         *  Action.SELECT_ROW_BY_NAME
             * values (Array): [Element, Index, String]
             * Returns : None
 
-         *  Action.GET_SELECTED_LIST_VIEW_ROWS
+         *  Action.GET_SELECTED_ROWS
             * values (Array): [Element]
             * Returns : String from all selected rows split up by pipe.
 
@@ -48,13 +48,10 @@ class Grid(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_LIST_VIEW_ROW_COUNT: lambda: values[0].Rows.Length,
-            self.Action.SELECT_LIST_VIEW_ROW_BY_INDEX: lambda: Grid._select_list_view_row_by_index(values[0],
-                                                                                                   values[1]),
-            self.Action.SELECT_LIST_VIEW_ROW_BY_NAME: lambda: Grid._select_list_view_row_by_name(values[0],
-                                                                                                 values[1],
-                                                                                                 values[2]),
-            self.Action.GET_SELECTED_LIST_VIEW_ROWS: lambda: Grid._get_selected_rows(values[0])
+            self.Action.GET_ROW_COUNT: lambda: values[0].Rows.Length,
+            self.Action.SELECT_ROW_BY_INDEX: lambda: Grid._select_row_by_index(values[0], values[1]),
+            self.Action.SELECT_ROW_BY_NAME: lambda: Grid._select_row_by_name(values[0], values[1], values[2]),
+            self.Action.GET_SELECTED_ROWS: lambda: Grid._get_selected_rows(values[0])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -81,7 +78,7 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_list_view_row_by_index(control, index):
+    def _select_row_by_index(control, index):
         """Try to select element from given index.
 
         Args:
@@ -105,7 +102,7 @@ class Grid(ModuleInterface):
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
-    def _select_list_view_row_by_name(control, index, name):
+    def _select_row_by_name(control, index, name):
         """Try to select element from given name from given column index
 
         Args:

@@ -1,6 +1,6 @@
 from FlaUILibrary.robotframework import keyword
 from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (ListBox, Element)
+from FlaUILibrary.flaui.module import (Element, ListBox)
 
 
 class ComboBoxKeywords:
@@ -37,7 +37,7 @@ class ComboBoxKeywords:
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.COMBOBOX)
-        return self._module.action(ListBox.Action.GET_SELECTED_ITEMS_FROM_LIST_CONTROL, [element], msg)
+        return self._module.action(ListBox.Action.GET_SELECTED_ITEMS, [element], msg)
 
     @keyword
     def select_combobox_item_by_index(self, identifier, index, msg=None):
@@ -58,7 +58,7 @@ class ComboBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SELECT_LIST_CONTROL_ITEM_BY_INDEX,
+        self._module.action(ListBox.Action.SELECT_ITEM_BY_INDEX,
                             [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX), index],
                             msg)
 
@@ -81,7 +81,7 @@ class ComboBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.LIST_CONTROL_SHOULD_CONTAIN,
+        self._module.action(ListBox.Action.SHOULD_CONTAIN,
                             [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX), name],
                             msg)
 
@@ -104,6 +104,6 @@ class ComboBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        return self._module.action(ListBox.Action.GET_LIST_CONTROL_ITEMS_COUNT,
+        return self._module.action(ListBox.Action.GET_ITEMS_COUNT,
                                    [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX)],
                                    msg=msg)

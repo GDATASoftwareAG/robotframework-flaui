@@ -31,7 +31,6 @@ Select Grid Row By Index
     ${DATA}  Get Selected Listview Rows  ${XPATH_GRID_VIEW}
     Should Contain  ${DATA}  | Doe | 24 |
 
-
 Select Grid Item Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_GRID_VIEW}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Listview Row By Index  ${XPATH_GRID_VIEW}  -2000

@@ -9,8 +9,6 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 
--   Data grid examples include
-
 ### Changed
 
 -   Renamed flaui wrapper modules
@@ -20,6 +18,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
       - Include to keen.bat pylint
       - Appveyor pylint reporting
 -   Command line 'local_install.cmd' changed to 'keen.bat' with a set of supported build instructions
+-   Example ListView renamed to Grid
 
 ## [Release][1.3.4] [1.3.4][1.3.3-1.3.4] - 2020-06-23
 

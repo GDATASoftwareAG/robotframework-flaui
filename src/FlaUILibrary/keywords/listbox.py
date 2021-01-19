@@ -1,6 +1,6 @@
 from FlaUILibrary.robotframework import keyword
 from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (ListBox, Element)
+from FlaUILibrary.flaui.module import (Element, ListBox)
 
 
 class ListBoxKeywords:
@@ -33,7 +33,7 @@ class ListBoxKeywords:
         | Listbox Selection Should Be <XPATH>  <STRING>                |
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.LIST_CONTROL_SHOULD_HAVE_SELECTED_ITEM,
+        self._module.action(ListBox.Action.SHOULD_HAVE_SELECTED_ITEM,
                             [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), item],
                             msg)
 
@@ -56,7 +56,7 @@ class ListBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SELECT_LIST_CONTROL_ITEM_BY_INDEX,
+        self._module.action(ListBox.Action.SELECT_ITEM_BY_INDEX,
                             [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), index],
                             msg)
 
@@ -79,7 +79,7 @@ class ListBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.LIST_CONTROL_SHOULD_CONTAIN,
+        self._module.action(ListBox.Action.SHOULD_CONTAIN,
                             [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), name],
                             msg)
 
@@ -102,6 +102,6 @@ class ListBoxKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        return self._module.action(ListBox.Action.GET_LIST_CONTROL_ITEMS_COUNT,
+        return self._module.action(ListBox.Action.GET_ITEMS_COUNT,
                                    [self._module.cast_element_to_type(element, InterfaceType.LISTBOX)],
                                    msg)
