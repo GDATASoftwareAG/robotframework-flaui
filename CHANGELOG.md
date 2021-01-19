@@ -21,7 +21,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
       - Appveyor pylint reporting
 -   Command line 'local_install.cmd' changed to 'keen.bat' with a set of supported build instructions
 
-## [1.3.4][] - 2020-06-23
+## [Release][1.3.4] [1.3.4][1.3.3-1.3.4] - 2020-06-23
 
 General bugfixing from keywords and improvements from artifact building and testing
 
@@ -34,7 +34,7 @@ General bugfixing from keywords and improvements from artifact building and test
  -  Split up from release and develop dependencies by seperate requirements files
  -  Distribution which always forces a binary package with platform name
 
-## [1.3.3][] - 2020-08-24
+## [Release][1.3.3] [1.3.3][1.3.2-1.3.3] - 2020-08-24
 
 Upgrade from Pythonet dependency to support Python 3.8.
 
@@ -48,7 +48,7 @@ Upgrade from Pythonet dependency to support Python 3.8.
 -  Test cases rewrite by Custom Error Handling and Data Driven Tests
 -  Keyword documentation page contains now all .xml file documentation for RFHUB
 
-## [1.3.2][] - 2020-06-23
+## [Release][1.3.2] [1.3.2][1.3.1-1.3.2] - 2020-06-23
 
 Small upgrade to latest FlaUI release.
 
@@ -56,7 +56,7 @@ Small upgrade to latest FlaUI release.
 
 -   FlaUI upgrade to version 3.2.0
 
-## [1.3.1][] - 2020-06-20
+## [Release][1.3.1] 1.3.1 - 2020-06-20
 
 First release from wrapper library Robotframework-FlaUI
 
@@ -75,6 +75,9 @@ First release from wrapper library Robotframework-FlaUI
 
 [unreleased]: ../../compare/1.3.4...master
 [1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.4
+[1.3.3-1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.3...1.3.4
 [1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.3
+[1.3.2-1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.2...1.3.3
 [1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.2
+[1.3.1-1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.1...1.3.2
 [1.3.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.1
