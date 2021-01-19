@@ -4,9 +4,9 @@ from FlaUILibrary.flaui.util import InterfaceType
 from FlaUILibrary.flaui.interface import WindowsAutomationInterface
 from FlaUILibrary.flaui.module import (Application,
                                        Debug,
-                                       ListView,
+                                       Grid,
                                        ToggleButton,
-                                       ListControl,
+                                       ListBox,
                                        Mouse,
                                        Keyboard,
                                        Textbox,
@@ -23,8 +23,8 @@ class UIA3(WindowsAutomationInterface):
         """Creates UIA3 window automation module. """
         self._automation = UIA3Automation()
 
-        self._modules = [Application(self._automation), Debug(), Element(self._automation), Keyboard(), ListControl(),
-                         ListView(), Mouse(), Textbox(), ToggleButton(), Tab(), Window(self._automation)]
+        self._modules = [Application(self._automation), Debug(), Element(self._automation), Keyboard(), ListBox(),
+                         Grid(), Mouse(), Textbox(), ToggleButton(), Tab(), Window(self._automation)]
 
         self._actions = {}
 

@@ -1,6 +1,6 @@
 from FlaUILibrary.robotframework import keyword
 from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (ListView, Element)
+from FlaUILibrary.flaui.module import (Grid, Element)
 
 
 class ListViewKeywords:
@@ -37,7 +37,7 @@ class ListViewKeywords:
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.LISTVIEW)
-        return self._module.action(ListView.Action.GET_SELECTED_LIST_VIEW_ROWS, [element], msg)
+        return self._module.action(Grid.Action.GET_SELECTED_LIST_VIEW_ROWS, [element], msg)
 
     @keyword
     def select_listview_row_by_index(self, identifier, index, msg=None):
@@ -59,7 +59,7 @@ class ListViewKeywords:
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.LISTVIEW)
-        self._module.action(ListView.Action.SELECT_LIST_VIEW_ROW_BY_INDEX, [element, index], msg)
+        self._module.action(Grid.Action.SELECT_LIST_VIEW_ROW_BY_INDEX, [element, index], msg)
 
     @keyword
     def select_listview_row_by_name(self, identifier, index, name, msg=None):
@@ -82,7 +82,7 @@ class ListViewKeywords:
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.LISTVIEW)
-        self._module.action(ListView.Action.SELECT_LIST_VIEW_ROW_BY_NAME, [element, index, name], msg)
+        self._module.action(Grid.Action.SELECT_LIST_VIEW_ROW_BY_NAME, [element, index, name], msg)
 
     @keyword
     def get_listview_rows_count(self, identifier, msg=None):
@@ -103,6 +103,6 @@ class ListViewKeywords:
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        return self._module.action(ListView.Action.GET_LIST_VIEW_ROW_COUNT,
+        return self._module.action(Grid.Action.GET_LIST_VIEW_ROW_COUNT,
                                    [self._module.cast_element_to_type(element, InterfaceType.LISTVIEW)],
                                    msg)
