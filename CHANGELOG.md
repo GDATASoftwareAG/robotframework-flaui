@@ -14,9 +14,20 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 -   Renamed flaui wrapper modules
     - ListView to Grid
     - ListControl to ListBox
+    
+
+-   Renamed robotframework keyword module ListView to Grid and keywords
+    - Get Selected Listview Rows --> Get Selected Grid Rows
+    - Select Listview Row By Index --> Select Grid Row By Index
+    - Select Listview Row By Name -->  Select Grid Row By Name
+    - Get Listview Rows Count --> Get Grid Rows Count
+    
+
 -   Pylint usage implemented
       - Include to keen.bat pylint
       - Appveyor pylint reporting
+    
+
 -   Command line 'local_install.cmd' changed to 'keen.bat' with a set of supported build instructions
 -   Example ListView renamed to Grid
 

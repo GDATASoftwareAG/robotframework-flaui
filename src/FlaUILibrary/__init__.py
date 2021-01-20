@@ -12,7 +12,7 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    ScreenshotKeywords,
                                    TextBoxKeywords,
                                    WindowKeywords,
-                                   ListViewKeywords,
+                                   GridKeywords,
                                    RadioButtonKeywords,
                                    ListBoxKeywords,
                                    TabKeywords)
@@ -68,6 +68,23 @@ class FlaUILibrary(DynamicCore):
         TEST_NOT_RUNNING = 1
         TEST_RUNNING = 2
 
+    class KeywordModules(Enum):
+        """Enumeration from all supported keyword modules."""
+        APPLICATION = "Application"
+        CHECKBOX = "Checkbox"
+        COMBOBOX = "Combobox"
+        DEBUG = "Debug"
+        ELEMENT = "Element"
+        GRID = "Grid"
+        MOUSE = "Mouse"
+        KEYBOARD = "Keyboard"
+        SCREENSHOT = "Screenshot"
+        TEXTBOX = "Textbox"
+        WINDOW = "Window"
+        RADIOBUTTON = "Radiobutton"
+        LISTBOX = "Listbox"
+        TAB = "Tab"
+
     def __init__(self, screenshot_on_failure='True', screenshot_dir=None):
         """FlaUiLibrary can be imported by following optional arguments:
 
@@ -85,20 +102,20 @@ class FlaUILibrary(DynamicCore):
         self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 
         self.keyword_modules = {
-            "Application": ApplicationKeywords(self.module),
-            "Checkbox": CheckBoxKeywords(self.module),
-            "Combobox": ComboBoxKeywords(self.module),
-            "Debug": DebugKeywords(self.module),
-            "Element": ElementKeywords(self.module),
-            "Mouse": MouseKeywords(self.module),
-            "Keyboard": KeyboardKeywords(self.module),
-            "Screenshot": ScreenshotKeywords(self.module, self.screenshots),
-            "Textbox": TextBoxKeywords(self.module),
-            "Window": WindowKeywords(self.module),
-            "Listview": ListViewKeywords(self.module),
-            "Radiobutton": RadioButtonKeywords(self.module),
-            "Listbox": ListBoxKeywords(self.module),
-            "Tab": TabKeywords(self.module),
+            FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.module),
+            FlaUILibrary.KeywordModules.CHECKBOX: CheckBoxKeywords(self.module),
+            FlaUILibrary.KeywordModules.COMBOBOX: ComboBoxKeywords(self.module),
+            FlaUILibrary.KeywordModules.DEBUG: DebugKeywords(self.module),
+            FlaUILibrary.KeywordModules.ELEMENT: ElementKeywords(self.module),
+            FlaUILibrary.KeywordModules.GRID: GridKeywords(self.module),
+            FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.module),
+            FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.module),
+            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.module, self.screenshots),
+            FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.module),
+            FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.module),
+            FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.module),
+            FlaUILibrary.KeywordModules.LISTBOX: ListBoxKeywords(self.module),
+            FlaUILibrary.KeywordModules.TAB: TabKeywords(self.module),
         }
 
         # Robot init
@@ -121,4 +138,5 @@ class FlaUILibrary(DynamicCore):
         if attrs['status'] == 'FAIL' \
                 and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
                 and self.screenshots.is_enabled:
-            self.keyword_modules['Screenshot'].take_screenshot()  # Keyword usage here to include to robot reporting log
+            # Keyword usage here to include to robot reporting log
+            self.keyword_modules[FlaUILibrary.KeywordModules.SCREENSHOT].take_screenshot()

@@ -30,11 +30,11 @@ Get Checkbox State                Get Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FO
 Get Childs From Element           Get Childs From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Combobox Items Count          Get Combobox Items Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Listbox Items Count           Get Listbox Items Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Get Listview Rows Count           Get Listview Rows Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Grid Rows Count               Get Grid Rows Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Name From Element             Get Name From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Radiobutton State             Get Radiobutton State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Selected Items From Combobox  Get Selected Items From Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Get Selected Listview Rows        Get Selected Listview Rows  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Selected Grid Rows            Get Selected Grid Rows  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Tab Items Names               Get Tab Items Names  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Text From Textbox             Get Text From Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Enabled                Is Element Enabled  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -49,8 +49,8 @@ Press Keys                        Press Keys  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${
 Right Click                       Right Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Select Combobox Item By Index     Select Combobox Item By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  -2000
 Select Listbox Item By Index      Select Listbox Item By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  0
-Select Listview Row By Index      Select Listview Row By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2
-Select Listview Row By Name       Select Listview Row By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2  Simple item 1
+Select Grid Row By Index          Select Grid Row By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2
+Select Grid Row By Name           Select Grid Row By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2  Simple item 1
 Select Tab Item By Name           Select Tab Item By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Other Controls
 Select Radiobutton                Select Radiobutton  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Set Checkbox State                Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}

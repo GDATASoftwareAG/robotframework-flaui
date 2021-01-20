@@ -3,9 +3,9 @@ from FlaUILibrary.flaui.util import InterfaceType
 from FlaUILibrary.flaui.module import (Element, Grid)
 
 
-class ListViewKeywords:
+class GridKeywords:
     """
-    Interface implementation from robotframework usage for list view keywords.
+    Interface implementation from robotframework usage for grid keywords.
     """
 
     def __init__(self, module):
@@ -16,7 +16,7 @@ class ListViewKeywords:
         self._module = module
 
     @keyword
-    def get_selected_listview_rows(self, identifier, msg=None):
+    def get_selected_grid_rows(self, identifier, msg=None):
         """Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string
         will be returned.
 
@@ -33,15 +33,15 @@ class ListViewKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${data}  Get Selected Listview Rows  <XPath>   |
+        | ${data}  Get Selected Grid Rows  <XPath>   |
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                                                     InterfaceType.LISTVIEW)
         return self._module.action(Grid.Action.GET_SELECTED_ROWS, [element], msg)
 
     @keyword
-    def select_listview_row_by_index(self, identifier, index, msg=None):
-        """Select rows from list view with the given index.
+    def select_grid_row_by_index(self, identifier, index, msg=None):
+        """Select rows from data grid with the given index.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -54,7 +54,7 @@ class ListViewKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Select Listview Row By Index  <XPath>  <INDEX>      |
+        | Select Grid Row By Index  <XPath>  <INDEX>      |
 
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
@@ -62,8 +62,8 @@ class ListViewKeywords:
         self._module.action(Grid.Action.SELECT_ROW_BY_INDEX, [element, index], msg)
 
     @keyword
-    def select_listview_row_by_name(self, identifier, index, name, msg=None):
-        """Select rows from list view with the given name in the given column index.
+    def select_grid_row_by_name(self, identifier, index, name, msg=None):
+        """Select specific row by name from data grid.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -77,7 +77,7 @@ class ListViewKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Select Listview Row By Index  <XPath>  <INDEX>      |
+        | Select Grid Row By Name  <XPath>  <INDEX>      |
 
         """
         element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
@@ -85,8 +85,8 @@ class ListViewKeywords:
         self._module.action(Grid.Action.SELECT_ROW_BY_NAME, [element, index, name], msg)
 
     @keyword
-    def get_listview_rows_count(self, identifier, msg=None):
-        """Return count of rows in listview.
+    def get_grid_rows_count(self, identifier, msg=None):
+        """Return count of rows from data grid.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -98,7 +98,7 @@ class ListViewKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${COUNT}  Get Listview Rows Count  <XPATH> |
+        | ${COUNT}  Get Grid Rows Count  <XPATH> |
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
