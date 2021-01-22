@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for element keywords.
 
-Library         FlaUILibrary
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
 Library         DateTime

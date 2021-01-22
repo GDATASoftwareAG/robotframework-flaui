@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for screenshot keywords.
 
-Library         FlaUILibrary  screenshot_on_failure=True
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=True
 Library         StringFormat
 Library         Process
 Library         String

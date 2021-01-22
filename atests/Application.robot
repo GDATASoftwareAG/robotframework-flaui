@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for application keywords.
 
-Library         FlaUILibrary
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         StringFormat
 
 Resource        util/Common.robot

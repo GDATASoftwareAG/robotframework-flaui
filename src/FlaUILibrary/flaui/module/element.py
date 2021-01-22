@@ -161,13 +161,16 @@ class Element(ModuleInterface):
             FlaUiError: If node could not be found by xpath.
         """
         try:
-            desktop = self._automation.GetDesktop()
-            component = desktop.FindFirstByXPath(xpath)
+            retry = 0
+            while retry < 10:
+                desktop = self._automation.GetDesktop()
+                component = desktop.FindFirstByXPath(xpath)
+                if component:
+                    return component
+                time.sleep(100 / 1000)
+                retry = retry + 1
 
-            if not component:
-                raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
-
-            return component
+            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
         except COMException:
             raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore) from None
