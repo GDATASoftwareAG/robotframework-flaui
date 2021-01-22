@@ -14,3 +14,17 @@ class WindowsAutomationInterface(ABC):
             msg    (String) *Optional : Custom error message.
         """
         raise NotImplementedError('Subclass must override action method')
+
+    @abstractmethod
+    def register_action(self, automation):
+        """Register all supported core actions.
+
+        Args:
+            automation (Object)       : Windows user automation object.
+        """
+        raise NotImplementedError('Subclass must override action method')
+
+    @abstractmethod
+    def identifier(self):
+        """ Returns identifier which windows automation interface is in usage."""
+        raise NotImplementedError('Subclass must override action method')

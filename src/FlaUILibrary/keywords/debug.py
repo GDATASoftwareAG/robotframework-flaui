@@ -37,9 +37,21 @@ class DebugKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${CHILDS}  <XPATH> |
+        | ${CHILDS}  Get Child From Element  <XPATH> |
         | Log  <XPATH> |
 
         """
         return self._module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT,
                                    self._module.action(Element.Action.GET_ELEMENT, identifier, msg))
+
+    @keyword
+    def get_uia_identifier(self):
+        """Gets given windows user automation identifier which is in usage for the test.
+
+        Possible Identifier are : UIA2 or UIA3
+
+        Examples:
+        | ${IDENTIFIER}  Get UIA Identifier  |
+        | Log  <IDENTIFIER> |
+        """
+        return self._module.identifier()

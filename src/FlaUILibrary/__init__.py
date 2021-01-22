@@ -17,7 +17,7 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    ListBoxKeywords,
                                    TabKeywords)
 from FlaUILibrary.robotframework import DynamicCore, robotlog
-from FlaUILibrary.flaui import UIA3
+from FlaUILibrary.flaui import (UIA2, UIA3)
 from FlaUILibrary.flaui.module import Screenshot
 
 
@@ -85,9 +85,10 @@ class FlaUILibrary(DynamicCore):
         LISTBOX = "Listbox"
         TAB = "Tab"
 
-    def __init__(self, screenshot_on_failure='True', screenshot_dir=None):
+    def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None):
         """FlaUiLibrary can be imported by following optional arguments:
 
+        ``uia`` Microsoft UI-Automation framework to use. UIA2 or UIA3
         ``screenshot_on_failure`` indicator to disable or enable screenshot feature.
         ``screenshot_dir`` is the directory where screenshots are saved.
 
@@ -98,7 +99,11 @@ class FlaUILibrary(DynamicCore):
         # FlaUI init
         self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         self.builtin = BuiltIn()
-        self.module = UIA3()
+        if uia == "UIA2":
+            self.module = UIA2()
+        else:
+            self.module = UIA3()
+
         self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 
         self.keyword_modules = {

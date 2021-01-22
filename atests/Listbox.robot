@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for list box keywords.
 
-Library         FlaUILibrary  screenshot_on_failure=False
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
 

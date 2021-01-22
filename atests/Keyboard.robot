@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for keyboard keywords.
 
-Library         FlaUILibrary  screenshot_on_failure=False
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
 

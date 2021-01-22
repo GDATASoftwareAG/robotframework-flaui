@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Test suite for debug keywords.
 
-Library         FlaUILibrary
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
 
@@ -18,3 +18,7 @@ Get Childs From Element
     Should Contain  ${CHILDS}  ------> AutomationId:TitleBar, Name:
     Should Contain X Times  ${CHILDS}  ------>  4
     Should Contain X Times  ${CHILDS}  AutomationId  5
+
+Get UIA Identifier
+   ${IDENTIFIER}  Get Uia Identifier
+   Should Be Equal  ${IDENTIFIER}  ${UIA}

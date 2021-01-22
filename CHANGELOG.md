@@ -8,8 +8,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
 ### Added
+-    Support for UIA2 Windows Automation Interface
 
 ### Changed
+
+-   Get Element usage retries now automatic for one seconds if element will show up
+    - Use case if a new window is open xpath usage will be too early to access element.
+
 
 -   Renamed flaui wrapper modules
     - ListView to Grid
