@@ -17,3 +17,4 @@ title: G DATA CyberDefense AG
 | 1.3.2        | 3.2.0              | [HTML](./keywords/1.3.2/1.3.2.html) | [XML](./keywords/1.3.2/1.3.2.xml) |
 | 1.3.3        | 3.2.0              | [HTML](./keywords/1.3.3/1.3.3.html) | [XML](./keywords/1.3.3/1.3.3.xml) |
 | 1.3.4        | 3.2.0              | [HTML](./keywords/1.3.4/1.3.4.html) | [XML](./keywords/1.3.4/1.3.4.xml) |
+| 1.3.5        | 3.2.0              | [HTML](./keywords/1.3.5/1.3.5.html) | [XML](./keywords/1.3.5/1.3.5.xml) |
