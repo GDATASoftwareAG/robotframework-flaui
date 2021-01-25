@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.3.5] [1.3.5][1.3.4-1.3.5] - 2021-01-25
+
 ### Added
 -    Support for UIA2 Windows Automation Interface
 
@@ -88,11 +90,18 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.3.4...master
+[unreleased]: ../../compare/1.3.5...master
+
+[1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.5
+[1.3.4-1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.4...1.3.5
+
 [1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.4
 [1.3.3-1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.3...1.3.4
+
 [1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.3
 [1.3.2-1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.2...1.3.3
+
 [1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.2
 [1.3.1-1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.1...1.3.2
+
 [1.3.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.1
