@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.3.6] [1.3.6][1.3.5-1.3.6] - 2021-02-02
+
+### Updated
+-    Robotframework 3.2.2 support
+
 ## [Release][1.3.5] [1.3.5][1.3.4-1.3.5] - 2021-01-25
 
 ### Added
@@ -90,7 +95,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.3.5...master
+[unreleased]: ../../compare/1.3.6...master
+
+[1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.6
+[1.3.5-1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.5...1.3.6
 
 [1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.5
 [1.3.4-1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.4...1.3.5
