@@ -15,7 +15,7 @@
 | | |
 |---| --- |
 | License  | ![][license]  |
-| Python Builds (x86) | ![][py37x86] ![][py38x86] ![][py39x64]  |
+| Python Builds (x86) | ![][py37x86] ![][py38x86] ![][py39x86]  |
 | Python Builds (x64) | ![][py37x64] ![][py38x64] ![][py39x64]  |
 | Tests    | [![][tests]][tests_url] |
 | PyPi     | [![][pypi]][pypi_url] |
