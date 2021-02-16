@@ -9,6 +9,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 -    New keyword implement 'Select Listbox By Name'
+-    Robotframework 4.0 support
 
 ## [Release][1.4] [1.4][1.3.6-1.4] - 2021-02-06
 
