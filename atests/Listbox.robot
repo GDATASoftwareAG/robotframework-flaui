@@ -28,9 +28,21 @@ Listbox Should Contain Item Not Exist
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}  No Such Item
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Should Contain  ${XPATH_LISTBOX}  No Such Item
 
+Select Listbox Item By Name
+    Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #2
+    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
+    Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #1
+    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #1
+
+Select Listbox Item By Name Wrong Element
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}  ListBox Item #999
+    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #999
+
 Select Listbox Item By Index
     Select Listbox Item By Index  ${XPATH_LISTBOX}  1
     Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
+    Select Listbox Item By Index  ${XPATH_LISTBOX}  0
+    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #1
 
 Select Listbox Item By Index Negative Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_LISTBOX}

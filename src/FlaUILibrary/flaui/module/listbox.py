@@ -1,4 +1,5 @@
 from enum import Enum
+from System import InvalidOperationException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
 
@@ -12,6 +13,7 @@ class ListBox(ModuleInterface):
     class Action(Enum):
         """Supported actions for execute action implementation."""
         SELECT_ITEM_BY_INDEX = "SELECT_ITEM_BY_INDEX"
+        SELECT_ITEM_BY_NAME = "SELECT_ITEM_BY_NAME"
         SHOULD_CONTAIN = "SHOULD_CONTAIN"
         GET_ITEMS_COUNT = "GET_ITEMS_COUNT"
         GET_ALL_NAMES_FROM_SELECTION = "GET_ALL_NAMES_FROM_SELECTION"
@@ -25,6 +27,10 @@ class ListBox(ModuleInterface):
 
           *  Action.SELECT_ITEM_BY_INDEX
             * values (Array): [Element, Number]
+            * Returns : None
+
+          *  Action.SELECT_ITEM_BY_NAME
+            * values (Array): [Element, String]
             * Returns : None
 
           *  Action.SHOULD_CONTAIN
@@ -57,6 +63,8 @@ class ListBox(ModuleInterface):
         switcher = {
             self.Action.SELECT_ITEM_BY_INDEX:
                 lambda: ListBox._select_by_index(values[0], values[1]),
+            self.Action.SELECT_ITEM_BY_NAME:
+                lambda: ListBox._select_by_name(values[0], values[1]),
             self.Action.SHOULD_CONTAIN:
                 lambda: ListBox._should_contain(values[0], values[1]),
             self.Action.GET_ITEMS_COUNT:
@@ -109,6 +117,22 @@ class ListBox(ModuleInterface):
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
             raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
+
+    @staticmethod
+    def _select_by_name(element, name):
+        """Try to select element from given name.
+
+        Args:
+            element (Object): List control UI object.
+            name    (String): Name from item to select
+
+        Raises:
+            FlaUiError: If value can not be found by element.
+        """
+        try:
+            element.Select(name)
+        except InvalidOperationException:
+            raise FlaUiError(FlaUiError.ElementNameNotFound.format(name)) from None
 
     @staticmethod
     def _should_have_selected_item(control, item):

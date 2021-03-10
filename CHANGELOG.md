@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+-    New keyword implement 'Select Listbox By Name'
+
 ## [Release][1.4] [1.4][1.3.6-1.4] - 2021-02-06
 
 ### Updated

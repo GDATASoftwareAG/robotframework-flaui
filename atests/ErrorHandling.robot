@@ -49,6 +49,7 @@ Press Keys                        Press Keys  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${
 Right Click                       Right Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Select Combobox Item By Index     Select Combobox Item By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  -2000
 Select Listbox Item By Index      Select Listbox Item By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  0
+Select Listbox Item By Name       Select Listbox Item By Name   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Select Grid Row By Index          Select Grid Row By Index  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2
 Select Grid Row By Name           Select Grid Row By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2  Simple item 1
 Select Tab Item By Name           Select Tab Item By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Other Controls
