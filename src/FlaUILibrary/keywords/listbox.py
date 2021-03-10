@@ -39,7 +39,7 @@ class ListBoxKeywords:
 
     @keyword
     def select_listbox_item_by_index(self, identifier, index, msg=None):
-        """Selects item from combobox with given index number
+        """Selects item from listbox with given index number
 
         XPath syntax is explained in `XPath locator`.
 
@@ -58,6 +58,29 @@ class ListBoxKeywords:
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
         self._module.action(ListBox.Action.SELECT_ITEM_BY_INDEX,
                             [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), index],
+                            msg)
+
+    @keyword
+    def select_listbox_item_by_name(self, identifier, name, msg=None):
+        """Selects item from listbox by name.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | name       | string | name from item                |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Select Listbox Item By Name  <XPATH>  <NAME>      |
+
+        """
+        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        self._module.action(ListBox.Action.SELECT_ITEM_BY_NAME,
+                            [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), name],
                             msg)
 
     @keyword

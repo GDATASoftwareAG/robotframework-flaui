@@ -10,6 +10,7 @@ class FlaUiError(AttributeError):
     ApplicationPidNotFound = "Application with pid {} could not be found"
     ApplicationNameNotFound = "Application with name '{}' could not be found"
     NoElementAttached = "No element attached"
+    ElementNameNotFound = "Name '{}' could not be found in element"
     ElementNameNotEquals = "Name from element '{}' is not equals to '{}'"
     ElementNameDoesNotContainsFromValue = "Name from element '{}' does not contains to '{}'"
     ElementNotClickable = "Element position could not be found because it is hidden."
