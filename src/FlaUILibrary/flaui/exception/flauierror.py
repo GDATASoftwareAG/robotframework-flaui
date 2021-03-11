@@ -15,7 +15,6 @@ class FlaUiError(AttributeError):
     ElementNameDoesNotContainsFromValue = "Name from element '{}' does not contains to '{}'"
     ElementNotClickable = "Element position could not be found because it is hidden."
     ActionNotSupported = "Action not supported"
-    ElementDoesNotExistsAnymore = "Element does not exists"
     ElementExists = "Element '{}' exists"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"

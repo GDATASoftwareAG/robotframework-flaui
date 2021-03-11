@@ -14,7 +14,6 @@ ${EXP_ERR_MSG_APP_NOT_ATTACHED}                 FlaUiError: Application is not a
 ${EXP_ERR_MSG_NAME_DOES_NOT_CONTAIN}            FlaUiError: Name from element '{0}' does not contains to '{1}'
 ${EXP_ERR_MSG_NAME_NOT_EQUALS}                  FlaUiError: Name from element '{0}' is not equals to '{1}'
 ${EXP_ERR_MSG_WRONG_ELEMENT_TYPE}               FlaUiError: '{0}' could not be cast as '{1}'
-${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}          FlaUiError: Element does not exists
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_VISIBLE}                  FlaUiError: Element '{0}' is visible
 ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}              FlaUiError: Element '{0}' is not visible

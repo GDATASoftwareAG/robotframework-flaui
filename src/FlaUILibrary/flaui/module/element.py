@@ -1,7 +1,6 @@
 import time
 from enum import Enum
 from System import Exception as CSharpException  # pylint: disable=import-error
-from System.Runtime.InteropServices import COMException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
 
@@ -172,8 +171,6 @@ class Element(ModuleInterface):
 
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
-        except COMException:
-            raise FlaUiError(FlaUiError.ElementDoesNotExistsAnymore) from None
         except CSharpException:
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath)) from None
 
