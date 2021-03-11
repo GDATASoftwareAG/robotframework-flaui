@@ -7,21 +7,32 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.5] [1.5][1.4-1.5] - 2021-03-11
+
+----
+
 ### Added
--    New keyword implement 'Select Listbox By Name'
+-    New keyword 'Select Listbox By Name' implemented
 -    Robotframework 4.0 support
 
 ## [Release][1.4] [1.4][1.3.6-1.4] - 2021-02-06
+
+----
 
 ### Updated
 -    Python 3.9 support
 
 ## [Release][1.3.6] [1.3.6][1.3.5-1.3.6] - 2021-02-02
 
+----
+
 ### Updated
 -    Robotframework 3.2.2 support
 
 ## [Release][1.3.5] [1.3.5][1.3.4-1.3.5] - 2021-01-25
+
+----
+
 
 ### Added
 -    Support for UIA2 Windows Automation Interface
@@ -54,6 +65,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Release][1.3.4] [1.3.4][1.3.3-1.3.4] - 2020-06-23
 
+----
+
+
 General bugfixing from keywords and improvements from artifact building and testing
 
 ### Changed
@@ -66,6 +80,8 @@ General bugfixing from keywords and improvements from artifact building and test
  -  Distribution which always forces a binary package with platform name
 
 ## [Release][1.3.3] [1.3.3][1.3.2-1.3.3] - 2020-08-24
+
+----
 
 Upgrade from Pythonet dependency to support Python 3.8.
 
@@ -89,6 +105,8 @@ Small upgrade to latest FlaUI release.
 
 ## [Release][1.3.1] 1.3.1 - 2020-06-20
 
+----
+
 First release from wrapper library Robotframework-FlaUI
 
 ### Added
@@ -104,7 +122,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.4...master
+[unreleased]: ../../compare/1.5...master
+
+[1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.5
+[1.4-1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.4...1.5
 
 [1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.4
 [1.3.6-1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.6...1.4
