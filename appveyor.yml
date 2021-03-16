@@ -54,7 +54,9 @@ artifacts:
 - path: result/
   name: results
 - path: dist/*.whl
-  name: wheels
+  name: wheel
+- path: dist/*.tar.gz
+  name: source
 - path: keywords/keywords.html
   name: keywords.html
 - path: keywords/keywords.xml
@@ -65,6 +67,8 @@ deploy_script:
         Write-Output ("Deploying " + $env:APPVEYOR_REPO_TAG_NAME + " to PyPI...")
 
         python -m twine upload -u ${Env:USER} -p ${Env:PASS} --skip-existing dist/*.whl
+
+        python -m twine upload -u ${Env:USER} -p ${Env:PASS} --skip-existing dist/*.tar.gz
 
       } else {
         Write-Output "No tag for deployment"

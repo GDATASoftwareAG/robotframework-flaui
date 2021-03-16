@@ -17,7 +17,7 @@ EXIT /B %ERRORLEVEL%
 :build
     call:cleanup
     call:dependency
-    call python setup.py bdist_wheel
+    call python setup.py sdist bdist_wheel
     call python libdoc.py
 EXIT /B %ERRORLEVEL%
 
