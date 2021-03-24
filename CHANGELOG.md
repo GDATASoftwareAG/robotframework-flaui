@@ -8,7 +8,22 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
 ### Added
--    New Keyword 'Launch Application With Args' implemented
+-    New Keyword 'Launch Application With Args'
+-    New set of keywords for Tree:
+    - Get Selected TreeItems Name
+    - Get Root TreeItems Count
+    - Get All Visible TreeItems Count
+    - Get All Visible TreeItems Names
+    - Tree Should Contain
+    - Select Visible TreeItem By Name
+    - Select TreeItem
+    - Selected TreeItem Should Be
+    - Collapse All TreeItems
+    - Expand All TreeItems
+    - Expand TreeItem
+    - Collapse TreeItem
+    - TreeItem Should Be Visible
+
 
 ## [Release][1.5.1] [1.5.1][1.5-1.5.1] - 2021-04-09
 

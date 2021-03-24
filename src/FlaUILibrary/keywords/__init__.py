@@ -11,4 +11,5 @@ from .window import WindowKeywords
 from .grid import GridKeywords
 from .radiobutton import RadioButtonKeywords
 from .listbox import ListBoxKeywords
+from .tree import TreeKeywords
 from .tab import TabKeywords

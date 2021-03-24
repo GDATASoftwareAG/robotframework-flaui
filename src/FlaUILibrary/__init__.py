@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
-from FlaUILibrary import version, clr
+from FlaUILibrary import version, pythonnetwrapper
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,
@@ -15,6 +15,7 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    GridKeywords,
                                    RadioButtonKeywords,
                                    ListBoxKeywords,
+                                   TreeKeywords,
                                    TabKeywords)
 from FlaUILibrary.robotframework import DynamicCore, robotlog
 from FlaUILibrary.flaui import (UIA2, UIA3)
@@ -83,6 +84,7 @@ class FlaUILibrary(DynamicCore):
         WINDOW = "Window"
         RADIOBUTTON = "Radiobutton"
         LISTBOX = "Listbox"
+        TREE = "Tree"
         TAB = "Tab"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None):
@@ -120,6 +122,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.module),
             FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.module),
             FlaUILibrary.KeywordModules.LISTBOX: ListBoxKeywords(self.module),
+            FlaUILibrary.KeywordModules.TREE: TreeKeywords(self.module),
             FlaUILibrary.KeywordModules.TAB: TabKeywords(self.module),
         }
 

@@ -18,15 +18,18 @@ class FlaUiError(AttributeError):
     ElementExists = "Element '{}' exists"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"
+    ElementNotExpandable = "Element '{}' is not expandable"
     NoWindowWithNameFound = "No window with name '{}' found"
     WindowCloseNotSupported = "Close operation only supported for window elements"
     WrongElementType = "'{}' could not be cast as '{}'"
     XPathNotFound = "Element from XPath '{}' could not be found"
     ControlDoesNotContainItem = "Control does not contain item '{}'"
     ItemNotSelected = "Item '{}' is not selected"
+    NoItemSelected = "No Item is selected"
     KeyboardInvalidKeysCombination = "Keyboard keys combination {} is not valid"
     KeyboardExtractionFailed = "Can't extract value from input"
     ListviewItemNotFound = "Item name '{}' could not be found in column with index '{}'"
+    FalseSyntax = "Incorrect syntax usage '{}'"
 
     @staticmethod
     def raise_fla_ui_error(message):

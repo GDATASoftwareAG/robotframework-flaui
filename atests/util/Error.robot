@@ -17,7 +17,10 @@ ${EXP_ERR_MSG_WRONG_ELEMENT_TYPE}               FlaUiError: '{0}' could not be c
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_VISIBLE}                  FlaUiError: Element '{0}' is visible
 ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}              FlaUiError: Element '{0}' is not visible
+${EXP_ERR_MSG_ELEMENT_NOT_EXPANDABLE}           FlaUiError: Element '{0}' is not expandable
 ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    FlaUiError: Control does not contain item '{0}'
 ${EXP_ERR_MSG_ITEM_NOT_SELECTED}                FlaUiError: Item '{0}' is not selected
 ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}          FlaUiError: Item name '{0}' could not be found in column with index '{1}'
 ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}           FlaUiError: Name '{0}' could not be found in element
+${EXP_ERR_MSG_NO_ITEM_SELECTED}                 FlaUiError: No Item is selected
+${EXP_ERR_MSG_FALSESYNTAX}                      FlaUiError: Incorrect syntax usage '{0}'
