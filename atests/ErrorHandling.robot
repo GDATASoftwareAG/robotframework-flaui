@@ -37,8 +37,11 @@ Get Selected Items From Combobox  Get Selected Items From Combobox  ${EXP_ERR_MS
 Get Selected Grid Rows            Get Selected Grid Rows  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Tab Items Names               Get Tab Items Names  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Text From Textbox             Get Text From Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Root TreeItems Count          Get Root TreeItems Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Selected Treeitems Name       Get Selected Treeitems Name   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Enabled                Is Element Enabled  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Visible                Is Element Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+TreeItem Should Be Visible        TreeItem Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Launch Application                Launch Application  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}
 Launch Application With Args      Launch Application With Args  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}  ARGS
 Listbox Selection Should Be       Listbox Selection Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
@@ -55,6 +58,7 @@ Select Grid Row By Index          Select Grid Row By Index  ${EXP_ERR_MSG_XPATH_
 Select Grid Row By Name           Select Grid Row By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  2  Simple item 1
 Select Tab Item By Name           Select Tab Item By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Other Controls
 Select Radiobutton                Select Radiobutton  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Select TreeItem                   Select TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Set Checkbox State                Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox               Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
 Wait Until Element Is Hidden      Wait Until Element Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  10

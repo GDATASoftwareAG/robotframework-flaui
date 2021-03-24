@@ -157,7 +157,7 @@ class ElementKeywords:
         | msg        | string | Custom error message          |
 
         Example:
-        |${IS_VISIBLE}  Is Element Visible  <XPATH> |
+        | ${IS_VISIBLE}  Is Element Visible  <XPATH> |
 
         """
         return not self._module.action(Element.Action.IS_ELEMENT_VISIBLE, identifier, msg)
@@ -176,7 +176,7 @@ class ElementKeywords:
         | msg        | string | Custom error message          |
 
         Example:
-        |Element Should Be Visible  <XPATH> |
+        | Element Should Be Visible  <XPATH> |
 
         """
         self._module.action(Element.Action.ELEMENT_SHOULD_BE_VISIBLE, identifier, msg)
@@ -196,7 +196,7 @@ class ElementKeywords:
         | msg        | string | Custom error message          |
 
         Example:
-        |Element Should Not Be Visible  <XPATH> |
+        | Element Should Not Be Visible  <XPATH> |
 
         """
         self._module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE, identifier, msg)

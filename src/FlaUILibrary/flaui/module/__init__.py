@@ -4,6 +4,7 @@ from .element import Element
 from .grid import Grid
 from .keyboard import Keyboard
 from .listbox import ListBox
+from .tree import Tree
 from .mouse import Mouse
 from .screenshot import Screenshot
 from .tab import Tab

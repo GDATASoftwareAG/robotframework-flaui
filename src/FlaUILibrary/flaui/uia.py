@@ -7,6 +7,7 @@ from FlaUILibrary.flaui.module import (Application,
                                        Grid,
                                        ToggleButton,
                                        ListBox,
+                                       Tree,
                                        Mouse,
                                        Keyboard,
                                        Textbox,
@@ -52,7 +53,7 @@ class UIA(WindowsAutomationInterface):
             automation (Object)       : Windows user automation object.
         """
         modules = [Application(automation), Debug(), Element(automation), Keyboard(), ListBox(),
-                   Grid(), Mouse(), Textbox(), ToggleButton(), Tab(), Window(automation)]
+                   Tree(), Grid(), Mouse(), Textbox(), ToggleButton(), Tab(), Window(automation)]
 
         for module in modules:
             for value in module.Action:
@@ -78,6 +79,7 @@ class UIA(WindowsAutomationInterface):
                                         "type": "Radiobutton"},
             InterfaceType.LISTBOX: {"cast": lambda: AutomationElementExtensions.AsListBox(element), "type": "Listbox"},
             InterfaceType.TAB: {"cast": lambda: AutomationElementExtensions.AsTab(element), "type": "Tab"},
+            InterfaceType.TREE: {"cast": lambda: AutomationElementExtensions.AsTree(element), "type": "Tree"},
         }
 
         dic = switcher.get(ui_type, {"cast": lambda: InterfaceType.INVALID, "type": "Unknown"})

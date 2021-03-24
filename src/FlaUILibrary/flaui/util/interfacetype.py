@@ -12,3 +12,4 @@ class InterfaceType(Enum):
     RADIOBUTTON = 6
     LISTBOX = 7
     TAB = 8
+    TREE = 9
