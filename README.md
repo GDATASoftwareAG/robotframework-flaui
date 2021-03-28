@@ -33,6 +33,24 @@ Install the latest stable release:
 pip install --upgrade robotframework-flaui
 ```
 
+## Dependencies and python support
+
+The robot framework FlaUI is supposed to support the current Python 3 versions.
+
+### Required dependencies
+
+| Dependency     | Min           | Max   |
+| -------------  |:-------------:| -----:|
+| [Robotframework](https://github.com/robotframework/robotframework) | 3.0.4         | 4.0   |
+| [Python.Net](https://github.com/pythonnet/pythonnet)      | 2.5.2         | 2.5.2 |
+
+### Additonal information about Python.Net
+
+* With the release of Python.Net version 2.5.2, Python 3.9 support was implemented for the first time.
+* However, no official support for Python 3.9 has been released yet.
+  * For more information see the issue [#1389](https://github.com/pythonnet/pythonnet/issues/1389)
+* If there are problems installing the Python.Net library, please use Python 3.8 instead.
+
 ## Documentation
 
 *  [Keyword documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
@@ -70,7 +88,9 @@ Examples of use can be found in the atests folder.
 
 * Install [Python](https://www.python.org/downloads), if not already installed. 
 * Only Python 3 is supported.
-* To install Robot Framework and Python for .NET, run
+* Install Robotframework and Python.Net
+
+#### Dependency installation by Keen.bat
 
 ```
 .\keen.bat dependency
