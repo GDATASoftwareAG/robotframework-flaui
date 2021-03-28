@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Updated
+-    Keyboard documentation improved by list usage example
+
 ## [Release][1.5] [1.5][1.4-1.5] - 2021-03-11
 
 ----

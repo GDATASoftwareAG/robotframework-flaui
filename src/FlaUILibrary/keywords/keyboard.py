@@ -81,9 +81,13 @@ class KeyboardKeywords:
         | DECIMAL     |                                                 |
         | DIVIDE      |                                                 |
 
-        Example:
-        | Press Keys  t'Example text'  s'CTRL+A'  s'CTRL+C'  ${textbox_xpath} |
-        | Press Keys  s'CTRL+A'  t'Overwrite text'                            |
+        Example:,
+        | ***** Variables *****                                                 |
+        | @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                 |
+        |                                                                       |
+        | ***** Test Cases *****                                                |
+        | ...Keyboard usage in Test Case...                                     |
+        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT} |
         """
         if identifier is not None:
             self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
