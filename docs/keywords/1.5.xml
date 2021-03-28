@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<keywordspec name="FlaUILibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" generated="2021-03-11T21:01:06Z" specversion="3" source="C:\projects\robotframework-flaui\src\FlaUILibrary\__init__.py" lineno="25">
+<keywordspec name="FlaUILibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" generated="2021-03-28T17:54:18Z" specversion="3" source="F:\Projects\Github\robotframework-flaui\src\FlaUILibrary\__init__.py" lineno="25">
 <version>1.5</version>
 <doc>FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
@@ -971,9 +971,13 @@ The following keys are supported for usage as a part of key_combination:
 | DECIMAL     |                                                 |
 | DIVIDE      |                                                 |
 
-Example:
-| Press Keys  t'Example text'  s'CTRL+A'  s'CTRL+C'  ${textbox_xpath} |
-| Press Keys  s'CTRL+A'  t'Overwrite text'                            |</doc>
+Example:,
+| ***** Variables *****                                                 |
+| @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                 |
+|                                                                       |
+| ***** Test Cases *****                                                |
+| ...Keyboard usage in Test Case...                                     |
+| Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT} |</doc>
 <shortdoc>Keyboard control to execute a user defined sequence of shortcuts and text values. If identifier set try to attach to given element if operation was successfully old element will be reattached automatically.</shortdoc>
 </kw>
 <kw name="Right Click">
