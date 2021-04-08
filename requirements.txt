@@ -1,2 +1,2 @@
-robotframework>=3.0.4,<=4.0
+robotframework>=3.0.4,<=4.0.1
 pythonnet==2.5.2

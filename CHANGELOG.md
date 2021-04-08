@@ -9,6 +9,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Updated
 -    Keyboard documentation improved by list usage example
+-    Robotframework 4.0.1 support
 
 ## [Release][1.5] [1.5][1.4-1.5] - 2021-03-11
 
