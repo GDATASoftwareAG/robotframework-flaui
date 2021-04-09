@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.5.1] [1.5.1][1.5-1.5.1] - 2021-04-09
+
 ### Updated
 -    Keyboard documentation improved by list usage example
 -    Robotframework 4.0.1 support
@@ -126,7 +128,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.5...master
+[unreleased]: ../../compare/1.5.1...master
+
+[1.5.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.5.1
+[1.5-1.5.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.5...1.5.1
 
 [1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.5
 [1.4-1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.4...1.5
