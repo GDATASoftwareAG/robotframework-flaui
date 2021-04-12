@@ -40,6 +40,7 @@ Get Text From Textbox             Get Text From Textbox  ${EXP_ERR_MSG_XPATH_NOT
 Is Element Enabled                Is Element Enabled  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Visible                Is Element Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Launch Application                Launch Application  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}
+Launch Application With Args      Launch Application With Args  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}  ARGS
 Listbox Selection Should Be       Listbox Selection Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Listbox Should Contain            Listbox Should Contain  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Move To                           Move To  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

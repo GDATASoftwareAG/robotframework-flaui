@@ -16,6 +16,7 @@ class Application(ModuleInterface):
         ATTACH_APPLICATION_BY_NAME = "ATTACH_APPLICATION_BY_NAME"
         ATTACH_APPLICATION_BY_PID = "ATTACH_APPLICATION_BY_PID"
         LAUNCH_APPLICATION = "LAUNCH_APPLICATION"
+        LAUNCH_APPLICATION_WITH_ARGS = "LAUNCH_APPLICATION_WITH_ARGS"
         EXIT_APPLICATION = "EXIT_APPLICATION"
         GET_MAIN_WINDOW_FROM_APPLICATION = "GET_MAIN_WINDOW_FROM_APPLICATION"
 
@@ -42,7 +43,13 @@ class Application(ModuleInterface):
             * Returns : None
 
           *  Action.LAUNCH_APPLICATION
-            * Values (String) : Process name to start for example outlook.exe
+            * Values (Array) : Process name to start for example outlook.exe
+            * Returns : PID from launched process.
+
+          *  Action.LAUNCH_APPLICATION_WITH_ARGS
+            * Values (Array) : [@PROCESS_NAME, @ARGUMENTS]
+            * Process name to start for example outlook.exe
+            * Additional arguments for process for example outlook.exe Hello World
             * Returns : PID from launched process.
 
           *  Action.EXIT_APPLICATION
@@ -65,7 +72,8 @@ class Application(ModuleInterface):
         switcher = {
             self.Action.ATTACH_APPLICATION_BY_NAME: lambda: self._attach_application_by_name(values),
             self.Action.ATTACH_APPLICATION_BY_PID: lambda: self._attach_application_by_pid(values),
-            self.Action.LAUNCH_APPLICATION: lambda: self._launch_application(values),
+            self.Action.LAUNCH_APPLICATION: lambda: self._launch_application(values,),
+            self.Action.LAUNCH_APPLICATION_WITH_ARGS: lambda: self._launch_application_with_args(values[0], values[1]),
             self.Action.EXIT_APPLICATION: lambda: self._exit_application(),
             self.Action.GET_MAIN_WINDOW_FROM_APPLICATION: lambda: self._get_main_window_from_application()
         }
@@ -114,6 +122,25 @@ class Application(ModuleInterface):
         """
         try:
             self._application = FlaUI.Core.Application.Launch(application)
+            return self._application.ProcessId
+        except Win32Exception:
+            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
+
+    def _launch_application_with_args(self, application, arguments):
+        """Launch an application with given arguments.
+
+        Args:
+            application (string): Name from application to start for example outlook.
+            arguments (string): Arguments to launch application.
+
+        Raises:
+            FlaUiError: If application could not be found.
+
+        Return:
+            Process id from launched application if successfully
+        """
+        try:
+            self._application = FlaUI.Core.Application.Launch(application, arguments)
             return self._application.ProcessId
         except Win32Exception:
             raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None

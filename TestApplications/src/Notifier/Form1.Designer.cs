@@ -1,6 +1,6 @@
 ﻿namespace NotifierTest
 {
-    partial class Notifier
+    sealed partial class Notifier
     {
         /// <summary>
         /// Required designer variable.

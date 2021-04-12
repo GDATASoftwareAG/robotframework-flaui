@@ -28,3 +28,10 @@ Launch Application
     [Teardown]  Stop Application
     ${PID}  Launch Application  ${TEST_APP}
     Should Not Be Equal As Integers  ${PID}  0
+
+Launch Application With Arguments
+    [Teardown]  Stop Application
+    ${PID}  Launch Application With Args  ${TEST_APP_NOTIFIER}  Hello- World
+    Should Not Be Equal As Integers  ${PID}  0
+    Name Contains Text  Hello-World   /Window[@Name='Hello-World']
+

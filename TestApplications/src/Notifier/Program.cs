@@ -12,11 +12,20 @@ namespace NotifierTest
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Notifier());
+            if(args.Length > 1)
+            {
+                var title = args.Aggregate("", (current, arg) => current + arg);
+                Application.Run(new Notifier(title, true));
+            }
+            else
+            {
+                Application.Run(new Notifier());
+            }
+            
         }
     }
 }
