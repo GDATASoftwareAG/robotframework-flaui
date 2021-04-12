@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+-    New Keyword 'Launch Application With Args' implemented
+
 ## [Release][1.5.1] [1.5.1][1.5-1.5.1] - 2021-04-09
 
 ### Updated

@@ -80,10 +80,31 @@ class ApplicationKeywords:
         | msg         | string | Custom error message                               |
 
         Examples:
-        | Launch Application  <APPLICATION> |
+        | Launch Application  <APPLICATION>  <ARGUMENTS> |
 
         Returns:
         | Process id from started process if successfully |
 
         """
         return self._module.action(Application.Action.LAUNCH_APPLICATION, application, msg)
+
+    @keyword
+    def launch_application_with_args(self, application, arguments, msg=None):
+        """Launches an application with given arguments.
+
+        If application could not be found an error message will be thrown.
+
+        Arguments:
+        | Argument    | Type   | Description                                        |
+        | application | string | Relative or absolute path to executable to launch  |
+        | arguments   | string | Arguments for application to start                 |
+        | msg         | string | Custom error message                               |
+
+        Examples:
+        | Launch Application  <APPLICATION>  <ARGUMENTS> |
+
+        Returns:
+        | Process id from started process if successfully |
+
+        """
+        return self._module.action(Application.Action.LAUNCH_APPLICATION_WITH_ARGS, [application, arguments], msg)
