@@ -25,14 +25,16 @@ class Element(ModuleInterface):
         ELEMENT_SHOULD_NOT_BE_VISIBLE = "ELEMENT_SHOULD_NOT_BE_VISIBLE"
         WAIT_UNTIL_ELEMENT_IS_HIDDEN = "WAIT_UNTIL_ELEMENT_IS_HIDDEN"
 
-    def __init__(self, automation):
+    def __init__(self, automation, timeout=1000):
         """Element module wrapper for FlaUI usage.
 
         Args:
-            automation (Object): UIA3 automation object from FlaUI.
+            automation (Object): UIA3/UIA2 automation object from FlaUI.
+            timeout (Integer): Timeout handler for element wait if not found.
         """
         self._element = None
         self._automation = automation
+        self._timeout = timeout
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -161,12 +163,15 @@ class Element(ModuleInterface):
         """
         try:
             retry = 0
-            while retry < 10:
+            max_retry = 10
+            timeout = self._timeout / (1000 * max_retry)
+
+            while retry < max_retry:
                 desktop = self._automation.GetDesktop()
                 component = desktop.FindFirstByXPath(xpath)
                 if component:
                     return component
-                time.sleep(100 / 1000)
+                time.sleep(timeout)
                 retry = retry + 1
 
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
