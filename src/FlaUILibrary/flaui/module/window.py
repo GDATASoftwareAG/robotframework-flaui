@@ -18,7 +18,7 @@ class Window(ModuleInterface):
         """Window module wrapper for FlaUI usage.
 
         Args:
-            automation (Object): UIA3 automation object from FlaUI.
+            automation (Object): UIA3/UIA2 automation object from FlaUI.
         """
         self._automation = automation
 

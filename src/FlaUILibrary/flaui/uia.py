@@ -19,9 +19,13 @@ from FlaUILibrary.flaui.module import (Application,
 class UIA(WindowsAutomationInterface):
     """Generic window automation module for a centralized communication handling between robot keywords and flaui. """
 
-    def __init__(self):
-        """Creates default UIA window automation module. """
+    def __init__(self, timeout=1000):
+        """
+        Creates default UIA window automation module.
+        ``timeout`` is the default waiting value to repeat element find action. Default value is 1000ms.
+        """
         self._actions = {}
+        self._timeout = timeout
 
     # pylint: disable=arguments-differ
     def action(self, action, values=None, msg=None):
@@ -52,8 +56,8 @@ class UIA(WindowsAutomationInterface):
         Args:
             automation (Object)       : Windows user automation object.
         """
-        modules = [Application(automation), Debug(), Element(automation), Keyboard(), ListBox(),
-                   Tree(), Grid(), Mouse(), Textbox(), ToggleButton(), Tab(), Window(automation)]
+        modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), ListBox(),
+                   Grid(), Mouse(), Textbox(), Tree(), ToggleButton(), Tab(), Window(automation)]
 
         for module in modules:
             for value in module.Action:

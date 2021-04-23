@@ -87,12 +87,13 @@ class FlaUILibrary(DynamicCore):
         TREE = "Tree"
         TAB = "Tab"
 
-    def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None):
+    def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
         """FlaUiLibrary can be imported by following optional arguments:
 
         ``uia`` Microsoft UI-Automation framework to use. UIA2 or UIA3
         ``screenshot_on_failure`` indicator to disable or enable screenshot feature.
         ``screenshot_dir`` is the directory where screenshots are saved.
+        ``timeout`` maximum amount of waiting time in ms for an element find action. Default value is 1000ms.
 
         If the given directory does not already exist, it will be created when the first screenshot is taken.
         If the argument is not given, the default location for screenshots is the output directory of the Robot run,
@@ -101,10 +102,19 @@ class FlaUILibrary(DynamicCore):
         # FlaUI init
         self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         self.builtin = BuiltIn()
+
+        try:
+            if timeout == "None":
+                timeout = 0
+            elif int(timeout) < 0:
+                timeout = 0
+        except ValueError:
+            timeout = 1000
+
         if uia == "UIA2":
-            self.module = UIA2()
+            self.module = UIA2(timeout)
         else:
-            self.module = UIA3()
+            self.module = UIA3(timeout)
 
         self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 

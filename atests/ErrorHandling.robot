@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation   Error handling test suite for all common flaui keywords.
 
-Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False  timeout=None
 Library         StringFormat
 
 Resource        util/Error.robot

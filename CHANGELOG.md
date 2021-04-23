@@ -9,6 +9,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 -    New Keyword 'Launch Application With Args'
+-    Timeout handler implemented for FlaUI Library
 -    New set of keywords for Tree:
     - Get Selected TreeItems Name
     - Get Root TreeItems Count
