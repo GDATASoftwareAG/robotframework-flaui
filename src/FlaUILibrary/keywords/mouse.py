@@ -97,3 +97,26 @@ class MouseKeywords:
         self._module.action(Mouse.Action.MOVE_TO,
                             self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
                             msg)
+
+    @keyword
+    def drag_and_drop(self, start_identifier, end_identifier, msg=None):
+        """clicks and hold the item with start_identifier and drops it at item with end_identifier.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument    | Type   | Description                   |
+        | start_identifier | string | XPath identifier of element which should be holded and draged from|
+        | end_identifier | string | XPath identifier of element which should be holded and draged to|
+        | msg         | string | Custom error message          |
+
+        Examples:
+        | Drag And Drop  <XPATH1>  <XPATH2> |
+
+        """
+        self._module.action(Mouse.Action.DRAG_AND_DROP,
+                            [self._module.action(Element.Action.GET_ELEMENT, start_identifier, msg),
+                             self._module.action(Element.Action.GET_ELEMENT, end_identifier, msg)],
+                            msg)
