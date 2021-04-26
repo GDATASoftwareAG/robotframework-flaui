@@ -23,7 +23,7 @@ layout: default
 | Thumb        | Not supported      |
 | TitleBar     | Not supported      |
 | ToggleButton | Not supported      |
-| Tree         | Not supported      |
+| Tree         | 1.6                |
 | Window       | 1.3.1              |
 
 # Input
