@@ -4,8 +4,10 @@ All notable changes to Robotframework-FlaUI will be documented in this file. Thi
 project adheres to [Semantic Versioning][].
 
 This document follows the conventions laid out in [Keep a CHANGELOG][].
-
 ## [Unreleased][]
+
+### Added
+-    New keyword 'Drag And Drop' implemented
 
 ## [Release][1.6] [1.6][1.5.1-1.6] - 2021-04-26
 

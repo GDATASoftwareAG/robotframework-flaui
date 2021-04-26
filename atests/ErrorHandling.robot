@@ -17,6 +17,8 @@ ${EXP_VALUE_INPUT_TEXT}            Type text
 Attach Application By Name        Attach Application By Name  ${EXP_ERR_MSG_APP_NAME_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Attach Application By PID         Attach Application By PID  ${EXP_ERR_MSG_PID_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Click                             Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Drag And Drop FirstElement        Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  /Window
+Drag And Drop SecondElement       Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  /Window  ${XPATH_NOT_EXISTS}
 Close Application                 Close Application  ${EXP_ERR_MSG_APP_NOT_ATTACHED}
 Close Window                      Close Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Combobox Should Contain           Combobox Should Contain  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Item 3
@@ -38,7 +40,9 @@ Get Selected Grid Rows            Get Selected Grid Rows  ${EXP_ERR_MSG_XPATH_NO
 Get Tab Items Names               Get Tab Items Names  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Text From Textbox             Get Text From Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Root TreeItems Count          Get Root TreeItems Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get All Visible TreeItems Count   Get All Visible TreeItems Count   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Selected Treeitems Name       Get Selected Treeitems Name   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get All Visible TreeItems Names   Get All Visible TreeItems Names   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Enabled                Is Element Enabled  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Visible                Is Element Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 TreeItem Should Be Visible        TreeItem Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
@@ -59,9 +63,14 @@ Select Grid Row By Name           Select Grid Row By Name  ${EXP_ERR_MSG_XPATH_N
 Select Tab Item By Name           Select Tab Item By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Other Controls
 Select Radiobutton                Select Radiobutton  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Select TreeItem                   Select TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+Select Visible TreeItem By Name   Select Visible TreeItem By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Set Checkbox State                Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox               Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
 Wait Until Element Is Hidden      Wait Until Element Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  10
+Collapse TreeItem                 Collapse TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+TreeItem Should Be Visible        TreeItem Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+Collapse All TreeItems            Collapse All TreeItems  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

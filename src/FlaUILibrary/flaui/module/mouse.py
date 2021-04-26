@@ -17,6 +17,7 @@ class Mouse(ModuleInterface):
         RIGHT_CLICK = "RIGHT_CLICK"
         DOUBLE_CLICK = "DOUBLE_CLICK"
         MOVE_TO = "MOVE_TO"
+        DRAG_AND_DROP = "DRAG_AND_DROP"
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -39,7 +40,8 @@ class Mouse(ModuleInterface):
             self.Action.LEFT_CLICK: lambda: Mouse._click(values),
             self.Action.RIGHT_CLICK: lambda: Mouse._right_click(values),
             self.Action.DOUBLE_CLICK: lambda: Mouse._double_click(values),
-            self.Action.MOVE_TO: lambda: Mouse._move_to(values)
+            self.Action.MOVE_TO: lambda: Mouse._move_to(values),
+            self.Action.DRAG_AND_DROP: lambda: Mouse._drag_and_drop(values[0], values[1])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -69,5 +71,12 @@ class Mouse(ModuleInterface):
     def _move_to(element):
         try:
             FlaUI.Core.Input.Mouse.MoveTo(element.GetClickablePoint())
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+
+    @staticmethod
+    def _drag_and_drop(element_from, element_to):
+        try:
+            FlaUI.Core.Input.Mouse.Drag(element_from.GetClickablePoint(),element_to.GetClickablePoint())
         except NoClickablePointException:
             raise FlaUiError(FlaUiError.ElementNotClickable) from None
