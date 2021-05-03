@@ -106,7 +106,7 @@ class FlaUILibrary(DynamicCore):
         try:
             if timeout == "None":
                 timeout = 0
-            elif int(timeout) < 0:
+            elif int(timeout) <= 0:
                 timeout = 0
         except ValueError:
             timeout = 1000
