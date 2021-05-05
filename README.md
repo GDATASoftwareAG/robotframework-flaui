@@ -1,13 +1,13 @@
 # Robotframework-FlaUI Library
 
 [license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
-[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x86/master?label=3.7.9&style=flat-square
-[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x64/master?label=3.7.9&style=flat-square
-[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x86/master?label=3.8.6&style=flat-square
-[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x64/master?label=3.8.6&style=flat-square
-[py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/master?label=3.9&style=flat-square
-[py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/master?label=3.9&style=flat-square
-[tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/master?style=flat-square"
+[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x86/main?label=3.7.9&style=flat-square
+[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7.9%20x64/main?label=3.7.9&style=flat-square
+[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x86/main?label=3.8.6&style=flat-square
+[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8.6%20x64/main?label=3.8.6&style=flat-square
+[py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/main?label=3.9&style=flat-square
+[py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/main?label=3.9&style=flat-square
+[tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square"
 [tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
 [pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
 [pypi_url]: https://pypi.org/pypi/robotframework-flaui
