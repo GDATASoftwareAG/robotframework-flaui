@@ -107,13 +107,13 @@ class MouseKeywords:
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument    | Type   | Description                   |
-        | start_identifier | string | XPath identifier of element which should be holded and draged from|
-        | end_identifier | string | XPath identifier of element which should be holded and draged to|
-        | msg         | string | Custom error message          |
+        | Argument         | Type   | Description                                                        |
+        | start_identifier | string | XPath identifier of element which should be holded and draged from |
+        | end_identifier   | string | XPath identifier of element which should be holded and draged to   |
+        | msg              | string | Custom error message                                               |
 
         Examples:
-        | Drag And Drop  <XPATH1>  <XPATH2> |
+        | Drag And Drop  <XPATH>  <XPATH> |
 
         """
         self._module.action(Mouse.Action.DRAG_AND_DROP,

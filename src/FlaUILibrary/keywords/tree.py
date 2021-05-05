@@ -75,9 +75,9 @@ class TreeKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | @{LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}  Create List name1  name2  name3|
-        | ${Name}  Get All Visible Tree Items Name  <XPATH>  |
-        | Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}|
+        | @{LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}  Create List name1  name2  name3 |
+        | ${Name}  Get All Visible Tree Items Name  <XPATH>                      |
+        | Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}        |
 
         """
         element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)

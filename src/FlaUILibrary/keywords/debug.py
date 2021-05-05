@@ -19,13 +19,13 @@ class DebugKeywords:
         """Gets full output from element and childs output. Information to print out are AutomationId, Name,
         ControlType and FrameworkId.
 
-        Example output ${CHILDS}  <XPATH>:
-          AutomationId:, Name:Warning, ControlType:dialog, FrameworkId:Win32
-          ------> AutomationId:, Name:Warning, ControlType:pane, FrameworkId:Win32
-          ------> AutomationId:1002, Name:, ControlType:document, FrameworkId:Win32
-          ------> AutomationId:1, Name:OK, ControlType:button, FrameworkId:Win32
-          ------> AutomationId:1009, Name:Do not display further messages, ControlType:check box, FrameworkId:Win32
-          ------> AutomationId:1011, Name:Web protection, ControlType:text, FrameworkId:Win32
+        Example output ${CHILDS}  <XPATH>
+          | AutomationId:, Name:Warning, ControlType:dialog, FrameworkId:Win32 |
+          | ------> AutomationId:, Name:Warning, ControlType:pane, FrameworkId:Win32 |
+          | ------> AutomationId:1002, Name:, ControlType:document, FrameworkId:Win32 |
+          | ------> AutomationId:1, Name:OK, ControlType:button, FrameworkId:Win32 |
+          | ------> AutomationId:1009, Name:Do not display further messages, ControlType:check box, FrameworkId:Win32 |
+          | ------> AutomationId:1011, Name:Web protection, ControlType:text, FrameworkId:Win32 |
 
         XPath syntax is explained in `XPath locator`.
 

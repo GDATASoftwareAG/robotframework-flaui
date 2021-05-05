@@ -6,8 +6,13 @@ project adheres to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
+## [Release][1.6.1] [1.6.1][1.6-1.6.1] - 2021-05-05
+
 ### Added
 -    New keyword 'Drag And Drop' implemented
+
+### Changed
+-    Allow timeout parameter configuration as None or 0
 
 ## [Release][1.6] [1.6][1.5.1-1.6] - 2021-04-26
 
@@ -134,7 +139,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.6...main
+[unreleased]: ../../compare/1.6.1...main
+
+[1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.1
+[1.6-1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6...1.6.1
 
 [1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6
 [1.5.1-1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.5.1...1.6
