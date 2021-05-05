@@ -134,7 +134,7 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.6...master
+[unreleased]: ../../compare/1.6...main
 
 [1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6
 [1.5.1-1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.5.1...1.6
