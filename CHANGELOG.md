@@ -6,10 +6,13 @@ project adheres to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
+### Added
+-    New keyword 'Wait Until Element Is Visible'
+
 ## [Release][1.6.1] [1.6.1][1.6-1.6.1] - 2021-05-05
 
 ### Added
--    New keyword 'Drag And Drop' implemented
+-    New keyword 'Drag And Drop'
 
 ### Changed
 -    Allow timeout parameter configuration as None or 0

@@ -47,8 +47,8 @@ Drag And Drop
     Click      ${MAIN_WINDOW_COMPLEX_CONTROLS}
     Select Grid Row By Index  ${XPATH_GRID_VIEW}  1
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
-    Should Contain    ${DATA}  Column Display Index: 2
+    Should Contain    ${DATA}  : 2
     Drag And Drop  ${DRAG_FROM}      ${DRAG_TO}
     Select Grid Row By Index  ${XPATH_GRID_VIEW}  1
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
-    Should Contain    ${DATA}   Column Display Index: 1
+    Should Contain    ${DATA}   : 1

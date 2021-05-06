@@ -103,7 +103,36 @@ Wait Until Element Is Hidden Timeout Reached After One Second
     Should Be True  ${TOTAL_MS} >= 1
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
-Wait Until Element Is Hidden Timeout Reached Wrong Number Type
+Wait Until Element Is Hidden Timeout Is Reached By Wrong Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
     ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${MAIN_WINDOW}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Visible
+    [Setup]    Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
+    [Teardown]  Stop Application  ${MAIN_WINDOW_NOTIFIER}
+    Wait Until Element Is Visible    ${MAIN_WINDOW_NOTIFIER}
+    Element Should Exist             ${MAIN_WINDOW_NOTIFIER}
+
+Wait Until Element Is Visible Timeout Reached By Default
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE} =    Get Current Date
+    ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER} =    Get Current Date
+    ${TOTAL_MS} =    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Visible Timeout Reached After Amount Of Time
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE} =    Get Current Date
+    ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW_NOTIFIER}  1
+    ${TIME_AFTER} =    Get Current Date
+    ${TOTAL_MS} =    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Visible Timeout Is Reached By Wrong Number
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG} =  Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW}  "I'm not a number"
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
