@@ -202,21 +202,39 @@ class ElementKeywords:
         self._module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE, identifier, msg)
 
     @keyword
-    def wait_until_element_is_hidden(self, identifier, timeout=10, msg=None):
+    def wait_until_element_is_hidden(self, identifier, retries=10, msg=None):
         """Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
         Checks if element exists before Wait Until Element Is Hidden is called.
 
         XPath syntax is explained in `XPath locator`.
 
         Arguments:
-        | Argument   | Type   | Description                                                       |
-        | identifier | string | XPath identifier from element                                     |
-        | timeout    | number | Maximum amount of time in seconds to wait. By default 10 seconds. |
-        | msg        | string | Custom error message                                              |
+        | Argument   | Type   | Description                                                           |
+        | identifier | string | XPath identifier from element                                         |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default 10 retries. |
+        | msg        | string | Custom error message                                                  |
 
         Example:
-        | Wait Until Element Is Hidden  <XPATH>  <TIMEOUT=10> |
-        | Wait Until Element Is Hidden  <XPATH>  <TIMEOUT=10>  <MSG> |
+        | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10>  <MSG> |
         """
         self.element_should_exist(identifier, msg)
-        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN, [identifier, timeout], msg)
+        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN, [identifier, retries], msg)
+
+    @keyword
+    def wait_until_element_is_visible(self, identifier, retries=10, msg=None):
+        """Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+        XPath syntax is explained in `XPath locator`.
+
+        Arguments:
+        | Argument   | Type   | Description                                                           |
+        | identifier | string | XPath identifier from element                                         |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default 10 retries. |
+        | msg        | string | Custom error message                                                  |
+
+        Example:
+        | Wait Until Element Is VISIBLE  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Is VISIBLE  <XPATH>  <RETRIES=10>  <MSG> |
+        """
+        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE, [identifier, retries], msg)

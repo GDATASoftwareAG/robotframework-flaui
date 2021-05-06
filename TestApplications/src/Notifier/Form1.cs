@@ -11,16 +11,15 @@ namespace NotifierTest
 
             Text = title;
 
-            if (!disableTimer)
-            {
-                var aTimer = new Timer
-                {
-                    Interval = 8000,
-                    Enabled = true,
-                };
+            if (disableTimer) return;
 
-                aTimer.Tick += CloseWindow;
-            }
+            var aTimer = new Timer
+            {
+                Interval = 8000,
+                Enabled = true,
+            };
+
+            aTimer.Tick += CloseWindow;
         }
 
         public void CloseWindow(object source, EventArgs e)

@@ -17,16 +17,19 @@ ${EXP_VALUE_INPUT_TEXT}            Type text
 Attach Application By Name        Attach Application By Name  ${EXP_ERR_MSG_APP_NAME_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Attach Application By PID         Attach Application By PID  ${EXP_ERR_MSG_PID_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Click                             Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Drag And Drop FirstElement        Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  /Window
-Drag And Drop SecondElement       Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  /Window  ${XPATH_NOT_EXISTS}
 Close Application                 Close Application  ${EXP_ERR_MSG_APP_NOT_ATTACHED}
 Close Window                      Close Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Combobox Should Contain           Combobox Should Contain  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Item 3
+Collapse TreeItem                 Collapse TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+Collapse All TreeItems            Collapse All TreeItems  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Drag And Drop FirstElement        Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  /Window
+Drag And Drop SecondElement       Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  /Window  ${XPATH_NOT_EXISTS}
 Double Click                      Double Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Be Visible         Element Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Exist              Element Should Exist  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Not Be Visible     Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Not Exist          Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Focus                             Focus  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Checkbox State                Get Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Childs From Element           Get Childs From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -67,10 +70,7 @@ Select Visible TreeItem By Name   Select Visible TreeItem By Name  ${EXP_ERR_MSG
 Set Checkbox State                Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox               Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
 Wait Until Element Is Hidden      Wait Until Element Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  10
-Collapse TreeItem                 Collapse TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
-Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
-TreeItem Should Be Visible        TreeItem Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
-Collapse All TreeItems            Collapse All TreeItems  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Wait Until Element Is Visible     Wait Until Element Is Visible  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${XPATH_NOT_EXISTS}  10
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

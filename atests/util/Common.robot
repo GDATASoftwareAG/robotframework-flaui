@@ -21,3 +21,10 @@ Start Application
     Should Not Be Equal As Integers  ${PID}  0
     Wait Until Keyword Succeeds  10x  200ms  Element Should Exist  ${xpath}
     Focus  ${xpath}
+
+Start Application With Args
+    [Arguments]   ${application}=${TEST_APP}  ${xpath}=${MAIN_WINDOW}  ${arguments}=${EXP_WINDOW_TITLE}
+    ${PID}  Launch Application With Args  ${application}  ${arguments}
+    Should Not Be Equal As Integers  ${PID}  0
+    Wait Until Keyword Succeeds  10x  200ms  Element Should Exist  ${xpath}
+    Focus  ${xpath}

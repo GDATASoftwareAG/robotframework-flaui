@@ -3,6 +3,7 @@ from enum import Enum
 from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.util import util
 
 
 class Element(ModuleInterface):
@@ -24,6 +25,7 @@ class Element(ModuleInterface):
         ELEMENT_SHOULD_BE_VISIBLE = "ELEMENT_SHOULD_BE_VISIBLE"
         ELEMENT_SHOULD_NOT_BE_VISIBLE = "ELEMENT_SHOULD_NOT_BE_VISIBLE"
         WAIT_UNTIL_ELEMENT_IS_HIDDEN = "WAIT_UNTIL_ELEMENT_IS_HIDDEN"
+        WAIT_UNTIL_ELEMENT_IS_VISIBLE = "WAIT_UNTIL_ELEMENT_IS_VISIBLE"
 
     def __init__(self, automation, timeout=1000):
         """Element module wrapper for FlaUI usage.
@@ -81,7 +83,11 @@ class Element(ModuleInterface):
             * Values (Object) : UI entity from XPATH if found
             * Returns : None
 
-          *  Action.ELEMENT_SHOULD_NOT_EXIST
+          *  Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN
+            * Values (Array) : [@ELEMENT_XPATH, @TIMEOUT]
+            * Returns : None
+
+          *  Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE
             * Values (Array) : [@ELEMENT_XPATH, @TIMEOUT]
             * Returns : None
 
@@ -104,7 +110,10 @@ class Element(ModuleInterface):
             self.Action.ELEMENT_SHOULD_BE_VISIBLE: lambda: self._element_should_be_visible(values),
             self.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE: lambda: self._element_should_not_be_visible(values),
             self.Action.ELEMENT_SHOULD_NOT_EXIST: lambda: self._element_should_not_exist(values),
-            self.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN: lambda: self._wait_until_element_is_hidden(values)
+            self.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN: lambda: self._wait_until_element_is_hidden(
+                values[0], util.string_to_int(values[1])),
+            self.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE: lambda: self._wait_until_element_is_visible(
+                values[0], util.string_to_int(values[1]))
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -171,7 +180,8 @@ class Element(ModuleInterface):
                 component = desktop.FindFirstByXPath(xpath)
                 if component:
                     return component
-                time.sleep(timeout)
+                if timeout > 0:
+                    time.sleep(timeout)
                 retry = retry + 1
 
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
@@ -223,29 +233,63 @@ class Element(ModuleInterface):
         if not hidden:
             raise FlaUiError(FlaUiError.ElementVisible.format(xpath))
 
-    def _wait_until_element_is_hidden(self, values):
+    def _wait_until_element_is_hidden(self, xpath, retries):
         """Wait until element is hidden or timeout occurs.
 
         Args:
-            values (Array): [@ELEMENT_XPATH, @TIMEOUT]
+            xpath (String): XPath from element which should be hidden
+            retries (Number): Maximum number from retries from wait until
         """
 
         timer = 0
-        xpath = values[0]
+        old_timeout = self._timeout
+        self._set_timeout(0)
 
-        try:
-            timeout = int(values[1])
-        except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(values[1])) from None
-
-        while timer < timeout:
+        while timer < retries:
 
             try:
                 self._get_element(xpath)
             except FlaUiError:
+                self._set_timeout(old_timeout)
                 return
 
             time.sleep(1)
             timer += 1
 
+        self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementVisible.format(xpath))
+
+    def _wait_until_element_is_visible(self, xpath, retries):
+        """Wait until element is visible or timeout occurs.
+
+        Args:
+            xpath (String): XPath from element which should be hidden
+            retries (Number): Maximum number from retries from wait until
+        """
+
+        timer = 0
+        old_timeout = self._timeout
+        self._set_timeout(0)
+
+        while timer < retries:
+
+            try:
+                self._element_should_be_visible(xpath)
+                self._set_timeout(old_timeout)
+                return
+            except FlaUiError:
+                pass
+
+            time.sleep(1)
+            timer += 1
+
+        self._set_timeout(old_timeout)
+        raise FlaUiError(FlaUiError.ElementNotVisible.format(xpath))
+
+    def _set_timeout(self, timeout):
+        """Set timeout in seconds.
+
+        Args:
+            timeout (Number): Timeout value in seconds
+        """
+        self._timeout = timeout
