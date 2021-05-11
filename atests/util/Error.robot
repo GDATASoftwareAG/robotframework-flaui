@@ -24,3 +24,5 @@ ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}          FlaUiError: Item name '{0}' coul
 ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}           FlaUiError: Name '{0}' could not be found in element
 ${EXP_ERR_MSG_NO_ITEM_SELECTED}                 FlaUiError: No Item is selected
 ${EXP_ERR_MSG_FALSESYNTAX}                      FlaUiError: Incorrect syntax usage '{0}'
+${EXP_ERR_MSG_ARGUMENT_ARRAY}                   FlaUiError: The given argument should be an array
+${EXP_ERR_MSG_ARGUMENT_NOT_ARRAY}               FlaUiError: The given argument should not be an array

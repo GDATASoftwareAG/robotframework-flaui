@@ -15,8 +15,8 @@ class KeyboardKeywords:
         self._module = module
 
     @keyword
-    def press_keys(self, keys_combination, identifier=None, msg=None):
-        """Keyboard control to execute a user defined sequence of shortcuts and text values.
+    def press_key(self, key_combination, identifier=None, msg=None):
+        """Keyboard control to execute a user defined one shurcut or text.
         If identifier set try to attach to given element if
         operation was successfully old element will be reattached automatically.
 
@@ -81,7 +81,50 @@ class KeyboardKeywords:
         | DECIMAL     |                                                 |
         | DIVIDE      |                                                 |
 
-        Example:,
+        Example:
+
+        | ***** Variables *****                                         |
+        | ${KEYBOARD_INPUT_CUT}  s'CTRL+X'                              |
+        |                                                               |
+        | ***** Test Cases *****                                        |
+        | ...Keyboard usage in Test Case...                             |
+        | Press Key  s'CTRL'    ${XPATH_COMBO_BOX_INPUT}                |
+        | Press Key  t'A'       ${XPATH_COMBO_BOX_INPUT}                |
+        | Press Key  s'CTRL+A'  ${XPATH_COMBO_BOX_INPUT}                |
+        | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
+        """
+        if identifier is not None:
+            self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
+
+        self._module.action(Keyboard.Action.KEY_COMBINATION, key_combination, msg)
+
+    @keyword
+    def press_keys(self, keys_combinations, identifier=None, msg=None):
+        """Keyboard control to execute a user defined sequence of shortcuts and text values.
+        If identifier set try to attach to given element if
+        operation was successfully old element will be reattached automatically.
+
+        Arguments:
+        | Argument         | Type                                  | Description                   |
+        | keys_combination | List of Strings, which should         | Text to be typed by keyboard  |
+        |                  | satisfy one of the following formats: |                               |
+        |                  |    - s'<shortcut>'                    |                               |
+        |                  |    - t'<text>'                        |                               |
+        |                  |    Examples:                          |                               |
+        |                  |    - s'CTRL+A'                        |                               |
+        |                  |    - t'JJJ'                           |                               |
+        |                  |    - s'JJJ' will be executed as text  |                               |
+        | identifier       | String *Optional                      | Optional XPath identifier     |
+        | msg              | String *Optional                      | Custom error message          |
+
+        XPath syntax is explained in `XPath locator`.
+
+        The list of all key_combinations can be seen under Press Key keyword.
+        The only difference between both keywords is:
+        Press Keys supports a sequence of several to be pressed after each other
+        Press Key supports can only press one key combination at a time
+
+        Example:
         | ***** Variables *****                                                 |
         | @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                 |
         |                                                                       |
@@ -92,4 +135,4 @@ class KeyboardKeywords:
         if identifier is not None:
             self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
 
-        self._module.action(Keyboard.Action.KEYS_COMBINATION, keys_combination, msg)
+        self._module.action(Keyboard.Action.KEYS_COMBINATIONS, keys_combinations, msg)

@@ -13,15 +13,20 @@ class Keyboard(ModuleInterface):
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
-        KEYS_COMBINATION = "KEYS_COMBINATION"
+        KEY_COMBINATION = "KEY_COMBINATION"
+        KEYS_COMBINATIONS = "KEYS_COMBINATIONS"
 
     def execute_action(self, action, values=None):
         """If action is not supported an ActionNotSupported error will be raised.
 
         Supported action usages are:
 
-            * Action.KEYS_COMBINATION
-              * Values (Object) : UI entity object from UIA3 to set input
+            * Action.KEY_COMBINATION
+              * Values (String) : user defined string for shortcuts or chars.
+              * Returns : None
+
+            * Action.KEYS_COMBINATIONS
+              * Values (String Array) : user defined sequence of shortcuts and text values.
               * Returns : None
 
         Raises:
@@ -33,7 +38,8 @@ class Keyboard(ModuleInterface):
         """
 
         switcher = {
-            self.Action.KEYS_COMBINATION: lambda: Keyboard._type_keys_combination(values)
+            self.Action.KEYS_COMBINATIONS: lambda: Keyboard._type_keys_combinations(values),
+            self.Action.KEY_COMBINATION: lambda: Keyboard._type_key_combination(values)
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -59,22 +65,36 @@ class Keyboard(ModuleInterface):
         FlaUIKeyboard.Type(str(text))
 
     @staticmethod
-    def _type_keys_combination(keys_combination):
+    def _type_key_combination(key_combination):
+        """
+        Execution of key control.
+
+        Args:
+            key_combination (String): Array from String to execute keyboard actions or send input data.
+        """
+        if isinstance(key_combination, list):
+            raise FlaUiError(FlaUiError.ArgumentShouldNotBeList)
+        try:
+            (action, converting_result) = KeyboardInputConverter.convert_key_combination(key_combination)
+            if action == KeyboardInputConverter.InputType.TEXT:
+                Keyboard._type_text(converting_result)
+            elif action == KeyboardInputConverter.InputType.SHORTCUT:
+                Keyboard._type_keys(converting_result)
+        except Exception as ex:
+            raise FlaUiError.raise_fla_ui_error(str(ex))
+
+    @staticmethod
+    def _type_keys_combinations(keys_combination):
         """
         Parse a sequence of key controls.
 
         Args:
             keys_combination (String array): Array from String to execute keyboard actions or send input data.
         """
+        if not isinstance(keys_combination, list):
+            raise FlaUiError(FlaUiError.ArgumentShouldBeList)
         try:
             for key_combination in keys_combination:
-
-                (action, converting_result) = KeyboardInputConverter.convert_key_combination(key_combination)
-
-                if action == KeyboardInputConverter.InputType.TEXT:
-                    Keyboard._type_text(converting_result)
-                elif action == KeyboardInputConverter.InputType.SHORTCUT:
-                    Keyboard._type_keys(converting_result)
-
+                Keyboard._type_key_combination(key_combination)
         except Exception as ex:
             raise FlaUiError.raise_fla_ui_error(str(ex))

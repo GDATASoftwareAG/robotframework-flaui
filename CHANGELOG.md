@@ -8,6 +8,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 -    New keyword 'Wait Until Element Is Visible'
+-    New keyword 'Press Key'
 
 ### Updated
 -    Robotframework 4.0.2 support
