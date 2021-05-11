@@ -1,5 +1,5 @@
 wheel==0.36.2
-pylint==2.7.2
+pylint==2.8.2
 pylint-json2html==0.3.0
 pep8==1.7.1
 robotframework-stringformat==0.1.8
