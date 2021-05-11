@@ -9,6 +9,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Added
 -    New keyword 'Wait Until Element Is Visible'
 
+### Updated
+-    Robotframework 4.0.2 support
+
 ## [Release][1.6.1] [1.6.1][1.6-1.6.1] - 2021-05-05
 
 ### Added
