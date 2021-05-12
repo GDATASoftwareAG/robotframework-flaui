@@ -6,6 +6,8 @@ project adheres to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
+## [Release][1.6.2] [1.6.2][1.6.1-1.6.2] - 2021-05-12
+
 ### Added
 -    New keyword 'Wait Until Element Is Visible'
 -    New keyword 'Press Key'
@@ -146,7 +148,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.6.1...main
+[unreleased]: ../../compare/1.6.2...main
+
+[1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.2
+[1.6.1-1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.1...1.6.2
 
 [1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.1
 [1.6-1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6...1.6.1
