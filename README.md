@@ -39,10 +39,7 @@ The robot framework FlaUI is supposed to support the current Python 3 versions.
 
 ### Required dependencies
 
-| Dependency     | Min           | Max   |
-| -------------  |:-------------:| -----:|
-| [Robotframework](https://github.com/robotframework/robotframework) | 3.0.4         | 4.0.2   |
-| [Python.Net](https://github.com/pythonnet/pythonnet)      | 2.5.2         | 2.5.2 |
+See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
 
 ### Additonal information about Python.Net
 
