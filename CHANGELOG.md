@@ -6,13 +6,14 @@ project adheres to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
+### Added
+-    Robotframework 4.0.3 support
+
 ## [Release][1.6.2] [1.6.2][1.6.1-1.6.2] - 2021-05-12
 
 ### Added
 -    New keyword 'Wait Until Element Is Visible'
 -    New keyword 'Press Key'
-
-### Updated
 -    Robotframework 4.0.2 support
 
 ## [Release][1.6.1] [1.6.1][1.6-1.6.1] - 2021-05-05
