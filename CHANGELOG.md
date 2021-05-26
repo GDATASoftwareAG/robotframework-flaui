@@ -6,6 +6,8 @@ project adheres to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
+## [Release][1.6.3] [1.6.3][1.6.2-1.6.3] - 2021-05-26
+
 ### Added
 -    Robotframework 4.0.3 support
 
@@ -149,7 +151,10 @@ First release from wrapper library Robotframework-FlaUI
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.6.2...main
+[unreleased]: ../../compare/1.6.3...main
+
+[1.6.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.3
+[1.6.2-1.6.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.2...1.6.3
 
 [1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.2
 [1.6.1-1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.1...1.6.2
