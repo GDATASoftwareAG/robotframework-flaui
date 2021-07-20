@@ -1,3 +1,5 @@
+from abc import ABC
+
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
 from FlaUILibrary.flaui.util import InterfaceType
 from FlaUILibrary.flaui.interface import WindowsAutomationInterface
@@ -16,7 +18,7 @@ from FlaUILibrary.flaui.module import (Application,
                                        Window)
 
 
-class UIA(WindowsAutomationInterface):
+class UIA(WindowsAutomationInterface, ABC):
     """Generic window automation module for a centralized communication handling between robot keywords and flaui. """
 
     def __init__(self, timeout=1000):
@@ -27,7 +29,6 @@ class UIA(WindowsAutomationInterface):
         self._actions = {}
         self._timeout = timeout
 
-    # pylint: disable=arguments-differ
     def action(self, action, values=None, msg=None):
         """Performs a application action if supported. If not supported an NotSupported error will be thrown.
 
