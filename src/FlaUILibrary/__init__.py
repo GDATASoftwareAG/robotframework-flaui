@@ -1,7 +1,9 @@
 # pylint: disable=invalid-name
 from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
+from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
+from FlaUILibrary.flaui import (UIA2, UIA3)
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,
@@ -17,8 +19,7 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    ListBoxKeywords,
                                    TreeKeywords,
                                    TabKeywords)
-from FlaUILibrary.robotframework import DynamicCore, robotlog
-from FlaUILibrary.flaui import (UIA2, UIA3)
+from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
 
 
