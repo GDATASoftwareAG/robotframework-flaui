@@ -1,4 +1,4 @@
-from FlaUILibrary.robotframework import keyword
+from robotlibcore import keyword
 from FlaUILibrary.flaui.util import InterfaceType
 from FlaUILibrary.flaui.module import (Textbox, Element)
 

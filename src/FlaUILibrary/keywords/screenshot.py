@@ -1,6 +1,6 @@
+from robotlibcore import keyword
 from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
-from FlaUILibrary.robotframework import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
 
 

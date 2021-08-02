@@ -1,4 +1,4 @@
-from FlaUILibrary.robotframework import keyword
+from robotlibcore import keyword
 from FlaUILibrary.flaui.module.application import Application
 
 
