@@ -6,7 +6,7 @@ from enum import Enum
 from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.robotframework import robotlog
 
 
@@ -18,13 +18,16 @@ class Screenshot(ModuleInterface):
     """
 
     class Action(Enum):
-        """Supported actions for execute action implementation."""
+        """
+        Supported actions for execute action implementation.
+        """
         CAPTURE = "CAPTURE"
         RESET = "RESET"
         DELETE_ALL_SCREENSHOTS = "DELETE_ALL_SCREENSHOTS"
 
     def __init__(self, directory, is_enabled):
-        """Creates screenshot module to capture desktop or element images by an error.
+        """
+        Creates screenshot module to capture desktop or element images by an error.
 
         ``directory`` Directory to store captured images. If not set log path will be used from robot by default.
         """
@@ -38,8 +41,13 @@ class Screenshot(ModuleInterface):
         self._max_retry = 3
         self._sleep = 2  # Sleep in seconds
 
-    def execute_action(self, action, values=None):
-        """Get action method to execute a specific method by implementation.
+    def execute_action(self, action: Action, values: ValueContainer):
+        """
+        Get action method to execute a specific method by implementation.
+
+        * Action.CAPTURE || RESET || DELETE_ALL_SCREENSHOTS
+              * Values : None
+              * Returns : None
 
         Args:
             action (Action): Action to use.
@@ -56,7 +64,9 @@ class Screenshot(ModuleInterface):
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     def _capture(self):
-        """Capture image from desktop."""
+        """
+        Capture image from desktop.
+        """
         image = None
 
         try:
@@ -82,8 +92,8 @@ class Screenshot(ModuleInterface):
         return filepath
 
     def _get_path(self):
-        """Get directory path if set if not by default fallback will be used to obtain log directory
-           from robot test case.
+        """
+        Get directory path if set if not by default fallback will be used to obtain log directory from robot test case.
         """
         output_dir = robotlog.get_log_directory().replace("/", os.sep)
 
@@ -93,7 +103,8 @@ class Screenshot(ModuleInterface):
         return output_dir
 
     def _remove_all_created_screenshots(self):
-        """Remove all created image files.
+        """
+        Remove all created image files.
 
         Returns:
             True if all files are deleted otherwise False
@@ -107,7 +118,7 @@ class Screenshot(ModuleInterface):
 
         return False
 
-    def _remove_file(self, file):
+    def _remove_file(self, file: str):
         """
         Try to remove file. Retry operation for each file deletion is maximum three times.
 
@@ -129,6 +140,8 @@ class Screenshot(ModuleInterface):
         return False
 
     def _reset(self):
-        """Reset mechanism for default parameter usage."""
+        """
+        Reset mechanism for default parameter usage.
+        """
         self._index = 1
         self._files.clear()

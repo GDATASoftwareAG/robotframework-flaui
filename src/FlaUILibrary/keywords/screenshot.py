@@ -2,6 +2,7 @@ from robotlibcore import keyword
 from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module.screenshot import Screenshot
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class ScreenshotKeywords:
@@ -25,14 +26,15 @@ class ScreenshotKeywords:
         Example:
         | Take Screenshot (Takes screenshot from all desktops) |
         """
-        filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE)
+        filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE, ValueContainer())
         robotlog.log_screenshot(filepath)
         return filepath
 
     @keyword
     def take_screenshots_on_failure(self, enabled):
-        """ Takes a screenshot of the whole desktop if no element is attached otherwise
-            attached element will be captured. Returns path to the screenshot file.
+        """
+        Takes a screenshot of the whole desktop if no element is attached otherwise attached element will be captured.
+        Returns path to the screenshot file.
 
         Arguments:
         | Argument   | Type   | Description      |
@@ -45,7 +47,8 @@ class ScreenshotKeywords:
 
     @keyword
     def set_screenshot_directory(self, directory=None):
-        """ Set directory for captured images. If no directory is set default output directory will be used from robot.
+        """
+        Set directory for captured images. If no directory is set default output directory will be used from robot.
 
         Arguments:
         | Argument   | Type   | Description                                  |

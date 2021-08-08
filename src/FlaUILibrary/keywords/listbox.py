@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (Element, ListBox)
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import Selector
 
 
 class ListBoxKeywords:
@@ -9,7 +9,8 @@ class ListBoxKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for Listbox keywords.
+        """
+        Constructor for Listbox keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +18,8 @@ class ListBoxKeywords:
 
     @keyword
     def listbox_selection_should_be(self, identifier, item, msg=None):
-        """Checks if the selected listbox items are same with the given ones.
+        """
+        Checks if the selected listbox items are same with the given ones.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -32,14 +34,15 @@ class ListBoxKeywords:
         Examples:
         | Listbox Selection Should Be <XPATH>  <STRING>                |
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SHOULD_HAVE_SELECTED_ITEM,
-                            [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), item],
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        self._module.action(Selector.Action.SHOULD_HAVE_SELECTED_ITEM,
+                            Selector.create_value_container(element=element, name=item, msg=msg),
                             msg)
 
     @keyword
     def select_listbox_item_by_index(self, identifier, index, msg=None):
-        """Selects item from listbox with given index number
+        """
+        Selects item from listbox with given index number
 
         XPath syntax is explained in `XPath locator`.
 
@@ -55,14 +58,15 @@ class ListBoxKeywords:
         | Select Listbox Item By Index  <XPATH>  <INDEX>      |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SELECT_ITEM_BY_INDEX,
-                            [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), index],
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        self._module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
+                            Selector.create_value_container(element=element, index=index, msg=msg),
                             msg)
 
     @keyword
     def select_listbox_item_by_name(self, identifier, name, msg=None):
-        """Selects item from listbox by name.
+        """
+        Selects item from listbox by name.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -78,14 +82,15 @@ class ListBoxKeywords:
         | Select Listbox Item By Name  <XPATH>  <NAME>      |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SELECT_ITEM_BY_NAME,
-                            [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), name],
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        self._module.action(Selector.Action.SELECT_ITEM_BY_NAME,
+                            Selector.create_value_container(element=element, name=name, msg=msg),
                             msg)
 
     @keyword
     def listbox_should_contain(self, identifier, name, msg=None):
-        """Checks if listbox contains the given item.
+        """
+        Checks if listbox contains the given item.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -101,14 +106,15 @@ class ListBoxKeywords:
         | Listbox Should Contain <XPATH>  <STRING> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SHOULD_CONTAIN,
-                            [self._module.cast_element_to_type(element, InterfaceType.LISTBOX), name],
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        self._module.action(Selector.Action.SHOULD_CONTAIN,
+                            Selector.create_value_container(element=element, name=name, msg=msg),
                             msg)
 
     @keyword
     def get_listbox_items_count(self, identifier, msg=None):
-        """Return count of rows in listbox.
+        """
+        Return count of rows in listbox.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -124,7 +130,7 @@ class ListBoxKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        return self._module.action(ListBox.Action.GET_ITEMS_COUNT,
-                                   [self._module.cast_element_to_type(element, InterfaceType.LISTBOX)],
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return self._module.action(Selector.Action.GET_ITEMS_COUNT,
+                                   Selector.create_value_container(element=element, msg=msg),
                                    msg)

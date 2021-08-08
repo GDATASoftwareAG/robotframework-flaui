@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (Textbox, Element)
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import Textbox
 
 
 class TextBoxKeywords:
@@ -9,7 +9,8 @@ class TextBoxKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for textbox keywords.
+        """
+        Constructor for textbox keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +18,8 @@ class TextBoxKeywords:
 
     @keyword
     def get_text_from_textbox(self, identifier, msg=None):
-        """Return text from textbox element.
+        """
+        Return text from textbox element.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -35,14 +37,15 @@ class TextBoxKeywords:
         | Text string from textbox |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
         return self._module.action(Textbox.Action.GET_TEXT_FROM_TEXTBOX,
-                                   self._module.cast_element_to_type(element, InterfaceType.TEXTBOX),
+                                   Textbox.create_value_container(element=element),
                                    msg=msg)
 
     @keyword
     def set_text_to_textbox(self, identifier, value, msg=None):
-        """Inputs value to a textbox module.
+        """
+        Inputs value to a textbox module.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -58,7 +61,7 @@ class TextBoxKeywords:
         | Set Text To Textbox  <XPATH>  <VALUE> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
         self._module.action(Textbox.Action.SET_TEXT_TO_TEXTBOX,
-                            [self._module.cast_element_to_type(element, InterfaceType.TEXTBOX), value],
+                            Textbox.create_value_container(element=element, value=value),
                             msg)

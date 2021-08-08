@@ -19,13 +19,15 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    ListBoxKeywords,
                                    TreeKeywords,
                                    TabKeywords)
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
 
 
 # pylint: enable=invalid-name
 class FlaUILibrary(DynamicCore):
-    """FlaUILibrary is a Robot Framework library for automating Windows GUI.
+    """
+    FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
     It is a wrapper for [https://github.com/Roemer/FlaUI | FlaUI] automation framework, which is based based on
     native UI Automation libraries from Microsoft and therefore kind of a wrapper around them.
@@ -66,12 +68,16 @@ class FlaUILibrary(DynamicCore):
     ROBOT_LISTENER_API_VERSION = 2
 
     class RobotMode(Enum):
-        """Actual state from test execution by robot framework."""
+        """
+        Actual state from test execution by robot framework.
+        """
         TEST_NOT_RUNNING = 1
         TEST_RUNNING = 2
 
     class KeywordModules(Enum):
-        """Enumeration from all supported keyword modules."""
+        """
+        Enumeration from all supported keyword modules.
+        """
         APPLICATION = "Application"
         CHECKBOX = "Checkbox"
         COMBOBOX = "Combobox"
@@ -89,7 +95,8 @@ class FlaUILibrary(DynamicCore):
         TAB = "Tab"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
-        """FlaUiLibrary can be imported by following optional arguments:
+        """
+        FlaUiLibrary can be imported by following optional arguments:
 
         ``uia`` Microsoft UI-Automation framework to use. UIA2 or UIA3
         ``screenshot_on_failure`` indicator to disable or enable screenshot feature.
@@ -145,12 +152,12 @@ class FlaUILibrary(DynamicCore):
     def _start_test(self, name, attrs):  # pylint: disable=unused-argument
         self.mode = FlaUILibrary.RobotMode.TEST_RUNNING
         self.screenshots.name = name.replace(" ", "_").lower()
-        self.screenshots.execute_action(Screenshot.Action.RESET)
+        self.screenshots.execute_action(Screenshot.Action.RESET, ValueContainer())
 
-    def _end_test(self, name, attrs): # pylint: disable=unused-argument
+    def _end_test(self, name, attrs):  # pylint: disable=unused-argument
         self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         if attrs['status'] == 'PASS' and self.screenshots.is_enabled:
-            if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS):
+            if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS, ValueContainer()):
                 robotlog.log("Not all files were deleted")
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument

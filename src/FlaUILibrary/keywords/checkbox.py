@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (ToggleButton, Element)
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import ToggleButton
 
 
 class CheckBoxKeywords:
@@ -9,7 +9,8 @@ class CheckBoxKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for checkbox keywords.
+        """
+        Constructor for checkbox keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +18,8 @@ class CheckBoxKeywords:
 
     @keyword
     def set_checkbox_state(self, identifier, value, msg=None):
-        """Set checkbox state to ${True} or ${False}
+        """
+        Set checkbox state to ${True} or ${False}
 
         XPath syntax is explained in `XPath locator`.
 
@@ -33,14 +35,15 @@ class CheckBoxKeywords:
         | Set Checkbox State  <XPATH>  ${True/False} |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
         self._module.action(ToggleButton.Action.SET_TOGGLE_BUTTON_STATE,
-                            [self._module.cast_element_to_type(element, InterfaceType.CHECKBOX), value],
+                            ToggleButton.create_value_container(element=element, state=value),
                             msg)
 
     @keyword
     def get_checkbox_state(self, identifier, msg=None):
-        """Return actual checked state ${True} or ${False} from checkbox.
+        """
+        Return actual checked state ${True} or ${False} from checkbox.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -59,7 +62,7 @@ class CheckBoxKeywords:
         | <True> if checkbox is set otherwise <False> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
         return self._module.action(ToggleButton.Action.GET_TOGGLE_BUTTON_STATE,
-                                   [self._module.cast_element_to_type(element, InterfaceType.CHECKBOX)],
+                                   ToggleButton.create_value_container(element=element),
                                    msg)

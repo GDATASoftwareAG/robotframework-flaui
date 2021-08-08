@@ -1,23 +1,30 @@
 from abc import ABC, abstractmethod
+from typing import Any
+
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class WindowsAutomationInterface(ABC):
-    """Generic windows automation interface to react on keyword usage from robotframework to FlaUI modules."""
+    """
+    Generic windows automation interface to react on keyword usage from robotframework to FlaUI modules.
+    """
 
     @abstractmethod
-    def action(self, action, values=None, msg=None):
-        """Performs a defined action like a button click.
+    def action(self, action: int, values: ValueContainer, msg: str = None):
+        """
+        Performs a defined action like a button click.
 
         Args:
-            action (Action)           : User interface action to perform.
-            values (Array)            : Specified arguments for actions as array.
-            msg    (String) *Optional : Custom error message.
+            action : User interface action to perform.
+            values : Argument container for actions.
+            msg    : Custom error message.
         """
         raise NotImplementedError('Subclass must override action method')
 
     @abstractmethod
-    def register_action(self, automation):
-        """Register all supported core actions.
+    def register_action(self, automation: Any):
+        """
+        Register all supported core actions.
 
         Args:
             automation (Object)       : Windows user automation object.
@@ -26,5 +33,7 @@ class WindowsAutomationInterface(ABC):
 
     @abstractmethod
     def identifier(self):
-        """ Returns identifier which windows automation interface is in usage."""
+        """
+        Returns identifier which windows automation interface is in usage.
+        """
         raise NotImplementedError('Subclass must override action method')

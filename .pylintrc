@@ -10,3 +10,11 @@ disable=
 
 [REPORTS]
 output-format=jsonextended
+
+[SIMILARITIES]
+# Ignore comments when computing similarities.
+ignore-comments=yes
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+# Ignore imports when computing similarities.
+ignore-imports=yes

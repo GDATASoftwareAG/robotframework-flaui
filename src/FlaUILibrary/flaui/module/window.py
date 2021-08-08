@@ -1,7 +1,8 @@
 from enum import Enum
+from typing import Optional, Any
 from FlaUI.Core.Exceptions import MethodNotSupportedException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
 
 class Window(ModuleInterface):
@@ -10,8 +11,16 @@ class Window(ModuleInterface):
     Wrapper module executes methods from Window.cs implementation.
     """
 
+    class Container(ValueContainer):
+        """
+        Value container from window module.
+        """
+        element: Optional[Any]
+
     class Action(Enum):
-        """Supported actions for execute action implementation."""
+        """
+        Supported actions for execute action implementation.
+        """
         CLOSE_WINDOW = "CLOSE_WINDOW"
 
     def __init__(self, automation):
@@ -22,13 +31,13 @@ class Window(ModuleInterface):
         """
         self._automation = automation
 
-    def execute_action(self, action, values=None):
+    def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
 
         Supported action usages are:
 
           *  Action.CLOSE_WINDOW
-            * Values (Array): [Element]
+            * Values ["element"]
             * Returns : None
 
         Raises:
@@ -40,14 +49,15 @@ class Window(ModuleInterface):
         """
 
         switcher = {
-            self.Action.CLOSE_WINDOW: lambda: Window._close_window(values)
+            self.Action.CLOSE_WINDOW: lambda: self._close_window(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _close_window(window):
-        """Try to close window element.
+    def _close_window(window: Any):
+        """
+        Try to close window element.
 
         Args:
             window (Object): Window element to close.

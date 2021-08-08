@@ -1,4 +1,5 @@
 from robotlibcore import keyword
+
 from FlaUILibrary.flaui.module.element import Element
 
 
@@ -8,7 +9,8 @@ class ElementKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for element keywords.
+        """
+        Constructor for element keywords.
 
         ``module`` UIA3 module to handle element interaction.
         """
@@ -16,7 +18,8 @@ class ElementKeywords:
 
     @keyword
     def element_should_exist(self, identifier, msg=None):
-        """Checks if element exists. If element exists True will be returned otherwise False.
+        """
+        Checks if element exists. If element exists True will be returned otherwise False.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -31,11 +34,14 @@ class ElementKeywords:
         | Element Should Exist  <XPATH> |
 
         """
-        self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        self._module.action(Element.Action.GET_ELEMENT,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
     @keyword
     def element_should_not_exist(self, identifier, msg=None):
-        """Checks if element exists. If element exists False will be returned otherwise True.
+        """
+        Checks if element exists. If element exists False will be returned otherwise True.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -50,11 +56,14 @@ class ElementKeywords:
         | Element Should Exist  <XPATH> |
 
         """
-        self._module.action(Element.Action.ELEMENT_SHOULD_NOT_EXIST, identifier, msg)
+        self._module.action(Element.Action.ELEMENT_SHOULD_NOT_EXIST,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
     @keyword
     def focus(self, identifier, msg=None):
-        """Try to focus element by given xpath.
+        """
+        Try to focus element by given xpath.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -67,11 +76,14 @@ class ElementKeywords:
         | Focus  <XPATH>  |
 
         """
-        self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
+        self._module.action(Element.Action.FOCUS_ELEMENT,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
     @keyword
     def get_name_from_element(self, identifier, msg=None):
-        """Return name value from element.
+        """
+        Return name value from element.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -89,11 +101,14 @@ class ElementKeywords:
         | Name from element if set otherwise empty string |
 
         """
-        return self._module.action(Element.Action.GET_ELEMENT_NAME, identifier, msg)
+        return self._module.action(Element.Action.GET_ELEMENT_NAME,
+                                   Element.create_value_container(xpath=identifier, msg=msg),
+                                   msg)
 
     @keyword
     def name_should_be(self, name, identifier, msg=None):
-        """Verifies if name from element is equal.
+        """
+        Verifies if name from element is equal.
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -104,11 +119,14 @@ class ElementKeywords:
          Example:
         | Name Should Be  <NAME>  <XPATH> |
         """
-        self._module.action(Element.Action.NAME_SHOULD_BE, [identifier, name], msg)
+        self._module.action(Element.Action.NAME_SHOULD_BE,
+                            Element.create_value_container(xpath=identifier, name=name, msg=msg),
+                            msg)
 
     @keyword
     def name_contains_text(self, name, identifier, msg=None):
-        """Verifies if element name contains to name.
+        """
+        Verifies if element name contains to name.
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -120,11 +138,14 @@ class ElementKeywords:
         | Name Contains Text  <NAME>  <XPATH> |
 
         """
-        self._module.action(Element.Action.NAME_SHOULD_CONTAINS, [identifier, name], msg)
+        self._module.action(Element.Action.NAME_SHOULD_CONTAINS,
+                            Element.create_value_container(xpath=identifier, name=name, msg=msg),
+                            msg)
 
     @keyword
     def is_element_enabled(self, identifier, msg=None):
-        """Verifies if element is enabled (true) or not (false).
+        """
+        Verifies if element is enabled (true) or not (false).
 
         XPath syntax is explained in `XPath locator`.
 
@@ -141,11 +162,14 @@ class ElementKeywords:
         Returns:
         | <True> if element is enabled otherwise <False> |
         """
-        return self._module.action(Element.Action.IS_ELEMENT_ENABLED, identifier, msg)
+        return self._module.action(Element.Action.IS_ELEMENT_ENABLED,
+                                   Element.create_value_container(xpath=identifier, msg=msg),
+                                   msg)
 
     @keyword
     def is_element_visible(self, identifier, msg=None):
-        """Checks if element is visible (true) or not (false).
+        """
+        Checks if element is visible (true) or not (false).
 
         XPath syntax is explained in `XPath locator`.
 
@@ -160,11 +184,14 @@ class ElementKeywords:
         | ${IS_VISIBLE}  Is Element Visible  <XPATH> |
 
         """
-        return not self._module.action(Element.Action.IS_ELEMENT_VISIBLE, identifier, msg)
+        return not self._module.action(Element.Action.IS_ELEMENT_VISIBLE,
+                                       Element.create_value_container(xpath=identifier, msg=msg),
+                                       msg)
 
     @keyword
     def element_should_be_visible(self, identifier, msg=None):
-        """Checks if element is visible.
+        """
+        Checks if element is visible.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -179,12 +206,15 @@ class ElementKeywords:
         | Element Should Be Visible  <XPATH> |
 
         """
-        self._module.action(Element.Action.ELEMENT_SHOULD_BE_VISIBLE, identifier, msg)
+        self._module.action(Element.Action.ELEMENT_SHOULD_BE_VISIBLE,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
 
     @keyword
     def element_should_not_be_visible(self, identifier, msg=None):
-        """Checks if element is visible.
+        """
+        Checks if element is visible.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -199,11 +229,14 @@ class ElementKeywords:
         | Element Should Not Be Visible  <XPATH> |
 
         """
-        self._module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE, identifier, msg)
+        self._module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
     @keyword
     def wait_until_element_is_hidden(self, identifier, retries=10, msg=None):
-        """Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
+        """
+        Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
         Checks if element exists before Wait Until Element Is Hidden is called.
 
         XPath syntax is explained in `XPath locator`.
@@ -219,11 +252,14 @@ class ElementKeywords:
         | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10>  <MSG> |
         """
         self.element_should_exist(identifier, msg)
-        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN, [identifier, retries], msg)
+        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN,
+                            Element.create_value_container(xpath=identifier, retries=retries),
+                            msg)
 
     @keyword
     def wait_until_element_is_visible(self, identifier, retries=10, msg=None):
-        """Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
+        """
+        Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -237,4 +273,6 @@ class ElementKeywords:
         | Wait Until Element Is VISIBLE  <XPATH>  <RETRIES=10> |
         | Wait Until Element Is VISIBLE  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE, [identifier, retries], msg)
+        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE,
+                            Element.create_value_container(xpath=identifier, retries=retries),
+                            msg)

@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import (Mouse, Element)
+from FlaUILibrary.flaui.module import Mouse
 
 
 class MouseKeywords:
@@ -8,7 +8,8 @@ class MouseKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for mouse keywords.
+        """
+        Constructor for mouse keywords.
 
         ``module`` UIA3 module to handle element interaction.
         """
@@ -16,7 +17,8 @@ class MouseKeywords:
 
     @keyword
     def click(self, identifier, msg=None):
-        """Left click to element by an XPath.
+        """
+        Left click to element by an XPath.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -31,13 +33,15 @@ class MouseKeywords:
         | Click  <XPATH> |
 
         """
+        element = self._module.get_element(identifier, msg=msg)
         self._module.action(Mouse.Action.LEFT_CLICK,
-                            self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
+                            Mouse.create_value_container(element=element),
                             msg)
 
     @keyword
     def double_click(self, identifier, msg=None):
-        """Double click to element.
+        """
+        Double click to element.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -52,13 +56,15 @@ class MouseKeywords:
         | Double Click  <XPATH> |
 
         """
+        element = self._module.get_element(identifier, msg=msg)
         self._module.action(Mouse.Action.DOUBLE_CLICK,
-                            self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
+                            Mouse.create_value_container(element=element),
                             msg)
 
     @keyword
     def right_click(self, identifier, msg=None):
-        """Right click to element.
+        """
+        Right click to element.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -73,13 +79,15 @@ class MouseKeywords:
         | Right Click  <XPATH> |
 
         """
+        element = self._module.get_element(identifier, msg=msg)
         self._module.action(Mouse.Action.RIGHT_CLICK,
-                            self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
+                            Mouse.create_value_container(element=element),
                             msg)
 
     @keyword
     def move_to(self, identifier, msg=None):
-        """Move mouse cursor to given element.
+        """
+        Move mouse cursor to given element.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -94,13 +102,15 @@ class MouseKeywords:
         | Move To  <XPATH> |
 
         """
+        element = self._module.get_element(identifier, msg=msg)
         self._module.action(Mouse.Action.MOVE_TO,
-                            self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
+                            Mouse.create_value_container(element=element),
                             msg)
 
     @keyword
     def drag_and_drop(self, start_identifier, end_identifier, msg=None):
-        """clicks and hold the item with start_identifier and drops it at item with end_identifier.
+        """
+        Clicks and hold the item with start_identifier and drops it at item with end_identifier.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -116,7 +126,8 @@ class MouseKeywords:
         | Drag And Drop  <XPATH>  <XPATH> |
 
         """
+        start_element = self._module.get_element(start_identifier, msg=msg)
+        end_element = self._module.get_element(end_identifier, msg=msg)
         self._module.action(Mouse.Action.DRAG_AND_DROP,
-                            [self._module.action(Element.Action.GET_ELEMENT, start_identifier, msg),
-                             self._module.action(Element.Action.GET_ELEMENT, end_identifier, msg)],
+                            Mouse.create_value_container(element=start_element, second_element=end_element),
                             msg)
