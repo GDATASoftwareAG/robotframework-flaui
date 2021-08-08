@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class ModuleInterface(ABC):
@@ -8,11 +9,12 @@ class ModuleInterface(ABC):
     """
 
     @abstractmethod
-    def execute_action(self, action, values=None):
-        """Executes a defined action method.
+    def execute_action(self, action: int, values: ValueContainer):
+        """
+        Executes a defined action method.
 
         Args:
-            action (Action): Specific action to call for execution.
-            values (Object): Parameter values to use for method execution.
+            action: Enumeration from supported actions.
+            values: Value container object which stores arguments from action.
         """
         raise NotImplementedError('Subclass must override execute_action method')

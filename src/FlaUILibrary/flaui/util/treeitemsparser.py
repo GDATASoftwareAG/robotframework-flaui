@@ -1,8 +1,10 @@
+from typing import Any
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
 class TreeItemsParser:
-    """ Helper class which handles the management of the given location string.
+    """
+    Helper class which handles the management of the given location string.
     The location is used to locate the exact tree item in the tree control.
     Examples:
     location = N:Nameofitem1->N:Nameofitem2->N:Nameofitem3
@@ -13,8 +15,9 @@ class TreeItemsParser:
     def __init__(self, location):
         self.location = location.split("->")
 
-    def get_treeitem(self, treeitems, index):
-        """ This function gets the index of the location, the location can either be name or index,
+    def get_treeitem(self, treeitems: Any, index: Any):
+        """
+        This function gets the index of the location, the location can either be name or index,
         and returns the corresponding tree item to that name or index.
         if the given name or index is not found a flauierror will be thrown.
         """
@@ -36,9 +39,10 @@ class TreeItemsParser:
         else:
             raise FlaUiError(FlaUiError.FalseSyntax.format(loc)) from None
 
-    def is_last_element(self, index):
-        """Retruns true if the index corresponds the last element of given location series.
+    def is_last_element(self, index: Any):
         """
-        if index==len(self.location)-1:
+        Returns true if the index corresponds the last element of given location series.
+        """
+        if index == len(self.location) - 1:
             return True
         return False

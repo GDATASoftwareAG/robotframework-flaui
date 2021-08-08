@@ -15,11 +15,15 @@ class UIA3(UIA):
         super().register_action(self._automation)  # pylint: disable=maybe-no-member
 
     def __del__(self):
-        """Destructor to cleanup all C# interfaces"""
+        """
+        Destructor to cleanup all C# interfaces
+        """
 
         # C# --> class UIA3Automation : AutomationBase --> abstract class AutomationBase : IDisposable
         self._automation.Dispose()
 
     def identifier(self):
-        """ Returns identifier which windows automation interface is in usage."""
+        """
+        Returns identifier which windows automation interface is in usage.
+        """
         return "UIA3"

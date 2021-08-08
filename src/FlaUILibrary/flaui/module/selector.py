@@ -1,14 +1,25 @@
 from enum import Enum
+from typing import Optional, Any
 from System import InvalidOperationException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.util.converter import Converter
 
 
-class ListBox(ModuleInterface):
+class Selector(ModuleInterface):
     """
     List control module wrapper for FlaUI usage.
-    Wrapper module executes methods from ListBox.cs implementation.
+    Wrapper module executes methods from ComboBox.cs and ListBox.cs implementation.
+    https://docs.microsoft.com/de-de/dotnet/api/system.windows.controls.primitives.selector?view=net-5.0
     """
+
+    class Container(ValueContainer):
+        """
+        Value container from selector module.
+        """
+        index: Optional[int]
+        name: Optional[str]
+        element: Optional[Any]
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
@@ -20,37 +31,55 @@ class ListBox(ModuleInterface):
         SHOULD_HAVE_SELECTED_ITEM = "SHOULD_HAVE_SELECTED_ITEM"
         GET_SELECTED_ITEMS = "GET_SELECTED_ITEMS"
 
-    def execute_action(self, action, values=None):
+    @staticmethod
+    def create_value_container(element=None, index=None, name=None, msg=None):
+        """
+        Helper to create container object.
+
+        Raises:
+            FlaUiError: If creation from container object failed by invalid values.
+
+        Args:
+            element (Object): ListBox or Combobox elements.
+            index (Number): Number to select from element
+            name (String): Name from element to select
+            msg (String): Optional error message
+        """
+        return Selector.Container(name=Converter.cast_to_string(name),
+                                  element=None if not element else element,
+                                  index=Converter.cast_to_int(index, msg))
+
+    def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
 
         Supported actions for checkbox usages are:
 
           *  Action.SELECT_ITEM_BY_INDEX
-            * values (Array): [Element, Number]
+            * values ["element", "index"]
             * Returns : None
 
           *  Action.SELECT_ITEM_BY_NAME
-            * values (Array): [Element, String]
+            * values ["element", "name"]
             * Returns : None
 
           *  Action.SHOULD_CONTAIN
-            * values (Array): [Element, String]
+            * values ["element", "name"]
             * Returns : None
 
           *  Action.GET_ITEMS_COUNT
-            * values (Array): [Element]
+            * values ["element"]
             * Returns : None
 
         *  Action.GET_ALL_NAMES_FROM_SELECTION
-            * values (Array): [Element]
+            * values ["element"]
             * Returns : None
 
         *  Action.SHOULD_HAVE_SELECTED_ITEM
-            * values (Array): [Element, String]
+            * values ["element", "name"]
             * Returns : None
 
         *  Action.GET_SELECTED_ITEMS
-            * values (Array): [Element]
+            * values ["element"]
             * Returns : String from all selected items.
 
         Raises:
@@ -62,26 +91,27 @@ class ListBox(ModuleInterface):
         """
         switcher = {
             self.Action.SELECT_ITEM_BY_INDEX:
-                lambda: ListBox._select_by_index(values[0], values[1]),
+                lambda: self._select_by_index(values["element"], values["index"]),
             self.Action.SELECT_ITEM_BY_NAME:
-                lambda: ListBox._select_by_name(values[0], values[1]),
+                lambda: self._select_by_name(values["element"], values["name"]),
             self.Action.SHOULD_CONTAIN:
-                lambda: ListBox._should_contain(values[0], values[1]),
+                lambda: self._should_contain(values["element"], values["name"]),
             self.Action.GET_ITEMS_COUNT:
-                lambda: values[0].Items.Length,
+                lambda: values["element"].Items.Length,
             self.Action.GET_ALL_NAMES_FROM_SELECTION:
-                lambda: ListBox._get_all_selected_names(values[0]),
+                lambda: self._get_all_selected_names(values["element"]),
             self.Action.SHOULD_HAVE_SELECTED_ITEM:
-                lambda: ListBox._should_have_selected_item(values[0], values[1]),
+                lambda: self._should_have_selected_item(values["element"], values["name"]),
             self.Action.GET_SELECTED_ITEMS:
-                lambda: ListBox._get_selected_items(values[0])
+                lambda: self._get_selected_items(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_selected_items(element):
-        """Try to get all selected items as string.
+    def _get_selected_items(element: Any):
+        """
+        Try to get all selected items as string.
 
         Args:
             element (Object): List view to select items.
@@ -100,8 +130,9 @@ class ListBox(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_by_index(element, index):
-        """Try to select element from given index.
+    def _select_by_index(element: Any, index: int):
+        """
+        Try to select element from given index.
 
         Args:
             element (Object): List control UI object.
@@ -119,8 +150,9 @@ class ListBox(ModuleInterface):
             raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
 
     @staticmethod
-    def _select_by_name(element, name):
-        """Try to select element from given name.
+    def _select_by_name(element: Any, name: str):
+        """
+        Try to select element from given name.
 
         Args:
             element (Object): List control UI object.
@@ -135,8 +167,9 @@ class ListBox(ModuleInterface):
             raise FlaUiError(FlaUiError.ElementNameNotFound.format(name)) from None
 
     @staticmethod
-    def _should_have_selected_item(control, item):
-        """Verification if specific items are selected.
+    def _should_have_selected_item(control: Any, item: Any):
+        """
+        Verification if specific items are selected.
 
         Args:
             control (Object): List control UI object.
@@ -146,13 +179,14 @@ class ListBox(ModuleInterface):
             FlaUiError: By an array out of bound exception
             FlaUiError: If value is not a number.
         """
-        names = ListBox._get_all_selected_names(control)
+        names = Selector._get_all_selected_names(control)
         if item not in names:
             raise FlaUiError(FlaUiError.ItemNotSelected.format(item))
 
     @staticmethod
-    def _get_all_selected_names(control):
-        """Get all selected names.
+    def _get_all_selected_names(control: Any):
+        """
+        Get all selected names.
 
         Args:
             control (Object): List control element from FlaUI.
@@ -168,8 +202,9 @@ class ListBox(ModuleInterface):
         return names
 
     @staticmethod
-    def _should_contain(control, name):
-        """Checks if Listbox contains an given item by name.
+    def _should_contain(control: Any, name: str):
+        """
+        Checks if Listbox contains an given item by name.
 
         Args:
             control (Object): List control element from FlaUI.

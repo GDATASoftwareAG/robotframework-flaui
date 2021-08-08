@@ -1,6 +1,7 @@
 from enum import Enum
+from typing import Optional, Any
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
 
 class Debug(ModuleInterface):
@@ -10,17 +11,36 @@ class Debug(ModuleInterface):
     by AutomationElementFind.cs.
     """
 
+    class Container(ValueContainer):
+        """
+        Value container from debug module.
+        """
+        element: Optional[Any]
+
     class Action(Enum):
-        """Supported actions for execute action implementation."""
+        """
+        Supported actions for execute action implementation.
+        """
         GET_CHILDS_FROM_ELEMENT = "GET_CHILDS_FROM_ELEMENT"
 
-    def execute_action(self, action, values=None):
-        """If action is not supported an ActionNotSupported error will be raised.
+    @staticmethod
+    def create_value_container(element=None):
+        """
+        Helper to create container object.
+
+        Args:
+            element (Object): Any ui element to debug
+        """
+        return Debug.Container(element=element)
+
+    def execute_action(self, action: Action, values: Container = None):
+        """
+        If action is not supported an ActionNotSupported error will be raised.
 
         Supported action usages are:
 
             * Action.PRINT_ALL_CHILDS
-              * Values (Object) : UIA3 element to gain debug output
+              * Values ["element"]
               * Returns : None
 
         Raises:
@@ -32,14 +52,15 @@ class Debug(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_CHILDS_FROM_ELEMENT: lambda: Debug._get_childs_from_element(values)
+            self.Action.GET_CHILDS_FROM_ELEMENT: lambda: Debug._get_childs_from_element(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_childs_from_element(element):
-        """Return trace information about element and all childs if exists.
+    def _get_childs_from_element(element: Any):
+        """
+        Return trace information about element and all childs.
         """
 
         element_string = element.ToString() + "\n"

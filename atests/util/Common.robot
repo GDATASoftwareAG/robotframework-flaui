@@ -28,3 +28,8 @@ Start Application With Args
     Should Not Be Equal As Integers  ${PID}  0
     Wait Until Keyword Succeeds  10x  200ms  Element Should Exist  ${xpath}
     Focus  ${xpath}
+
+Open Complex Tab
+    ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
+    ${TAB_ITEM_LIST_CONTROLS}   Set Variable  Complex Controls
+    Select Tab Item By Name     ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}

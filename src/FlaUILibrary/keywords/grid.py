@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (Element, Grid)
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import Grid
 
 
 class GridKeywords:
@@ -9,7 +9,8 @@ class GridKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for list view keywords.
+        """
+        Constructor for list view keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +18,8 @@ class GridKeywords:
 
     @keyword
     def get_selected_grid_rows(self, identifier, msg=None):
-        """Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string
+        """
+        Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string
         will be returned.
 
         For example:
@@ -35,13 +37,13 @@ class GridKeywords:
         Examples:
         | ${data}  Get Selected Grid Rows  <XPath>   |
         """
-        element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
-                                                    InterfaceType.LISTVIEW)
-        return self._module.action(Grid.Action.GET_SELECTED_ROWS, [element], msg)
+        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return self._module.action(Grid.Action.GET_SELECTED_ROWS, Grid.create_value_container(element=element), msg)
 
     @keyword
     def select_grid_row_by_index(self, identifier, index, msg=None):
-        """Select rows from data grid with the given index.
+        """
+        Select rows from data grid with the given index.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -57,13 +59,14 @@ class GridKeywords:
         | Select Grid Row By Index  <XPath>  <INDEX>      |
 
         """
-        element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
-                                                    InterfaceType.LISTVIEW)
-        self._module.action(Grid.Action.SELECT_ROW_BY_INDEX, [element, index], msg)
+        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        self._module.action(Grid.Action.SELECT_ROW_BY_INDEX,
+                            Grid.create_value_container(element=element, index=index), msg)
 
     @keyword
     def select_grid_row_by_name(self, identifier, index, name, msg=None):
-        """Select specific row by name from data grid.
+        """
+        Select specific row by name from data grid.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -80,13 +83,14 @@ class GridKeywords:
         | Select Grid Row By Name  <XPath>  <INDEX>      |
 
         """
-        element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
-                                                    InterfaceType.LISTVIEW)
-        self._module.action(Grid.Action.SELECT_ROW_BY_NAME, [element, index, name], msg)
+        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        self._module.action(Grid.Action.SELECT_ROW_BY_NAME,
+                            Grid.create_value_container(element=element, index=index, name=name), msg)
 
     @keyword
     def get_grid_rows_count(self, identifier, msg=None):
-        """Return count of rows from data grid.
+        """
+        Return count of rows from data grid.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -102,7 +106,7 @@ class GridKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         return self._module.action(Grid.Action.GET_ROW_COUNT,
-                                   [self._module.cast_element_to_type(element, InterfaceType.LISTVIEW)],
+                                   Grid.create_value_container(element=element, msg=msg),
                                    msg)

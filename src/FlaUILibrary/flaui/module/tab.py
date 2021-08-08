@@ -1,7 +1,9 @@
 from enum import Enum
+from typing import Optional, Any
 from System import Exception as CSharpException  # pylint: disable=import-error
+from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
 
 class Tab(ModuleInterface):
@@ -10,22 +12,44 @@ class Tab(ModuleInterface):
     Wrapper module executes methods from Tab.cs implementation.
     """
 
+    class Container(ValueContainer):
+        """
+        Value container from tab module.
+        """
+        element: Optional[Any]
+        name: Optional[str]
+
     class Action(Enum):
-        """Supported actions for execute action implementation."""
+        """
+        Supported actions for execute action implementation.
+        """
         GET_TAB_ITEMS_NAMES = "GET_TAB_ITEMS_NAMES"
         SELECT_TAB_ITEM_BY_NAME = "SELECT_TAB_ITEM_BY_NAME"
 
-    def execute_action(self, action, values=None):
-        """If action is not supported an ActionNotSupported error will be raised.
+    @staticmethod
+    def create_value_container(element=None, name=None):
+        """
+        Helper to create container object.
+
+        Args:
+            element (Object): Tab element to use
+            name (String): Name from tab item to search
+        """
+        return Tab.Container(element=element,
+                             name=Converter.cast_to_string(name))
+
+    def execute_action(self, action: Action, values: Container):
+        """
+        If action is not supported an ActionNotSupported error will be raised.
 
         Supported action usages are:
 
           *  Action.GET_TAB_ITEMS_NAMES
-            * Values (Array): [Element]
+            * Values ["element"]
             * Returns : List from all names in tab
 
           *  Action.SELECT_TAB_ITEM_BY_NAME
-            * Values (Array): [Element, String]
+            * Values ["element"]
             * Returns : None
 
         Raises:
@@ -37,15 +61,16 @@ class Tab(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_TAB_ITEMS_NAMES: lambda: Tab._get_tab_items_names(values[0]),
-            self.Action.SELECT_TAB_ITEM_BY_NAME: lambda: Tab._select_tab_item(values[0], values[1])
+            self.Action.GET_TAB_ITEMS_NAMES: lambda: self._get_tab_items_names(values["element"]),
+            self.Action.SELECT_TAB_ITEM_BY_NAME: lambda: self._select_tab_item(values["element"], values["name"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_tab_items_names(element):
-        """Get all TabItems from Tab element.
+    def _get_tab_items_names(element: Any):
+        """
+        Get all TabItems from Tab element.
 
         Args:
             element (Object): Tab element from FlaUI.
@@ -61,8 +86,9 @@ class Tab(ModuleInterface):
         return child_tab_items_names
 
     @staticmethod
-    def _select_tab_item(element, name):
-        """Try to select from tab given name.
+    def _select_tab_item(element: Any, name: str):
+        """
+        Try to select from tab given name.
 
         Args:
             element (Object): Tab element from FlaUI.
@@ -72,7 +98,6 @@ class Tab(ModuleInterface):
             FlaUiError: If tab name could not be found.
 
         """
-
         try:
             element.SelectTabItem(name)
         except CSharpException as exception:

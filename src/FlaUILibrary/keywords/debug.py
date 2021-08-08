@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import (Debug, Element)
+from FlaUILibrary.flaui.module import Debug
 
 
 class DebugKeywords:
@@ -8,7 +8,8 @@ class DebugKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for debugging keywords.
+        """
+        Constructor for debugging keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -16,7 +17,8 @@ class DebugKeywords:
 
     @keyword
     def get_childs_from_element(self, identifier, msg=None):
-        """Gets full output from element and childs output. Information to print out are AutomationId, Name,
+        """
+        Gets full output from element and childs output. Information to print out are AutomationId, Name,
         ControlType and FrameworkId.
 
         Example output ${CHILDS}  <XPATH>
@@ -41,12 +43,13 @@ class DebugKeywords:
         | Log  <XPATH> |
 
         """
-        return self._module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT,
-                                   self._module.action(Element.Action.GET_ELEMENT, identifier, msg))
+        element = self._module.get_element(identifier, msg=msg)
+        return self._module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT, Debug.create_value_container(element=element))
 
     @keyword
     def get_uia_identifier(self):
-        """Gets given windows user automation identifier which is in usage for the test.
+        """
+        Gets given windows user automation identifier which is in usage for the test.
 
         Possible Identifier are : UIA2 or UIA3
 

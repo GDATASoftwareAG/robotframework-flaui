@@ -1,6 +1,8 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (Element, ListBox)
+
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import Selector
+from FlaUILibrary.flaui.uia import UIA
 
 
 class ComboBoxKeywords:
@@ -8,8 +10,9 @@ class ComboBoxKeywords:
     Interface implementation from robotframework usage for combobox keywords.
     """
 
-    def __init__(self, module):
-        """Constructor for combobox keywords.
+    def __init__(self, module: UIA):
+        """
+        Constructor for combobox keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +20,8 @@ class ComboBoxKeywords:
 
     @keyword
     def get_selected_items_from_combobox(self, identifier, msg=None):
-        """Get all selected items from combobox as string. If nothing is selected empty string  will be returned.
+        """
+        Get all selected items from combobox as string. If nothing is selected empty string  will be returned.
 
         For example:
           Value_1
@@ -35,13 +39,15 @@ class ComboBoxKeywords:
         Examples:
         | ${data}  Get Selected Items From Combobox  <XPath>   |
         """
-        element = self._module.cast_element_to_type(self._module.action(Element.Action.GET_ELEMENT, identifier, msg),
-                                                    InterfaceType.COMBOBOX)
-        return self._module.action(ListBox.Action.GET_SELECTED_ITEMS, [element], msg)
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        return self._module.action(Selector.Action.GET_SELECTED_ITEMS,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
 
     @keyword
     def select_combobox_item_by_index(self, identifier, index, msg=None):
-        """Selects item from combobox with given index number
+        """
+        Selects item from combobox with given index number
 
         XPath syntax is explained in `XPath locator`.
 
@@ -57,14 +63,15 @@ class ComboBoxKeywords:
         | Select Combobox Item By Index  <XPATH>  <INDEX> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SELECT_ITEM_BY_INDEX,
-                            [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX), index],
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        self._module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
+                            Selector.create_value_container(element=element, index=index, msg=msg),
                             msg)
 
     @keyword
     def combobox_should_contain(self, identifier, name, msg=None):
-        """Checks if Combobox contains an item
+        """
+        Checks if Combobox contains an item
 
         XPath syntax is explained in `XPath locator`.
 
@@ -80,14 +87,15 @@ class ComboBoxKeywords:
         | Combobox Should Contain  <XPATH>  <NAME> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        self._module.action(ListBox.Action.SHOULD_CONTAIN,
-                            [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX), name],
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        self._module.action(Selector.Action.SHOULD_CONTAIN,
+                            Selector.create_value_container(element=element, name=name, msg=msg),
                             msg)
 
     @keyword
     def get_combobox_items_count(self, identifier, msg=None):
-        """Return actual count of items in combobox.
+        """
+        Return actual count of items in combobox.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -103,7 +111,7 @@ class ComboBoxKeywords:
         | Should Be Equal  ${value}  ${COUNT}         |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
-        return self._module.action(ListBox.Action.GET_ITEMS_COUNT,
-                                   [self._module.cast_element_to_type(element, InterfaceType.COMBOBOX)],
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        return self._module.action(Selector.Action.GET_ITEMS_COUNT,
+                                   Selector.create_value_container(element=element, msg=msg),
                                    msg=msg)

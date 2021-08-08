@@ -11,7 +11,7 @@ Resource        util/XPath.robot
 
 Suite Setup      Start Application
 Suite Teardown   Stop Application
-Test Teardown  Reset Textbox
+Test Teardown    Reset Textbox
 
 *** Variables ***
 ${XPATH_COMBO_BOX_INPUT}    ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='EditableCombo']
@@ -111,7 +111,9 @@ Delete Text
 
 False Argument Type
     Run Keyword and Expect Error   ${EXP_ERR_MSG_ARGUMENT_ARRAY}  Press Keys  ${KEYBOARD_INPUT_TEXT}  ${XPATH_COMBO_BOX_INPUT}
-	Run Keyword and Expect Error   ${EXP_ERR_MSG_ARGUMENT_NOT_ARRAY}  Press Key   ${KEYBOARD_INPUT_TEXT_ARRAY}  ${XPATH_COMBO_BOX_INPUT}
+    ${EXP_ERR_MSG}  Format String  ${EXP_INVALID_KEYBOARD_COMBINATION}  ${KEYBOARD_INPUT_TEXT_ARRAY}
+	${ERR_MSG}      Run Keyword and Expect Error   *  Press Key   ${KEYBOARD_INPUT_TEXT_ARRAY}  ${XPATH_COMBO_BOX_INPUT}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 	
 *** Keywords ***
 Reset Textbox

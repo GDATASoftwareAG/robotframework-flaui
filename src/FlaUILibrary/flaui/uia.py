@@ -1,25 +1,26 @@
 from abc import ABC
-
+from typing import Any
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.interface import WindowsAutomationInterface
+from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, InterfaceType, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.module import (Application,
                                        Debug,
                                        Grid,
-                                       ToggleButton,
-                                       ListBox,
                                        Tree,
                                        Mouse,
                                        Keyboard,
                                        Textbox,
                                        Tab,
                                        Element,
-                                       Window)
+                                       Window,
+                                       ToggleButton,
+                                       Selector)
 
 
 class UIA(WindowsAutomationInterface, ABC):
-    """Generic window automation module for a centralized communication handling between robot keywords and flaui. """
+    """
+    Generic window automation module for a centralized communication handling between robot keywords and flaui.
+    """
 
     def __init__(self, timeout=1000):
         """
@@ -29,8 +30,9 @@ class UIA(WindowsAutomationInterface, ABC):
         self._actions = {}
         self._timeout = timeout
 
-    def action(self, action, values=None, msg=None):
-        """Performs a application action if supported. If not supported an NotSupported error will be thrown.
+    def action(self, action: int, values: ValueContainer = None, msg: str = None):
+        """
+        Performs a application action if supported. If not supported an NotSupported error will be thrown.
 
         Args:
             action (Action) : Application action to perform.
@@ -51,22 +53,42 @@ class UIA(WindowsAutomationInterface, ABC):
         except FlaUiError as error:
             raise FlaUiError(msg) if msg is not None else error
 
-    def register_action(self, automation):
-        """Register all supported core actions.
+    def register_action(self, automation: Any):
+        """
+        Register all supported core actions.
 
         Args:
             automation (Object)       : Windows user automation object.
         """
-        modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), ListBox(),
+        modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
                    Grid(), Mouse(), Textbox(), Tree(), ToggleButton(), Tab(), Window(automation)]
 
         for module in modules:
             for value in module.Action:
                 self._actions[value] = module
 
+    def get_element(self, identifier: str, ui_type: InterfaceType = None, msg: str = None):
+        """
+        Get element from identifier.
+
+        Args:
+            identifier (String): XPath identifier to find element
+            ui_type (Enum)     : Object enum to cast element
+            msg (String)       : Custom error message
+        """
+        element = self.action(Element.Action.GET_ELEMENT,
+                              Element.Container(xpath=identifier, retries=None, name=None),
+                              msg)
+
+        if not ui_type:
+            return element
+
+        return self.cast_element_to_type(element, ui_type)
+
     @staticmethod
-    def cast_element_to_type(element, ui_type):
-        """ Cast element to given type.
+    def cast_element_to_type(element: Any, ui_type: InterfaceType):
+        """
+        Cast element to given type.
 
         ``element`` Element to capture if not set set 'None' desktop will be captured.
         ``ui_type`` InterfaceType to cast to specific module element.

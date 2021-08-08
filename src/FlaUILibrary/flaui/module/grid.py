@@ -1,8 +1,10 @@
 from enum import Enum
+from typing import Optional, Any
 from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from System import NullReferenceException  # pylint: disable=import-error
+from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import ModuleInterface
+from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
 
 class Grid(ModuleInterface):
@@ -11,31 +13,60 @@ class Grid(ModuleInterface):
     Wrapper module executes methods from Grid.cs implementation.
     """
 
+    class Container(ValueContainer):
+        """
+        Value container from grid module.
+        """
+        element: Optional[Any]
+        index: Optional[int]
+        name: Optional[str]
+
     class Action(Enum):
-        """Supported actions for execute action implementation."""
+        """
+        Supported actions for execute action implementation.
+        """
         SELECT_ROW_BY_INDEX = "SELECT_ROW_BY_INDEX"
         GET_ROW_COUNT = "GET_ROW_COUNT"
         SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
         GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
 
-    def execute_action(self, action, values=None):
-        """If action is not supported an ActionNotSupported error will be raised.
+    @staticmethod
+    def create_value_container(element=None, index=None, name=None, msg=None):
+        """
+        Helper to create container object.
+
+        Raises:
+            FlaUiError: If creation from container object failed by invalid values.
+
+        Args:
+            element (Object): Grid element to access
+            index (Number): Index value to select from grid data
+            name (String): Name from grid element
+            msg (String): Optional error message
+        """
+        return Grid.Container(element=element,
+                              index=Converter.cast_to_int(index, msg),
+                              name=Converter.cast_to_string(name))
+
+    def execute_action(self, action: Action, values: Container):
+        """
+        If action is not supported an ActionNotSupported error will be raised.
 
         Supported actions for mouse usages are:
           *  Action.SELECT_ROW_BY_INDEX
-            * values (Array): [Element, Number]
+            * values ["element", "index"]
             * Returns : None
 
           *  Action.GET_ROW_COUNT
-            * values (Array): [Element]
+            * values ["element"]
             * Returns : None
 
          *  Action.SELECT_ROW_BY_NAME
-            * values (Array): [Element, Index, String]
+            * values ["element", "index"]
             * Returns : None
 
          *  Action.GET_SELECTED_ROWS
-            * values (Array): [Element]
+            * values ["element"]
             * Returns : String from all selected rows split up by pipe.
 
         Raises:
@@ -48,17 +79,20 @@ class Grid(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_ROW_COUNT: lambda: values[0].Rows.Length,
-            self.Action.SELECT_ROW_BY_INDEX: lambda: Grid._select_row_by_index(values[0], values[1]),
-            self.Action.SELECT_ROW_BY_NAME: lambda: Grid._select_row_by_name(values[0], values[1], values[2]),
-            self.Action.GET_SELECTED_ROWS: lambda: Grid._get_selected_rows(values[0])
+            self.Action.GET_ROW_COUNT: lambda: values["element"].Rows.Length,
+            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], values["index"]),
+            self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
+                                                                             values["index"],
+                                                                             values["name"]),
+            self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_selected_rows(control):
-        """Try to get all selected rows as string.
+    def _get_selected_rows(control: Any):
+        """
+        Try to get all selected rows as string.
 
         Args:
             control (Object): List view to select items.
@@ -78,8 +112,9 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_row_by_index(control, index):
-        """Try to select element from given index.
+    def _select_row_by_index(control: Any, index: int):
+        """
+        Try to select element from given index.
 
         Args:
             control (Object): List view to select items.
@@ -91,19 +126,18 @@ class Grid(ModuleInterface):
         """
         try:
             if control.Rows.Length > 0:
-                control.AddToSelection(int(index))
+                control.AddToSelection(index)
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
-        except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except NullReferenceException:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
-    def _select_row_by_name(control, index, name):
-        """Try to select element from given name from given column index
+    def _select_row_by_name(control: Any, index: int, name: str):
+        """
+        Try to select element from given name from given column index
 
         Args:
             control (Object): List view to select items.
@@ -116,11 +150,9 @@ class Grid(ModuleInterface):
         """
         try:
             if control.Rows.Length > 0:
-                control.AddToSelection(int(index), str(name))
+                control.AddToSelection(index, name)
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
-        except ValueError:
-            raise FlaUiError(FlaUiError.ValueShouldBeANumber.format(index)) from None
         except ArgumentOutOfRangeException:
             raise FlaUiError(FlaUiError.ListviewItemNotFound.format(name, index)) from None
         except NullReferenceException:

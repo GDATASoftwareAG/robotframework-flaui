@@ -1,3 +1,4 @@
+from typing import Any
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.util.treeitemsparser import TreeItemsParser
 
@@ -17,7 +18,8 @@ class TreeItems:
         self.location = []
 
     def get_every_visible_treeitems_name(self):
-        """This function reterns a list of  every visible node in tree.
+        """
+        This function reterns a list of  every visible node in tree.
         It iterates the given tree and adds the names of the tree items to self.treeitems_name
         and the total count of them to self.treeitems_count
         """
@@ -43,8 +45,9 @@ class TreeItems:
                 continue
         return self.treeitems_name
 
-    def select_visible_treeitem_by_name(self, name):
-        """This function selects a tree item with the given name in tree
+    def select_visible_treeitem_by_name(self, name: Any):
+        """
+        This function selects a tree item with the given name in tree
         if item not found a flauierror will be thrown.
         """
         for item in self.treeitems:
@@ -72,7 +75,8 @@ class TreeItems:
         return True
 
     def expand_all_treeitems(self):
-        """This function expands every expandable tree item in tree
+        """
+        This function expands every expandable tree item in tree
         """
         for item in self.treeitems:
             state = item.ExpandCollapseState
@@ -95,8 +99,9 @@ class TreeItems:
                 continue
         return True
 
-    def execute_by_location(self, location , exec_func):
-        """This function executes the given exec_func function to the last element in location
+    def execute_by_location(self, location: Any, exec_func: Any):
+        """
+        This function executes the given exec_func function to the last element in location
         after iterating the whole location through.
         The given location will be parsed with the help of TreeItemsParser
         """
@@ -126,7 +131,8 @@ class TreeItems:
                 self.treeitems = self.current_treeitem.Items
 
     def collapse(self):
-        """This function collapses every collapsable tree item in root level.
+        """
+        This function collapses every collapsable tree item in root level.
         """
         for item in self.treeitems:
             if item.ExpandCollapseState == 1 or item.ExpandCollapseState == 2:

@@ -62,16 +62,16 @@ Take Manual Screenshot By Keyword
 
 *** Keywords ***
 Get Expected Filename
-    [Arguments]   ${TEST_NAME}  ${INDEX}=1
-    ${FILENAME} =  Convert To Lowercase  ${TEST_NAME}
-    ${HOSTNAME} =  Convert To Lowercase  %{COMPUTERNAME}
+    [Arguments]  ${TEST_NAME}  ${INDEX}=1
+    ${FILENAME}  Convert To Lowercase  ${TEST_NAME}
+    ${HOSTNAME}  Convert To Lowercase  %{COMPUTERNAME}
 
     Should Be Lowercase  ${FILENAME}
 
-    ${FILENAME} =  Replace String  ${FILENAME}  ${space}  _
-    ${FILENAME} =  Catenate  SEPARATOR=_  ${HOSTNAME}   ${FILENAME}
-    ${FILENAME} =  Catenate  SEPARATOR=_  test   ${FILENAME}
-    ${FILENAME} =  Catenate  SEPARATOR=_  ${FILENAME}  ${INDEX}
-    ${FILENAME} =  Catenate  SEPARATOR=.  ${FILENAME}   jpg
+    ${FILENAME}  Replace String  ${FILENAME}  ${space}  _
+    ${FILENAME}  Catenate  SEPARATOR=_  ${HOSTNAME}   ${FILENAME}
+    ${FILENAME}  Catenate  SEPARATOR=_  test   ${FILENAME}
+    ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  ${INDEX}
+    ${FILENAME}  Catenate  SEPARATOR=.  ${FILENAME}   jpg
 
     [Return]  ${FILENAME}

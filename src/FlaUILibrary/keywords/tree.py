@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.util import InterfaceType
-from FlaUILibrary.flaui.module import (Element, Tree)
+from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.module import Tree
 
 
 class TreeKeywords:
@@ -9,7 +9,8 @@ class TreeKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for tree keywords.
+        """
+        Constructor for tree keywords.
 
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
@@ -17,7 +18,8 @@ class TreeKeywords:
 
     @keyword
     def get_root_treeitems_count(self, identifier, msg=None):
-        """Return count of items in the first level of the tree.
+        """
+        Return count of items in the first level of the tree.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -33,14 +35,15 @@ class TreeKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return self._module.action(Tree.Action.GET_ROOT_ITEMS_COUNT,
-                                   [self._module.cast_element_to_type(element, InterfaceType.TREE)],
+                                   Tree.create_value_container(element=element),
                                    msg)
 
     @keyword
     def get_all_visible_treeitems_count(self, identifier, msg=None):
-        """Returns the count of every visible tree item.
+        """
+        Returns the count of every visible tree item.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -56,14 +59,15 @@ class TreeKeywords:
         | Should Be Equal  ${COUNT}  <TOTAL_COUNT_OF_VISIBLE_TREEITEMS> |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return self._module.action(Tree.Action.GET_VISIBLE_ITEMS_COUNT,
-                                   [self._module.cast_element_to_type(element, InterfaceType.TREE)],
+                                   Tree.create_value_container(element=element),
                                    msg)
 
     @keyword
     def get_all_visible_treeitems_names(self, identifier, msg=None):
-        """Returns a list of names of every visible tree item.
+        """
+        Returns a list of names of every visible tree item.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -80,15 +84,15 @@ class TreeKeywords:
         | Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}        |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return self._module.action(Tree.Action.GET_VISIBLE_ITEMS_NAMES,
-                                   [self._module.cast_element_to_type(element, InterfaceType.TREE)],
+                                   Tree.create_value_container(element=element),
                                    msg)
-
 
     @keyword
     def expand_all_treeitems(self, identifier, msg=None):
-        """Expands every expandable Tree Items items of the given tree.
+        """
+        Expands every expandable Tree Items items of the given tree.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -102,14 +106,15 @@ class TreeKeywords:
         Examples:
         | Expand All Tree Items  <XPATH>                 |
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.EXPAND_ALL,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE)],
+                            Tree.create_value_container(element=element),
                             msg)
 
     @keyword
     def collapse_all_treeitems(self, identifier, msg=None):
-        """Collapse every collapsable tree items of the given tree.
+        """
+        Collapse every collapsable tree items of the given tree.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -123,14 +128,15 @@ class TreeKeywords:
         Examples:
         | Collapse All Tree Items <XPATH>                 |
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.COLLAPSE_ALL,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE)],
+                            Tree.create_value_container(element=element),
                             msg)
 
     @keyword
     def treeitem_should_be_visible(self, identifier, name, msg=None):
-        """Iterates every visible tree item. And fails if does not find the given name.
+        """
+        Iterates every visible tree item. And fails if does not find the given name.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -146,14 +152,15 @@ class TreeKeywords:
         | TreeItem Should Be Visible  <XPATH>  <Name>            |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.ITEM_SHOULD_BE_VISIBLE,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), name],
+                            Tree.create_value_container(element=element, item=name),
                             msg)
 
     @keyword
     def get_selected_treeitems_name(self, identifier, msg=None):
-        """Selects item from tree with given index number
+        """
+        Selects item from tree with given index number
 
         XPath syntax is explained in `XPath locator`.
 
@@ -169,14 +176,15 @@ class TreeKeywords:
         | Should Be Equal     ${Name}  <Name>                 |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return self._module.action(Tree.Action.GET_SELECTED_ITEMS_NAME,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE)],
-                            msg)
+                                   Tree.create_value_container(element=element),
+                                   msg)
 
     @keyword
     def select_visible_treeitem_by_name(self, identifier, name, msg=None):
-        """Selects item from tree by name.
+        """
+        Selects item from tree by name.
         If the given name could not be found or was not visible in tree FlauiError will be thrown.
 
         XPath syntax is explained in `XPath locator`.
@@ -193,14 +201,15 @@ class TreeKeywords:
         | Select visible Tree Item By Name  <XPATH>  <NAME>   |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.SELECT_ITEM_BY_NAME,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), name],
+                            Tree.create_value_container(element=element, item=name),
                             msg)
 
     @keyword
     def select_treeitem(self, identifier, item, msg=None):
-        """Selects item from tree by hybrid pointers, series of indexes and names.
+        """
+        Selects item from tree by hybrid pointers, series of indexes and names.
 
         Tree item will be located using the following syntax:
         N:Name1->I:index2->N:Name3
@@ -223,14 +232,15 @@ class TreeKeywords:
         | Select Tree Item   <XPATH>  ${item}      |
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.SELECT_ITEM,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), item],
+                            Tree.create_value_container(element=element, item=item),
                             msg)
 
     @keyword
     def expand_treeitem(self, identifier, item, msg=None):
-        """Expands item from tree by hybrid pointers, series of indexes and names.
+        """
+        Expands item from tree by hybrid pointers, series of indexes and names.
 
         Tree item will be located using the following syntax:
         N:Name1->I:index2->N:Name3
@@ -254,14 +264,15 @@ class TreeKeywords:
 
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.EXPAND_ITEM,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), item],
+                            Tree.create_value_container(element=element, item=item),
                             msg)
 
     @keyword
     def collapse_treeitem(self, identifier, item, msg=None):
-        """Collapses item from tree by hybrid pointers, series of indexes and names.
+        """
+        Collapses item from tree by hybrid pointers, series of indexes and names.
 
         Tree item will be located using the following syntax:
         N:Name1->I:index2->N:Name3
@@ -285,14 +296,15 @@ class TreeKeywords:
 
 
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.COLLAPSE_ITEM,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), item],
+                            Tree.create_value_container(element=element, item=item),
                             msg)
 
     @keyword
     def selected_treeitem_should_be(self, identifier, item, msg=None):
-        """Checks if the selected tree items are same with the given ones.
+        """
+        Checks if the selected tree items are same with the given ones.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -307,7 +319,7 @@ class TreeKeywords:
         Examples:
         | Selected TreeItem Should Be  <XPATH>  <item>                 |
         """
-        element = self._module.action(Element.Action.GET_ELEMENT, identifier, msg)
+        element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.SELECTED_ITEM_SHOULD_BE,
-                            [self._module.cast_element_to_type(element, InterfaceType.TREE), item],
+                            Tree.create_value_container(element=element, item=item),
                             msg)

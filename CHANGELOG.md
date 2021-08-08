@@ -176,7 +176,7 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: ../../compare/1.6.4...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.4...main
 
 [1.6.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.4
 

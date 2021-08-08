@@ -8,7 +8,8 @@ class KeyboardKeywords:
     """
 
     def __init__(self, module):
-        """Constructor for element keywords.
+        """
+        Constructor for element keywords.
 
         ``module`` UIA3 module to handle element interaction.
         """
@@ -16,7 +17,8 @@ class KeyboardKeywords:
 
     @keyword
     def press_key(self, key_combination, identifier=None, msg=None):
-        """Keyboard control to execute a user defined one shurcut or text.
+        """
+        Keyboard control to execute a user defined one shurcut or text.
         If identifier set try to attach to given element if
         operation was successfully old element will be reattached automatically.
 
@@ -94,13 +96,18 @@ class KeyboardKeywords:
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
         """
         if identifier is not None:
-            self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
+            self._module.action(Element.Action.FOCUS_ELEMENT,
+                                Element.Container(xpath=identifier, retries=None, name=None),
+                                msg)
 
-        self._module.action(Keyboard.Action.KEY_COMBINATION, key_combination, msg)
+        self._module.action(Keyboard.Action.KEY_COMBINATION,
+                            Keyboard.create_value_container(shortcut=key_combination),
+                            msg)
 
     @keyword
     def press_keys(self, keys_combinations, identifier=None, msg=None):
-        """Keyboard control to execute a user defined sequence of shortcuts and text values.
+        """
+        Keyboard control to execute a user defined sequence of shortcuts and text values.
         If identifier set try to attach to given element if
         operation was successfully old element will be reattached automatically.
 
@@ -133,6 +140,10 @@ class KeyboardKeywords:
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT} |
         """
         if identifier is not None:
-            self._module.action(Element.Action.FOCUS_ELEMENT, identifier, msg)
+            self._module.action(Element.Action.FOCUS_ELEMENT,
+                                Element.Container(xpath=identifier, retries=None, name=None),
+                                msg)
 
-        self._module.action(Keyboard.Action.KEYS_COMBINATIONS, keys_combinations, msg)
+        self._module.action(Keyboard.Action.KEYS_COMBINATIONS,
+                            Keyboard.create_value_container(shortcuts=keys_combinations),
+                            msg)

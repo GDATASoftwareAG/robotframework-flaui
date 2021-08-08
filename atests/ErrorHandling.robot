@@ -15,7 +15,7 @@ ${EXP_VALUE_INPUT_TEXT}            Type text
 
 *** Test Cases ***
 Attach Application By Name        Attach Application By Name  ${EXP_ERR_MSG_APP_NAME_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Attach Application By PID         Attach Application By PID  ${EXP_ERR_MSG_PID_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Attach Application By PID         Attach Application By PID  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  ${XPATH_NOT_EXISTS}
 Click                             Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Close Application                 Close Application  ${EXP_ERR_MSG_APP_NOT_ATTACHED}
 Close Window                      Close Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

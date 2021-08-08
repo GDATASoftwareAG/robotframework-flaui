@@ -1,7 +1,7 @@
-
-
 class FlaUiError(AttributeError):
-    """Error message handler"""
+    """
+    Error message handler
+    """
     GenericError = "{}"
     ArrayOutOfBoundException = "Given index '{}' could not be found by element"
     ValueShouldBeANumber = "Given value '{}' should be number"
@@ -35,7 +35,8 @@ class FlaUiError(AttributeError):
 
     @staticmethod
     def raise_fla_ui_error(message):
-        """Static method usage to raise an FlaUI exception
+        """
+        Static method usage to raise an FlaUI exception
 
         Args:
             message (String): Error message to raise.

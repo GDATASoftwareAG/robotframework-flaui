@@ -37,5 +37,5 @@ Select Tab Item By Name
 
 Select Tab Item By Name Not Exist
     ${EXP_ERR_MSG}  Format String  ${EXP_GENERIC_ERR_MSG}  No TabItem found with text 'Tab Not Exist'
-    ${ERR_MSG} =  Run Keyword And Expect Error   *  Select Tab Item By Name  ${XPATH_TAB}  Tab Not Exist
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Select Tab Item By Name  ${XPATH_TAB}  Tab Not Exist
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}

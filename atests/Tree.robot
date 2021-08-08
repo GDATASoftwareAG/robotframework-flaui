@@ -10,7 +10,7 @@ Resource        util/Error.robot
 Resource        util/XPath.robot
 
 Suite Setup      Run Keywords  Start Application
-...              AND           Click  ${MAIN_WINDOW_COMPLEX_CONTROLS}
+...              AND           Open Complex Tab
 Suite Teardown   Stop Application
 
 *** Variables ***

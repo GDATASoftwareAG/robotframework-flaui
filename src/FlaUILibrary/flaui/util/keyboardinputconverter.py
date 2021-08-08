@@ -1,22 +1,26 @@
 from re import split, match, search
 from enum import Enum
+from typing import Any
 from FlaUI.Core.WindowsAPI import VirtualKeyShort  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
 class KeyboardInputConverter:
-    """Helper class for simplifying keyboard input converting."""
+    """
+    Helper class for simplifying keyboard input converting.
+    """
 
     SHORTCUT = r'^s\'(.+?)\'$'
     TEXT = r'^t\'(.+?)\'$'
     SHORTCUT_DELIMITER = r'[+]'
 
     class InputType(Enum):
-        """Supported input types."""
+        """
+        Supported input types.
+        """
         TEXT = 0
         SHORTCUT = 1
 
-    # Supported keyboard keys
     Keys = {
         "LBUTTON": VirtualKeyShort.LBUTTON,  # Left mouse button
         "RBUTTON": VirtualKeyShort.RBUTTON,  # Right mouse button
@@ -114,7 +118,7 @@ class KeyboardInputConverter:
     }
 
     @staticmethod
-    def convert_key_combination(key_combination):
+    def convert_key_combination(key_combination: Any):
         """
         Convert user-defined keys combination into text or VirtualKeyShort combination.
 
