@@ -118,7 +118,7 @@ class TreeItems:
                         self.current_treeitem.Collapse()
                     elif exec_func == "Select":
                         self.current_treeitem.Select()
-                except ValueError as ex:
+                except ValueError:
                     raise FlaUiError(FlaUiError.FalseSyntax.format(function)) from None
                 except Exception as ex:
                     if ex.__class__.__name__=="InvalidOperationException":
