@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.6.5] [1.6.5][1.6.4-1.6.5] - 2021-08-28
+
 ### Changed
 
 - Robotframework-flaui use now PythonLibCore 3.0 package to maintain this library
@@ -176,7 +178,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.4...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.5...main
+
+[1.6.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.5
+
+[1.6.4-1.6.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.4...1.6.5
 
 [1.6.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.4
 
