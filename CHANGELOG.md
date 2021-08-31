@@ -7,6 +7,16 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- Timeout behavior changed
+  - "desktop.FindFirstByXPath(xpath)" needs a few seconds to finds element so retry which was default 
+    10 times would break testing duration.
+  - Retry is removed and sleep function can be disabled now with a "timeout=0"
+  - If a timeout is set then this function will now waits the amount of time and check once and do not check 
+    by a periodic timer anymore
+  - Default timeout is still '1000 ms' to wait for an recheck if element could not be found
+
 ## [Release][1.6.5] [1.6.5][1.6.4-1.6.5] - 2021-08-28
 
 ### Changed
