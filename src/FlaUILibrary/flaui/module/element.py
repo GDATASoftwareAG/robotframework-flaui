@@ -197,7 +197,7 @@ class Element(ModuleInterface):
 
     def _get_element(self, xpath: str):
         """
-        Try to get element from xpath.
+        Try to get element.
 
         Args:
             xpath (string): XPath identifier from element.
@@ -206,23 +206,28 @@ class Element(ModuleInterface):
             FlaUiError: If node could not be found by xpath.
         """
         try:
-            retry = 0
-            max_retry = 10
-            timeout = self._timeout / (1000 * max_retry)
+            component = self._get_element_by_xpath(xpath)
+            if not component and self._timeout > 0:
+                time.sleep(self._timeout / 1000)
+                component = self._get_element_by_xpath(xpath)
 
-            while retry < max_retry:
-                desktop = self._automation.GetDesktop()
-                component = desktop.FindFirstByXPath(xpath)
-                if component:
-                    return component
-                if timeout > 0:
-                    time.sleep(timeout)
-                retry = retry + 1
+            if component:
+                return component
 
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
         except CSharpException:
             raise FlaUiError(FlaUiError.XPathNotFound.format(xpath)) from None
+
+    def _get_element_by_xpath(self, xpath: str):
+        """
+        Try to get element from xpath by desktop.
+
+        Args:
+            xpath (string): XPath identifier from element.
+        """
+        desktop = self._automation.GetDesktop()
+        return desktop.FindFirstByXPath(xpath)
 
     def _element_should_not_exist(self, xpath: str):
         """
