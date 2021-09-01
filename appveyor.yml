@@ -5,14 +5,14 @@ branches:
 image: Visual Studio 2019
 environment:
   matrix:
-    - job_name: Python 3.7.9 x86
+    - job_name: Python 3.7 x86
       PYTHON: "C:\\Python37"
-      PYTHON_VERSION: 3.7.9
+      PYTHON_VERSION: 3.7
       PYTHON_ARCH: 32
 
-    - job_name: Python 3.8.6 x86
+    - job_name: Python 3.8 x86
       PYTHON: "C:\\Python38"
-      PYTHON_VERSION: 3.8.6
+      PYTHON_VERSION: 3.8
       PYTHON_ARCH: 32
 
     - job_name: Python 3.9 x86
@@ -20,14 +20,14 @@ environment:
       PYTHON_VERSION: 3.9
       PYTHON_ARCH: 32
 
-    - job_name: Python 3.7.9 x64
+    - job_name: Python 3.7 x64
       PYTHON: "C:\\Python37-x64"
-      PYTHON_VERSION: 3.7.9
+      PYTHON_VERSION: 3.7
       PYTHON_ARCH: 64
 
-    - job_name: Python 3.8.6 x64
+    - job_name: Python 3.8 x64
       PYTHON: "C:\\Python38-x64"
-      PYTHON_VERSION: 3.8.6
+      PYTHON_VERSION: 3.8
       PYTHON_ARCH: 64
       
     - job_name: Python 3.9 x64
