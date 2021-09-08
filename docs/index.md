@@ -13,7 +13,7 @@ title: G DATA CyberDefense AG
 
 | Version      | FlaUI Version      | UIA3/UIA2           | Robotframework      | Python.Net          | Min/Max Python Version  | Documentation                                             |
 |:-------------|:------------------ | :------------------ | :------------------ | :------------------ |:------------------      | :------------------                                       |
-| 1.6.6        | 3.2.0              | Yes / Yes           | 3.2.2 to 4.1        | 2.5.2               | 3.6 / 3.9               | [HTML](./keywords/1.6.6.html)/[XML](./keywords/1.6.6.xml) |
+| 1.6.6        | 3.2.0              | Yes / Yes           | 3.2.2 to 4.1.1      | 2.5.2               | 3.6 / 3.9               | [HTML](./keywords/1.6.6.html)/[XML](./keywords/1.6.6.xml) |
 | 1.6.5        | 3.2.0              | Yes / Yes           | 3.2.2 to 4.1        | 2.5.2               | 3.6 / 3.9               | [HTML](./keywords/1.6.5.html)/[XML](./keywords/1.6.5.xml) |
 | 1.6.4        | 3.2.0              | Yes / Yes           | 3.0.4 to 4.1        | 2.5.2               | 3.6 / 3.9               | [HTML](./keywords/1.6.4.html)/[XML](./keywords/1.6.4.xml) |
 | 1.6.3        | 3.2.0              | Yes / Yes           | 3.0.4 to 4.0.3      | 2.5.2               | 3.6 / 3.9               | [HTML](./keywords/1.6.3.html)/[XML](./keywords/1.6.3.xml) |
