@@ -9,6 +9,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Release][1.6.6] [1.6.6][1.6.5-1.6.6] - 2021-09-01
 
+### Added
+
+- Supports Robotframework 4.1.1
+
 ### Changed
 
 - Timeout behavior changed
