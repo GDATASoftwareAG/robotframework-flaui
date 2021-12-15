@@ -27,15 +27,21 @@ Get Name From Element By XPath
     Should Be Equal  Test Label  ${TEXT}
 
 Element Should Exist
-    Element Should Exist  ${XPATH_ELEMENT}
+    ${EXISTS}  Element Should Exist  ${XPATH_ELEMENT}
+    Should Be Equal  ${EXISTS}  ${True}
+
+Element Should Exist Xpath Not Exists
+    ${EXISTS}  Element Should Exist  ${XPATH_NOT_EXISTS}  ${FALSE}
+    Should Be Equal  ${EXISTS}  ${False}
 
 Element Should Not Exist
-    Element Should Not Exist  ${XPATH_NOT_EXISTS}
-
-Element Should Not Exist Error
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_EXISTS}  ${XPATH_ELEMENT}
-    ${ERR_MSG}      Run Keyword And Expect Error  *  Element Should Not Exist  ${XPATH_ELEMENT}
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Not Exist  ${XPATH_ELEMENT}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Element Should Not Exist Xpath Not Exists
+    ${NOT_EXISTS}  Element Should Not Exist  ${XPATH_NOT_EXISTS}  ${FALSE}
+    Should Be Equal  ${NOT_EXISTS}  ${TRUE}
 
 Name Should Be
     Name Should Be    ${EXP_WINDOW_TITLE}  ${MAIN_WINDOW}
@@ -65,7 +71,7 @@ Is Element Visible
     ${IS_VISIBLE}  Is Element Visible  ${XPATH_ELEMENT}
     Should Be True  ${IS_VISIBLE}
 
-Is Element Offscreen And Not Visible
+Is Element Visible When Element Is Offscreen And Not Visible
     ${IS_VISIBLE}  Is Element Visible  ${XPATH_OFFSCREEN_ELEMENT}
     Should Be Equal  ${IS_VISIBLE}  ${False}
 

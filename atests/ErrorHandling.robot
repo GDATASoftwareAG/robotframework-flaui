@@ -28,7 +28,6 @@ Double Click                      Double Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  
 Element Should Be Visible         Element Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Exist              Element Should Exist  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Not Be Visible     Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Element Should Not Exist          Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Focus                             Focus  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Checkbox State                Get Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -69,12 +68,12 @@ Select TreeItem                   Select TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND
 Select Visible TreeItem By Name   Select Visible TreeItem By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Set Checkbox State                Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox               Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
-Wait Until Element Is Hidden      Wait Until Element Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  10
 Wait Until Element Is Visible     Wait Until Element Is Visible  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${XPATH_NOT_EXISTS}  10
 
 *** Keywords ***
 Execute Keyword And Expect Error Message
     [Arguments]  ${keyword}  ${expected_default_error_msg}  @{args}
+    Log  ${args}
     ${EXP_ERR_MSG}  Format String  ${expected_default_error_msg}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Run Keyword  ${keyword}  @{args}
-    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Run Keyword  ${keyword}  @{args}  ${CUSTOM_ERR_MSG}
+    Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Run Keyword  ${keyword}  @{args}  msg=${CUSTOM_ERR_MSG}

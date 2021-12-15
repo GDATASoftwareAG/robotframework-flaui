@@ -1,5 +1,4 @@
 from robotlibcore import keyword
-
 from FlaUILibrary.flaui.module.element import Element
 
 
@@ -17,48 +16,63 @@ class ElementKeywords:
         self._module = module
 
     @keyword
-    def element_should_exist(self, identifier, msg=None):
+    def element_should_exist(self, identifier, use_exception=True, msg=None):
         """
         Checks if element exists. If element exists True will be returned otherwise False.
+        If element could not be found by xpath False will be returned.
 
         XPath syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
-
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument      | Type   | Description                   |
+        | identifier    | string | XPath identifier from element |
+        | use_exception | bool   | Indicator if an FlaUI exception should be called if element
+                                   could not be found by xpath |
+        | msg           | string | Custom error message |
 
-        Example:
-        | Element Should Exist  <XPATH> |
+        Example for custom result handling:
+        | ${RESULT}  Element Should Exist  <XPATH>  ${FALSE} |
+        | Run Keyword If  ${RESULT} == ${False} |
+
+        Example if element will be shown after a click and takes a few seconds to open:
+        | Click  <XPATH> |
+        | Wait Until Keyword Succeeds  5x  10ms  Element Should Exist  <XPATH> |
 
         """
-        self._module.action(Element.Action.GET_ELEMENT,
-                            Element.create_value_container(xpath=identifier, msg=msg),
-                            msg)
+        return self._module.action(Element.Action.ELEMENT_SHOULD_EXIST,
+                                   Element.create_value_container(xpath=identifier,
+                                                                  use_exception=use_exception,
+                                                                  msg=msg), msg)
 
     @keyword
-    def element_should_not_exist(self, identifier, msg=None):
+    def element_should_not_exist(self, identifier, use_exception=True, msg=None):
         """
         Checks if element exists. If element exists False will be returned otherwise True.
+        If element could not be found by xpath True will be returned.
 
         XPath syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
-
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument      | Type   | Description                   |
+        | identifier    | string | XPath identifier from element |
+        | use_exception | bool   | Indicator if an FlaUI exception should be called if element
+                                   could not be found by xpath |
+        | msg           | string | Custom error message |
 
-        Example:
-        | Element Should Exist  <XPATH> |
+
+        Example for custom result handling:
+        | ${RESULT}  Element Should Not Exist  <XPATH>  ${FALSE} |
+        | Run Keyword If  ${RESULT} == ${False} |
+
+        Example if element will be shown after a click and takes a few seconds to open:
+        | Click  <XPATH> |
+        | Wait Until Keyword Succeeds  5x  10ms  Element Should Not Exist  <XPATH> |
 
         """
-        self._module.action(Element.Action.ELEMENT_SHOULD_NOT_EXIST,
-                            Element.create_value_container(xpath=identifier, msg=msg),
-                            msg)
+        return self._module.action(Element.Action.ELEMENT_SHOULD_NOT_EXIST,
+                                   Element.create_value_container(xpath=identifier,
+                                                                  use_exception=use_exception,
+                                                                  msg=msg), msg)
 
     @keyword
     def focus(self, identifier, msg=None):
@@ -237,7 +251,6 @@ class ElementKeywords:
     def wait_until_element_is_hidden(self, identifier, retries=10, msg=None):
         """
         Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
-        Checks if element exists before Wait Until Element Is Hidden is called.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -251,7 +264,6 @@ class ElementKeywords:
         | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10> |
         | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        self.element_should_exist(identifier, msg)
         self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN,
                             Element.create_value_container(xpath=identifier, retries=retries),
                             msg)

@@ -19,6 +19,7 @@ class Element(ModuleInterface):
         """
         xpath: Optional[str]
         name: Optional[str]
+        use_exception: Optional[bool]
         retries: Optional[int]
 
     class Action(Enum):
@@ -31,6 +32,7 @@ class Element(ModuleInterface):
         IS_ELEMENT_ENABLED = "IS_ELEMENT_ENABLED"
         NAME_SHOULD_BE = "NAME_SHOULD_BE"
         NAME_SHOULD_CONTAINS = "NAME_SHOULD_CONTAINS"
+        ELEMENT_SHOULD_EXIST = "ELEMENT_SHOULD_EXIST"
         ELEMENT_SHOULD_NOT_EXIST = "ELEMENT_SHOULD_NOT_EXIST"
         IS_ELEMENT_VISIBLE = "IS_ELEMENT_VISIBLE"
         ELEMENT_SHOULD_BE_VISIBLE = "ELEMENT_SHOULD_BE_VISIBLE"
@@ -51,7 +53,7 @@ class Element(ModuleInterface):
         self._timeout = timeout
 
     @staticmethod
-    def create_value_container(name=None, xpath=None, retries=None, msg=None):
+    def create_value_container(name=None, xpath=None, retries=None, use_exception=None,  msg=None):
         """
         Helper to create container object.
 
@@ -62,10 +64,12 @@ class Element(ModuleInterface):
             name (String): Name from element
             xpath (String): Searched element as xpath
             retries (Number): Retry counter to repeat calls as number
+            use_exception (Bool) : Indicator to ignore exception handling by flaui
             msg (String): Optional error message
         """
         return Element.Container(name=Converter.cast_to_string(name),
                                  xpath=Converter.cast_to_string(xpath),
+                                 use_exception=Converter.cast_to_bool(use_exception),
                                  retries=Converter.cast_to_int(retries, msg))
 
     def execute_action(self, action: Action, values: Container):
@@ -110,9 +114,13 @@ class Element(ModuleInterface):
             * Values ["xpath"]
             * Returns : None
 
+          *  Action.ELEMENT_SHOULD_EXIST
+            * Values ["xpath", "use_exception"]
+            * Returns : True if element exists otherwise False
+
           *  Action.ELEMENT_SHOULD_NOT_EXIST
-            * Values ["xpath"]
-            * Returns : None
+            * Values ["xpath", "use_exception"]
+            * Returns : True if element not exists otherwise False
 
           *  Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN
             * Values ["xpath", "retries"]
@@ -140,7 +148,10 @@ class Element(ModuleInterface):
             self.Action.IS_ELEMENT_VISIBLE: lambda: self._get_element(values["xpath"]).IsOffscreen,
             self.Action.ELEMENT_SHOULD_BE_VISIBLE: lambda: self._element_should_be_visible(values["xpath"]),
             self.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE: lambda: self._element_should_not_be_visible(values["xpath"]),
-            self.Action.ELEMENT_SHOULD_NOT_EXIST: lambda: self._element_should_not_exist(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_EXIST: lambda: self._element_should_exist(values["xpath"],
+                                                                                 values["use_exception"]),
+            self.Action.ELEMENT_SHOULD_NOT_EXIST: lambda: self._element_should_not_exist(values["xpath"],
+                                                                                         values["use_exception"]),
             self.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN: lambda: self._wait_until_element_is_hidden(
                 values["xpath"], values["retries"]),
             self.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE: lambda: self._wait_until_element_is_visible(
@@ -226,10 +237,29 @@ class Element(ModuleInterface):
         Args:
             xpath (string): XPath identifier from element.
         """
-        desktop = self._automation.GetDesktop()
-        return desktop.FindFirstByXPath(xpath)
+        return self._automation.GetDesktop().FindFirstByXPath(xpath)
 
-    def _element_should_not_exist(self, xpath: str):
+    def _element_should_exist(self, xpath: str, use_exception: bool):
+        """
+        Checks if element exists.
+
+        Args:
+            xpath (string): XPath identifier from element.
+            use_exception (bool): Indicator if to throw an FlaUI error
+
+        Raises:
+            FlaUiError: If element could not be found
+        """
+        try:
+            if self._get_element(xpath):
+                return True
+        except FlaUiError as ex:
+            if use_exception:
+                raise ex from None
+
+        return False
+
+    def _element_should_not_exist(self, xpath: str, use_exception: bool):
         """
         Try to get element from xpath.
 
@@ -237,13 +267,17 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            FlaUiError: If node could found by xpath.
+            FlaUiError: If element could be found
         """
-        desktop = self._automation.GetDesktop()
-        component = desktop.FindFirstByXPath(xpath)
+        try:
+            component = self._get_element(xpath)
+        except FlaUiError:
+            return True
 
-        if component:
+        if component and use_exception:
             raise FlaUiError(FlaUiError.ElementExists.format(xpath))
+
+        return False
 
     def _element_should_be_visible(self, xpath: str):
         """
