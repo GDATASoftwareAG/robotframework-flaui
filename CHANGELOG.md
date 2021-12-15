@@ -11,7 +11,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 
-- Robotframework support for 4.1.1 and 4.1.2
+- Robotframework support for 4.1.1 and 4.1.3
 
 ### Changed
 
