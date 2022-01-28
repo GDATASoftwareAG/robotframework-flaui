@@ -135,5 +135,5 @@ class TreeItems:
         This function collapses every collapsable tree item in root level.
         """
         for item in self.treeitems:
-            if item.ExpandCollapseState == 1 or item.ExpandCollapseState == 2:
+            if item.ExpandCollapseState in (1, 2):
                 item.Collapse()
