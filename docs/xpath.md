@@ -4,9 +4,9 @@ layout: default
 
 --------
 
-# XPath
+# Inspectors
 
---------
+## FlaUI-Inspector
 
 ![alt text](./assets/img/flaui_inspect_main_screen.png "FlaUi-Inspector-Tool")
 
@@ -28,19 +28,31 @@ layout: default
 > For example, the Selenium library also uses an XPath that iterates over the DOM and the UIA2/3 interfaces over the Windows GUI.
 > Here you can also execute specific XPath searches via the UIA2/3 interface.
 
+## Microsoft Accessiblity Insights for Windows
+
+Microsoft Accessiblity Insights for Windows is a GUI automation tool to find issues in GUI applications. With this tool you can also interpret XPaths.
+
+![alt text](./assets/img/ms_inspector.png "Microsoft Accessiblity Insights for Windows")
+
+Each element searched for can be interpreted through the tree. Here you simply pick the corresponding ControlType.
+
+# XPath
+
 ## Usage examples
 
 > By general an xpath is fully set by desktop root view to the corresponding ui element which should be interact. <br/>
+> Microsoft use the XPath 1.0 or 2.0 specification. 
 > They are multiple values which can be used to detect the correct ui-element. <br/>
 > All XPaths starts by a slash usage and user interface elements like a Windows, Button, Tab etc. <br/>
-> Example sample usage : ***/Window[@Name="Inspect"]/Tab/TabItem***
+> Example sample usage : ***/Window[@Name="FlaUI WPF Test App"]/Tab/TabItem[@Name="Simple Controls"]/Edit[@AutomationId="TextBox"]***
 
 ### General usage
 
 ------
 
-> #### Automation-ID usage by /UI-ELEMENT[@Id=Value]
-> XPath Example usage: ***/Window/Pane[@Id=40965]*** <br/>
+> #### Automation-ID usage by /UI-ELEMENT[@AutomationId=Value||"StringValue"]
+> XPath Example usage: ***/Window/Pane[@AutomationId=40965]*** <br/>
+> XPath Example usage: ***/Window/Pane[@AutomationId="TextboxId"]*** <br/>
 > Unique graphical user interface object identifer.
 
 > #### Class-Name usage by /UI-ELEMENT[@ClassName="Value"]
@@ -60,10 +72,23 @@ layout: default
 
 ### Specialized usage
 
-ToDo Explanation + Sample Application
+------
 
-* RegExpression
-* Multi property operation like And, Or
-* Search-Patterns
+All examples can be found in /documentation Branch from robotframework-flaui repository under [examples](https://github.com/GDATASoftwareAG/robotframework-flaui/tree/documentation/examples/xpaths).
+
+> #### XPath search pattern by //UI-ELEMENT
+> XPath Example usage: ***//Edit[@AutomationId="TextBox"]***
+
+> #### XPath contains pattern by contains(Property,Value)
+> XPath Example usage: ***/Window[contains(@Name,"FlaUI WPF")]//Edit[@AutomationId="TextBox"]***
+
+> #### XPath contains pattern by starts-with(Property,Value)
+> XPath Example usage: ***/Window[starts-with(@Name,"FlaUI")]//Edit[@AutomationId="TextBox"]***
+
+> #### XPath contains pattern by logic statements (or, and)
+> XPath Example usage: ***/Window[contains(@Name,"FlaUI WPF")]/TitleBar/Button[@Name="Schließen" or @Name="Close" or @AutomationId="Close"]***
+
+# Did you know additional xpath usages? 
+* Be welcome to update the documentation page and example project.
 
 [back](./)
