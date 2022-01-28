@@ -88,7 +88,7 @@ All examples can be found in /documentation Branch from robotframework-flaui rep
 > #### XPath contains pattern by logic statements (or, and)
 > XPath Example usage: ***/Window[contains(@Name,"FlaUI WPF")]/TitleBar/Button[@Name="Schließen" or @Name="Close" or @AutomationId="Close"]***
 
-# Did you know additional xpath usages? 
+# Do you know of any other XPath examples? 
 * Be welcome to update the documentation page and example project.
 
 [back](./)
