@@ -4,6 +4,7 @@ from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.flaui.util.treeitems import TreeItems
 from FlaUILibrary.flaui.util.converter import Converter
+from FlaUILibrary.flaui.util.treeitemaction import TreeItemAction
 
 
 class Tree(ModuleInterface):
@@ -107,23 +108,23 @@ class Tree(ModuleInterface):
             self.Action.GET_ROOT_ITEMS_COUNT:
                 lambda: values["element"].Items.Length,
             self.Action.EXPAND_ALL:
-                lambda: self._expand_all_treetems(values["element"]),
+                lambda: TreeItems.expand_all_tree_nodes(values["element"].Items),
             self.Action.COLLAPSE_ALL:
-                lambda: self._collapse_all_treetems(values["element"]),
+                lambda: TreeItems.collapse(values["element"].Items),
             self.Action.GET_VISIBLE_ITEMS_NAMES:
-                lambda: self._get_every_visible_treeitems_name(values["element"]),
+                lambda: TreeItems.get_all_names_from_tree_nodes(values["element"].Items),
             self.Action.GET_VISIBLE_ITEMS_COUNT:
-                lambda: self._get_every_visible_treeitems_count(values["element"]),
+                lambda: TreeItems.get_visible_leaf_count(values["element"].Items),
             self.Action.ITEM_SHOULD_BE_VISIBLE:
                 lambda: self._should_be_visible(values["element"], values["item"]),
             self.Action.SELECT_ITEM_BY_NAME:
-                lambda: self._select_by_name(values["element"], values["item"]),
+                lambda: TreeItems.select_visible_node_by_name(values["element"].Items, values["item"]),
             self.Action.SELECT_ITEM:
-                lambda: self._select(values["element"], values["item"]),
+                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.SELECT),
             self.Action.EXPAND_ITEM:
-                lambda: self._expand(values["element"], values["item"]),
+                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.EXPAND),
             self.Action.COLLAPSE_ITEM:
-                lambda: self._collapse(values["element"], values["item"]),
+                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.COLLAPSE),
             self.Action.SELECTED_ITEM_SHOULD_BE:
                 lambda: self._selected_item_should_be(values["element"], values["item"]),
             self.Action.GET_SELECTED_ITEMS_NAME:
@@ -133,56 +134,9 @@ class Tree(ModuleInterface):
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_every_visible_treeitems_name(control: Any):
-        """
-        Counts every visible tree item.
-
-        Args:
-            control (Object): Tree control element from FlaUI.
-
-        Returns:
-            None.
-        """
-        obj = TreeItems(control)
-        return obj.get_every_visible_treeitems_name()
-
-    @staticmethod
-    def _get_every_visible_treeitems_count(control: Any):
-        """
-        Counts every visible tree item.
-
-        Args:
-            control (Object): Tree control element from FlaUI.
-
-        Returns:
-            None.
-        """
-
-        obj = TreeItems(control)
-        obj.get_every_visible_treeitems_name()
-        return obj.treeitems_count
-
-    @staticmethod
-    def _get_selected_item(control: Any):
-        """
-        Try to get all selected items as a list.
-
-        Args:
-            control (Object): Treeview control to select item from.
-
-        Returns:
-            The selected Tree Item object.
-        """
-        obj = TreeItems(control)
-        selected = obj.selected_treeitem
-        if not selected:
-            raise FlaUiError(FlaUiError.NoItemSelected)
-        return selected
-
-    @staticmethod
     def _should_be_visible(control: Any, name: str):
         """
-        Checks if Tree contains an given item by name.
+        Checks if Tree contains a given item by name.
 
         Args:
             control (Object): Tree control element from FlaUI.
@@ -191,98 +145,8 @@ class Tree(ModuleInterface):
         Returns:
             True if name from combobox item exists otherwise False.
         """
-        names = Tree._get_every_visible_treeitems_name(control)
-        if name not in names:
+        if name not in TreeItems.get_all_names_from_tree_nodes(control.Items):
             raise FlaUiError(FlaUiError.ElementNotVisible.format(name))
-
-    @staticmethod
-    def _expand_all_treetems(control: Any):
-        """
-        Expand all tree items.
-
-        Args:
-            control (Object): Tree control element from FlaUI.
-
-        Returns:
-            None.
-        """
-        obj = TreeItems(control)
-        obj.expand_all_treeitems()
-
-    @staticmethod
-    def _collapse_all_treetems(control: Any):
-        """
-        Collapse all tree items.
-
-        Args:
-            control (Object): Tree control element from FlaUI.
-
-        Returns:
-            None.
-        """
-        TreeItems(control).collapse()
-
-    @staticmethod
-    def _select_by_name(control: Any, name: str):
-        """
-        Try to select element from given name.
-
-        Args:
-            control (Object): Tree control UI object.
-            name    (String): Name from item to select
-
-        Raises:
-            FlaUiError: If value can not be found by element.
-        """
-        obj = TreeItems(control)
-        obj.select_visible_treeitem_by_name(name)
-
-    @staticmethod
-    def _select(control: Any, location: str):
-        """
-        Try to select element from given parameter.
-
-        Args:
-            control (Object): Tree control UI object.
-            location (String): series of pointers, which shows the item's location.
-        Example:
-            Location = "N:nameofitem1->N:nameofitem2->I:indexofitem2
-
-        Raises:
-            FlaUiError: If value can not be found by control.
-        """
-        obj = TreeItems(control)
-        obj.execute_by_location(location, "Select")
-
-    @staticmethod
-    def _expand(control: Any, location: str):
-        """
-        Try to expand element from given parameter.
-
-        Args:
-            control (Object): Tree control UI object.
-            location (String): series of pointers, which shows the item's location.
-
-        Raises:
-            FlaUiError: If value can not be found by control.
-        """
-        obj = TreeItems(control)
-        obj.execute_by_location(location, "Expand")
-
-    @staticmethod
-    def _collapse(control: Any, location: str):
-        """
-        Try to collapse element from given parameter.
-
-        Args:
-            control (Object): Tree control UI object.
-            location (String): series of pointers, which shows the item's location.
-
-        Raises:
-            FlaUiError: If value can not be found by control.
-        """
-        obj = TreeItems(control)
-        obj.execute_by_location(location, "Collapse")
 
     @staticmethod
     def _get_selected_items_name(control: Any):
@@ -292,8 +156,11 @@ class Tree(ModuleInterface):
         Args:
             control (Object): Tree control UI object.
         """
-        name = Tree._get_selected_item(control).Name
-        return name
+        selected = control.SelectedTreeItem
+        if not selected:
+            raise FlaUiError(FlaUiError.NoItemSelected)
+
+        return selected.Name
 
     @staticmethod
     def _selected_item_should_be(control: Any, item: str):
