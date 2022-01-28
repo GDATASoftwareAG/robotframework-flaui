@@ -7,6 +7,15 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added 
+
+- Python.Net 3.0 Support
+
+### Fixxed
+
+- Converter bugfix for wrong value convert
+- Tree module refactoring
+
 ## [Release][1.6.6] [1.6.6][1.6.5-1.6.6] - 2021-09-01
 
 ### Added

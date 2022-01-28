@@ -1,4 +1,6 @@
 # pylint: disable=c-extension-no-member
+# pylint: disable=no-member
+
 import os
 import clr
 
