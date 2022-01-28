@@ -51,6 +51,7 @@ See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotfra
 ## Documentation
 
 *  [Keyword documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
+*  [XPath explanation](https://gdatasoftwareag.github.io/robotframework-flaui/xpath.html)
 
 ### RFHUB2
 
@@ -71,6 +72,7 @@ There are various tools around which help inspecting application that should be 
 
 Some of them are:
 * [FlaUI Inspect](https://github.com/FlaUI/FlaUInspect)
+* [Microsoft Accessibility Insights For Windows](https://accessibilityinsights.io)
 * VisualUIAVerify
 * Inspect
 * UISpy
