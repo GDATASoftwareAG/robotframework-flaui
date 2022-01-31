@@ -18,6 +18,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Changed
 
+#### New Element Should Exist or Element Should Not Exist Syntax
+
 - Keyword behaviour changed for Element Should Exist and Element Should Not Exist
   - Keywords contains now a use_exceptions flag to decide if an exception should be called or a return value.
     - Exception handling will be used in general to check if a ui element is closing or opened
@@ -25,25 +27,24 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
       - Wait Until Keyword Succeeds combination does not work anymore to check if an ui is displaying after amount of time
       - Returns now always True or False
 
-#### Old Syntax
+#### Old Style
 ```
 # This throws a flaui exception and stop test exeuction
 Element Should Exist  /WRONG/XPATH
 ```
 
-#### New Syntax
-
 - You can now decide to use the old syntax or new style by using the flag parameter use_exceptions.
 - This is by default ${TRUE} to avoid this breaks for checkups if a ui element is displaying delayed.
 
+#### New Style
 ```
 # This throws a flaui exception and stop test exeuction
 Element Should Exist      /WRONG/XPATH
 Element Should Not Exist  /VALID_XPATH
 
 # Usage with Wait Until Keyword Succeeds
-Wait Until Keyword Succeeds  Element Should Exist      /VALID_XPATH
-Wait Until Keyword Succeeds  Element Should Not Exist  /VALID_XPATH
+Wait Until Keyword Succeeds 5x  1s  Element Should Exist      /VALID_XPATH
+Wait Until Keyword Succeeds 5x  1s  Element Should Not Exist  /VALID_XPATH
 
 # If you want to check the return value by your own syntax.
 # Wait Until Keyword Succeeds will not work anymore because this keyword will always Return True or False now
@@ -51,8 +52,35 @@ ${RESULT}  Element Should Exist  /VALID_XPATH  ${FALSE}
 ${RESULT}  Element Should Not Exist  /WRONG/XPATH  ${FALSE}
 ```
 
+#### New Wait Until Element Is Hidden Syntax
+
 - Wait Until Element Is Hidden does not check anymore if element exists
   - No xpath not found exception is called anymore to avoid break tests
+
+#### New Application Syntax
+
+- Application keyword modified for multi gui process handling
+  - Launch Application, Launch Application With Args, Attach Application By Name or PID returns always a PID.
+  - PID must be used by Close Application now to stop correct application  ${PID}
+  - Old syntax stores only last started application
+    - It was not possible to handle multiple application processes if needed
+  - Unnecessary Keywords removed Attach To Application By Pid and Name
+  - If application with a wrong pid will be tried to close a FlaUI exception will be called
+  - Caller has always to close all applications by Teardown or Keywords
+
+```
+# Launch multiple applications
+${PID_A}  Launch Application  APPLICATION_A
+${PID_B}  Launch Application  APPLICATION_B
+${PID_C}  Launch Application  APPLICATION_C
+${PID_D}  Attach To Process By PID  ${PID}
+
+# Close applications
+Close Application  ${PID_C}
+Close Application  ${PID_A}
+Close Application  ${PID_B}
+Close Application  ${PID_D}
+```
 
 ## [Release][1.6.6] [1.6.6][1.6.5-1.6.6] - 2021-09-01
 

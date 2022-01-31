@@ -9,9 +9,9 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Suite Setup      Run Keywords  Start Application
+Suite Setup      Run Keywords  Init Main Application
 ...              AND           Open Complex Tab
-Suite Teardown   Stop Application
+Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_GRID_VIEW}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']

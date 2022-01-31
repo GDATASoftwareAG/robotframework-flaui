@@ -8,8 +8,8 @@ Library         StringFormat
 Resource        util/Common.robot
 Resource        util/XPath.robot
 
-Suite Setup      Start Application
-Suite Teardown   Stop Application
+Suite Setup      Init Main Application
+Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Test Cases ***
 Get Childs From Element

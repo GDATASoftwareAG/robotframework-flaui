@@ -18,7 +18,7 @@ class ApplicationKeywords:
     @keyword
     def attach_application_by_name(self, name, msg=None):
         """
-        Attach to an running application by name.
+        Attach to a running application by name.
 
         If application with name not exists an error message will be thrown.
 
@@ -28,17 +28,20 @@ class ApplicationKeywords:
         | msg        | string | Custom error message   |
 
         Examples:
-        | Attach Application By Name  <APPLICATION>                     |
-        | Attach Application By Name  <APPLICATION>  You shall not pass |
+        | ${pid}  Attach Application By Name  <APPLICATION>                     |
+        | ${pid}  Attach Application By Name  <APPLICATION>  You shall not pass |
+
+        Returns:
+        | Process id from attached process if successfully |
         """
-        self._module.action(Application.Action.ATTACH_APPLICATION_BY_NAME,
-                            Application.create_value_container(name=name, msg=msg),
-                            msg)
+        return self._module.action(Application.Action.ATTACH_APPLICATION_BY_NAME,
+                                   Application.create_value_container(name=name, msg=msg),
+                                   msg)
 
     @keyword
     def attach_application_by_pid(self, pid, msg=None):
         """
-        Attach to an running application by pid.
+        Attach to a running application by pid.
 
         If application with pid not exists an error message will be thrown.
 
@@ -48,16 +51,19 @@ class ApplicationKeywords:
         | msg        | string | Custom error message         |
 
         Examples:
-        | Attach Application By PID  <PID_NUMBER>                     |
-        | Attach Application By PID  <PID_NUMBER>  You shall not pass |
+        | ${pid}  Attach Application By PID  <PID_NUMBER>                     |
+        | ${pid}  Attach Application By PID  <PID_NUMBER>  You shall not pass |
+
+        Returns:
+        | Process id from attached process if successfully |
 
         """
-        self._module.action(Application.Action.ATTACH_APPLICATION_BY_PID,
-                            Application.create_value_container(pid=pid, msg=msg),
-                            msg)
+        return self._module.action(Application.Action.ATTACH_APPLICATION_BY_PID,
+                                   Application.create_value_container(pid=pid, msg=msg),
+                                   msg)
 
     @keyword
-    def close_application(self, msg=None):
+    def close_application(self, pid, msg=None):
         """
         Closes the attached application.
 
@@ -65,15 +71,16 @@ class ApplicationKeywords:
 
         Arguments:
         | Argument   | Type   | Description          |
+        | pid        | int    | Process id to close  |
         | msg        | string | Custom error message |
 
         Examples:
-        | Launch Application  <APPLICATION> |
-        | Close Application                 |
+        | $[pid}  Launch Application  <APPLICATION> |
+        | Close Application  $[pid}                 |
 
         """
         self._module.action(Application.Action.EXIT_APPLICATION,
-                            Application.create_value_container(msg=msg),
+                            Application.create_value_container(pid=pid, msg=msg),
                             msg=msg)
 
     @keyword
@@ -89,7 +96,7 @@ class ApplicationKeywords:
         | msg         | string | Custom error message                               |
 
         Examples:
-        | Launch Application  <APPLICATION> |
+        | ${pid}  Launch Application  <APPLICATION> |
 
         Returns:
         | Process id from started process if successfully |
@@ -113,7 +120,7 @@ class ApplicationKeywords:
         | msg         | string | Custom error message                               |
 
         Examples:
-        | Launch Application  <APPLICATION>  <ARGUMENTS> |
+        | ${pid}  Launch Application  <APPLICATION>  <ARGUMENTS> |
 
         Returns:
         | Process id from started process if successfully |
