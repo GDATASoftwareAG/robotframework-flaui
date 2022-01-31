@@ -8,8 +8,8 @@ Library         StringFormat
 Resource        util/Common.robot
 Resource        util/XPath.robot
 
-Suite Setup      Start Application
-Suite Teardown   Stop Application
+Suite Setup      Init Main Application
+Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_RADIO_BUTTON_ONE}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton1']

@@ -10,8 +10,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Suite Setup      Start Application
-Suite Teardown   Stop Application
+Suite Setup      Init Main Application
+Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@Name='Test Label']
@@ -87,7 +87,7 @@ Element Should Not Be Visible Error
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
 Wait Until Element Is Hidden
-    [Setup]    Start Application    ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}
+    ${PID}  Start Application       ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}
     Wait Until Element Is Hidden    ${MAIN_WINDOW_NOTIFIER}
     Element Should Not Exist        ${MAIN_WINDOW_NOTIFIER}
 
@@ -115,8 +115,8 @@ Wait Until Element Is Hidden Timeout Is Reached By Wrong Number
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
 Wait Until Element Is Visible
-    [Setup]    Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
-    [Teardown]  Stop Application  ${MAIN_WINDOW_NOTIFIER}
+    [Teardown]  Stop Application  ${PID}  ${MAIN_WINDOW_NOTIFIER}
+    ${PID}  Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
     Wait Until Element Is Visible    ${MAIN_WINDOW_NOTIFIER}
     Element Should Exist             ${MAIN_WINDOW_NOTIFIER}
 

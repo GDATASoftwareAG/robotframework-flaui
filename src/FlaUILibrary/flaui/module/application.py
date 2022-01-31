@@ -21,6 +21,24 @@ class Application(ModuleInterface):
         pid: Optional[int]
         args: Optional[str]
 
+    class ApplicationContainer:
+        """
+        Application container to handle a attached or launched process.
+        """
+        pid: Optional[int]
+        application: Optional[str]
+
+        def __init__(self, pid: int, application: Any):
+            """
+            Application container class to store applications.
+
+            Args:
+                pid (int): Process id from process
+                application (Object) : Application object to store.
+            """
+            self.pid = pid
+            self.application = application
+
     class Action(Enum):
         """
         Supported actions for execute action implementation.
@@ -30,7 +48,6 @@ class Application(ModuleInterface):
         LAUNCH_APPLICATION = "LAUNCH_APPLICATION"
         LAUNCH_APPLICATION_WITH_ARGS = "LAUNCH_APPLICATION_WITH_ARGS"
         EXIT_APPLICATION = "EXIT_APPLICATION"
-        GET_MAIN_WINDOW_FROM_APPLICATION = "GET_MAIN_WINDOW_FROM_APPLICATION"
 
     def __init__(self, automation: Any):
         """
@@ -39,7 +56,7 @@ class Application(ModuleInterface):
         Args:
             automation (Object): UIA3/UIA2 automation object from FlaUI.
         """
-        self._application = None
+        self._applications = []
         self._automation = automation
 
     @staticmethod
@@ -68,27 +85,23 @@ class Application(ModuleInterface):
 
           *  Action.ATTACH_APPLICATION_BY_NAME
             * Values ["name"] : Name from application to attach
-            * Returns : None
+            * Returns : PID from attached process.
 
           *  Action.ATTACH_APPLICATION_BY_PID
-            * Values ["pid"] : PID value to attach
-            * Returns : None
+            * Values ["pid"] : PID to attach
+            * Returns : PID from attached process.
 
           *  Action.LAUNCH_APPLICATION
             * Values ["name"] : Process name to launch
-            * Returns : PID from launched process.
+            * Returns : PID from started process.
 
           *  Action.LAUNCH_APPLICATION_WITH_ARGS
             * Values ["name", "args"] : Process name to start for example outlook.exe
                                         Additional arguments for process for example outlook.exe Hello World
-            * Returns : PID from launched process.
+            * Returns : PID from started process.
 
           *  Action.EXIT_APPLICATION
-            * Values  : None
-            * Returns : None
-
-          *  Action.GET_MAIN_WINDOW_FROM_APPLICATION
-            * Values  : None
+            * Values  : ["id"] : PID from process attached or launched process to stop.
             * Returns : None
 
         Raises:
@@ -106,8 +119,7 @@ class Application(ModuleInterface):
             self.Action.LAUNCH_APPLICATION: lambda: self._launch_application(values["name"]),
             self.Action.LAUNCH_APPLICATION_WITH_ARGS: lambda: self._launch_application_with_args(values["name"],
                                                                                                  values["args"]),
-            self.Action.EXIT_APPLICATION: lambda: self._exit_application(),
-            self.Action.GET_MAIN_WINDOW_FROM_APPLICATION: lambda: self._get_main_window_from_application()
+            self.Action.EXIT_APPLICATION: lambda: self._exit_application(values["pid"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -121,24 +133,30 @@ class Application(ModuleInterface):
 
         Raises:
             FlaUiError: If application with name not exist.
+
+        Returns:
+            Index from attached application
         """
         try:
-            self._application = FlaUI.Core.Application.Attach(name)
+            return self._insert_application(FlaUI.Core.Application.Attach(name))
         except Exception:
             raise FlaUiError(FlaUiError.ApplicationNameNotFound.format(name)) from None
 
     def _attach_application_by_pid(self, pid: int):
         """
-        Attach to an running application by pid.
+        Attach to a running application by pid.
 
         Args:
             pid: PID number from process to attach.
 
         Raises:
             FlaUiError: If application with pid number not exist.
+
+        Returns:
+            Index from attached application
         """
         try:
-            self._application = FlaUI.Core.Application.Attach(pid)
+            return self._insert_application(FlaUI.Core.Application.Attach(pid))
         except Exception:
             raise FlaUiError(FlaUiError.ApplicationPidNotFound.format(pid)) from None
 
@@ -152,12 +170,11 @@ class Application(ModuleInterface):
         Raises:
             FlaUiError: If application could not be found.
 
-        Return:
-            Process id from launched application if successfully
+        Returns:
+            Index from started application
         """
         try:
-            self._application = FlaUI.Core.Application.Launch(application)
-            return self._application.ProcessId
+            return self._insert_application(FlaUI.Core.Application.Launch(application))
         except Win32Exception:
             raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
 
@@ -176,38 +193,55 @@ class Application(ModuleInterface):
             Process id from launched application if successfully
         """
         try:
-            self._application = FlaUI.Core.Application.Launch(application, arguments)
-            return self._application.ProcessId
+            return self._insert_application(FlaUI.Core.Application.Launch(application, arguments))
         except Win32Exception:
             raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
 
-    def _get_main_window_from_application(self):
-        """
-        Stores main window from attached application.
-
-        Raises:
-            FlaUiError: If no application is attached.
-        """
-        try:
-            window = self._application.GetMainWindow(self._automation)
-
-            if window is None:
-                raise FlaUiError(FlaUiError.NoElementAttached)
-
-            return window
-
-        except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
-
-    def _exit_application(self):
+    def _exit_application(self, pid):
         """
         Try to close application and detach from window if not an FlaUiError will be thrown.
 
         Raises:
             FlaUiError: If no application is attached.
         """
+        container = self._get_application(pid)
+        container.application.Kill()
+        self._applications.remove(container)
+
+    def _exists_pid(self, pid):
+        for container in self._applications:
+            if container.pid == pid:
+                return True
+        return False
+
+    def _get_application(self, pid: int):
+        """
+        Get application element by given pid. If not exists an Application not attached error will be thrown.
+
+        Raises:
+            FlaUiError: If no application is attached.
+        """
+        for container in self._applications:
+            if container.pid == pid:
+                return container
+
+        raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
+
+    def _insert_application(self, application: Any):
+        """
+        Set application element by given pid.
+        If not exists an Application not found error will be thrown.
+
+        Raises:
+            FlaUiError: If no application is attached.
+        """
         try:
-            self._application.Kill()
-            self._application = None
-        except AttributeError:
-            raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
+            pid = application.ProcessId
+
+            if not self._exists_pid(pid):
+                self._applications.append(self.ApplicationContainer(pid=pid, application=application))
+
+            return pid
+
+        except Win32Exception:
+            raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None

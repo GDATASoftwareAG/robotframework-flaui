@@ -11,7 +11,7 @@ Resource        util/Error.robot
 Resource        util/XPath.robot
 
 *** Variables ***
-${SCREENSHOT_FOLDER} =  screenshots
+${SCREENSHOT_FOLDER}  screenshots
 
 *** Test Cases ***
 Take No Screenshot If Module Is Disabled

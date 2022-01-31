@@ -8,8 +8,8 @@ Resource        util/Common.robot
 Resource        util/Error.robot
 Resource        util/XPath.robot
 
-Suite Setup      Start Application
-Suite Teardown   Stop Application
+Suite Setup      Init Main Application
+Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${EXPECTED_CONTEXT_MENU}   ${MAIN_WINDOW}/Window/Menu
