@@ -28,13 +28,13 @@ EXIT /B %ERRORLEVEL%
 
 :test_uia2
     call cd atests
-    call robot --name "UIA2" --variable UIA:UIA2 --outputdir ../result/uia2 .
+    call robot -x xunit.xml --variable UIA:UIA2 --outputdir ../result/uia2 .
     call cd ..
 EXIT /B %ERRORLEVEL%
 
 :test_uia3
     call cd atests
-    call robot --name "UIA3" --variable UIA:UIA3 --outputdir ../result/uia3 .
+    call robot -x xunit.xml --variable UIA:UIA3 --outputdir ../result/uia3 .
     call cd ..
 EXIT /B %ERRORLEVEL%
 
@@ -45,7 +45,6 @@ EXIT /B %ERRORLEVEL%
     set /A result = %ERRORLEVEL%
     call:test_uia3
     if %result%==0 set /A result = %ERRORLEVEL%
-    call rebot --name ATests --outputdir result -x xunit.xml result/uia2/output.xml result/uia3/output.xml
 EXIT /B %result%
 
 :pylint

@@ -9,7 +9,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added 
 
-- Python.Net 3.0 Support
+- Upcoming support for 
+  - Python.Net 3.0
+  - Robotframework 5.0
 
 ### Fixed
 

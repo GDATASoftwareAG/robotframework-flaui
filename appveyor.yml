@@ -9,7 +9,7 @@ environment:
       PYTHON: "C:\\Python37"
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 32
-
+      
     - job_name: Python 3.8 x86
       PYTHON: "C:\\Python38"
       PYTHON_VERSION: 3.8
@@ -33,7 +33,8 @@ environment:
     - job_name: Python 3.9 x64
       PYTHON: "C:\\Python39-x64"
       PYTHON_VERSION: 3.9
-      PYTHON_ARCH: 64      
+      PYTHON_ARCH: 64    
+  
 init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%
 install:
@@ -79,4 +80,6 @@ on_finish:
 
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\pylint.xml))
 
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\xunit.xml))
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\uia2\xunit.xml))
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\uia3\xunit.xml))
