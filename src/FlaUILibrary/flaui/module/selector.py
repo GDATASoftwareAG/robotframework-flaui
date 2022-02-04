@@ -30,6 +30,7 @@ class Selector(ModuleInterface):
         GET_ALL_NAMES_FROM_SELECTION = "GET_ALL_NAMES_FROM_SELECTION"
         SHOULD_HAVE_SELECTED_ITEM = "SHOULD_HAVE_SELECTED_ITEM"
         GET_SELECTED_ITEMS = "GET_SELECTED_ITEMS"
+        GET_ALL_NAMES = "GET_ALL_NAMES"
 
     @staticmethod
     def create_value_container(element=None, index=None, name=None, msg=None):
@@ -103,7 +104,9 @@ class Selector(ModuleInterface):
             self.Action.SHOULD_HAVE_SELECTED_ITEM:
                 lambda: self._should_have_selected_item(values["element"], values["name"]),
             self.Action.GET_SELECTED_ITEMS:
-                lambda: self._get_selected_items(values["element"])
+                lambda: self._get_selected_items(values["element"]),
+            self.Action.GET_ALL_NAMES:
+                lambda: self._get_all_names(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -198,6 +201,23 @@ class Selector(ModuleInterface):
 
         for selected_item in control.SelectedItems:
             names.append(selected_item.Name)
+
+        return names
+
+    @staticmethod
+    def _get_all_names(control: Any):
+        """
+        Get all names from selector.
+
+        Args:
+            control (Object): List control element from FlaUI.
+
+        Returns:
+            List from all names from list control if exists otherwise empty list.
+        """
+        names = []
+        for item in control.Items:
+            names.append(item.Text)
 
         return names
 

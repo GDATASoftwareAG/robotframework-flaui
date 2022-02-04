@@ -10,6 +10,14 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Added 
 
 - Python.Net 3.0 Support
+- New Keywords implemented for listbox and combobox
+  - Get All Names From Listbox and Get All Names From Combobox returns both a list from all values by names
+  - For a list comparison pls use Collections library from robotframework
+
+```
+${data}  Get All Names From Listbox  <XPATH>
+${data}  Get All Names From Combobox  <XPATH>
+```
 
 ### Fixed
 

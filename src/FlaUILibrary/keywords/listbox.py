@@ -17,6 +17,25 @@ class ListBoxKeywords:
         self._module = module
 
     @keyword
+    def get_all_names_from_listbox(self, identifier, msg=None):
+        """
+        Get all names from a listbox as a list.
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type            | Description                           |
+        | identifier | string          | XPath identifier from listbox element |
+        | msg        | string          | Custom error message                  |
+
+        Examples:
+        | ${data}  Get All Names From Listbox  <XPATH> <MSG>                   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return self._module.action(Selector.Action.GET_ALL_NAMES,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
+
+    @keyword
     def listbox_selection_should_be(self, identifier, item, msg=None):
         """
         Checks if the selected listbox items are same with the given ones.

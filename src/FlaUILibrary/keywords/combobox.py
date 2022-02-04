@@ -1,5 +1,4 @@
 from robotlibcore import keyword
-
 from FlaUILibrary.flaui.interface import InterfaceType
 from FlaUILibrary.flaui.module import Selector
 from FlaUILibrary.flaui.uia import UIA
@@ -17,6 +16,25 @@ class ComboBoxKeywords:
         ``module`` Automation framework module like UIA3 to handle element interaction.
         """
         self._module = module
+
+    @keyword
+    def get_all_names_from_combobox(self, identifier, msg=None):
+        """
+        Get all names from a combobox as a list.
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type            | Description                            |
+        | identifier | string          | XPath identifier from combobox element |
+        | msg        | string          | Custom error message                   |
+
+        Examples:
+        | ${data}  Get All Names From Combobox  <XPATH> <MSG>                   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        return self._module.action(Selector.Action.GET_ALL_NAMES,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
 
     @keyword
     def get_selected_items_from_combobox(self, identifier, msg=None):

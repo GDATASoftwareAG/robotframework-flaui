@@ -4,6 +4,7 @@ Documentation   Test suite for list box keywords.
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
+Library         Collections
 
 Resource        util/Common.robot
 Resource        util/Error.robot
@@ -60,4 +61,8 @@ Listbox Selection Should Be Item Not Exist
     Select Listbox Item By Index  ${XPATH_LISTBOX}  1
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ITEM_NOT_SELECTED}  No Such Item
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Selection Should Be  ${XPATH_LISTBOX}  No Such Item
-    
+
+Get All Names By Listbox
+    ${DATA}  Get All Names From Listbox  ${XPATH_LISTBOX}
+    ${EXPECTED_LIST}  Create List  ListBox Item \#1  ListBox Item \#2
+    Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
