@@ -4,6 +4,7 @@ Documentation   Test suite for combobox keywords.
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
+Library         Collections
 
 Resource        util/Common.robot
 Resource        util/Error.robot
@@ -40,6 +41,13 @@ Select Combobox Item By Index
     ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
     Should Contain  ${DATA}  Item 3
 
+Select Combobox Item By Index Range
+    FOR  ${i}  IN RANGE  0  2
+        Select ComboBox Item By Index  ${XPATH_COMBO_BOX}  ${i}
+        ${DATA}  Get Selected Items From Combobox  ${XPATH_COMBO_BOX}
+        Should Contain  ${DATA}  Item ${i+1}
+    END
+
 Select Combobox Item Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_COMBO_BOX}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Combobox Item By Index  ${XPATH_COMBO_BOX}  -2000
@@ -47,3 +55,8 @@ Select Combobox Item Wrong Index Number
 Select Combobox Item Wrong Index Usage
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  NOT_AN_ARRAY  ${XPATH_COMBO_BOX}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Combobox Item By Index  ${XPATH_COMBO_BOX}  NOT_AN_ARRAY
+
+Get All Names By Combobox
+    ${DATA}  Get All Names From Combobox  ${XPATH_COMBO_BOX}
+    ${EXPECTED_LIST}  Create List  Item 1  Item 2  Item 3  Item 4
+    Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
