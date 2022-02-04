@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.7] [1.7][1.6.6-1.7] - 2022-02-04
+
 ### Added 
 
 - Python.Net 3.0 Support
@@ -277,7 +279,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.6...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7...main
+
+[1.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7
+
+[1.6.6-1.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.6...1.7
 
 [1.6.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.6
 
