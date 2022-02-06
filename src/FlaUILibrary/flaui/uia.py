@@ -1,5 +1,6 @@
 from abc import ABC
 from typing import Any
+from enum import Enum
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
 from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, InterfaceType, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
@@ -30,7 +31,7 @@ class UIA(WindowsAutomationInterface, ABC):
         self._actions = {}
         self._timeout = timeout
 
-    def action(self, action: int, values: ValueContainer = None, msg: str = None):
+    def action(self, action: Enum, values: ValueContainer = None, msg: str = None):
         """
         Performs a application action if supported. If not supported an NotSupported error will be thrown.
 

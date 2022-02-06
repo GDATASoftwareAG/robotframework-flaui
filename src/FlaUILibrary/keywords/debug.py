@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Debug
+from FlaUILibrary.flaui.uia import UIA
 
 
 class DebugKeywords:
@@ -7,7 +8,7 @@ class DebugKeywords:
     Interface implementation from robotframework usage for debugging keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for debugging keywords.
 
@@ -39,7 +40,7 @@ class DebugKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${CHILDS}  Get Child From Element  <XPATH> |
+        | ${CHILDS}  Get Childs From Element  <XPATH> |
         | Log  <XPATH> |
 
         """

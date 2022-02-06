@@ -1,5 +1,18 @@
 *** Settings ***
 Documentation   Test suite for keyboard keywords.
+...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
+...             Keyword                               Test Case Names
+...             Press Key                             Keyboard Type Text
+...                                                   Keyboard Type Shortcut Copy and Paste
+...                                                   Delete Text
+...                                                   False Argument Type
+...             Press Keys                            Keyboard Type Text Multiple
+...                                                   Keyboard Type Shortcut Select All
+...                                                   Keyboard Type Shortcut Cut and Paste Multiple
+...                                                   Keyboard Type Shortcut Copy and Paste Multiple
+...                                                   Keyboard Type Generic Key Combination
+...                                                   False Argument Type
+...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process

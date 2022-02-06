@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any
-
+from enum import Enum
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
@@ -10,7 +10,7 @@ class WindowsAutomationInterface(ABC):
     """
 
     @abstractmethod
-    def action(self, action: int, values: ValueContainer, msg: str = None):
+    def action(self, action: Enum, values: ValueContainer, msg: str = None):
         """
         Performs a defined action like a button click.
 

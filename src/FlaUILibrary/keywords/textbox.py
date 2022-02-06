@@ -1,6 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.interface import InterfaceType
 from FlaUILibrary.flaui.module import Textbox
+from FlaUILibrary.flaui.uia import UIA
 
 
 class TextBoxKeywords:
@@ -8,7 +9,7 @@ class TextBoxKeywords:
     Interface implementation from robotframework usage for textbox keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for textbox keywords.
 

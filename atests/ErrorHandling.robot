@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation   Error handling test suite for all common flaui keywords.
+...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False  timeout=0
 Library         StringFormat
@@ -32,6 +33,8 @@ Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND
 Focus                             Focus  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get All Names From Combobox       Get All Names From Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get All Names From Listbox        Get All Names From Listbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get All Texts From Combobox       Get All Texts From Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get All Texts From Listbox        Get All Texts From Listbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Checkbox State                Get Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Childs From Element           Get Childs From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Combobox Items Count          Get Combobox Items Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -39,7 +42,6 @@ Get Listbox Items Count           Get Listbox Items Count  ${EXP_ERR_MSG_XPATH_N
 Get Grid Rows Count               Get Grid Rows Count  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Name From Element             Get Name From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Radiobutton State             Get Radiobutton State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Get Selected Items From Combobox  Get Selected Items From Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Selected Grid Rows            Get Selected Grid Rows  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Tab Items Names               Get Tab Items Names  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Text From Textbox             Get Text From Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}

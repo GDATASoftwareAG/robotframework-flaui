@@ -1,6 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.interface import InterfaceType
 from FlaUILibrary.flaui.module import Tree
+from FlaUILibrary.flaui.uia import UIA
 
 
 class TreeKeywords:
@@ -8,7 +9,7 @@ class TreeKeywords:
     Interface implementation from robotframework usage for tree keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for tree keywords.
 
@@ -80,7 +81,7 @@ class TreeKeywords:
 
         Examples:
         | @{LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}  Create List name1  name2  name3 |
-        | ${Name}  Get All Visible Tree Items Name  <XPATH>                      |
+        | ${Name}  Get All Visible TreeItems Names  <XPATH>                      |
         | Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}        |
 
         """
@@ -104,7 +105,7 @@ class TreeKeywords:
         | msg        | string          | Custom error message          |
 
         Examples:
-        | Expand All Tree Items  <XPATH>                 |
+        | Expand All TreeItems  <XPATH>                 |
         """
         element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.EXPAND_ALL,
@@ -126,7 +127,7 @@ class TreeKeywords:
         | msg        | string          | Custom error message          |
 
         Examples:
-        | Collapse All Tree Items <XPATH>                 |
+        | Collapse All TreeItems <XPATH>                 |
         """
         element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
         self._module.action(Tree.Action.COLLAPSE_ALL,
@@ -198,7 +199,7 @@ class TreeKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Select visible Tree Item By Name  <XPATH>  <NAME>   |
+        | Select visible TreeItem By Name  <XPATH>  <NAME>   |
 
         """
         element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
@@ -229,7 +230,7 @@ class TreeKeywords:
 
         Examples:
         | ${item}=  N:name1->N:name2->N:name3      |
-        | Select Tree Item   <XPATH>  ${item}      |
+        | Select TreeItem   <XPATH>  ${item}      |
 
         """
         element = self._module.get_element(identifier, InterfaceType.TREE, msg=msg)
@@ -260,7 +261,7 @@ class TreeKeywords:
 
         Examples:
         | ${item}=  N:name1->N:name2->N:name3      |
-        | Expand Tree Item   <XPATH>  ${item}      |
+        | Expand TreeItem   <XPATH>  ${item}      |
 
 
         """
@@ -292,7 +293,7 @@ class TreeKeywords:
 
         Examples:
         | ${item}=  N:name1->N:name2->N:name3        |
-        | Collapse Tree Item   <XPATH>  ${item}      |
+        | Collapse TreeItem   <XPATH>  ${item}      |
 
 
         """

@@ -1,5 +1,13 @@
 *** Settings ***
 Documentation   Test suite for application keywords.
+...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
+...             Keyword                               Test Case Names
+...             Attach Application By Name            Attach Application By Name
+...             Attach Application By PID             Attach Application By PID
+...             Close Application                     Close Application If Application Is Attached
+...             Launch Application                    Launch Application
+...             Launch Application With Args          Launch Application With Arguments
+...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         StringFormat
