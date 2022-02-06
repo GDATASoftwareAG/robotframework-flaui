@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.element import Element
+from FlaUILibrary.flaui.uia import UIA
 
 
 class ElementKeywords:
@@ -7,11 +8,11 @@ class ElementKeywords:
     Interface implementation from robotframework usage for element keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for element keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``module`` UIA module to handle element interaction.
         """
         self._module = module
 
@@ -171,7 +172,7 @@ class ElementKeywords:
         | msg        | string | Custom error message          |
 
         Example:
-        | ${IS_ENABLED} =  Is Item Enabled <XPATH> |
+        | ${IS_ENABLED} =  Is Element Enabled  <XPATH> |
 
         Returns:
         | <True> if element is enabled otherwise <False> |

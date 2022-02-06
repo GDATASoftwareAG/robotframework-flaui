@@ -29,8 +29,9 @@ class Selector(ModuleInterface):
         GET_ITEMS_COUNT = "GET_ITEMS_COUNT"
         GET_ALL_NAMES_FROM_SELECTION = "GET_ALL_NAMES_FROM_SELECTION"
         SHOULD_HAVE_SELECTED_ITEM = "SHOULD_HAVE_SELECTED_ITEM"
-        GET_SELECTED_ITEMS = "GET_SELECTED_ITEMS"
+        GET_ALL_TEXTS_FROM_SELECTION = "GET_ALL_TEXTS_FROM_SELECTION"
         GET_ALL_NAMES = "GET_ALL_NAMES"
+        GET_ALL_TEXTS = "GET_ALL_TEXTS"
 
     @staticmethod
     def create_value_container(element=None, index=None, name=None, msg=None):
@@ -67,21 +68,29 @@ class Selector(ModuleInterface):
             * values ["element", "name"]
             * Returns : None
 
+        *  Action.SHOULD_HAVE_SELECTED_ITEM
+            * values ["element", "name"]
+            * Returns : None
+
           *  Action.GET_ITEMS_COUNT
             * values ["element"]
             * Returns : None
 
         *  Action.GET_ALL_NAMES_FROM_SELECTION
             * values ["element"]
-            * Returns : None
-
-        *  Action.SHOULD_HAVE_SELECTED_ITEM
-            * values ["element", "name"]
-            * Returns : None
+            * Returns : List from all selected items from names by element
 
         *  Action.GET_SELECTED_ITEMS
             * values ["element"]
-            * Returns : String from all selected items.
+            * Returns : List from all selected texts from names by element
+
+        *  Action.GET_ALL_NAMES
+            * values ["element"]
+            * Returns : List from all names by a selector.
+
+        *  Action.GET_ALL_TEXTS
+            * values ["element"]
+            * Returns : List from all texts by a selector.
 
         Raises:
             FlaUiError: If action is not supported.
@@ -97,48 +106,29 @@ class Selector(ModuleInterface):
                 lambda: self._select_by_name(values["element"], values["name"]),
             self.Action.SHOULD_CONTAIN:
                 lambda: self._should_contain(values["element"], values["name"]),
+            self.Action.SHOULD_HAVE_SELECTED_ITEM:
+                lambda: self._should_have_selected_item(values["element"], values["name"]),
             self.Action.GET_ITEMS_COUNT:
                 lambda: values["element"].Items.Length,
             self.Action.GET_ALL_NAMES_FROM_SELECTION:
                 lambda: self._get_all_selected_names(values["element"]),
-            self.Action.SHOULD_HAVE_SELECTED_ITEM:
-                lambda: self._should_have_selected_item(values["element"], values["name"]),
-            self.Action.GET_SELECTED_ITEMS:
-                lambda: self._get_selected_items(values["element"]),
+            self.Action.GET_ALL_TEXTS_FROM_SELECTION:
+                lambda: self._get_all_selected_texts(values["element"]),
             self.Action.GET_ALL_NAMES:
-                lambda: self._get_all_names(values["element"])
+                lambda: self._get_all_names(values["element"]),
+            self.Action.GET_ALL_TEXTS:
+                lambda: self._get_all_texts(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_selected_items(element: Any):
-        """
-        Try to get all selected items as string.
-
-        Args:
-            element (Object): List view to select items.
-
-        Returns:
-            String from all selected items separated as pipe for example:
-                Value 1
-                Value 2
-        """
-
-        values = ""
-
-        for selected_item in element.SelectedItems:
-            values += selected_item.Text + "\n"
-
-        return values
-
-    @staticmethod
     def _select_by_index(element: Any, index: int):
         """
-        Try to select element from given index.
+        Try to select element from a given index.
 
         Args:
-            element (Object): List control UI object.
+            element (Object): Selector object to use (Combobox, Listbox).
             index   (Number): Index number to select
 
         Raises:
@@ -146,7 +136,7 @@ class Selector(ModuleInterface):
             FlaUiError: If value is not a number.
         """
         try:
-            element.Items[int(index)].Select()
+            element.Items[index].Select()
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ValueError:
@@ -158,8 +148,8 @@ class Selector(ModuleInterface):
         Try to select element from given name.
 
         Args:
-            element (Object): List control UI object.
-            name    (String): Name from item to select
+            element (Object): Selector object to use (Combobox, Listbox).
+            name    (String): Name to select
 
         Raises:
             FlaUiError: If value can not be found by element.
@@ -170,17 +160,34 @@ class Selector(ModuleInterface):
             raise FlaUiError(FlaUiError.ElementNameNotFound.format(name)) from None
 
     @staticmethod
+    def _should_contain(control: Any, name: str):
+        """
+        Checks if selector contains a given item by name or text.
+
+        Args:
+            control (Object): Selector object to use (Combobox, Listbox).
+            name (String): Name or Text from selector item which should exist.
+
+        Returns:
+            True if name from combobox item exists otherwise False.
+        """
+        for item in control.Items:
+            if name in (item.Name, item.Text):
+                return
+
+        raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
+
+    @staticmethod
     def _should_have_selected_item(control: Any, item: Any):
         """
         Verification if specific items are selected.
 
         Args:
-            control (Object): List control UI object.
+            control (Object): Selector object to use (Combobox, Listbox).
             item    (String): Item name which should be selected.
 
         Raises:
-            FlaUiError: By an array out of bound exception
-            FlaUiError: If value is not a number.
+            FlaUiError: If value is not selected
         """
         names = Selector._get_all_selected_names(control)
         if item not in names:
@@ -192,10 +199,10 @@ class Selector(ModuleInterface):
         Get all selected names.
 
         Args:
-            control (Object): List control element from FlaUI.
+            control (Object): Selector object to use (Combobox, Listbox).
 
         Returns:
-            List from all names from list control if exists otherwise empty list.
+            List from all names from a selector if exists otherwise empty list.
         """
         names = []
 
@@ -205,36 +212,55 @@ class Selector(ModuleInterface):
         return names
 
     @staticmethod
+    def _get_all_selected_texts(control: Any):
+        """
+        Try to get all selected items as list.
+
+        Args:
+            control (Object): Selector object to use (Combobox, Listbox).
+
+        Returns:
+            An list from all selected items.
+        """
+
+        texts = []
+
+        for item in control.SelectedItems:
+            texts.append(item.Text)
+
+        return texts
+
+    @staticmethod
     def _get_all_names(control: Any):
         """
         Get all names from selector.
 
         Args:
-            control (Object): List control element from FlaUI.
+            control (Object): Selector object to use (Combobox, Listbox).
 
         Returns:
             List from all names from list control if exists otherwise empty list.
         """
         names = []
         for item in control.Items:
-            names.append(item.Text)
+            names.append(item.Name)
 
         return names
 
     @staticmethod
-    def _should_contain(control: Any, name: str):
+    def _get_all_texts(control: Any):
         """
-        Checks if Listbox contains an given item by name.
+        Get all texts from selector.
 
         Args:
-            control (Object): List control element from FlaUI.
-            name (String): Name from combobox item which should exist.
+            control (Object): Selector object to use (Combobox, Listbox).
 
         Returns:
-            True if name from combobox item exists otherwise False.
+            List from all texts from a selector if exists otherwise empty list.
         """
-        for item in control.Items:
-            if item.Name == name:
-                return
+        texts = []
 
-        raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
+        for item in control.Items:
+            texts.append(item.Text)
+
+        return texts

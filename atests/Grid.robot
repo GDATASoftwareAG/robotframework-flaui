@@ -1,5 +1,17 @@
 *** Settings ***
 Documentation   Test suite for grid ui keyword usage.
+...             Keyword                               Test Case Names
+...             Get Selected Grid Rows                Get Selected Grid Rows If Nothing Is Selected
+...             Select Grid Row By Index              Select Grid Row By Index
+...                                                   Select Grid Row By Index With Wrong Index Number
+...                                                   Select Grid Row By Index With Wrong Index Usage
+...                                                   Select Multiple Grid Items
+...             Select Grid Row By Name               Select Grid Row By Name
+...                                                   Select Grid Row By Name Wrong Name Or Index
+...                                                   Select Grid Row By Name Wrong Index Usage
+...                                                   Select Multiple Grid Items
+...             Get Grid Rows Count                   Get Grid Rows Count
+...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
@@ -31,11 +43,11 @@ Select Grid Row By Index
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Contain  ${DATA}  | Doe | 24 |
 
-Select Grid Item Wrong Index Number
+Select Grid Row By Index With Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_GRID_VIEW}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Grid Row By Index  ${XPATH_GRID_VIEW}  -2000
 
-Select Grid Item Wrong Index Usage
+Select Grid Row By Index With Wrong Index Usage
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  NOT_AN_ARRAY  ${XPATH_GRID_VIEW}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Grid Row By Index  ${XPATH_GRID_VIEW}  NOT_AN_ARRAY
 
@@ -44,11 +56,11 @@ Select Grid Row By Name
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Contain  ${DATA}  | Doe | 24 |
 
-Select Grid Item By Name Wrong Name Or Index
+Select Grid Row By Name Wrong Name Or Index
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}   Simple item which does not exist  -2000
     Run Keyword and Expect Error   ${EXP_ERR_MSG}  Select Grid Row By Name  ${XPATH_GRID_VIEW}  -2000  Simple item which does not exist
 
-Select Grid Item By Name Wrong Index Usage
+Select Grid Row By Name Wrong Index Usage
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  NOT_AN_ARRAY  ${XPATH_GRID_VIEW}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Grid Row By Name  ${XPATH_GRID_VIEW}   NOT_AN_ARRAY   Simple item 1
 

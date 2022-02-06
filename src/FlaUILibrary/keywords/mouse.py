@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Mouse
+from FlaUILibrary.flaui.uia import UIA
 
 
 class MouseKeywords:
@@ -7,7 +8,7 @@ class MouseKeywords:
     Interface implementation from robotframework usage for mouse keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for mouse keywords.
 

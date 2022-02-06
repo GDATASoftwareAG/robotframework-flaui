@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import (Keyboard, Element)
+from FlaUILibrary.flaui.uia import UIA
 
 
 class KeyboardKeywords:
@@ -7,7 +8,7 @@ class KeyboardKeywords:
     Interface implementation from robotframework usage for keyboard keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for element keywords.
 

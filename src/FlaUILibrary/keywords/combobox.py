@@ -37,13 +37,29 @@ class ComboBoxKeywords:
                                    msg)
 
     @keyword
-    def get_selected_items_from_combobox(self, identifier, msg=None):
+    def get_all_texts_from_combobox(self, identifier, msg=None):
         """
-        Get all selected items from combobox as string. If nothing is selected empty string  will be returned.
+        Get all texts from a combobox as a list.
+        If element could not be found by xpath an error message will be thrown.
 
-        For example:
-          Value_1
-          Value_2
+        Arguments:
+        | Argument   | Type            | Description                            |
+        | identifier | string          | XPath identifier from combobox element |
+        | msg        | string          | Custom error message                   |
+
+        Examples:
+        | ${data}  Get All Texts From Combobox  <XPATH> <MSG>                   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        return self._module.action(Selector.Action.GET_ALL_TEXTS,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
+
+    @keyword
+    def get_all_selected_texts_from_combobox(self, identifier, msg=None):
+        """
+        Get all selected items from combobox as list.
+        If nothing is selected empty list will be returned.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -55,10 +71,33 @@ class ComboBoxKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${data}  Get Selected Items From Combobox  <XPath>   |
+        | ${data}  Get All Selected Texts From Combobox  <XPath>   |
         """
         element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
-        return self._module.action(Selector.Action.GET_SELECTED_ITEMS,
+        return self._module.action(Selector.Action.GET_ALL_TEXTS_FROM_SELECTION,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
+
+    @keyword
+    def get_all_selected_names_from_combobox(self, identifier, msg=None):
+        """
+        Get all selected items from combobox as list.
+        If nothing is selected empty list will be returned.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${data}  Get All Selected Names From Combobox  <XPath>   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        return self._module.action(Selector.Action.GET_ALL_NAMES_FROM_SELECTION,
                                    Selector.create_value_container(element=element, msg=msg),
                                    msg)
 

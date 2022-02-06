@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.application import Application
+from FlaUILibrary.flaui.uia import UIA
 
 
 class ApplicationKeywords:
@@ -7,11 +8,11 @@ class ApplicationKeywords:
     Interface implementation from robotframework usage for application keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for application keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``module`` UIA module to handle element interaction.
         """
         self._module = module
 
@@ -120,7 +121,7 @@ class ApplicationKeywords:
         | msg         | string | Custom error message                               |
 
         Examples:
-        | ${pid}  Launch Application  <APPLICATION>  <ARGUMENTS> |
+        | ${pid}  Launch Application With Args  <APPLICATION>  <ARGUMENTS> |
 
         Returns:
         | Process id from started process if successfully |

@@ -7,6 +7,23 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added 
+- New Keyword implemented for listbox and combobox
+  - Get All Selected Names From Combobox, Get All Texts From Combobox, Get All Texts From Listbox
+    - Returns a list from all selected values by names
+
+```
+${data}  Get All Selected Texts From Combobox  <XPATH>
+${data}  Get All Selected Names From Combobox  <XPATH>
+${data}  Get All Texts From Listbox  <XPATH>
+```
+
+### Changed
+
+- Keyword Get Selected Items From Combobox renamed to Get All Selected Texts From Combobox
+  - Get All Selected Texts From Combobox returns a List not a String anymore
+- Listbox Should Contain and Combobox Should Contain keywords checks now if Text or Name is equal by input value
+
 ## [Release][1.7] [1.7][1.6.6-1.7] - 2022-02-04
 
 ### Added 
@@ -14,7 +31,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - Python.Net 3.0 Support
 - New Keywords implemented for listbox and combobox
   - Get All Names From Listbox and Get All Names From Combobox returns both a list from all values by names
-  - For a list comparison pls use Collections library from robotframework
+  - For a list comparison use Collections library from robotframework
 
 ```
 ${data}  Get All Names From Listbox  <XPATH>

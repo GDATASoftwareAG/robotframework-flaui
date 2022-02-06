@@ -3,6 +3,7 @@ from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module.screenshot import Screenshot
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
+from FlaUILibrary.flaui.uia import UIA
 
 
 class ScreenshotKeywords:
@@ -10,7 +11,7 @@ class ScreenshotKeywords:
     Interface implementation from robotframework usage for screenshot keywords.
     """
 
-    def __init__(self, module, screenshots):
+    def __init__(self, module: UIA, screenshots: Screenshot):
         """Creates screenshot keywords module to handle image capturing.
 
         ``module`` UIA3 module to handle element interaction.
@@ -24,7 +25,7 @@ class ScreenshotKeywords:
         """ Takes a screenshot of the whole desktop. Returns path to the screenshot file.
 
         Example:
-        | Take Screenshot (Takes screenshot from all desktops) |
+        | Take Screenshot |
         """
         filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE, ValueContainer())
         robotlog.log_screenshot(filepath)
@@ -39,6 +40,9 @@ class ScreenshotKeywords:
         Arguments:
         | Argument   | Type   | Description      |
         | enabled    | string | True or False    |
+
+        Example:
+        | Take Screenshots On Failure  ${FALSE/TRUE} |
         """
         if is_truthy(enabled):
             self._screenshots.is_enabled = True
@@ -53,5 +57,8 @@ class ScreenshotKeywords:
         Arguments:
         | Argument   | Type   | Description                                  |
         | directory | string | Relative or absolute path to directory folder |
+
+        Example:
+        | Set Screenshot Directory  <STRING_PATH> |
         """
         self._screenshots.directory = directory

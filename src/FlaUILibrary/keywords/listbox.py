@@ -1,6 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.interface import InterfaceType
 from FlaUILibrary.flaui.module import Selector
+from FlaUILibrary.flaui.uia import UIA
 
 
 class ListBoxKeywords:
@@ -8,7 +9,7 @@ class ListBoxKeywords:
     Interface implementation from robotframework usage for listbox keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for Listbox keywords.
 
@@ -32,6 +33,25 @@ class ListBoxKeywords:
         """
         element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
         return self._module.action(Selector.Action.GET_ALL_NAMES,
+                                   Selector.create_value_container(element=element, msg=msg),
+                                   msg)
+
+    @keyword
+    def get_all_texts_from_listbox(self, identifier, msg=None):
+        """
+        Get all texts from a listbox as a list.
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type            | Description                           |
+        | identifier | string          | XPath identifier from listbox element |
+        | msg        | string          | Custom error message                  |
+
+        Examples:
+        | ${data}  Get All Texts From Listbox  <XPATH> <MSG>                   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return self._module.action(Selector.Action.GET_ALL_TEXTS,
                                    Selector.create_value_container(element=element, msg=msg),
                                    msg)
 

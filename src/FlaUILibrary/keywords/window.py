@@ -1,6 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.interface import InterfaceType
 from FlaUILibrary.flaui.module import Window
+from FlaUILibrary.flaui.uia import UIA
 
 
 class WindowKeywords:
@@ -8,7 +9,7 @@ class WindowKeywords:
     Interface implementation from robotframework usage for window keywords.
     """
 
-    def __init__(self, module):
+    def __init__(self, module: UIA):
         """
         Constructor for mouse keywords.
 
