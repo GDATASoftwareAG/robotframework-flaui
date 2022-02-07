@@ -2,7 +2,8 @@ from abc import ABC
 from typing import Any
 from enum import Enum
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
-from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, InterfaceType, ValueContainer)
+from FlaUILibrary.flaui.enum import InterfaceType
+from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.module import (Application,
                                        Debug,

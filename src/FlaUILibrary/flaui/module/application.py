@@ -147,7 +147,7 @@ class Application(ModuleInterface):
         Attach to a running application by pid.
 
         Args:
-            pid: PID number from process to attach.
+            pid: Number from process to attach.
 
         Raises:
             FlaUiError: If application with pid number not exist.
@@ -209,6 +209,12 @@ class Application(ModuleInterface):
         self._applications.remove(container)
 
     def _exists_pid(self, pid):
+        """
+        Checks if given pid exists in applications list.
+
+        Returns:
+            True if PID exists in applications otherwise False
+        """
         for container in self._applications:
             if container.pid == pid:
                 return True

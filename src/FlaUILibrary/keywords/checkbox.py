@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.interface import InterfaceType
+from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import ToggleButton
 from FlaUILibrary.flaui.uia import UIA
 

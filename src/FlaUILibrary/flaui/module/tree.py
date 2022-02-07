@@ -4,7 +4,7 @@ from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.flaui.util.treeitems import TreeItems
 from FlaUILibrary.flaui.util.converter import Converter
-from FlaUILibrary.flaui.util.treeitemaction import TreeItemAction
+from FlaUILibrary.flaui.enum.treeitemaction import TreeItemAction
 
 
 class Tree(ModuleInterface):
