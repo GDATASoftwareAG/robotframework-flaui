@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.7.1] [1.7.1][1.7-1.7.1] - 2022-02-07
+
 ### Added 
 - New Keyword implemented for listbox and combobox
   - Get All Selected Names From Combobox, Get All Texts From Combobox, Get All Texts From Listbox
@@ -296,7 +298,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.1...main
+
+[1.7.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.1
+
+[1.7-1.7.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7...1.7.1
 
 [1.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7
 
