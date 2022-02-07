@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.application import Application
-from FlaUILibrary.flaui.uia import UIA
+from FlaUILibrary.flaui.automation.uia import UIA
 
 
 class ApplicationKeywords:

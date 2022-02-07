@@ -3,7 +3,7 @@ from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
-from FlaUILibrary.flaui import (UIA2, UIA3)
+from FlaUILibrary.flaui.automation import (UIA2, UIA3)
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,

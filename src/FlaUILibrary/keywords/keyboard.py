@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import (Keyboard, Element)
-from FlaUILibrary.flaui.uia import UIA
+from FlaUILibrary.flaui.automation.uia import UIA
 
 
 class KeyboardKeywords:

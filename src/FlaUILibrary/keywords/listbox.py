@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Selector
-from FlaUILibrary.flaui.uia import UIA
+from FlaUILibrary.flaui.automation.uia import UIA
 
 
 class ListBoxKeywords:

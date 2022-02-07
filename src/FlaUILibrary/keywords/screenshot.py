@@ -3,7 +3,7 @@ from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module.screenshot import Screenshot
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
-from FlaUILibrary.flaui.uia import UIA
+from FlaUILibrary.flaui.automation.uia import UIA
 
 
 class ScreenshotKeywords:
