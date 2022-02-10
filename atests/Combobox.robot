@@ -107,3 +107,10 @@ Get All Texts From Combobox
     ${DATA}  Get All Texts From Combobox  ${XPATH_COMBO_BOX}
     ${EXPECTED_LIST}  Create List  Item 1  Item 2  Item 3  Item 4
     Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
+
+Expand and Collapse Combobox
+    Expand Combobox  ${XPATH_COMBO_BOX}
+    ${DATA}  Get All Texts From Combobox  ${XPATH_COMBO_BOX}
+    ${EXPECTED_LIST}  Create List  Item 1  Item 2  Item 3  Item 4
+    Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
+    Collapse Combobox  ${XPATH_COMBO_BOX}

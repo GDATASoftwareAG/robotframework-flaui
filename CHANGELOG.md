@@ -7,6 +7,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added 
+- New Keywords Expand Combobox and Collapse Combobox implemented for combobox
+
+### Changed
+
+- Select Combobox Item By Index selects now the given index value and collapsed the combox automatically.
+
 ## [Release][1.7.1] [1.7.1][1.7-1.7.1] - 2022-02-07
 
 ### Added 

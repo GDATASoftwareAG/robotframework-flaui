@@ -20,6 +20,7 @@ Attach Application By PID         Attach Application By PID  ${EXP_ERR_MSG_VALUE
 Click                             Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Close Application                 Close Application  ${EXP_ERR_MSG_APP_NOT_ATTACHED}  ${0}
 Close Window                      Close Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Collapse Combobox                 Collapse Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Combobox Should Contain           Combobox Should Contain  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  Item 3
 Collapse TreeItem                 Collapse TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Collapse All TreeItems            Collapse All TreeItems  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -30,6 +31,7 @@ Element Should Be Visible         Element Should Be Visible  ${EXP_ERR_MSG_XPATH
 Element Should Exist              Element Should Exist  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Not Be Visible     Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Expand TreeItem                   Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
+Expand Combobox                   Expand Combobox   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Focus                             Focus  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get All Names From Combobox       Get All Names From Combobox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get All Names From Listbox        Get All Names From Listbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
