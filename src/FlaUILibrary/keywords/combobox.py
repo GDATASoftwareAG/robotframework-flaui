@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Selector
+from FlaUILibrary.flaui.module import (Combobox, Selector)
 from FlaUILibrary.flaui.automation.uia import UIA
 
 
@@ -104,7 +104,8 @@ class ComboBoxKeywords:
     @keyword
     def select_combobox_item_by_index(self, identifier, index, msg=None):
         """
-        Selects item from combobox with given index number
+        Selects item from combobox with given index number.
+        Combobox will be automatic collapsed after selection is done.
 
         XPath syntax is explained in `XPath locator`.
 
@@ -123,6 +124,9 @@ class ComboBoxKeywords:
         element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         self._module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
                             Selector.create_value_container(element=element, index=index, msg=msg),
+                            msg)
+        self._module.action(Combobox.Action.COLLAPSE_COMBOBOX,
+                            Selector.create_value_container(element=element),
                             msg)
 
     @keyword
@@ -172,3 +176,49 @@ class ComboBoxKeywords:
         return self._module.action(Selector.Action.GET_ITEMS_COUNT,
                                    Selector.create_value_container(element=element, msg=msg),
                                    msg=msg)
+
+    @keyword
+    def collapse_combobox(self, identifier, msg=None):
+        """
+        Collapse combobox.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Collapse Combobox  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        self._module.action(Combobox.Action.COLLAPSE_COMBOBOX,
+                            Selector.create_value_container(element=element),
+                            msg)
+
+    @keyword
+    def expand_combobox(self, identifier, msg=None):
+        """
+        Expand combobox.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Expand Combobox  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        self._module.action(Combobox.Action.EXPAND_COMBOBOX,
+                            Selector.create_value_container(element=element),
+                            msg)
