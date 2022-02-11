@@ -45,7 +45,8 @@ EXIT /B %ERRORLEVEL%
     set /A result = %ERRORLEVEL%
     call:test_uia3
     if %result%==0 set /A result = %ERRORLEVEL%
-    call rebot --name ATests --outputdir result -x xunit.xml result/uia2/output.xml result/uia3/output.xml
+    call rebot --name ATests --outputdir result -x rf5_xunit.xml result/uia2/output.xml result/uia3/output.xml
+    call parsly.exe
 EXIT /B %result%
 
 :pylint
