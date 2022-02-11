@@ -14,6 +14,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - Select Combobox Item By Index selects now the given index value and collapsed the combox automatically.
 
+### Updated
+
+- Support for upcoming Robotframework 5.0
+
+
 ## [Release][1.7.1] [1.7.1][1.7-1.7.1] - 2022-02-07
 
 ### Added 
@@ -37,7 +42,6 @@ ${data}  Get All Texts From Listbox  <XPATH>
 
 ### Added 
 
-- Python.Net 3.0 Support
 - New Keywords implemented for listbox and combobox
   - Get All Names From Listbox and Get All Names From Combobox returns both a list from all values by names
   - For a list comparison use Collections library from robotframework
@@ -46,6 +50,10 @@ ${data}  Get All Texts From Listbox  <XPATH>
 ${data}  Get All Names From Listbox  <XPATH>
 ${data}  Get All Names From Combobox  <XPATH>
 ```
+
+### Updated
+
+- Support for upcoming Python.Net 3.0
 
 ### Fixed
 
