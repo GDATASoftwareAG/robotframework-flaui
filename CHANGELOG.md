@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][1.7.2] [1.7.2][1.7.1-1.7.2] - 2022-02-13
+
 ### Added 
 - New Keywords Expand Combobox and Collapse Combobox implemented for combobox
 
@@ -313,7 +315,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.2...main
+
+[1.7.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.2
+
+[1.7.1-1.7.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.1...1.7.2
 
 [1.7.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.1
 
