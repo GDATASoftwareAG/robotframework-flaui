@@ -11,14 +11,23 @@
 [tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
 [pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
 [pypi_url]: https://pypi.org/pypi/robotframework-flaui
+[python_36]: https://img.shields.io/badge/Python-3.6-blue
+[python_37]: https://img.shields.io/badge/Python-3.7-blue
+[python_38]: https://img.shields.io/badge/Python-3.8-blue
+[python_39]: https://img.shields.io/badge/Python-3.9%20Potential%20Python.Net%20Issue-yellowgreen
+[rf3]: https://img.shields.io/badge/3-Supported-blue
+[rf4]: https://img.shields.io/badge/4-Supported-blue
+[rf5]: https://img.shields.io/badge/5-Supported-blue
 
-| | |
-|---| --- |
-| License  | ![][license]  |
-| Python Builds (x86) | ![][py37x86] ![][py38x86] ![][py39x86]  |
-| Python Builds (x64) | ![][py37x64] ![][py38x64] ![][py39x64]  |
-| Tests    | [![][tests]][tests_url] |
-| PyPi     | [![][pypi]][pypi_url] |
+|                          |                                                             |
+|---                       | ---                                                         |
+| License                  | ![][license]                                                |
+| Python Builds (x86)      | ![][py37x86] ![][py38x86] ![][py39x86]                      |
+| Python Builds (x64)      | ![][py37x64] ![][py38x64] ![][py39x64]                      |
+| Tests                    | [![][tests]][tests_url]                                     |
+| Supported Python Version | ![][python_36] ![][python_37] ![][python_38] ![][python_39] |
+| Robotframework Support   | ![][rf3] ![][rf4] ![][rf5]                                  |
+| PyPi                     | [![][pypi]][pypi_url]                                       |
 
 ## Introduction
 
