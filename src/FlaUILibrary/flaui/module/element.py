@@ -28,6 +28,7 @@ class Element(ModuleInterface):
         """
         GET_ELEMENT = "GET_ELEMENT"
         GET_ELEMENT_NAME = "GET_ELEMENT_NAME"
+        GET_ELEMENT_RECTANGLE_BOUNDING = "GET_ELEMENT_RECTANGLE_BOUNDING"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
         IS_ELEMENT_ENABLED = "IS_ELEMENT_ENABLED"
         NAME_SHOULD_BE = "NAME_SHOULD_BE"
@@ -90,6 +91,10 @@ class Element(ModuleInterface):
             * Values ["xpath"]
             * Returns (String): UI entity name from XPATH
 
+          *  Action.GET_ELEMENT_RECTANGLE_BOUNDING
+            * Values ["xpath"]
+            * Returns (String): UI entity name from XPATH
+
           *  Action.IS_ELEMENT_ENABLED
             * Values ["xpath"]
             * Returns : True if element is enabled otherwise False
@@ -142,6 +147,7 @@ class Element(ModuleInterface):
             self.Action.FOCUS_ELEMENT: lambda: self._get_element(values["xpath"]).Focus(),
             self.Action.GET_ELEMENT: lambda: self._get_element(values["xpath"]),
             self.Action.GET_ELEMENT_NAME: lambda: self._get_name_from_element(values["xpath"]),
+            self.Action.GET_ELEMENT_RECTANGLE_BOUNDING: lambda: self._get_rectangle_bounding_from_element(values["xpath"]),
             self.Action.IS_ELEMENT_ENABLED: lambda: self._get_element(values["xpath"]).IsEnabled,
             self.Action.NAME_SHOULD_BE: lambda: self._name_should_be(values["xpath"], values["name"]),
             self.Action.NAME_SHOULD_CONTAINS: lambda: self._name_should_contain(values["xpath"], values["name"]),
@@ -171,6 +177,19 @@ class Element(ModuleInterface):
             COMException: If node don't exists.
         """
         return self._get_element(xpath).Name
+
+    def _get_rectangle_bounding_from_element(self, xpath: str):
+        """
+        Get rectangle bounding from element if exists.
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            COMException: If node don't exists.
+        """
+        rect = self._get_element(xpath).BoundingRectangle
+        return [rect.X, rect.Y, rect.Width, rect.Height]
 
     def _name_should_be(self, xpath: str, name: str):
         """
