@@ -33,6 +33,7 @@ Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
 Library         DateTime
+Library         Collections
 
 Resource        util/Common.robot
 Resource        util/Error.robot
@@ -53,6 +54,13 @@ Focus
 Get Name From Element By XPath
     ${TEXT}  Get Name From Element  ${XPATH_ELEMENT}
     Should Be Equal  Test Label  ${TEXT}
+
+Get Rectangle Bounding From Element By XPath
+    @{RECT}  Get Rectangle Bounding From Element  ${XPATH_ELEMENT}
+    Should Match Regexp  ${RECT}[0]  \\d
+    Should Match Regexp  ${RECT}[1]  \\d
+    Should Match Regexp  ${RECT}[2]  \\d
+    Should Match Regexp  ${RECT}[3]  \\d
 
 Element Should Exist
     ${EXISTS}  Element Should Exist  ${XPATH_ELEMENT}

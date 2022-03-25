@@ -121,6 +121,31 @@ class ElementKeywords:
                                    msg)
 
     @keyword
+    def get_rectangle_bounding_from_element(self, identifier, msg=None):
+        """
+        Return rectangle value from element.
+
+        XPath syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | @{Rectangle}  Get Rectangle Bounding From Element  <XPATH> |
+
+        Returns:
+        | An array Rectangle Bounding from element : [rect.X, rect.Y, rect.Width, rect.Height]|
+
+        """
+        return self._module.action(Element.Action.GET_ELEMENT_RECTANGLE_BOUNDING,
+                                   Element.create_value_container(xpath=identifier, msg=msg),
+                                   msg)
+
+    @keyword
     def name_should_be(self, name, identifier, msg=None):
         """
         Verifies if name from element is equal.
