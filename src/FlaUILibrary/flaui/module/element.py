@@ -147,7 +147,8 @@ class Element(ModuleInterface):
             self.Action.FOCUS_ELEMENT: lambda: self._get_element(values["xpath"]).Focus(),
             self.Action.GET_ELEMENT: lambda: self._get_element(values["xpath"]),
             self.Action.GET_ELEMENT_NAME: lambda: self._get_name_from_element(values["xpath"]),
-            self.Action.GET_ELEMENT_RECTANGLE_BOUNDING: lambda: self._get_rectangle_bounding_from_element(values["xpath"]),
+            self.Action.GET_ELEMENT_RECTANGLE_BOUNDING: lambda: self._get_rectangle_bounding_from_element(
+                values["xpath"]),
             self.Action.IS_ELEMENT_ENABLED: lambda: self._get_element(values["xpath"]).IsEnabled,
             self.Action.NAME_SHOULD_BE: lambda: self._name_should_be(values["xpath"], values["name"]),
             self.Action.NAME_SHOULD_CONTAINS: lambda: self._name_should_contain(values["xpath"], values["name"]),
@@ -189,7 +190,10 @@ class Element(ModuleInterface):
             COMException: If node don't exists.
         """
         rect = self._get_element(xpath).BoundingRectangle
-        return [rect.X, rect.Y, rect.Width, rect.Height]
+        return [Converter.cast_to_int(rect.X),
+                Converter.cast_to_int(rect.Y),
+                Converter.cast_to_int(rect.Width),
+                Converter.cast_to_int(rect.Height)]
 
     def _name_should_be(self, xpath: str, name: str):
         """
