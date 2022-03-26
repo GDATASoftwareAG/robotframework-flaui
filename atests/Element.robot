@@ -1,32 +1,33 @@
 *** Settings ***
 Documentation   Test suite for element keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Element Should Exist                  Element Should Exist
-...                                                   Element Should Exist Xpath Not Exists
-...             Element Should Not Exist              Element Should Not Exist
-...                                                   Element Should Not Exist Xpath Not Exists
-...             Focus                                 Focus
-...             Get Name From Element                 Get Name From Element By XPath
-...             Name Should Be                        Name Should Be
-...                                                   Name Should Be Wrong Name
-...             Name Contains Text                    Name Contains Text
-...                                                   Name Contains Text Wrong Name
-...             Is Element Enabled                    Is Element Enabled
-...                                                   Is Element Not Enabled
-...             Is Element Visible                    Is Element Visible
-...                                                   Is Element Visible When Element Is Offscreen And Not Visible
-...             Element Should Be Visible             Element Should Be Visible
-...             Element Should Not Be Visible         Element Should Not Be Visible
-...                                                   Element Should Not Be Visible Error
-...             Wait Until Element Is Hidden          Wait Until Element Is Hidden
-...                                                   Wait Until Element Is Hidden Timeout Reached By Default
-...                                                   Wait Until Element Is Hidden Timeout Reached After One Second
-...                                                   Wait Until Element Is Hidden Timeout Is Reached By Wrong Number
-...             Wait Until Element Is VISIBLE         Wait Until Element Is Visible
-...                                                   Wait Until Element Is Hidden Timeout Reached By Default
-...                                                   Wait Until Element Is Visible Timeout Reached After Amount Of Time
-...                                                   Wait Until Element Is Visible Timeout Is Reached By Wrong Number
+...             Keyword                                       Test Case Names
+...             Element Should Exist                          Element Should Exist
+...                                                           Element Should Exist Xpath Not Exists
+...             Element Should Not Exist                      Element Should Not Exist
+...                                                           Element Should Not Exist Xpath Not Exists
+...             Focus                                         Focus
+...             Get Name From Element                         Get Name From Element By XPath
+...             Get Rectangle Bounding From Element           Get Rectangle Bounding From Element By XPath
+...             Name Should Be                                Name Should Be
+...                                                           Name Should Be Wrong Name
+...             Name Contains Text                            Name Contains Text
+...                                                           Name Contains Text Wrong Name
+...             Is Element Enabled                            Is Element Enabled
+...                                                           Is Element Not Enabled
+...             Is Element Visible                            Is Element Visible
+...                                                           Is Element Visible When Element Is Offscreen And Not Visible
+...             Element Should Be Visible                     Element Should Be Visible
+...             Element Should Not Be Visible                 Element Should Not Be Visible
+...                                                           Element Should Not Be Visible Error
+...             Wait Until Element Is Hidden                  Wait Until Element Is Hidden
+...                                                           Wait Until Element Is Hidden Timeout Reached By Default
+...                                                           Wait Until Element Is Hidden Timeout Reached After One Second
+...                                                           Wait Until Element Is Hidden Timeout Is Reached By Wrong Number
+...             Wait Until Element Is VISIBLE                 Wait Until Element Is Visible
+...                                                           Wait Until Element Is Hidden Timeout Reached By Default
+...                                                           Wait Until Element Is Visible Timeout Reached After Amount Of Time
+...                                                           Wait Until Element Is Visible Timeout Is Reached By Wrong Number
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
@@ -57,10 +58,7 @@ Get Name From Element By XPath
 
 Get Rectangle Bounding From Element By XPath
     @{RECT}  Get Rectangle Bounding From Element  ${XPATH_ELEMENT}
-    Should Match Regexp  ${RECT}[0]  \\d
-    Should Match Regexp  ${RECT}[1]  \\d
-    Should Match Regexp  ${RECT}[2]  \\d
-    Should Match Regexp  ${RECT}[3]  \\d
+    Pass Execution If  ${RECT}[0] > 0 and ${RECT}[1] > 0 and ${RECT}[2] > 0 and ${RECT}[3] > 0  Get rectangle bound
 
 Element Should Exist
     ${EXISTS}  Element Should Exist  ${XPATH_ELEMENT}
