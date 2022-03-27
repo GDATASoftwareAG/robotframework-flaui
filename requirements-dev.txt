@@ -5,4 +5,5 @@ pylint-junit==0.3.2
 pep8==1.7.1
 robotframework-stringformat==0.1.8
 twine==3.7.1
+yattag==1.14.0
 -r requirements.txt
