@@ -7,12 +7,18 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
-### Added 
+## [Release][1.7.3] [1.7.3][1.7.2-1.7.3] - 2022-03-28
+
+### Added
 - New Keywords Get Rectangle Bounding From Element
+- Helper parsly.py xml parser implemented for old robotframework reporting xml generation for appveyor to avoid wrong amount of test numbers
+
+### Removed
+- LFS file parsly.exe removed by bfg history
 
 ## [Release][1.7.2] [1.7.2][1.7.1-1.7.2] - 2022-02-13
 
-### Added 
+### Added
 - New Keywords Expand Combobox and Collapse Combobox implemented for combobox
 
 ### Changed
@@ -26,7 +32,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Release][1.7.1] [1.7.1][1.7-1.7.1] - 2022-02-07
 
-### Added 
+### Added
 - New Keyword implemented for listbox and combobox
   - Get All Selected Names From Combobox, Get All Texts From Combobox, Get All Texts From Listbox
     - Returns a list from all selected values by names
@@ -45,7 +51,7 @@ ${data}  Get All Texts From Listbox  <XPATH>
 
 ## [Release][1.7] [1.7][1.6.6-1.7] - 2022-02-04
 
-### Added 
+### Added
 
 - New Keywords implemented for listbox and combobox
   - Get All Names From Listbox and Get All Names From Combobox returns both a list from all values by names
@@ -318,7 +324,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.2...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.3...main
+
+[1.7.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.3
+
+[1.7.2-1.7.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.2...1.7.3
 
 [1.7.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.2
 
