@@ -20,8 +20,6 @@ class KeyboardKeywords:
     def press_key(self, key_combination, identifier=None, msg=None):
         """
         Keyboard control to execute a user defined one shurcut or text.
-        If identifier set try to attach to given element if
-        operation was successfully old element will be reattached automatically.
 
         Arguments:
         | Argument         | Type                                  | Description                   |

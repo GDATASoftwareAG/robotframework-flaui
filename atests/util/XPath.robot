@@ -5,3 +5,4 @@ ${MAIN_WINDOW_NOTIFIER}                            /Window[@AutomationId='Notifi
 ${XPATH_NOT_EXISTS}                                /NotExists
 ${MAIN_WINDOW_SIMPLE_CONTROLS}                     ${MAIN_WINDOW}/Tab/TabItem[@Name='Simple Controls']
 ${MAIN_WINDOW_COMPLEX_CONTROLS}                    ${MAIN_WINDOW}/Tab/TabItem[@Name='Complex Controls']
+${MAIN_WINDOW_KEYBOARD_CONTROLS}                   ${MAIN_WINDOW}/Tab/TabItem[@Name='Keyboard Controls']
