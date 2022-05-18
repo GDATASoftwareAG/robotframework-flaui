@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="FlaUI WPF Test App"
         Height="533.931" Width="629.303"
+        KeyDown="OnKeyDown"
+        KeyUp="OnKeyUp"
         ResizeMode="CanResize">
     <Window.Resources>
         <ResourceDictionary>
@@ -176,6 +178,17 @@
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Keyboard Controls">
+                <StackPanel Orientation="Vertical">
+                    <Button x:Name="ResetKeyboard" Content="Reset Keyboard Inputs" Click="ResetKeyboard_Click" AutomationProperties.AutomationId="ResetKeyboardInputs"/>
+                    <Label Content="Keyboard Input Field"/>
+                    <TextBox AutomationProperties.AutomationId="KeyboardInputField" Text="" Background="Black" Foreground="White"/>
+                    <Label Content="Keyboard Down Events"/>
+                    <Label Content="" Foreground="White" Background="Black"  x:Name="lblKeyboardKeyDown"/>
+                    <Label Content="Keyboard Up Events"/>
+                    <Label Content="" Foreground="White" Background="Black" x:Name="lblKeyboardKeyUp"/>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </DockPanel>

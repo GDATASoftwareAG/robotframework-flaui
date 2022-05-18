@@ -34,3 +34,8 @@ Open Complex Tab
     ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
     ${TAB_ITEM_LIST_CONTROLS}   Set Variable  Complex Controls
     Select Tab Item By Name     ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}
+
+Open Keyboard Tab
+    ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
+    ${TAB_ITEM_LIST_CONTROLS}   Set Variable  Keyboard Controls
+    Select Tab Item By Name     ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}
