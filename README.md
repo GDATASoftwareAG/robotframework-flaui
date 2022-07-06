@@ -1,33 +1,37 @@
 # Robotframework-FlaUI Library
 
 [license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
-[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x86/main?label=3.7&style=flat-square
-[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x64/main?label=3.7&style=flat-square
 [py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/main?label=3.8&style=flat-square
 [py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/main?label=3.8&style=flat-square
 [py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/main?label=3.9&style=flat-square
 [py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/main?label=3.9&style=flat-square
+[py310x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x86/main?label=3.10&style=flat-square
+[py310x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x64/main?label=3.10&style=flat-square
+
 [tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square"
 [tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
+
 [pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
 [pypi_url]: https://pypi.org/pypi/robotframework-flaui
-[python_36]: https://img.shields.io/badge/Python-3.6-blue
+
 [python_37]: https://img.shields.io/badge/Python-3.7-blue
 [python_38]: https://img.shields.io/badge/Python-3.8-blue
-[python_39]: https://img.shields.io/badge/Python-3.9%20Potential%20Python.Net%20Issue-yellowgreen
+[python_39]: https://img.shields.io/badge/New%20Support-Python%203.9-blue
+[python_310]: https://img.shields.io/badge/New%20Support-Python%203.10-blue
+
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
 [rf5]: https://img.shields.io/badge/5-Supported-blue
 
-|                          |                                                             |
-|---                       | ---                                                         |
-| License                  | ![][license]                                                |
-| Python Builds (x86)      | ![][py37x86] ![][py38x86] ![][py39x86]                      |
-| Python Builds (x64)      | ![][py37x64] ![][py38x64] ![][py39x64]                      |
-| Tests                    | [![][tests]][tests_url]                                     |
-| Supported Python Version | ![][python_36] ![][python_37] ![][python_38] ![][python_39] |
-| Robotframework Support   | ![][rf3] ![][rf4] ![][rf5]                                  |
-| PyPi                     | [![][pypi]][pypi_url]                                       |
+|                          |                                                              |
+|---                       |--------------------------------------------------------------|
+| License                  | ![][license]                                                 |
+| Python Builds (x86)      | ![][py38x86] ![][py39x86] ![][py310x86]         |
+| Python Builds (x64)      | ![][py38x64] ![][py39x64] ![][py310x64]         |
+| Tests                    | [![][tests]][tests_url]                                      |
+| Supported Python Version | ![][python_37] ![][python_38] ![][python_39] ![][python_310] |
+| Robotframework Support   | ![][rf3] ![][rf4] ![][rf5]                                   |
+| PyPi                     | [![][pypi]][pypi_url]                                        |
 
 ## Introduction
 
@@ -50,12 +54,16 @@ The robot framework FlaUI is supposed to support the current Python 3 versions.
 
 See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
 
-### Additonal information about Python.Net
+### Additional information about Python.Net Wrapper
+
+#### Robotframework-Flaui 1.x
 
 * With the release of Python.Net version 2.5.2, Python 3.9 support was implemented for the first time.
 * However, no official support for Python 3.9 has been released yet.
   * For more information see the issue [#1389](https://github.com/pythonnet/pythonnet/issues/1389)
 * If there are problems installing the Python.Net library, please use Python 3.8 instead.
+* This is only a potential problem by all robotframework-flaui 1.x versions which are implemented by Python.Net 2.5.2
+
 
 ## Documentation
 
