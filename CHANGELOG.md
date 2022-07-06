@@ -7,9 +7,19 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
-### Updated
+### Added
+- Official Python 3.9 and 3.10 support
 
+### Changed
+- Test matrix update to python 3.8, 3.9 and 3.10 testing
+
+### Updated
 - FlaUI upgrade from 3.2.0 to 4.0
+- Python.Net to 3.0 upgraded
+
+### Removed
+- Python 3.6 support dropped
+
 
 ## [Release][1.7.3] [1.7.3][1.7.2-1.7.3] - 2022-03-28
 
