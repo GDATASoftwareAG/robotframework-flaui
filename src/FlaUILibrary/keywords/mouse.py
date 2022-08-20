@@ -21,7 +21,7 @@ class MouseKeywords:
         """
         Left click to element by an XPath.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -44,7 +44,7 @@ class MouseKeywords:
         """
         Double click to element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -67,7 +67,7 @@ class MouseKeywords:
         """
         Right click to element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -90,7 +90,7 @@ class MouseKeywords:
         """
         Move mouse cursor to given element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -113,7 +113,7 @@ class MouseKeywords:
         """
         Clicks and hold the item with start_identifier and drops it at item with end_identifier.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

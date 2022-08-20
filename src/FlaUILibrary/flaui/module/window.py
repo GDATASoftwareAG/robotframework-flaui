@@ -63,7 +63,7 @@ class Window(ModuleInterface):
             window (Object): Window element to close.
 
         Raises:
-            FlaUiError: If window could not closed.
+            FlaUiError: If window could not be closed.
         """
         try:
             window.Close()

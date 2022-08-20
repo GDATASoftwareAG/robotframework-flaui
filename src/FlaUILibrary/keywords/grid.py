@@ -26,7 +26,7 @@ class GridKeywords:
         For example:
           | Value_1 | Value_2 | Value_3 |
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -46,7 +46,7 @@ class GridKeywords:
         """
         Select rows from data grid with the given index.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -69,7 +69,7 @@ class GridKeywords:
         """
         Select specific row by name from data grid.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -93,7 +93,7 @@ class GridKeywords:
         """
         Return count of rows from data grid.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

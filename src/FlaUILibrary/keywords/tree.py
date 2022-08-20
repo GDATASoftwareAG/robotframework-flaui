@@ -22,7 +22,7 @@ class TreeKeywords:
         """
         Return count of items in the first level of the tree.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -46,7 +46,7 @@ class TreeKeywords:
         """
         Returns the count of every visible tree item.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -70,7 +70,7 @@ class TreeKeywords:
         """
         Returns a list of names of every visible tree item.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -93,9 +93,9 @@ class TreeKeywords:
     @keyword
     def expand_all_treeitems(self, identifier, msg=None):
         """
-        Expands every expandable Tree Items items of the given tree.
+        Expands every expandable Tree items of the given tree.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -117,7 +117,7 @@ class TreeKeywords:
         """
         Collapse every collapsable tree items of the given tree.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -137,9 +137,9 @@ class TreeKeywords:
     @keyword
     def treeitem_should_be_visible(self, identifier, name, msg=None):
         """
-        Iterates every visible tree item. And fails if does not find the given name.
+        Iterates every visible tree item. And fails if a node does not contain by given name.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -163,7 +163,7 @@ class TreeKeywords:
         """
         Selects item from tree with given index number
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -188,7 +188,7 @@ class TreeKeywords:
         Selects item from tree by name.
         If the given name could not be found or was not visible in tree FlauiError will be thrown.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -218,7 +218,7 @@ class TreeKeywords:
         Under it will be taken the item with index of (int) index2 and expanded.
         Under it there is an item with name Name3 will be selected.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -249,7 +249,7 @@ class TreeKeywords:
         Under it will be taken the item with index of (int) index2 and expanded.
         Under it there is an item with name Name3 will be expanded.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -281,7 +281,7 @@ class TreeKeywords:
         Under it will be taken the item with index of (int) index2 and expanded.
         Under it there is an item with name Name3 will be Collapsed.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -307,7 +307,7 @@ class TreeKeywords:
         """
         Checks if the selected tree items are same with the given ones.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

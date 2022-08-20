@@ -22,7 +22,7 @@ class TextBoxKeywords:
         """
         Return text from textbox element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -48,7 +48,7 @@ class TextBoxKeywords:
         """
         Inputs value to a textbox module.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

@@ -17,7 +17,7 @@ class TreeItemsParser:
 
     def get_treeitem(self, treeitems: Any, index: Any):
         """
-        This function gets the index of the location, the location can either be name or index,
+        This function gets the index of the location, the location can either be a name or index,
         and returns the corresponding tree item to that name or index.
         if the given name or index is not found a flauierror will be thrown.
         """

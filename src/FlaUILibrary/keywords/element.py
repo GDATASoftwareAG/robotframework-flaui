@@ -22,7 +22,7 @@ class ElementKeywords:
         Checks if element exists. If element exists True will be returned otherwise False.
         If element could not be found by xpath False will be returned.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         Arguments:
         | Argument      | Type   | Description                   |
@@ -51,7 +51,7 @@ class ElementKeywords:
         Checks if element exists. If element exists False will be returned otherwise True.
         If element could not be found by xpath True will be returned.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         Arguments:
         | Argument      | Type   | Description                   |
@@ -80,7 +80,7 @@ class ElementKeywords:
         """
         Try to focus element by given xpath.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -100,7 +100,7 @@ class ElementKeywords:
         """
         Return name value from element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -125,7 +125,7 @@ class ElementKeywords:
         """
         Return rectangle value from element.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -187,7 +187,7 @@ class ElementKeywords:
         """
         Verifies if element is enabled (true) or not (false).
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -211,7 +211,7 @@ class ElementKeywords:
         """
         Checks if element is visible (true) or not (false).
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -233,7 +233,7 @@ class ElementKeywords:
         """
         Checks if element is visible.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -250,13 +250,12 @@ class ElementKeywords:
                             Element.create_value_container(xpath=identifier, msg=msg),
                             msg)
 
-
     @keyword
     def element_should_not_be_visible(self, identifier, msg=None):
         """
         Checks if element is visible.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -278,12 +277,12 @@ class ElementKeywords:
         """
         Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         Arguments:
         | Argument   | Type   | Description                                                           |
         | identifier | string | XPath identifier from element                                         |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default 10 retries. |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
         | msg        | string | Custom error message                                                  |
 
         Example:
@@ -299,12 +298,12 @@ class ElementKeywords:
         """
         Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         Arguments:
         | Argument   | Type   | Description                                                           |
         | identifier | string | XPath identifier from element                                         |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default 10 retries. |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
         | msg        | string | Custom error message                                                  |
 
         Example:

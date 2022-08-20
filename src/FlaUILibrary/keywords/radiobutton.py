@@ -22,7 +22,7 @@ class RadioButtonKeywords:
         """
         Select given radiobutton by xpath.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -45,7 +45,7 @@ class RadioButtonKeywords:
         """
         Return actual state ${True} or ${False} from radiobutton.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

@@ -11,7 +11,7 @@ from FlaUILibrary.flaui.module import (Application, Combobox, Debug, Grid, Tree,
 
 class UIA(WindowsAutomationInterface, ABC):
     """
-    Generic window automation module for a centralized communication handling between robot keywords and flaui.
+    Generic window automation module for a centralized communication handling between robot keywords.
     """
 
     def __init__(self, timeout=1000):
@@ -24,16 +24,16 @@ class UIA(WindowsAutomationInterface, ABC):
 
     def action(self, action: Enum, values: ValueContainer = None, msg: str = None):
         """
-        Performs a application action if supported. If not supported an NotSupported error will be thrown.
+        Performs an application action if supported. If not supported an NotSupported error will be thrown.
 
         Args:
             action (Action) : Application action to perform.
-            values (Array)  : Specified argument values for action. By default if not set is None.
+            values (Array)  : Specified argument values for action.
                               See action declaration from specific module for value attributes.
             msg    (String) : Optional custom error message.
 
         Raises:
-            FlaUiError: If execute action throws a flaui error.
+            FlaUiError: If execute action throws a Flaui error.
             FlaUiError: If action is not supported.
         """
         try:
@@ -82,7 +82,7 @@ class UIA(WindowsAutomationInterface, ABC):
         """
         Cast element to given type.
 
-        ``element`` Element to capture if not set set 'None' desktop will be captured.
+        ``element`` Element to capture if not set 'None' desktop will be captured.
         ``ui_type`` InterfaceType to cast to specific module element.
         """
 
