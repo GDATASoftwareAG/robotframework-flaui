@@ -46,7 +46,7 @@ class CheckBoxKeywords:
         """
         Return actual checked state ${True} or ${False} from checkbox.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

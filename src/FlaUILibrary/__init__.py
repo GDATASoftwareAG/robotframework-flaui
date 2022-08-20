@@ -29,8 +29,8 @@ class FlaUILibrary(DynamicCore):
     """
     FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
-    It is a wrapper for [https://github.com/Roemer/FlaUI | FlaUI] automation framework, which is based based on
-    native UI Automation libraries from Microsoft and therefore kind of a wrapper around them.
+    It is a wrapper for [https://github.com/Roemer/FlaUI | FlaUI] automation framework, which is based on
+    native UI Automation libraries from Microsoft.
 
     = Getting started =
 
@@ -39,7 +39,7 @@ class FlaUILibrary(DynamicCore):
 
     == Library screenshot usage ==
 
-    FlaUiLibrary contains by default a automatic snapshot module which creates for each error case a snapshot from a
+    FlaUiLibrary contains by default an automatic snapshot module which creates for each error case a snapshot from an
     attached element or desktop. To disable this feature use Library  screenshot_enabled=False.
 
     Following settings could be used for library init.
@@ -59,7 +59,7 @@ class FlaUILibrary(DynamicCore):
     | ClassName  | Search for element with given class type | /MenuBar/MenuItem[@ClassName='<CLASS_NAME>'] |
     | HelpText  |  Search for element with given help text | /MenuBar/MenuItem[@HelpText='<HELP_TEXT>'] |
 
-    For FlaUI there is a inspector tool [https://github.com/FlauTech/FlaUInspect | FlaUI Inspect] to verify an XPath
+    For FlaUI there is an inspector tool [https://github.com/FlauTech/FlaUInspect | FlaUI Inspect] to verify an XPath
     from all visible UI components. Download the latest release and set UIA3 Mode and enable 'Show XPath' under mode.
 
     """
@@ -112,9 +112,7 @@ class FlaUILibrary(DynamicCore):
         self.builtin = BuiltIn()
 
         try:
-            if timeout == "None":
-                timeout = 0
-            elif int(timeout) <= 0:
+            if timeout == "None" or int(timeout) <= 0:
                 timeout = 0
         except ValueError:
             timeout = 1000

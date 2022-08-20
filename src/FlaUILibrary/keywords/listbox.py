@@ -60,7 +60,7 @@ class ListBoxKeywords:
         """
         Checks if the selected listbox items are same with the given ones.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -83,7 +83,7 @@ class ListBoxKeywords:
         """
         Selects item from listbox with given index number
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -107,7 +107,7 @@ class ListBoxKeywords:
         """
         Selects item from listbox by name.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -131,7 +131,7 @@ class ListBoxKeywords:
         """
         Checks if listbox contains the given item.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -155,7 +155,7 @@ class ListBoxKeywords:
         """
         Return count of rows in listbox.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

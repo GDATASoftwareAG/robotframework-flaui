@@ -61,7 +61,7 @@ class ComboBoxKeywords:
         Get all selected items from combobox as list.
         If nothing is selected empty list will be returned.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -84,7 +84,7 @@ class ComboBoxKeywords:
         Get all selected items from combobox as list.
         If nothing is selected empty list will be returned.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -107,7 +107,7 @@ class ComboBoxKeywords:
         Selects item from combobox with given index number.
         Combobox will be automatic collapsed after selection is done.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -134,7 +134,7 @@ class ComboBoxKeywords:
         """
         Checks if Combobox contains an item
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -158,7 +158,7 @@ class ComboBoxKeywords:
         """
         Return actual count of items in combobox.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -182,7 +182,7 @@ class ComboBoxKeywords:
         """
         Collapse combobox.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -205,7 +205,7 @@ class ComboBoxKeywords:
         """
         Expand combobox.
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 

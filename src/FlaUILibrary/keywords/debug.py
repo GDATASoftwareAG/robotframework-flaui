@@ -30,7 +30,7 @@ class DebugKeywords:
           | ------> AutomationId:1009, Name:Do not display further messages, ControlType:check box, FrameworkId:Win32 |
           | ------> AutomationId:1011, Name:Web protection, ControlType:text, FrameworkId:Win32 |
 
-        XPath syntax is explained in `XPath locator`.
+        XPaths syntax is explained in `XPath locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
@@ -50,7 +50,7 @@ class DebugKeywords:
     @keyword
     def get_uia_identifier(self):
         """
-        Gets given windows user automation identifier which is in usage for the test.
+        Gets given Windows User Automation Identifier which is in usage for the test.
 
         Possible Identifier are : UIA2 or UIA3
 

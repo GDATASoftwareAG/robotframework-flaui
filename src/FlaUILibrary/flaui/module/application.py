@@ -23,7 +23,7 @@ class Application(ModuleInterface):
 
     class ApplicationContainer:
         """
-        Application container to handle a attached or launched process.
+        Application container to handle an attached or launched process.
         """
         pid: Optional[int]
         application: Optional[str]

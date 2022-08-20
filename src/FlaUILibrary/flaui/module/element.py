@@ -65,7 +65,7 @@ class Element(ModuleInterface):
             name (String): Name from element
             xpath (String): Searched element as xpath
             retries (Number): Retry counter to repeat calls as number
-            use_exception (Bool) : Indicator to ignore exception handling by flaui
+            use_exception (Bool) : Indicator to ignore exception handling by Flaui
             msg (String): Optional error message
         """
         return Element.Container(name=Converter.cast_to_string(name),
@@ -175,7 +175,7 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            COMException: If node don't exists.
+            COMException: If node don't exist.
         """
         return self._get_element(xpath).Name
 
@@ -187,7 +187,7 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            COMException: If node don't exists.
+            COMException: If node don't exist.
         """
         rect = self._get_element(xpath).BoundingRectangle
         return [Converter.cast_to_int(rect.X),
@@ -209,7 +209,7 @@ class Element(ModuleInterface):
         """
         element_name = self._get_name_from_element(xpath)
 
-        if not element_name == name:
+        if element_name != name:
             raise FlaUiError(FlaUiError.ElementNameNotEquals.format(element_name, name))
 
     def _name_should_contain(self, xpath: str, name: str):
@@ -310,7 +310,7 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            FlaUiError: If node could found by xpath.
+            FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is not visible.
         """
         hidden = self._get_element(xpath).IsOffscreen
@@ -325,7 +325,7 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            FlaUiError: If node could found by xpath.
+            FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is visible.
         """
         hidden = self._get_element(xpath).IsOffscreen

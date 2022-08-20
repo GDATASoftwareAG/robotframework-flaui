@@ -93,7 +93,7 @@ class Screenshot(ModuleInterface):
 
     def _get_path(self):
         """
-        Get directory path if set if not by default fallback will be used to obtain log directory from robot test case.
+        Get directory path for logging.
         """
         output_dir = robotlog.get_log_directory().replace("/", os.sep)
 
