@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.0] [2.0.0][1.7.3-2.0.0] - 2022-10-06
+
 ### Added
 - Official Python 3.9 and 3.10 support
 
@@ -338,7 +340,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.3...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.0...main
+
+[2.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.0
+
+[1.7.3-2.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.3...2.0.0
 
 [1.7.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.3
 
