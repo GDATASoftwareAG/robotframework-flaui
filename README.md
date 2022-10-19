@@ -22,6 +22,7 @@
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
 [rf5]: https://img.shields.io/badge/5-Supported-blue
+[rf6]: https://img.shields.io/badge/6-Supported-blue
 
 |                          |                                                              |
 |---                       |--------------------------------------------------------------|
@@ -30,7 +31,7 @@
 | Python Builds (x64)      | ![][py38x64] ![][py39x64] ![][py310x64]         |
 | Tests                    | [![][tests]][tests_url]                                      |
 | Supported Python Version | ![][python_37] ![][python_38] ![][python_39] ![][python_310] |
-| Robotframework Support   | ![][rf3] ![][rf4] ![][rf5]                                   |
+| Robotframework Support   | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                          |
 | PyPi                     | [![][pypi]][pypi_url]                                        |
 
 ## Introduction
