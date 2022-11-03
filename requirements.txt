@@ -1,4 +1,4 @@
 robotframework>=3.2.2
 typing-extensions>=3.10.0.0
 robotframework-pythonlibcore>=3.0.0
-pythonnet==3.0.0
+pythonnet==3.0.1
