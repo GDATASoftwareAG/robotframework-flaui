@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Updated
+- Upgrade Python.Net to 3.0.1
+
 ## [Release][2.0.0] [2.0.0][1.7.3-2.0.0] - 2022-10-06
 
 ### Added
@@ -17,7 +20,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Updated
 - FlaUI upgrade from 3.2.0 to 4.0
-- Python.Net to 3.0 upgraded
+- Python.Net upgrade to 3.0
 
 ### Removed
 - Python 3.6 support dropped
