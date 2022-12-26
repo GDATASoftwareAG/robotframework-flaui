@@ -1,4 +1,4 @@
-wheel==0.37.1
+wheel==0.38.1
 pylint==2.12.2
 pylint-json2html==0.4.0
 pylint-junit==0.3.2
