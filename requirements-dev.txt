@@ -1,9 +1,9 @@
-wheel==0.38.1
-pylint==2.12.2
+wheel==0.38.4
+pylint==2.15.9
 pylint-json2html==0.4.0
 pylint-junit==0.3.2
 pep8==1.7.1
 robotframework-stringformat==0.1.8
-twine==3.7.1
+twine==4.0.2
 yattag==1.14.0
 -r requirements.txt
