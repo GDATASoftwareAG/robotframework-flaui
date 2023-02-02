@@ -56,7 +56,7 @@ The robot framework FlaUI is supposed to support the current Python 3 versions.
 
 See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
 
-### Additional information about Python.Net Wrapper
+### Python.Net Wrapper Issues
 
 #### Robotframework-Flaui 1.x
 
@@ -66,6 +66,12 @@ See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotfra
 * If there are problems installing the Python.Net library, please use Python 3.8 instead.
 * This is only a potential problem by all robotframework-flaui 1.x versions which are implemented by Python.Net 2.5.2
 
+#### Robotframework-Flaui 2.x
+
+* Sometimes an AccessViolationException wil be occure on latest Python.Net Version v3.0.1
+  * For more information see the issue [#1977](https://github.com/pythonnet/pythonnet/issues/1977)
+* If there are problems by test executions, please use Python 3.8 and Robotframework 1.X Version instead.
+* All keywords from latest Version 1.X and 2.X are equal and will be maintained and supported.
 
 ## Documentation
 
