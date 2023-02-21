@@ -70,8 +70,9 @@ See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotfra
 
 * Sometimes an AccessViolationException wil be occure on latest Python.Net Version v3.0.1
   * For more information see the issue [#1977](https://github.com/pythonnet/pythonnet/issues/1977)
-* If there are problems by test executions, please use Python 3.8 and Robotframework 1.X Version instead.
-* All keywords from latest Version 1.X and 2.X are equal and will be maintained and supported.
+  * A workaround is to set Python's memory allocation environment variable "PYTHONMALLOC=malloc"
+* If there are problems by test executions, please use Python 3.8 and Robotframework 1.X Version instead
+  * All keywords from latest Version 1.X and 2.X are equal and will be maintained and supported.
 
 ## Documentation
 
