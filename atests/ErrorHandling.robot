@@ -76,6 +76,15 @@ Select Visible TreeItem By Name      Select Visible TreeItem By Name  ${EXP_ERR_
 Set Checkbox State                   Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox                  Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
 Wait Until Element Is Visible        Wait Until Element Is Visible  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${XPATH_NOT_EXISTS}  10
+Get Background Color                 Get Background Color  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Foreground Color                 Get Foreground Color  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Font Size                        Get Font Size  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Font Name                        Get Font Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Font Weight                      Get Font Weight  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Culture                          Get Culture  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Is Hidden                            Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Is Visible                           Is Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Window Visual State              Get Window Visual State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

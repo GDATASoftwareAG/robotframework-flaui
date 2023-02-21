@@ -32,6 +32,7 @@ class FlaUiError(AttributeError):
     FalseSyntax = "Incorrect syntax usage '{}'"
     ArgumentShouldBeList = "The given argument should be an array"
     ArgumentShouldNotBeList = "The given argument should not be an array"
+    PropertyNotSupported = "Property from element is not supported"
 
     @staticmethod
     def raise_fla_ui_error(message):

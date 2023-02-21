@@ -53,7 +53,6 @@ EXIT /B %result%
   mkdir result
   pylint src > result/pylint.json
   pylint-json2html result/pylint.json > result/pylint.html
-  pylint --output-format=pylint_junit.JUnitReporter src/ > result/pylint.xml
 EXIT /B %ERRORLEVEL%
 
 

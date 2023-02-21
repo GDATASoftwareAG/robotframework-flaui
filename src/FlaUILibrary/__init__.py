@@ -18,7 +18,8 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    RadioButtonKeywords,
                                    ListBoxKeywords,
                                    TreeKeywords,
-                                   TabKeywords)
+                                   TabKeywords,
+                                   PropertyKeywords)
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
@@ -93,6 +94,7 @@ class FlaUILibrary(DynamicCore):
         LISTBOX = "Listbox"
         TREE = "Tree"
         TAB = "Tab"
+        PROPERTY = "PROPERTY"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
         """
@@ -140,6 +142,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.LISTBOX: ListBoxKeywords(self.module),
             FlaUILibrary.KeywordModules.TREE: TreeKeywords(self.module),
             FlaUILibrary.KeywordModules.TAB: TabKeywords(self.module),
+            FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.module),
         }
 
         # Robot init

@@ -26,3 +26,4 @@ ${EXP_ERR_MSG_FALSESYNTAX}                      FlaUiError: Incorrect syntax usa
 ${EXP_ERR_MSG_ARGUMENT_ARRAY}                   FlaUiError: The given argument should be an array
 ${EXP_ERR_MSG_ARGUMENT_NOT_ARRAY}               FlaUiError: The given argument should not be an array
 ${EXP_INVALID_KEYBOARD_COMBINATION}             FlaUiError: Keyboard keys combination {0} is not valid
+${EXP_PROPERTY_NOT_SUPPORTED}                   FlaUiError: Property from element is not supported

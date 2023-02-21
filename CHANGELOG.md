@@ -7,6 +7,18 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- New Keywords implemented
+  - Get Background Color
+  - Get Foreground Color
+  - Get Font Size
+  - Get Font Name
+  - Get Font Weight
+  - Get Culture 
+  - Is Hidden
+  - Is Visible
+  - Get Window Visual State
+
 ## [Release][2.0.1] [2.0.1][2.0.0-2.0.1] - 2022-10-06
 
 ### Updated
@@ -26,7 +38,6 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Removed
 - Python 3.6 support dropped
-
 
 ## [Release][1.7.3] [1.7.3][1.7.2-1.7.3] - 2022-03-28
 
