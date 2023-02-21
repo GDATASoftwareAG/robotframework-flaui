@@ -6,7 +6,7 @@ from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.module import (Application, Combobox, Debug, Grid, Tree, Mouse, Keyboard, Textbox, Tab,
-                                       Element, Window, ToggleButton, Selector)
+                                       Element, Window, ToggleButton, Selector, Property)
 
 
 class UIA(WindowsAutomationInterface, ABC):
@@ -53,7 +53,8 @@ class UIA(WindowsAutomationInterface, ABC):
             automation (Object)       : Windows user automation object.
         """
         modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
-                   Grid(), Mouse(), Textbox(), Tree(), ToggleButton(), Tab(), Window(automation), Combobox()]
+                   Grid(), Mouse(), Textbox(), Tree(), ToggleButton(), Tab(), Window(automation), Combobox(),
+                   Property()]
 
         for module in modules:
             for value in module.Action:

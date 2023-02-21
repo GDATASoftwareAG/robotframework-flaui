@@ -12,3 +12,4 @@ from .textbox import Textbox
 from .tooglebutton import ToggleButton
 from .window import Window
 from .selector import Selector
+from .property import Property
