@@ -24,6 +24,13 @@ def save_xml(testsuite, testcase_stack, filename):
             with tag(testcase_name, classname=_get_value(testcase_args, 'classname', 'Unknown'),
                      name=_get_value(testcase_args, 'name', 'Unknown'),
                      time=_get_value(testcase_args, 'time', '0')):
+
+                if 'failure' in testcase:
+                    failure_args = testcase['failure']
+                    with tag('failure', message=_get_value(failure_args, 'message', 'Failed test execution'),
+                             name=_get_value(failure_args, 'type', 'Unknown Type')):
+                        pass
+
                 pass
 
     result = '<?xml version="1.0" encoding="utf-8"?>\n' + indent(
@@ -56,6 +63,12 @@ class Parsly(ContentHandler):
                 'name': name,
                 'attributes': dict(attrs)
             })
+            return
+
+        if name == 'failure':
+            data = self.testcase_stack.pop()
+            data['failure'] = dict(attrs)
+            self.testcase_stack.append(data)
             return
 
         if not self.testsuite and name == 'testsuite':
