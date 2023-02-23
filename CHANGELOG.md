@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.2] [2.0.2][2.0.1-2.0.2] - 2023-02-23
+
 ### Added
 - New Keywords implemented
   - Get Background Color
@@ -358,9 +360,13 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.1...main
 
+[2.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.2
+
+[2.0.1-2.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.1...2.0.2
+
 [2.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.1
 
-[2.0.0.-2.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.0...2.0.1
+[2.0.0-2.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.0...2.0.1
 
 [2.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.0
 
