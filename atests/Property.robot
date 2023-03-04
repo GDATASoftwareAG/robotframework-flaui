@@ -16,6 +16,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 *** Variables ***
 ${WINDOW_ELEMET}           ${MAIN_WINDOW}
 ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='TextBox']
+${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 
 *** Test Cases ***
 
@@ -67,3 +68,7 @@ Is Visible
 Get Window Visual State
     ${state}  Get Window Visual State  ${WINDOW_ELEMET}
     Should Be Equal    ${state}  Normal
+
+Get Toggle State
+    ${state}  Get Toggle State  ${TOGGLE_ELEMENT}
+    Should Be Equal    ${state}  OFF

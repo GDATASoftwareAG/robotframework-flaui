@@ -6,7 +6,7 @@ from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.module import (Application, Combobox, Debug, Grid, Tree, Mouse, Keyboard, Textbox, Tab,
-                                       Element, Window, ToggleButton, Selector, Property)
+                                       Element, Window, Checkbox, Selector, Property, ToggleButton)
 
 
 class UIA(WindowsAutomationInterface, ABC):
@@ -53,8 +53,8 @@ class UIA(WindowsAutomationInterface, ABC):
             automation (Object)       : Windows user automation object.
         """
         modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
-                   Grid(), Mouse(), Textbox(), Tree(), ToggleButton(), Tab(), Window(automation), Combobox(),
-                   Property()]
+                   Grid(), Mouse(), Textbox(), Tree(), Checkbox(), Tab(), Window(automation), Combobox(),
+                   Property(), ToggleButton()]
 
         for module in modules:
             for value in module.Action:
@@ -88,18 +88,26 @@ class UIA(WindowsAutomationInterface, ABC):
         """
 
         switcher = {
-            InterfaceType.TEXTBOX: {"cast": lambda: AutomationElementExtensions.AsTextBox(element), "type": "Textbox"},
+            InterfaceType.TEXTBOX: {"cast": lambda: AutomationElementExtensions.AsTextBox(element),
+                                    "type": "Textbox"},
             InterfaceType.CHECKBOX: {"cast": lambda: AutomationElementExtensions.AsCheckBox(element),
                                      "type": "Checkbox"},
             InterfaceType.COMBOBOX: {"cast": lambda: AutomationElementExtensions.AsComboBox(element),
                                      "type": "Combobox"},
-            InterfaceType.WINDOW: {"cast": lambda: AutomationElementExtensions.AsWindow(element), "type": "Window"},
-            InterfaceType.LISTVIEW: {"cast": lambda: AutomationElementExtensions.AsGrid(element), "type": "Grid"},
+            InterfaceType.WINDOW: {"cast": lambda: AutomationElementExtensions.AsWindow(element),
+                                   "type": "Window"},
+            InterfaceType.LISTVIEW: {"cast": lambda: AutomationElementExtensions.AsGrid(element),
+                                     "type": "Grid"},
             InterfaceType.RADIOBUTTON: {"cast": lambda: AutomationElementExtensions.AsRadioButton(element),
                                         "type": "Radiobutton"},
-            InterfaceType.LISTBOX: {"cast": lambda: AutomationElementExtensions.AsListBox(element), "type": "Listbox"},
-            InterfaceType.TAB: {"cast": lambda: AutomationElementExtensions.AsTab(element), "type": "Tab"},
-            InterfaceType.TREE: {"cast": lambda: AutomationElementExtensions.AsTree(element), "type": "Tree"},
+            InterfaceType.LISTBOX: {"cast": lambda: AutomationElementExtensions.AsListBox(element),
+                                    "type": "Listbox"},
+            InterfaceType.TAB: {"cast": lambda: AutomationElementExtensions.AsTab(element),
+                                "type": "Tab"},
+            InterfaceType.TREE: {"cast": lambda: AutomationElementExtensions.AsTree(element),
+                                 "type": "Tree"},
+            InterfaceType.TOGGLEBUTTON: {"cast": lambda: AutomationElementExtensions.AsToggleButton(element),
+                                         "type": "ToggleButton"},
         }
 
         dic = switcher.get(ui_type, {"cast": lambda: InterfaceType.INVALID, "type": "Unknown"})

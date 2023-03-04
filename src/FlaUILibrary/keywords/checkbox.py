@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import ToggleButton
+from FlaUILibrary.flaui.module import Checkbox
 from FlaUILibrary.flaui.automation.uia import UIA
 
 
@@ -37,8 +37,8 @@ class CheckBoxKeywords:
 
         """
         element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
-        self._module.action(ToggleButton.Action.SET_TOGGLE_BUTTON_STATE,
-                            ToggleButton.create_value_container(element=element, state=value),
+        self._module.action(Checkbox.Action.SET_CHECKBOX_BUTTON_STATE,
+                            Checkbox.create_value_container(element=element, state=value),
                             msg)
 
     @keyword
@@ -64,6 +64,6 @@ class CheckBoxKeywords:
 
         """
         element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
-        return self._module.action(ToggleButton.Action.GET_TOGGLE_BUTTON_STATE,
-                                   ToggleButton.create_value_container(element=element),
+        return self._module.action(Checkbox.Action.GET_CHECKBOX_BUTTON_STATE,
+                                   Checkbox.create_value_container(element=element),
                                    msg)

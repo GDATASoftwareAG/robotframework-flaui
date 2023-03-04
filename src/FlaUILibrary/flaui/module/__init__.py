@@ -9,7 +9,8 @@ from .mouse import Mouse
 from .screenshot import Screenshot
 from .tab import Tab
 from .textbox import Textbox
-from .tooglebutton import ToggleButton
+from .checkbox import Checkbox
 from .window import Window
 from .selector import Selector
 from .property import Property
+from .tooglebutton import ToggleButton

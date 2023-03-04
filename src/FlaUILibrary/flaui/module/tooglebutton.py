@@ -2,14 +2,12 @@ from enum import Enum
 from typing import Optional, Any
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
-from FlaUILibrary.flaui.util.converter import Converter
 
 
 class ToggleButton(ModuleInterface):
     """
-    Checkbox module wrapper for FlaUI usage.
-    Wrapper module executes methods from Radiobutton.cs and Checkbox.cs implementation.
-    https://docs.microsoft.com/de-de/dotnet/api/system.windows.controls.primitives.togglebutton?view=net-5.0
+    ToggleButton module wrapper for FlaUI usage.
+    Wrapper module executes methods from ToggleButton.cs implementation.
     """
 
     class Container(ValueContainer):
@@ -23,20 +21,17 @@ class ToggleButton(ModuleInterface):
         """
         Supported actions for execute action implementation.
         """
-        GET_TOGGLE_BUTTON_STATE = "GET_TOGGLE_BUTTON_STATE"
-        SET_TOGGLE_BUTTON_STATE = "SET_TOGGLE_BUTTON_STATE"
+        TOGGLE = "TOGGLE"
 
     @staticmethod
-    def create_value_container(element=None, state=None):
+    def create_value_container(element=None):
         """
         Helper to create container object.
 
         Args:
-            element (Object): Checkbox or Radiobutton element
-            state (bool): Value to set True or False
+            element (Object): ToggleButton element
         """
-        return ToggleButton.Container(element=element,
-                                      state=Converter.cast_to_bool(state))
+        return ToggleButton.Container(element=element)
 
     def execute_action(self, action: Action, values: Container):
         """
@@ -44,12 +39,8 @@ class ToggleButton(ModuleInterface):
 
         Supported action usages are:
 
-          *  Action.GET_TOGGLE_BUTTON_STATE
+          *  Action.TOGGLE
             * Values  : ["element"]
-            * Returns : True/False from given checkbox element.
-
-          *  Action.SET_TOGGLE_BUTTON_STATE
-            * Values  : ["element", "state"]
             * Returns : None
 
         Raises:
@@ -61,19 +52,11 @@ class ToggleButton(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_TOGGLE_BUTTON_STATE: lambda: values["element"].IsChecked,
-            self.Action.SET_TOGGLE_BUTTON_STATE: lambda: self._set_state(values["element"], values["state"])
+            self.Action.TOGGLE: lambda: self._toggle(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _set_state(element: Any, state: bool):
-        """
-        Set toggle button state from element.
-
-        Args:
-            element : Toggle button element from FlaUI.
-            state   : True/False to set checkbox state.
-        """
-        element.IsChecked = state
+    def _toggle(element: Any) -> None:
+        element.Toggle()
