@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- New Keywords for toggle button handling implemented
+  - Toggle
+  - Get Toggle State
+
 ## [Release][2.0.2] [2.0.2][2.0.1-2.0.2] - 2023-02-23
 
 ### Added

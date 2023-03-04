@@ -85,6 +85,8 @@ Get Culture                          Get Culture  ${EXP_ERR_MSG_XPATH_NOT_FOUND}
 Is Hidden                            Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Visible                           Is Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Window Visual State              Get Window Visual State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Toggle State                     Get Toggle State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Toggle                               Toggle  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

@@ -19,7 +19,8 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    ListBoxKeywords,
                                    TreeKeywords,
                                    TabKeywords,
-                                   PropertyKeywords)
+                                   PropertyKeywords,
+                                   ToggleButtonKeywords)
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
@@ -95,6 +96,7 @@ class FlaUILibrary(DynamicCore):
         TREE = "Tree"
         TAB = "Tab"
         PROPERTY = "PROPERTY"
+        TOGGLEBUTTON = "TOGGLEBUTTON"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
         """
@@ -143,6 +145,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.TREE: TreeKeywords(self.module),
             FlaUILibrary.KeywordModules.TAB: TabKeywords(self.module),
             FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.module),
+            FlaUILibrary.KeywordModules.TOGGLEBUTTON: ToggleButtonKeywords(self.module),
         }
 
         # Robot init

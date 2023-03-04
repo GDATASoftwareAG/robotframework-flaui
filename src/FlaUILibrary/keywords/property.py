@@ -244,3 +244,28 @@ class PropertyKeywords:
         return self._module.action(Property.Action.WINDOW_VISUAL_STATE,
                                    Property.create_value_container(element=element),
                                    msg)
+
+    @keyword
+    def get_toggle_state(self, identifier, msg=None):
+        """
+        Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"
+
+        If pattern is not supported a Not Supported Exception will be called.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${toggle_state}  Get Toggle State  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        return self._module.action(Property.Action.TOGGLE_STATE,
+                                   Property.create_value_container(element=element),
+                                   msg)

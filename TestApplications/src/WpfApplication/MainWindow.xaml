@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApplication"
         mc:Ignorable="d"
         Title="FlaUI WPF Test App"
-        Height="533.931" Width="629.303"
+        Height="560" Width="629.303"
         KeyDown="OnKeyDown"
         KeyUp="OnKeyUp"
         ResizeMode="CanResize">
@@ -77,6 +77,7 @@
                     <ScrollViewer Width="80" Height="80" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <Button Width="200" Height="200" Content="BigButton" />
                     </ScrollViewer>
+                    <ToggleButton Name="ToggleButton">Toggle Button</ToggleButton>
                     <ToggleButton Name="PopupToggleButton1">Popup Toggle 1</ToggleButton>
                     <Popup IsOpen="{Binding IsChecked, ElementName=PopupToggleButton1}"
                            Placement="Bottom"

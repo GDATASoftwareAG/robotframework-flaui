@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import ToggleButton
+from FlaUILibrary.flaui.module import Checkbox as Radio
 from FlaUILibrary.flaui.automation.uia import UIA
 
 
@@ -36,7 +36,7 @@ class RadioButtonKeywords:
 
         """
         element = self._module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
-        self._module.action(ToggleButton.Action.SET_TOGGLE_BUTTON_STATE,
+        self._module.action(Radio.Action.SET_CHECKBOX_BUTTON_STATE,
                             self._create_value_container(element=element, state=True),
                             msg)
 
@@ -60,7 +60,7 @@ class RadioButtonKeywords:
 
         """
         element = self._module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
-        return self._module.action(ToggleButton.Action.GET_TOGGLE_BUTTON_STATE,
+        return self._module.action(Radio.Action.GET_CHECKBOX_BUTTON_STATE,
                                    self._create_value_container(element=element),
                                    msg)
 
@@ -69,5 +69,5 @@ class RadioButtonKeywords:
         """
         Helper to create container object.
         """
-        return ToggleButton.Container(element=element,
-                                      state=None if not state else bool(state))
+        return Radio.Container(element=element,
+                               state=None if not state else bool(state))
