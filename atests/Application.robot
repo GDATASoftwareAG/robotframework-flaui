@@ -40,6 +40,6 @@ Launch Application
 
 Launch Application With Arguments
     [Teardown]  Stop Application  ${PID}
-    ${PID}  Launch Application With Args  ${TEST_APP_NOTIFIER}  Hello- World
+    ${PID}  Launch Application With Args  ${TEST_APP_NOTIFIER}  Hello-World
     Should Not Be Equal As Integers  ${PID}  0
-    Name Contains Text  Hello-World   /Window[@Name='Hello-World']
+    Wait Until Keyword Succeeds  20x  100ms  Name Contains Text  Hello-World   /Window[@Name='Hello-World']
