@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.3] [2.0.3][2.0.2-2.0.3] - 2023-03-04
+
 ### Added
 - New Keywords for toggle button handling implemented
   - Toggle
@@ -363,7 +365,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.3...main
+
+[2.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.3
+
+[2.0.2-2.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.2...2.0.3
 
 [2.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.2
 
