@@ -27,3 +27,4 @@ ${EXP_ERR_MSG_ARGUMENT_ARRAY}                   FlaUiError: The given argument s
 ${EXP_ERR_MSG_ARGUMENT_NOT_ARRAY}               FlaUiError: The given argument should not be an array
 ${EXP_INVALID_KEYBOARD_COMBINATION}             FlaUiError: Keyboard keys combination {0} is not valid
 ${EXP_PROPERTY_NOT_SUPPORTED}                   FlaUiError: Property from element is not supported
+${EXP_PROPERTY_INEQUAL}                         FlaUiError: Property value '{0}' not equal to expected value '{1}'

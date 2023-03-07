@@ -20,7 +20,7 @@ class ToggleButtonKeywords:
     @keyword
     def toggle(self, identifier, msg=None):
         """
-        Toggle given toggle button element.
+        Toggle given element.
 
         If pattern is not supported a Not Supported Exception will be called.
 

@@ -7,6 +7,18 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.4] [2.0.4][2.0.3-2.0.4] - 2023-03-07
+
+- New Should Be Keywords implemented
+  - Background Color Should Be
+  - Foreground Color Should Be
+  - Font Size Should Be
+  - Font Name Should Be
+  - Font Weight Should Be
+  - Culture Should Be
+  - Window Visual State Should Be
+  - Toggle State Should Be
+
 ## [Release][2.0.3] [2.0.3][2.0.2-2.0.3] - 2023-03-04
 
 ### Added
@@ -365,7 +377,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.3...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.4...main
+
+[2.0.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.4
+
+[2.0.3-2.0.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.3...2.0.4
 
 [2.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.3
 
