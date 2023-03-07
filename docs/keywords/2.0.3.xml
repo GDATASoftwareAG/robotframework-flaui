@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<keywordspec name="FlaUILibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" generated="2023-03-04T22:14:26+00:00" specversion="4" source="C:\projects\robotframework-flaui\src\FlaUILibrary\__init__.py" lineno="30">
+<keywordspec name="FlaUILibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" generated="2023-03-07T08:20:40+00:00" specversion="4" source="C:\projects\robotframework-flaui\src\FlaUILibrary\__init__.py" lineno="30">
 <version>2.0.3</version>
 <doc>FlaUILibrary is a Robot Framework library for automating Windows GUI.
 
@@ -801,11 +801,11 @@ Examples:
 <doc>Returns background color as ARGB Tuple (int, int, int, int) from element if background color pattern is
 supported.
 
-If background color pattern is not supported a Not Supported Exception will be called.
-
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                                     |
+| Document pattern is not supported by given element to receive background color property |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -917,22 +917,22 @@ Examples:
 </arg>
 </arguments>
 <doc>Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug.
-See https://github.com/FlaUI/FlaUI/issues/554 for mor informations.
-
-If culture pattern is not supported a Not Supported Exception will be called.
+See https://github.com/FlaUI/FlaUI/issues/554 for more information.
 
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Culture pattern is not supported by given element |
 
 Arguments:
 | Argument   | Type   | Description                   |
 | identifier | string | XPath identifier from element |
 | msg        | string | Custom error message          |
 
-Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
-<shortdoc>Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug. See https://github.com/FlaUI/FlaUI/issues/554 for mor informations.</shortdoc>
+Example:
+| ${culture}  Get Culture  &lt;XPATH&gt; |</doc>
+<shortdoc>Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug. See https://github.com/FlaUI/FlaUI/issues/554 for more information.</shortdoc>
 </kw>
 <kw name="Get Font Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="97">
 <arguments repr="identifier, msg=None">
@@ -944,13 +944,13 @@ Examples:
 <default>None</default>
 </arg>
 </arguments>
-<doc>Get given font name from element.
-
-If font name pattern is not supported a Not Supported Exception will be called.
+<doc>Get font name from element.
 
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                              |
+| Document pattern is not supported by given element to receive font name property |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -958,8 +958,8 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
-<shortdoc>Get given font name from element.</shortdoc>
+| ${font_name}  Get Font Name  &lt;XPATH&gt; |</doc>
+<shortdoc>Get font name from element.</shortdoc>
 </kw>
 <kw name="Get Font Size" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="72">
 <arguments repr="identifier, msg=None">
@@ -973,11 +973,11 @@ Examples:
 </arguments>
 <doc>Get font size as floating point value.
 
-If font size pattern is not supported a Not Supported Exception will be called.
-
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                              |
+| Document pattern is not supported by given element to receive font size property |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -985,7 +985,7 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
+| ${font_size}  Get Font Size  &lt;XPATH&gt; |</doc>
 <shortdoc>Get font size as floating point value.</shortdoc>
 </kw>
 <kw name="Get Font Weight" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="122">
@@ -998,22 +998,22 @@ Examples:
 <default>None</default>
 </arg>
 </arguments>
-<doc>Get font weight pattern as floating point value.
-
-If font size pattern is not supported a Not Supported Exception will be called.
+<doc>Get font weight as floating point value.
 
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath            |
+| Font pattern is not supported by given element |
 
 Arguments:
 | Argument   | Type   | Description                   |
 | identifier | string | XPath identifier from element |
 | msg        | string | Custom error message          |
 
-Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
-<shortdoc>Get font weight pattern as floating point value.</shortdoc>
+Example:
+| ${font_weight}  Get Font Weight  &lt;XPATH&gt; |</doc>
+<shortdoc>Get font weight as floating point value.</shortdoc>
 </kw>
 <kw name="Get Foreground Color" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="46">
 <arguments repr="identifier, msg=None">
@@ -1028,11 +1028,11 @@ Examples:
 <doc>Returns foreground color as ARGB Tuple (int, int, int, int) from element if foreground color pattern is
 supported.
 
-If foreground color pattern is not supported a Not Supported Exception will be called.
-
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                                     |
+| Document pattern is not supported by given element to receive foreground color property |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -1040,7 +1040,7 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
+| ${color}  Get Foreground Color  &lt;XPATH&gt; |</doc>
 <shortdoc>Returns foreground color as ARGB Tuple (int, int, int, int) from element if foreground color pattern is supported.</shortdoc>
 </kw>
 <kw name="Get Grid Rows Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="92">
@@ -1314,7 +1314,7 @@ Returns:
 | Text string from textbox |</doc>
 <shortdoc>Return text from textbox element.</shortdoc>
 </kw>
-<kw name="Get Toggle State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="249">
+<kw name="Get Toggle State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="251">
 <arguments repr="identifier, msg=None">
 <arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
 <name>identifier</name>
@@ -1326,11 +1326,11 @@ Returns:
 </arguments>
 <doc>Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"
 
-If pattern is not supported a Not Supported Exception will be called.
-
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Toggle pattern is not supported by given element  |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -1365,11 +1365,11 @@ Examples:
 </arguments>
 <doc>Get Windows Visual State as string. Possible states are "Normal", "Maximized", "Minimized"
 
-If pattern is not supported a Not Supported Exception will be called.
-
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -1377,7 +1377,7 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Window Visual State  &lt;XPATH&gt; |</doc>
+| ${state}  Get Window Visual State  &lt;XPATH&gt; |</doc>
 <shortdoc>Get Windows Visual State as string. Possible states are "Normal", "Maximized", "Minimized"</shortdoc>
 </kw>
 <kw name="Is Element Enabled" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="186">
@@ -1443,13 +1443,13 @@ Example:
 <default>None</default>
 </arg>
 </arguments>
-<doc>Verification if element is hidden.
-
-If pattern is not supported a Not Supported Exception will be called.
+<doc>Verification if element is hidden. Returns True if element is Hidden otherwise False.
 
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Culture pattern is not supported by given element |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -1457,8 +1457,8 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
-<shortdoc>Verification if element is hidden.</shortdoc>
+| ${is_element_hidden}  Is Hidden  &lt;XPATH&gt; |</doc>
+<shortdoc>Verification if element is hidden. Returns True if element is Hidden otherwise False.</shortdoc>
 </kw>
 <kw name="Is Visible" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="199">
 <arguments repr="identifier, msg=None">
@@ -1470,13 +1470,13 @@ Examples:
 <default>None</default>
 </arg>
 </arguments>
-<doc>Verification if element is visible.
-
-If pattern is not supported a Not Supported Exception will be called.
+<doc>Verification if element is visible. Return True if Element is Visible otherwise False.
 
 XPaths syntax is explained in `XPath locator`.
 
-If element could not be found by xpath an error message will be thrown.
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Culture pattern is not supported by given element |
 
 Arguments:
 | Argument   | Type   | Description                   |
@@ -1484,8 +1484,8 @@ Arguments:
 | msg        | string | Custom error message          |
 
 Examples:
-| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
-<shortdoc>Verification if element is visible.</shortdoc>
+| ${is_element_visible}  Is Visible  &lt;XPATH&gt; |</doc>
+<shortdoc>Verification if element is visible. Return True if Element is Visible otherwise False.</shortdoc>
 </kw>
 <kw name="Launch Application" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="88">
 <arguments repr="application, msg=None">
