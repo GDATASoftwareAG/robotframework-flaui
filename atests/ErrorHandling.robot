@@ -87,6 +87,15 @@ Is Visible                           Is Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND} 
 Get Window Visual State              Get Window Visual State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Toggle State                     Get Toggle State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Toggle                               Toggle  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Background Color Should Be           Background Color Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Foreground Color Should Be           Foreground Color Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Font Size Should Be                  Font Size Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Font Name Should Be                  Font Name Should Be   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Font Weight Should Be                Font Weight Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Culture Should Be                    Culture Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Window Visual State Should Be        Window Visual State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Toggle State Should Be               Toggle State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+
 
 *** Keywords ***
 Execute Keyword And Expect Error Message
