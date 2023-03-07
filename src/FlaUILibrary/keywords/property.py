@@ -22,11 +22,11 @@ class PropertyKeywords:
         Returns background color as ARGB Tuple (int, int, int, int) from element if background color pattern is
         supported.
 
-        If background color pattern is not supported a Not Supported Exception will be called.
-
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath                                                     |
+        | Document pattern is not supported by given element to receive background color property |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -48,11 +48,11 @@ class PropertyKeywords:
         Returns foreground color as ARGB Tuple (int, int, int, int) from element if foreground color pattern is
         supported.
 
-        If foreground color pattern is not supported a Not Supported Exception will be called.
-
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath                                                     |
+        | Document pattern is not supported by given element to receive foreground color property |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -60,7 +60,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        | ${color}  Get Foreground Color  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -73,11 +73,11 @@ class PropertyKeywords:
         """
         Get font size as floating point value.
 
-        If font size pattern is not supported a Not Supported Exception will be called.
-
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath                                              |
+        | Document pattern is not supported by given element to receive font size property |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -85,7 +85,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        | ${font_size}  Get Font Size  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -96,13 +96,13 @@ class PropertyKeywords:
     @keyword
     def get_font_name(self, identifier, msg=None):
         """
-        Get given font name from element.
-
-        If font name pattern is not supported a Not Supported Exception will be called.
+        Get font name from element.
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath                                              |
+        | Document pattern is not supported by given element to receive font name property |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -110,7 +110,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        | ${font_name}  Get Font Name  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -121,21 +121,21 @@ class PropertyKeywords:
     @keyword
     def get_font_weight(self, identifier, msg=None):
         """
-        Get font weight pattern as floating point value.
-
-        If font size pattern is not supported a Not Supported Exception will be called.
+        Get font weight as floating point value.
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath            |
+        | Font pattern is not supported by given element |
 
         Arguments:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
         | msg        | string | Custom error message          |
 
-        Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        Example:
+        | ${font_weight}  Get Font Weight  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -148,21 +148,21 @@ class PropertyKeywords:
     def get_culture(self, identifier, msg=None):
         """
         Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug.
-        See https://github.com/FlaUI/FlaUI/issues/554 for mor informations.
-
-        If culture pattern is not supported a Not Supported Exception will be called.
+        See https://github.com/FlaUI/FlaUI/issues/554 for more information.
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Culture pattern is not supported by given element |
 
         Arguments:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
         | msg        | string | Custom error message          |
 
-        Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        Example:
+        | ${culture}  Get Culture  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -173,13 +173,13 @@ class PropertyKeywords:
     @keyword
     def is_hidden(self, identifier, msg=None):
         """
-        Verification if element is hidden.
-
-        If pattern is not supported a Not Supported Exception will be called.
+        Verification if element is hidden. Returns True if element is Hidden otherwise False.
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Culture pattern is not supported by given element |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -187,7 +187,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        | ${is_element_hidden}  Is Hidden  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -198,13 +198,13 @@ class PropertyKeywords:
     @keyword
     def is_visible(self, identifier, msg=None):
         """
-        Verification if element is visible.
-
-        If pattern is not supported a Not Supported Exception will be called.
+        Verification if element is visible. Return True if Element is Visible otherwise False.
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Culture pattern is not supported by given element |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -212,7 +212,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Background Color  <XPATH> |
+        | ${is_element_visible}  Is Visible  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -225,11 +225,11 @@ class PropertyKeywords:
         """
         Get Windows Visual State as string. Possible states are "Normal", "Maximized", "Minimized"
 
-        If pattern is not supported a Not Supported Exception will be called.
-
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -237,7 +237,7 @@ class PropertyKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | ${color}  Get Window Visual State  <XPATH> |
+        | ${state}  Get Window Visual State  <XPATH> |
 
         """
         element = self._module.get_element(identifier, msg=msg)
@@ -245,16 +245,18 @@ class PropertyKeywords:
                                    Property.create_value_container(element=element),
                                    msg)
 
+
+
     @keyword
     def get_toggle_state(self, identifier, msg=None):
         """
         Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"
 
-        If pattern is not supported a Not Supported Exception will be called.
-
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Toggle pattern is not supported by given element  |
 
         Arguments:
         | Argument   | Type   | Description                   |
