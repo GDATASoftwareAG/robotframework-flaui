@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.Generic;
+using System;
 
 namespace WpfApplication
 {
@@ -12,13 +13,18 @@ namespace WpfApplication
     {
         private List<Key> _keysUp = new List<Key>();
         private List<Key> _keysDown = new List<Key>();
-
+        private DateTime DownTime;
+        private DateTime UpTime;
 
         public MainWindow()
         {
             InitializeComponent();
             var vm = new MainViewModel();
             DataContext = vm;
+            AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseDown), true);
+            AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseUp), true);
+            AddHandler(FrameworkElement.MouseRightButtonDownEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseDown), true);
+            AddHandler(FrameworkElement.MouseRightButtonUpEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseUp), true);
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -104,5 +110,19 @@ namespace WpfApplication
             lblKeyboardKeyDown.Content = GenerateKeyboardOutput(_keysDown);
             lblKeyboardKeyUp.Content = GenerateKeyboardOutput(_keysUp);
         }
+
+
+        private void ClickAndHoldButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DownTime = DateTime.Now;
+        }
+
+        private void ClickAndHoldButton_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            UpTime = DateTime.Now;
+            TimeSpan differene = UpTime - DownTime;
+            ClickAndHoldButton.Content = differene.TotalSeconds.ToString();
+        }
+
     }
 }

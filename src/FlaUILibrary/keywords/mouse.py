@@ -40,6 +40,30 @@ class MouseKeywords:
                             msg)
 
     @keyword
+    def click_hold(self, identifier, timeout_in_ms=1000, msg=None):
+        """
+        Left click and hold to element by XPath and release after timeout.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument         | Type   | Description                   |
+        | identifier       | string | XPath identifier from element |
+        | timeout_in_ms    | int    | Holding time in ms            |
+        | msg              | string | Custom error message          |
+
+        Examples:
+        | Click Hold <XPATH>  5000 |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Mouse.Action.LEFT_CLICK_HOLD,
+                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
+                            msg)
+
+    @keyword
     def double_click(self, identifier, msg=None):
         """
         Double click to element.
@@ -63,6 +87,30 @@ class MouseKeywords:
                             msg)
 
     @keyword
+    def double_click_hold(self, identifier, timeout_in_ms=1000, msg=None):
+        """
+        Double click and hold to element by XPath and release after timeout.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument         | Type   | Description                       |
+        | identifier       | string | XPath identifier from element     |
+        | timeout_in_ms    | int    | Holding time in ms                |
+        | msg              | string | Custom error message              |
+
+        Examples:
+        | Double Click Hold  <XPATH>  5000 |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
+                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
+                            msg)
+
+    @keyword
     def right_click(self, identifier, msg=None):
         """
         Right click to element.
@@ -83,6 +131,30 @@ class MouseKeywords:
         element = self._module.get_element(identifier, msg=msg)
         self._module.action(Mouse.Action.RIGHT_CLICK,
                             Mouse.create_value_container(element=element),
+                            msg)
+
+    @keyword
+    def right_click_hold(self, identifier, timeout_in_ms=1000, msg=None):
+        """
+        Right click and hold to element by XPath and release after timeout.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument      | Type   | Description                   |
+        | identifier    | string | XPath identifier from element |
+        | timeout_in_ms | int    | Holding time in ms            |
+        | msg           | string | Custom error message          |
+
+        Examples:
+        | Right Click Hold  <XPATH>  5000 |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Mouse.Action.RIGHT_CLICK_HOLD,
+                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
                             msg)
 
     @keyword

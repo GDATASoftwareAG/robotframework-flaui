@@ -6,6 +6,11 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+### Added
+- New Keywords for click and hold implemented
+    - Click Hold
+    - Right Click Hold
+    - Double Click Hold
 
 ## [Release][2.0.4] [2.0.4][2.0.3-2.0.4] - 2023-03-07
 

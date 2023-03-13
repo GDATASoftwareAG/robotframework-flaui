@@ -96,6 +96,7 @@
                            PlacementTarget="{Binding ElementName=PopupToggleButton2}"
                            StaysOpen="False" />
                     <Button x:Name="DisabledButton" Content="Disabled Button" AutomationProperties.AutomationId="DisabledButton" IsEnabled="False"/>
+                    <Button x:Name="ClickAndHoldButton" Content="Click And Hold Button" AutomationProperties.AutomationId="ClickAndHoldButton"/>
                     <TextBlock x:Name="Offscreen_Textblock" TextWrapping="Wrap" Text="Offscreen TextBlock" AutomationProperties.IsOffscreenBehavior="Offscreen" AutomationProperties.AutomationId="OffscreenTextBlock"/>
                     <Label Content="Menu Item Checked" Foreground="Red" x:Name="lblMenuChk"/>
                 </StackPanel>

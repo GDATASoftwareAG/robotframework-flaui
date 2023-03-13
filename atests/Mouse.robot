@@ -22,6 +22,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 *** Variables ***
 ${EXPECTED_CONTEXT_MENU}   ${MAIN_WINDOW}/Window/Menu
 ${CLICK_BUTTON}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='InvokableButton']
+${HOLD_BUTTON}             ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ClickAndHoldButton']
 ${RIGHT_CLICK_BUTTON}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
 ${DOUBLE_CLICK_BUTTON}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/CheckBox[@Name='3-Way Test Checkbox']
 ${XPATH_GRID_VIEW}         ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
@@ -45,6 +46,30 @@ Double Click
 Right Click
     Right Click  ${RIGHT_CLICK_BUTTON}
     Element Should Exist  ${EXPECTED_CONTEXT_MENU}
+
+Left Click And Hold
+    Click Hold  ${HOLD_BUTTON}  2050
+    ${status1}  Run Keyword And Return Status  Name Contains Text  2,  ${HOLD_BUTTON}  #DE number
+    ${status2}  Run Keyword And Return Status  Name Contains Text  2.  ${HOLD_BUTTON}  #US Number
+    IF    ${status1}==${False} and ${status2}==${False}
+       Fail   Click And Hold did not work
+    END
+
+Double Click And Hold
+    Double Click Hold  ${HOLD_BUTTON}  3050
+    ${status1}  Run Keyword And Return Status  Name Contains Text  3,  ${HOLD_BUTTON}  #DE number
+    ${status2}  Run Keyword And Return Status  Name Contains Text  3.  ${HOLD_BUTTON}  #US Number
+    IF    ${status1}==${False} and ${status2}==${False}
+       Fail   Click And Hold did not work
+    END
+
+Right Click And Hold
+    Right Click Hold  ${HOLD_BUTTON}  4050
+    ${status1}  Run Keyword And Return Status  Name Contains Text  4,  ${HOLD_BUTTON}  #DE number
+    ${status2}  Run Keyword And Return Status  Name Contains Text  4.  ${HOLD_BUTTON}  #US Number
+    IF    ${status1}==${False} and ${status2}==${False}
+       Fail   Click And Hold did not work
+    END
 
 Move To
     Move To  ${RIGHT_CLICK_BUTTON}
