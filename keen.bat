@@ -7,7 +7,7 @@ GOTO:MAIN
     rmdir  /s /q dist
     rmdir  /s /q keywords
     rmdir  /s /q robotframework_flaui.egg-info
-EXIT /b 0
+EXIT /B 0
 
 :dependency
     call python -m pip install --upgrade pip setuptools wheel
@@ -29,14 +29,16 @@ EXIT /B %ERRORLEVEL%
 :test_uia2
     call cd atests
     call robot --name "UIA2" --variable UIA:UIA2 --outputdir ../result/uia2 .
+    set /A result_uia2 = %ERRORLEVEL%
     call cd ..
-EXIT /B %ERRORLEVEL%
+EXIT /B %result_uia2%
 
 :test_uia3
     call cd atests
     call robot --name "UIA3" --variable UIA:UIA3 --outputdir ../result/uia3 .
+    set /A result_uia3 = %ERRORLEVEL%
     call cd ..
-EXIT /B %ERRORLEVEL%
+EXIT /B %result_uia3%
 
 :test
     call:install
