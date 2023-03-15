@@ -79,7 +79,7 @@ See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotfra
 
 ### RFHUB2
 
-[RHUB2](https://pypi.org/project/rfhub2/) is an opensource project aimed to provide nice and easy way of collecting, browsing and sharing documentation of existing keywords written in RobotFramework and python. Built with Material-UI and FastAPI, served by Uvicorn.
+[RFHUB2](https://pypi.org/project/rfhub2/) is an opensource project aimed to provide nice and easy way of collecting, browsing and sharing documentation of existing keywords written in RobotFramework and python. Built with Material-UI and FastAPI, served by Uvicorn.
 
 Under docs/keywords are the necessary .XML files to import the keywords.
 
