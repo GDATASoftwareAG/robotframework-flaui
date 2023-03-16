@@ -11,6 +11,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
     - Click Hold
     - Right Click Hold
     - Double Click Hold
+    - Get Window Interaction State
+    - Window Interaction State Should Be
 
 ## [Release][2.0.4] [2.0.4][2.0.3-2.0.4] - 2023-03-07
 

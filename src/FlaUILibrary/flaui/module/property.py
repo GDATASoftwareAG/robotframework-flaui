@@ -28,6 +28,7 @@ class Property(ModuleInterface):
         CULTURE = "CULTURE"
         IS_HIDDEN = "IS_HIDDEN"
         WINDOW_VISUAL_STATE = "WINDOW_VISUAL_STATE"
+        WINDOW_INTERACTION_STATE = "WINDOW_INTERACTION_STATE"
         TOGGLE_STATE = "TOGGLE_STATE"
 
     @staticmethod
@@ -78,6 +79,10 @@ class Property(ModuleInterface):
             * Values ["element"] : Element to get window visual state property from window.
             * Returns : String from visual state.
 
+         *  Action.WINDOW_INTERACTION_STATE
+            * Values ["element"] : Element to get window visual state property from window.
+            * Returns : String from window interaction state.
+
          *  Action.TOGGLE_STATE
             * Values ["element", "uia"] : Element to get toggle state property from uia2 or uia3 element.
             * Returns : String from toggle state like ON, OFF, Intermediate as string.
@@ -99,6 +104,7 @@ class Property(ModuleInterface):
             self.Action.CULTURE: lambda: self._get_culture(values["element"], values["uia"]),
             self.Action.IS_HIDDEN: lambda: self._is_hidden(values["element"], values["uia"]),
             self.Action.WINDOW_VISUAL_STATE: lambda: self._get_window_visual_state(values["element"]),
+            self.Action.WINDOW_INTERACTION_STATE: lambda : self._get_window_interaction_state(values["element"]),
             self.Action.TOGGLE_STATE: lambda: self._get_toggle_state(values["element"]),
         }
 
@@ -170,6 +176,11 @@ class Property(ModuleInterface):
     def _get_toggle_state(element: Any) -> str:
         pattern = Property._get_toggle_pattern_from_element(element)
         return str(pattern.ToggleState.Value.ToString()).upper()
+
+    @staticmethod
+    def _get_window_interaction_state(element: Any):
+        pattern = Property._get_window_pattern_from_element(element)
+        return str(pattern.WindowInteractionState.Value.ToString())
 
     @staticmethod
     def _get_text_pattern_from_element(element) -> Any:
