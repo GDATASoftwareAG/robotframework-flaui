@@ -458,6 +458,89 @@ class PropertyKeywords:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(visual_state, state))
 
     @keyword
+    def get_window_interaction_state(self, identifier, msg=None):
+        """
+        Get Windows Interaction State as string.
+
+        Possible states are:
+
+        "Running" - The window is running. This does not guarantee that the window is ready for user interaction
+                    or is responding.
+
+        "Closing" - The window is closing.
+
+        "ReadyForUserInteraction" - The window is ready for user interaction.
+
+        "BlockedByModalWindow" - The window is blocked by a modal window.
+
+        "NotResponding" - The window is not responding.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${state}  Get Window Interaction State  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        return self._module.action(Property.Action.WINDOW_INTERACTION_STATE,
+                                   Property.create_value_container(element=element),
+                                   msg)
+
+    @keyword
+    def window_interaction_state_should_be(self, identifier, state, msg=None):
+        # pylint: disable=line-too-long
+        """
+        Verification if window is in given window interaction state.
+
+        Possible states are:
+
+        "Running" - The window is running. This does not guarantee that the window is ready for user interaction
+                    or is responding.
+
+        "Closing" - The window is closing.
+
+        "ReadyForUserInteraction" - The window is ready for user interaction.
+
+        "BlockedByModalWindow" - The window is blocked by a modal window.
+
+        "NotResponding" - The window is not responding.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+        | Visual state is not equal to given state          |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | state      | string | Possible states are "Running", "Closing", "ReadyForUserInteraction", "BlockedByModalWindow", "NotResponding"  |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Window Interaction State Should Be  <XPATH>  <STATE> |
+
+        """
+        # pylint: enable=line-too-long
+        element = self._module.get_element(identifier, msg=msg)
+        interaction_state = self._module.action(Property.Action.WINDOW_INTERACTION_STATE,
+                                                Property.create_value_container(element=element),
+                                                msg)
+
+        if interaction_state != state:
+            FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(interaction_state, state))
+
+    @keyword
     def get_toggle_state(self, identifier, msg=None):
         """
         Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"

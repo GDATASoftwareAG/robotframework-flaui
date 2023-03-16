@@ -85,6 +85,7 @@ Get Culture                          Get Culture  ${EXP_ERR_MSG_XPATH_NOT_FOUND}
 Is Hidden                            Is Hidden  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Visible                           Is Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Window Visual State              Get Window Visual State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Window Interaction State         Get Window Interaction State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Toggle State                     Get Toggle State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Toggle                               Toggle  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Background Color Should Be           Background Color Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
@@ -94,6 +95,7 @@ Font Name Should Be                  Font Name Should Be   ${EXP_ERR_MSG_XPATH_N
 Font Weight Should Be                Font Weight Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Culture Should Be                    Culture Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Window Visual State Should Be        Window Visual State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
+Window Interaction State Should Be   Window Interaction State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Toggle State Should Be               Toggle State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 
 
