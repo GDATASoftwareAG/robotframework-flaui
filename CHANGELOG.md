@@ -6,6 +6,9 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+
+## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
+
 - New Keywords for click and hold implemented
     - Maximize Window
     - Minimize Window
@@ -393,7 +396,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.5...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.6...main
+
+[2.0.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.6
+
+[2.0.5-2.0.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.5...2.0.6
 
 [2.0.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.5
 
