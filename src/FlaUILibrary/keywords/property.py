@@ -4,7 +4,7 @@ from FlaUILibrary.flaui.automation.uia import UIA
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
-class PropertyKeywords:
+class PropertyKeywords: # pylint: disable=too-many-public-methods
     """
     Interface implementation from robotframework usage for property keywords.
     """
@@ -595,3 +595,131 @@ class PropertyKeywords:
 
         if toggle_state != state:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(toggle_state, state))
+
+    @keyword
+    def maximize_window(self, identifier, msg=None):
+        """
+        Maximize given window if supported.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+        | Window could not be maximized                     |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Maximize Window  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Property.Action.MAXIMIZE_WINDOW,
+                            Property.create_value_container(element=element),
+                            msg)
+
+    @keyword
+    def minimize_window(self, identifier, msg=None):
+        """
+        Minimize given window if supported.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+        | Window could not be minimized                     |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Minimize Window  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Property.Action.MINIMIZE_WINDOW,
+                            Property.create_value_container(element=element),
+                            msg)
+
+    @keyword
+    def normalize_window(self, identifier, msg=None):
+        """
+        Normalize given window if supported.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+        | Window could not be normalized                    |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Normalize Window  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        self._module.action(Property.Action.NORMALIZE_WINDOW,
+                            Property.create_value_container(element=element),
+                            msg)
+
+    @keyword
+    def can_window_be_maximized(self, identifier, msg=None):
+        """
+        Verifies if window can be maximized (True) if not False.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${result}  Can Window Be Maximized  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        return self._module.action(Property.Action.CAN_WINDOW_MAXIMIZE,
+                                   Property.create_value_container(element=element),
+                                   msg)
+
+    @keyword
+    def can_window_be_minimized(self, identifier, msg=None):
+        """
+        Verifies if window can be minimized (True) if not False.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Window pattern is not supported by given element  |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${result}  Can Window Be Minimized  <XPATH> |
+
+        """
+        element = self._module.get_element(identifier, msg=msg)
+        return self._module.action(Property.Action.CAN_WINDOW_MINIMIZE,
+                                   Property.create_value_container(element=element),
+                                   msg)

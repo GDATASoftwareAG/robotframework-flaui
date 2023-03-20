@@ -6,6 +6,12 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+- New Keywords for click and hold implemented
+    - Maximize Window
+    - Minimize Window
+    - Normalize Window
+    - Can Window Be Maximized
+    - Can Window Be Minimized
 
 ## [Release][2.0.5] [2.0.5][2.0.4-2.0.5] - 2023-03-16
 
