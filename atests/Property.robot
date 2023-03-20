@@ -14,7 +14,7 @@ Suite Setup      Init Main Application
 Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
-${WINDOW_ELEMENT}           ${MAIN_WINDOW}
+${WINDOW_ELEMENT}          ${MAIN_WINDOW}
 ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='TextBox']
 ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 
@@ -171,3 +171,20 @@ Toggle State Should Be
 Wrong Toggle State Should Raise An Exception
     ${EXP_ERR_MSG}  Format String  ${EXP_PROPERTY_INEQUAL}  OFF  ON
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Toggle State Should Be  ${TOGGLE_ELEMENT}  ON
+
+Set Visual State To
+    Window Visual State Should Be  ${WINDOW_ELEMENT}  Normal
+    Maximize Window   ${WINDOW_ELEMENT}
+    Window Visual State Should Be  ${WINDOW_ELEMENT}  Maximized
+    Minimize Window   ${WINDOW_ELEMENT}
+    Window Visual State Should Be  ${WINDOW_ELEMENT}  Minimized
+    Normalize Window  ${WINDOW_ELEMENT}
+    Window Visual State Should Be  ${WINDOW_ELEMENT}  Normal
+
+Can Window Be Maximized
+    ${result}  Can Window Be Maximized  ${WINDOW_ELEMENT}
+    Should Be True  ${result}
+
+Can Window Be Minimized
+    ${result}  Can Window Be Minimized  ${WINDOW_ELEMENT}
+    Should Be True  ${result}

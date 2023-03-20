@@ -97,7 +97,11 @@ Culture Should Be                    Culture Should Be  ${EXP_ERR_MSG_XPATH_NOT_
 Window Visual State Should Be        Window Visual State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Window Interaction State Should Be   Window Interaction State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Toggle State Should Be               Toggle State Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
-
+Maximize Window                      Maximize Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Minimize Window                      Minimize Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Normalize Window                     Normalize Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Can Window Be Maximized              Can Window Be Maximized  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Can Window Be Minimized              Can Window Be Minimized  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

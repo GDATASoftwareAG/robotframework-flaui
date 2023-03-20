@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Optional, Any
 from FlaUI.UIA2.Identifiers import TextAttributes as AttributesUia2  # pylint: disable=import-error
 from FlaUI.UIA3.Identifiers import TextAttributes as AttributesUia3  # pylint: disable=import-error
+from FlaUI.Core.Definitions import WindowVisualState  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
@@ -30,6 +31,11 @@ class Property(ModuleInterface):
         WINDOW_VISUAL_STATE = "WINDOW_VISUAL_STATE"
         WINDOW_INTERACTION_STATE = "WINDOW_INTERACTION_STATE"
         TOGGLE_STATE = "TOGGLE_STATE"
+        MAXIMIZE_WINDOW = "MAXIMIZE_WINDOW"
+        MINIMIZE_WINDOW = "MINIMIZE_WINDOW"
+        NORMALIZE_WINDOW = "NORMALIZE_WINDOW"
+        CAN_WINDOW_MINIMIZE = "CAN_WINDOW_MINIMIZE"
+        CAN_WINDOW_MAXIMIZE = "CAN_WINDOW_MAXIMIZE"
 
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
@@ -87,6 +93,26 @@ class Property(ModuleInterface):
             * Values ["element", "uia"] : Element to get toggle state property from uia2 or uia3 element.
             * Returns : String from toggle state like ON, OFF, Intermediate as string.
 
+         *  Action.MAXIMIZE_WINDOW
+            * Values ["element"] : Maximize window
+            * Returns : None
+
+         *  Action.MINIMIZE_WINDOW
+            * Values ["element"] : Minimize window
+            * Returns : None
+
+         *  Action.NORMALIZE_WINDOW
+            * Values ["element"] : Normalize window
+            * Returns : None
+
+         *  Action.CAN_WINDOW_MINIMIZE
+            * Values ["element"] : Verification if window can be minimized.
+            * Returns : Return True if supported otherwise False
+
+         *  Action.CAN_WINDOW_MAXIMIZE
+            * Values ["element"] : Verification if window can be maximized.
+            * Returns : Return True if supported otherwise False
+
         Raises:
             FlaUiError: If action is not supported.
 
@@ -106,6 +132,14 @@ class Property(ModuleInterface):
             self.Action.WINDOW_VISUAL_STATE: lambda: self._get_window_visual_state(values["element"]),
             self.Action.WINDOW_INTERACTION_STATE: lambda : self._get_window_interaction_state(values["element"]),
             self.Action.TOGGLE_STATE: lambda: self._get_toggle_state(values["element"]),
+            self.Action.MAXIMIZE_WINDOW: lambda: self._set_window_visual_state(values["element"],
+                                                                               WindowVisualState.Maximized),
+            self.Action.MINIMIZE_WINDOW: lambda: self._set_window_visual_state(values["element"],
+                                                                               WindowVisualState.Minimized),
+            self.Action.NORMALIZE_WINDOW: lambda: self._set_window_visual_state(values["element"],
+                                                                                WindowVisualState.Normal),
+            self.Action.CAN_WINDOW_MAXIMIZE: lambda: self._can_window_maximize(values["element"]),
+            self.Action.CAN_WINDOW_MINIMIZE: lambda: self._can_window_minimize(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -208,6 +242,21 @@ class Property(ModuleInterface):
                 return pattern
 
         raise FlaUiError(FlaUiError.PropertyNotSupported)
+
+    @staticmethod
+    def _can_window_minimize(element: Any) -> bool:
+        pattern = Property._get_window_pattern_from_element(element)
+        return bool(pattern.CanMinimize)
+
+    @staticmethod
+    def _can_window_maximize(element: Any) -> bool:
+        pattern = Property._get_window_pattern_from_element(element)
+        return bool(pattern.CanMaximize)
+
+    @staticmethod
+    def _set_window_visual_state(element: Any, window_visual_state: Any) -> None:
+        pattern = Property._get_window_pattern_from_element(element)
+        pattern.SetWindowVisualState(window_visual_state)
 
     @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
