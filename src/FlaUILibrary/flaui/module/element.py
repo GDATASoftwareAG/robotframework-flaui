@@ -1,7 +1,10 @@
 import time
 from enum import Enum
 from typing import Optional, Any
-from System import Exception as CSharpException  # pylint: disable=import-error
+try:
+    from System import Exception as CSharpException  # pylint: disable=import-error
+except:
+    from builtins import Exception as CSharpException
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
@@ -40,6 +43,7 @@ class Element(ModuleInterface):
         ELEMENT_SHOULD_NOT_BE_VISIBLE = "ELEMENT_SHOULD_NOT_BE_VISIBLE"
         WAIT_UNTIL_ELEMENT_IS_HIDDEN = "WAIT_UNTIL_ELEMENT_IS_HIDDEN"
         WAIT_UNTIL_ELEMENT_IS_VISIBLE = "WAIT_UNTIL_ELEMENT_IS_VISIBLE"
+        WAIT_UNTIL_ELEMENT_IS_ENABLED = "WAIT_UNTIL_ELEMENT_IS_ENABLED"
 
     def __init__(self, automation: Any, timeout: int = 1000):
         """
@@ -162,6 +166,8 @@ class Element(ModuleInterface):
             self.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN: lambda: self._wait_until_element_is_hidden(
                 values["xpath"], values["retries"]),
             self.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE: lambda: self._wait_until_element_is_visible(
+                values["xpath"], values["retries"]),
+            self.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED: lambda: self._wait_until_element_is_enabled(
                 values["xpath"], values["retries"])
         }
 
@@ -317,6 +323,21 @@ class Element(ModuleInterface):
         if hidden:
             raise FlaUiError(FlaUiError.ElementNotVisible.format(xpath))
 
+    def _element_should_be_enabled(self, xpath: str):
+        """
+        Checks if the element with the given xpath is enabled
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found from xpath.
+            FlaUiError: If node by xpath is not visible.
+        """
+        enabled = self._get_element(xpath).IsEnabled
+        if not enabled:
+            raise FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
+        
     def _element_should_not_be_visible(self, xpath: str):
         """
         Checks if the element with the given xpath is visible
@@ -387,6 +408,33 @@ class Element(ModuleInterface):
         self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementNotVisible.format(xpath))
 
+    def _wait_until_element_is_enabled(self, xpath: str, retries: int):
+        """Wait until element is enabled or timeout occurs.
+
+        Args:
+            xpath (String): XPath from element which should be hidden
+            retries (Number): Maximum number from retries from wait until
+        """
+
+        timer = 0
+        old_timeout = self._timeout
+        self._set_timeout(0)
+
+        while timer < retries:
+
+            try:
+                self._element_should_be_enabled(xpath)
+                self._set_timeout(old_timeout)
+                return
+            except FlaUiError:
+                pass
+
+            time.sleep(1)
+            timer += 1
+
+        self._set_timeout(old_timeout)
+        raise FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
+    
     def _set_timeout(self, timeout: int):
         """Set timeout in seconds.
 

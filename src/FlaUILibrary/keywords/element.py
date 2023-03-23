@@ -313,3 +313,24 @@ class ElementKeywords:
         self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE,
                             Element.create_value_container(xpath=identifier, retries=retries),
                             msg)
+    
+    @keyword
+    def wait_until_element_is_enabled(self, identifier, retries=10, msg=None):
+        """
+        Waits until element is enabled or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Arguments:
+        | Argument   | Type   | Description                                                           |
+        | identifier | string | XPath identifier from element                                         |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default 1000ms, 10 retries. |
+        | msg        | string | Custom error message                                                  |
+
+        Example:
+        | Wait Until Element Is ENABLED  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Is ENABLED  <XPATH>  <RETRIES=10>  <MSG> |
+        """
+        self._module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED,
+                            Element.create_value_container(xpath=identifier, retries=retries),
+                            msg)
