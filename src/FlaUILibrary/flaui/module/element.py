@@ -332,7 +332,7 @@ class Element(ModuleInterface):
 
         Raises:
             FlaUiError: If node could not be found from xpath.
-            FlaUiError: If node by xpath is not visible.
+            FlaUiError: If node by xpath is not enabled.
         """
         enabled = self._get_element(xpath).IsEnabled
         if not enabled:
