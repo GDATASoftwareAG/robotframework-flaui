@@ -10,12 +10,14 @@ ${EXP_ERR_MSG_NO_WINDOW_FOUND}                  FlaUiError: No window with name 
 ${EXP_ERR_MSG_APP_NAME_NOT_FOUND}               FlaUiError: Application with name '{0}' could not be found
 ${EXP_ERR_MSG_APP_NOT_EXIST}                    FlaUiError: Application '{0}' could not be found
 ${EXP_ERR_MSG_APP_NOT_ATTACHED}                 FlaUiError: Application is not attached
-${EXP_ERR_MSG_NAME_DOES_NOT_CONTAIN}            FlaUiError: Name from element '{0}' does not contains to '{1}'
+${EXP_ERR_MSG_NAME_DOES_NOT_CONTAIN}            FlaUiError: Name from element '{0}' does not contain '{1}'
 ${EXP_ERR_MSG_NAME_NOT_EQUALS}                  FlaUiError: Name from element '{0}' is not equals to '{1}'
 ${EXP_ERR_MSG_WRONG_ELEMENT_TYPE}               FlaUiError: '{0}' could not be cast as '{1}'
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_VISIBLE}                  FlaUiError: Element '{0}' is visible
 ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}              FlaUiError: Element '{0}' is not visible
+${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}              FlaUiError: Element '{0}' is not enabled
+${EXP_ERR_MSG_ELEMENT_NOT_DISABLED}             FlaUiError: Element '{0}' is not disabled
 ${EXP_ERR_MSG_ELEMENT_NOT_EXPANDABLE}           FlaUiError: Element '{0}' is not expandable
 ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    FlaUiError: Control does not contain item '{0}'
 ${EXP_ERR_MSG_ITEM_NOT_SELECTED}                FlaUiError: Item '{0}' is not selected

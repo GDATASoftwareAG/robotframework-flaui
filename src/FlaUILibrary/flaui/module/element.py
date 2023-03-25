@@ -38,6 +38,8 @@ class Element(ModuleInterface):
         IS_ELEMENT_VISIBLE = "IS_ELEMENT_VISIBLE"
         ELEMENT_SHOULD_BE_VISIBLE = "ELEMENT_SHOULD_BE_VISIBLE"
         ELEMENT_SHOULD_NOT_BE_VISIBLE = "ELEMENT_SHOULD_NOT_BE_VISIBLE"
+        ELEMENT_SHOULD_BE_ENABLED = "ELEMENT_SHOULD_BE_ENABLED"
+        ELEMENT_SHOULD_BE_DISABLED = "ELEMENT_SHOULD_BE_DISABLED"
         WAIT_UNTIL_ELEMENT_IS_HIDDEN = "WAIT_UNTIL_ELEMENT_IS_HIDDEN"
         WAIT_UNTIL_ELEMENT_IS_VISIBLE = "WAIT_UNTIL_ELEMENT_IS_VISIBLE"
 
@@ -119,6 +121,14 @@ class Element(ModuleInterface):
             * Values ["xpath"]
             * Returns : None
 
+          *  Action.ELEMENT_SHOULD_BE_ENABLED
+            * Values ["xpath"]
+            * Returns : None
+
+          *  Action.ELEMENT_SHOULD_BE_DISABLED
+            * Values ["xpath"]
+            * Returns : None
+
           *  Action.ELEMENT_SHOULD_EXIST
             * Values ["xpath", "use_exception"]
             * Returns : True if element exists otherwise False
@@ -155,6 +165,8 @@ class Element(ModuleInterface):
             self.Action.IS_ELEMENT_VISIBLE: lambda: self._get_element(values["xpath"]).IsOffscreen,
             self.Action.ELEMENT_SHOULD_BE_VISIBLE: lambda: self._element_should_be_visible(values["xpath"]),
             self.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE: lambda: self._element_should_not_be_visible(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_BE_ENABLED: lambda: self._element_should_be_enabled(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_BE_DISABLED: lambda: self._element_should_be_disabled(values["xpath"]),
             self.Action.ELEMENT_SHOULD_EXIST: lambda: self._element_should_exist(values["xpath"],
                                                                                  values["use_exception"]),
             self.Action.ELEMENT_SHOULD_NOT_EXIST: lambda: self._element_should_not_exist(values["xpath"],
@@ -332,6 +344,37 @@ class Element(ModuleInterface):
 
         if not hidden:
             raise FlaUiError(FlaUiError.ElementVisible.format(xpath))
+
+    def _element_should_be_enabled(self, xpath: str):
+        """
+        Checks if the element with the given xpath is enabled
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found from xpath.
+            FlaUiError: If node by xpath is not enabled.
+        """
+        enabled = self._get_element(xpath).IsEnabled
+        if not enabled:
+            raise FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
+
+    def _element_should_be_disabled(self, xpath: str):
+        """
+        Checks if the element with the given xpath is disabled
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found from xpath.
+            FlaUiError: If node by xpath is enabled.
+        """
+        enabled = self._get_element(xpath).IsEnabled
+
+        if enabled:
+            raise FlaUiError(FlaUiError.ElementNotDisabled.format(xpath))
 
     def _wait_until_element_is_hidden(self, xpath: str, retries: int):
         """

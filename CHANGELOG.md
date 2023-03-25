@@ -6,7 +6,9 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
-
+- New Keywords for elements implemented
+  - Element Should Be Enabled
+  - Element Should Be Disabled
 ## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
 
 - New Keywords for click and hold implemented
