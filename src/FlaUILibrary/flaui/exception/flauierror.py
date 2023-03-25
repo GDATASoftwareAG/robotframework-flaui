@@ -18,6 +18,8 @@ class FlaUiError(AttributeError):
     ElementExists = "Element '{}' exists"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"
+    ElementNotEnabled = "Element '{}' is not enabled"
+    ElementNotDisabled = "Element '{}' is not disabled"
     ElementNotExpandable = "Element '{}' is not expandable"
     NoWindowWithNameFound = "No window with name '{}' found"
     WindowCloseNotSupported = "Close operation only supported for window elements"

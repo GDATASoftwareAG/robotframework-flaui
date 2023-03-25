@@ -20,6 +20,10 @@ Documentation   Test suite for element keywords.
 ...             Element Should Be Visible                     Element Should Be Visible
 ...             Element Should Not Be Visible                 Element Should Not Be Visible
 ...                                                           Element Should Not Be Visible Error
+...             Element Should Be Enabled                     Element Should Be Enabled
+...                                                           Element Should Be Enabled Error
+...             Element Should Be Disabled                    Element Should Be Disabled
+...                                                           Element Should Be Disabled Error
 ...             Wait Until Element Is Hidden                  Wait Until Element Is Hidden
 ...                                                           Wait Until Element Is Hidden Timeout Reached By Default
 ...                                                           Wait Until Element Is Hidden Timeout Reached After One Second
@@ -118,6 +122,22 @@ Element Should Not Be Visible
 Element Should Not Be Visible Error
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_VISIBLE}  ${XPATH_ELEMENT}
     ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Not Be Visible  ${XPATH_ELEMENT}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Element Should Be Enabled
+    Element Should Be Enabled  ${XPATH_ELEMENT}
+
+Element Should Be Enabled Error
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${XPATH_DISABLED_ELEMENT}
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Be Enabled  ${XPATH_DISABLED_ELEMENT}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Element Should Be Disabled
+    Element Should Be Disabled  ${XPATH_DISABLED_ELEMENT}
+
+Element Should Be Disabled Error
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_DISABLED}  ${XPATH_ELEMENT}
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Be Disabled  ${XPATH_ELEMENT}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
 Wait Until Element Is Hidden

@@ -271,6 +271,49 @@ class ElementKeywords:
         self._module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE,
                             Element.create_value_container(xpath=identifier, msg=msg),
                             msg)
+    @keyword
+    def element_should_be_enabled(self, identifier, msg=None):
+        """
+        Checks if element is enabled.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Example:
+        | Element Should Be Enabled  <XPATH> |
+
+        """
+        self._module.action(Element.Action.ELEMENT_SHOULD_BE_ENABLED,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
+
+    @keyword
+    def element_should_be_disabled(self, identifier, msg=None):
+        """
+        Checks if element is disabled.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Example:
+        | Element Should Be Disabled  <XPATH> |
+
+        """
+        self._module.action(Element.Action.ELEMENT_SHOULD_BE_DISABLED,
+                            Element.create_value_container(xpath=identifier, msg=msg),
+                            msg)
 
     @keyword
     def wait_until_element_is_hidden(self, identifier, retries=10, msg=None):

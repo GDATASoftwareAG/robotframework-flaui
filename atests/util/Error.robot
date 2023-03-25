@@ -16,6 +16,8 @@ ${EXP_ERR_MSG_WRONG_ELEMENT_TYPE}               FlaUiError: '{0}' could not be c
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_VISIBLE}                  FlaUiError: Element '{0}' is visible
 ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}              FlaUiError: Element '{0}' is not visible
+${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}              FlaUiError: Element '{0}' is not enabled
+${EXP_ERR_MSG_ELEMENT_NOT_DISABLED}             FlaUiError: Element '{0}' is not disabled
 ${EXP_ERR_MSG_ELEMENT_NOT_EXPANDABLE}           FlaUiError: Element '{0}' is not expandable
 ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    FlaUiError: Control does not contain item '{0}'
 ${EXP_ERR_MSG_ITEM_NOT_SELECTED}                FlaUiError: Item '{0}' is not selected
