@@ -12,7 +12,7 @@ class FlaUiError(AttributeError):
     NoElementAttached = "No element attached"
     ElementNameNotFound = "Name '{}' could not be found in element"
     ElementNameNotEquals = "Name from element '{}' is not equals to '{}'"
-    ElementNameDoesNotContainsFromValue = "Name from element '{}' does not contains to '{}'"
+    ElementNameDoesNotContainsFromValue = "Name from element '{}' does not contain '{}'"
     ElementNotClickable = "Element position could not be found because it is hidden."
     ActionNotSupported = "Action not supported"
     ElementExists = "Element '{}' exists"

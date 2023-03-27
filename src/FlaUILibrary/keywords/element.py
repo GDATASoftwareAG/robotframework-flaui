@@ -24,6 +24,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+
         Arguments:
         | Argument      | Type   | Description                   |
         | identifier    | string | XPath identifier from element |
@@ -52,6 +55,9 @@ class ElementKeywords:
         If element could not be found by xpath True will be returned.
 
         XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element <XPATH> exists |
 
         Arguments:
         | Argument      | Type   | Description                   |
@@ -82,6 +88,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+
         Arguments:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
@@ -102,7 +111,8 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -127,7 +137,8 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -150,6 +161,10 @@ class ElementKeywords:
         """
         Verifies if name from element is equal.
 
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath               |
+        | Name from element <XPATH> is not equals to <NAME> |
+
         Arguments:
         | Argument   | Type   | Description                   |
         | name       | string | Name to compare               |
@@ -167,6 +182,10 @@ class ElementKeywords:
     def name_contains_text(self, name, identifier, msg=None):
         """
         Verifies if element name contains to name.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath              |
+        | Name from element <XPATH> does not contain <NAME> |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -189,7 +208,8 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -213,7 +233,8 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -235,7 +256,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not visible      |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -257,7 +280,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is visible          |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -278,7 +303,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not enabled      |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -300,7 +327,9 @@ class ElementKeywords:
 
         XPaths syntax is explained in `XPath locator`.
 
-        If element could not be found by xpath an error message will be thrown.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not disabled     |
 
         Arguments:
         | Argument   | Type   | Description                   |
@@ -320,7 +349,9 @@ class ElementKeywords:
         """
         Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
 
-        XPaths syntax is explained in `XPath locator`.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is visible          |
 
         Arguments:
         | Argument   | Type   | Description                                                           |
@@ -342,6 +373,9 @@ class ElementKeywords:
         Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
 
         XPaths syntax is explained in `XPath locator`.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not visible      |
 
         Arguments:
         | Argument   | Type   | Description                                                           |
