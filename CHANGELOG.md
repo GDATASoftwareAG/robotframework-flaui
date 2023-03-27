@@ -1,30 +1,35 @@
 # Changelog
 
 All notable changes to Robotframework-FlaUI will be documented in this file. This project adheres
-to [Semantic Versioning][].
+to [Semantic Versioning][Semantic Versioning].
 
-This document follows the conventions laid out in [Keep a CHANGELOG][].
+This document follows the conventions laid out in [Keep a CHANGELOG][Keep a CHANGELOG].
 
-## [Unreleased][]
+## [Unreleased][Unreleased]
+
+* New Keywords for element implemented
+
+  * Wait Until Element is Enabled
 
 ## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
 
 - New Keywords for click and hold implemented
-    - Maximize Window
-    - Minimize Window
-    - Normalize Window
-    - Can Window Be Maximized
-    - Can Window Be Minimized
+  - Maximize Window
+  - Minimize Window
+  - Normalize Window
+  - Can Window Be Maximized
+  - Can Window Be Minimized
 
 ## [Release][2.0.5] [2.0.5][2.0.4-2.0.5] - 2023-03-16
 
 ### Added
+
 - New Keywords for click and hold implemented
-    - Click Hold
-    - Right Click Hold
-    - Double Click Hold
-    - Get Window Interaction State
-    - Window Interaction State Should Be
+  - Click Hold
+  - Right Click Hold
+  - Double Click Hold
+  - Get Window Interaction State
+  - Window Interaction State Should Be
 
 ## [Release][2.0.4] [2.0.4][2.0.3-2.0.4] - 2023-03-07
 
@@ -41,6 +46,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Release][2.0.3] [2.0.3][2.0.2-2.0.3] - 2023-03-04
 
 ### Added
+
 - New Keywords for toggle button handling implemented
   - Toggle
   - Get Toggle State
@@ -48,13 +54,14 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Release][2.0.2] [2.0.2][2.0.1-2.0.2] - 2023-02-23
 
 ### Added
+
 - New Keywords implemented
   - Get Background Color
   - Get Foreground Color
   - Get Font Size
   - Get Font Name
   - Get Font Weight
-  - Get Culture 
+  - Get Culture
   - Is Hidden
   - Is Visible
   - Get Window Visual State
@@ -62,35 +69,43 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Release][2.0.1] [2.0.1][2.0.0-2.0.1] - 2022-10-06
 
 ### Updated
+
 - Upgrade Python.Net to 3.0.1
 
 ## [Release][2.0.0] [2.0.0][1.7.3-2.0.0] - 2022-10-06
 
 ### Added
+
 - Official Python 3.9 and 3.10 support
 
 ### Changed
+
 - Test matrix update to python 3.8, 3.9 and 3.10 testing
 
 ### Updated
+
 - FlaUI upgrade from 3.2.0 to 4.0
 - Python.Net upgrade to 3.0
 
 ### Removed
+
 - Python 3.6 support dropped
 
 ## [Release][1.7.3] [1.7.3][1.7.2-1.7.3] - 2022-03-28
 
 ### Added
+
 - New Keywords Get Rectangle Bounding From Element
 - Helper parsly.py xml parser implemented for old robotframework reporting xml generation for appveyor to avoid wrong amount of test numbers
 
 ### Removed
+
 - LFS file parsly.exe removed by bfg history
 
 ## [Release][1.7.2] [1.7.2][1.7.1-1.7.2] - 2022-02-13
 
 ### Added
+
 - New Keywords Expand Combobox and Collapse Combobox implemented for combobox
 
 ### Changed
@@ -101,10 +116,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - Support for upcoming Robotframework 5.0
 
-
 ## [Release][1.7.1] [1.7.1][1.7-1.7.1] - 2022-02-07
 
 ### Added
+
 - New Keyword implemented for listbox and combobox
   - Get All Selected Names From Combobox, Get All Texts From Combobox, Get All Texts From Listbox
     - Returns a list from all selected values by names
@@ -155,6 +170,7 @@ ${data}  Get All Names From Combobox  <XPATH>
       - Returns now always True or False
 
 #### Old Style
+
 ```
 # This throws a flaui exception and stop test exeuction
 Element Should Exist  /WRONG/XPATH
@@ -164,6 +180,7 @@ Element Should Exist  /WRONG/XPATH
 - This is by default ${TRUE} to avoid this breaks for checkups if a ui element is displaying delayed.
 
 #### New Style
+
 ```
 # This throws a flaui exception and stop test exeuction
 Element Should Exist      /WRONG/XPATH
@@ -218,10 +235,10 @@ Close Application  ${PID_D}
 ### Changed
 
 - Timeout behavior changed
-  - "desktop.FindFirstByXPath(xpath)" needs a few seconds to finds element so retry which was default 
+  - "desktop.FindFirstByXPath(xpath)" needs a few seconds to finds element so retry which was default
     10 times would break testing duration.
   - Retry is removed and sleep function can be disabled now with a "timeout=0"
-  - If a timeout is set then this function will now waits the amount of time and check once and do not check 
+  - If a timeout is set then this function will now waits the amount of time and check once and do not check
     by a periodic timer anymore
   - Default timeout is still '1000 ms' to wait for an recheck if element could not be found
 
@@ -231,8 +248,8 @@ Close Application  ${PID_D}
 
 - Robotframework-flaui use now PythonLibCore 3.0 package to maintain this library
 - Minimum required versions
-    - Python >=3.6
-    - Robotframework >=3.2.2
+  - Python >=3.6
+  - Robotframework >=3.2.2
 - See for more information
   PythonLibCore [documentation](https://github.com/robotframework/PythonLibCore/blob/master/docs/PythonLibCore-3.0.0.rst)
 
@@ -273,19 +290,19 @@ Close Application  ${PID_D}
 - New Keyword 'Launch Application With Args'
 - Timeout handler implemented for FlaUI Library
 - New set of keywords for Tree:
-    - Get Selected TreeItems Name
-    - Get Root TreeItems Count
-    - Get All Visible TreeItems Count
-    - Get All Visible TreeItems Names
-    - Tree Should Contain
-    - Select Visible TreeItem By Name
-    - Select TreeItem
-    - Selected TreeItem Should Be
-    - Collapse All TreeItems
-    - Expand All TreeItems
-    - Expand TreeItem
-    - Collapse TreeItem
-    - TreeItem Should Be Visible
+  - Get Selected TreeItems Name
+  - Get Root TreeItems Count
+  - Get All Visible TreeItems Count
+  - Get All Visible TreeItems Names
+  - Tree Should Contain
+  - Select Visible TreeItem By Name
+  - Select TreeItem
+  - Selected TreeItem Should Be
+  - Collapse All TreeItems
+  - Expand All TreeItems
+  - Expand TreeItem
+  - Collapse TreeItem
+  - TreeItem Should Be Visible
 
 ## [Release][1.5.1] [1.5.1][1.5-1.5.1] - 2021-04-09
 
@@ -322,26 +339,22 @@ Close Application  ${PID_D}
 ### Changed
 
 - Get Element usage retries now automatic for one seconds if element will show up
-    - Use case if a new window is open xpath usage will be too early to access element.
 
-
+  - Use case if a new window is open xpath usage will be too early to access element.
 - Renamed flaui wrapper modules
-    - ListView to Grid
-    - ListControl to ListBox
 
-
+  - ListView to Grid
+  - ListControl to ListBox
 - Renamed robotframework keyword module ListView to Grid and keywords
-    - Get Selected Listview Rows --> Get Selected Grid Rows
-    - Select Listview Row By Index --> Select Grid Row By Index
-    - Select Listview Row By Name -->  Select Grid Row By Name
-    - Get Listview Rows Count --> Get Grid Rows Count
 
-
+  - Get Selected Listview Rows --> Get Selected Grid Rows
+  - Select Listview Row By Index --> Select Grid Row By Index
+  - Select Listview Row By Name -->  Select Grid Row By Name
+  - Get Listview Rows Count --> Get Grid Rows Count
 - Pylint usage implemented
-    - Include to keen.bat pylint
-    - Appveyor pylint reporting
 
-
+  - Include to keen.bat pylint
+  - Appveyor pylint reporting
 - Command line 'local_install.cmd' changed to 'keen.bat' with a set of supported build instructions
 - Example ListView renamed to Grid
 
@@ -385,121 +398,65 @@ General bugfixing from keywords and improvements from artifact building and test
 ### Added
 
 - Automatic wheel package generation in appveyor and local builds
-- Keyword documentation by [github.io][]
+- Keyword documentation by [github.io][github.io]
 - Support for Python 3.7
 - First release for supported flaui wrapper modules - Application, Checkbox, Combobox, Debug, Grid, Label, Listbox,
   Radiobuttion, Tab, Textbox, Windows, Keyboard, Mouse
 
 [keep a changelog]: http://keepachangelog.com/
-
 [semantic versioning]: http://semver.org/
-
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
-
 [unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.6...main
-
 [2.0.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.6
-
 [2.0.5-2.0.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.5...2.0.6
-
 [2.0.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.5
-
 [2.0.4-2.0.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.4...2.0.5
-
 [2.0.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.4
-
 [2.0.3-2.0.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.3...2.0.4
-
 [2.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.3
-
 [2.0.2-2.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.2...2.0.3
-
 [2.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.2
-
 [2.0.1-2.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.1...2.0.2
-
 [2.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.1
-
 [2.0.0-2.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.0...2.0.1
-
 [2.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.0
-
 [1.7.3-2.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.3...2.0.0
-
 [1.7.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.3
-
 [1.7.2-1.7.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.2...1.7.3
-
 [1.7.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.2
-
 [1.7.1-1.7.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7.1...1.7.2
-
 [1.7.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7.1
-
 [1.7-1.7.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.7...1.7.1
-
 [1.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.7
-
 [1.6.6-1.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.6...1.7
-
 [1.6.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.6
-
 [1.6.5-1.6.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.5...1.6.6
-
 [1.6.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.5
-
 [1.6.4-1.6.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.4...1.6.5
-
 [1.6.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.4
-
 [1.6.3-1.6.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.3...1.6.4
-
 [1.6.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.3
-
 [1.6.2-1.6.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.2...1.6.3
-
 [1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.2
-
 [1.6.1-1.6.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6.1...1.6.2
-
 [1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6.1
-
 [1.6-1.6.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.6...1.6.1
-
 [1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.6
-
 [1.5.1-1.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.5.1...1.6
-
 [1.5.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.5.1
-
 [1.5-1.5.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.5...1.5.1
-
 [1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.5
-
 [1.4-1.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.4...1.5
-
 [1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.4
-
 [1.3.6-1.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.6...1.4
-
 [1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.6
-
 [1.3.5-1.3.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.5...1.3.6
-
 [1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.5
-
 [1.3.4-1.3.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.4...1.3.5
-
 [1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.4
-
 [1.3.3-1.3.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.3...1.3.4
-
 [1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.3
-
 [1.3.2-1.3.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.2...1.3.3
-
 [1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.2
-
 [1.3.1-1.3.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/1.3.1...1.3.2
-
 [1.3.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/1.3.1
