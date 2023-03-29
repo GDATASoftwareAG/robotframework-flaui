@@ -5,11 +5,11 @@ to [Semantic Versioning][Semantic Versioning].
 
 This document follows the conventions laid out in [Keep a CHANGELOG][Keep a CHANGELOG].
 
-## [Unreleased][Unreleased]
-
-* New Keywords for element implemented
-
-  * Wait Until Element is Enabled
+## [Unreleased][]
+- New Keywords for elements implemented
+  - Element Should Be Enabled
+  - Element Should Be Disabled
+  - Wait Until Element is Enabled
 
 ## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
 
