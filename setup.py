@@ -39,14 +39,14 @@ if release:
 else:
     VERSION = "{}rc{}".format(build_version, build_number)
 
-setup(name="robotframework-flaui",
+setup(name="robotframework-flaui-jim",
       version=VERSION,
       description="Windows GUI testing library for Robot Framework",
       long_description=LONG_DESCRIPTION,
       long_description_content_type="text/markdown",
       author="G DATA CyberDefense AG",
       author_email="opensource@gdata.de",
-      url='https://github.com/GDATASoftwareAG/robotframework-flaui',
+      url = 'https://github.com/JimRevolutionist/robotframework-flaui-jim',
       license='MIT',
       install_requires=REQUIREMENTS,
       packages=find_packages("src"),
@@ -54,7 +54,6 @@ setup(name="robotframework-flaui",
       package_data={"FlaUILibrary": ["bin/*.dll"]},
       classifiers=[
           "Programming Language :: Python :: 3",
-          "Programming Language :: Python :: 3.7",
           "Programming Language :: Python :: 3.8",
           "Programming Language :: Python :: 3.9",
           "Programming Language :: Python :: 3.10",

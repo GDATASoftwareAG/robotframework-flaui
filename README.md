@@ -1,39 +1,14 @@
 # Robotframework-FlaUI Library
 
-[license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
-[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/main?label=3.8&style=flat-square
-[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/main?label=3.8&style=flat-square
-[py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/main?label=3.9&style=flat-square
-[py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/main?label=3.9&style=flat-square
-[py310x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x86/main?label=3.10&style=flat-square
-[py310x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x64/main?label=3.10&style=flat-square
-
-[tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square"
-[tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
-
-[pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
-[pypi_url]: https://pypi.org/pypi/robotframework-flaui
-
-[python_37]: https://img.shields.io/badge/Python-3.7-blue
-[python_38]: https://img.shields.io/badge/Python-3.8-blue
-[python_39]: https://img.shields.io/badge/New%20Support-Python%203.9-blue
-[python_310]: https://img.shields.io/badge/New%20Support-Python%203.10-blue
-[python_311]: https://img.shields.io/badge/Experimental-Python%203.11-orange
-
-[rf3]: https://img.shields.io/badge/3-Supported-blue
-[rf4]: https://img.shields.io/badge/4-Supported-blue
-[rf5]: https://img.shields.io/badge/5-Supported-blue
-[rf6]: https://img.shields.io/badge/6-Supported-blue
-
-|                          |                                                              |
-|---                       |--------------------------------------------------------------|
-| License                  | ![][license]                                                 |
-| Python Builds (x86)      | ![][py38x86] ![][py39x86] ![][py310x86]         |
-| Python Builds (x64)      | ![][py38x64] ![][py39x64] ![][py310x64]         |
-| Tests                    | [![][tests]][tests_url]                                      |
-| Python                   | ![][python_37] ![][python_38] ![][python_39] ![][python_310] ![][python_311] |
-| Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                          |
-| PyPi                     | [![][pypi]][pypi_url]                                        |
+|                     |                                                               |
+| ------------------- | ------------------------------------------------------------- |
+| License             | ![img][license]                                               |
+| Python Builds (x86) | ![][py38x86] ![][py39x86] ![][py310x86]                       |
+| Python Builds (x64) | ![][py38x64] ![][py39x64] ![][py310x64]                       |
+| Tests               |                                                               |
+| Python              | ![][python_38] ![][python_39] ![][python_310] ![][python_311] |
+| Robotframework      | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                           |
+| PyPi                |                                                               |
 
 ## Introduction
 
@@ -74,8 +49,8 @@ See dependencies from [Documentation](https://gdatasoftwareag.github.io/robotfra
 
 ## Documentation
 
-*  [Keyword documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
-*  [XPath explanation](https://gdatasoftwareag.github.io/robotframework-flaui/xpath.html)
+* [Keyword documentation](https://gdatasoftwareag.github.io/robotframework-flaui)
+* [XPath explanation](https://gdatasoftwareag.github.io/robotframework-flaui/xpath.html)
 
 ### RFHUB2
 
@@ -92,9 +67,10 @@ rfhub2-cli .\docs\keywords\<VERSION>
 
 ## GUI Inspector Tools
 
-There are various tools around which help inspecting application that should be ui tested or automated. 
+There are various tools around which help inspecting application that should be ui tested or automated.
 
 Some of them are:
+
 * [FlaUI Inspect](https://github.com/FlaUI/FlaUInspect)
 * [Microsoft Accessibility Insights For Windows](https://accessibilityinsights.io)
 * VisualUIAVerify
@@ -109,7 +85,7 @@ Examples of use can be found in the atests folder.
 
 ### Preconditions
 
-* Install [Python](https://www.python.org/downloads), if not already installed. 
+* Install [Python](https://www.python.org/downloads), if not already installed.
 * Only Python 3 is supported.
 * Install Robotframework and Python.Net
 
@@ -135,22 +111,25 @@ Use the provided 'Commander Keen' file:
 ```
 
 The script automatically builds the:
-  * Library as a wheel file stored in the Dist folder
-  * Test documentation located in the Docs folder
-  * Automatically installs and runs the robot tests of the library and saves the test results in the Result folder
+
+* Library as a wheel file stored in the Dist folder
+* Test documentation located in the Docs folder
+* Automatically installs and runs the robot tests of the library and saves the test results in the Result folder
 
 Following arguments are supported:
+
 ```
 .\keen.bat <argument>
 ```
-  * cleanup - Removes all build folders
-  * dependency - Install all python dependencies
-  * build - Build wheel file
-  * install - Install wheel file
-  * test - Test robotframework-flaui (UIA2 and UIA3)
-  * test_uia2 - Test UIA2 interface usage
-  * test_uia3 - Test UIA3 interface usage
-  * pylint - Static code analysis for PEP 8. Generates pylint.html file in results.
+
+* cleanup - Removes all build folders
+* dependency - Install all python dependencies
+* build - Build wheel file
+* install - Install wheel file
+* test - Test robotframework-flaui (UIA2 and UIA3)
+* test_uia2 - Test UIA2 interface usage
+* test_uia3 - Test UIA3 interface usage
+* pylint - Static code analysis for PEP 8. Generates pylint.html file in results.
 
 ## Acknowledgements
 
@@ -158,3 +137,24 @@ Following arguments are supported:
 
 * Thanks to [@Roemer](https://github.com/Roemer) for the passion to create and maintain the FlaUI project.
 * Thanks to [FlaUI](https://github.com/FlaUI/FlaUI) developers and maintainers for this project.
+
+[license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
+[py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/main?label=3.8&style=flat-square
+[py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/main?label=3.8&style=flat-square
+[py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/main?label=3.9&style=flat-square
+[py39x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x64/main?label=3.9&style=flat-square
+[py310x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x86/main?label=3.10&style=flat-square
+[py310x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.10%20x64/main?label=3.10&style=flat-square
+[tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square"
+[tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
+[pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
+[pypi_url]: https://pypi.org/pypi/robotframework-flaui
+[python_37]: https://img.shields.io/badge/Python-3.7-blue
+[python_38]: https://img.shields.io/badge/Python-3.8-blue
+[python_39]: https://img.shields.io/badge/New%20Support-Python%203.9-blue
+[python_310]: https://img.shields.io/badge/New%20Support-Python%203.10-blue
+[python_311]: https://img.shields.io/badge/Experimental-Python%203.11-orange
+[rf3]: https://img.shields.io/badge/3-Supported-blue
+[rf4]: https://img.shields.io/badge/4-Supported-blue
+[rf5]: https://img.shields.io/badge/5-Supported-blue
+[rf6]: https://img.shields.io/badge/6-Supported-blue
