@@ -34,11 +34,13 @@ REQUIREMENTS = []
 with open("requirements.txt", "r") as f:
     REQUIREMENTS = list(filter(lambda s: s != "", f.read().split("\n")))
 
-if release:
-    VERSION = "{}".format(tag_version)
-else:
-    VERSION = "{}rc{}".format(build_version, build_number)
+# if release:
+#     VERSION = "{}".format(tag_version)
+# else:
+#     VERSION = "{}rc{}".format(build_version, build_number)
 
+
+VERSION = '2.0.7'
 setup(name="robotframework-flaui-jim",
       version=VERSION,
       description="Windows GUI testing library for Robot Framework",

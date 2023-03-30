@@ -20,7 +20,7 @@ It's based on the [FlaUI](https://github.com/FlaUI/FlaUI) user interface automat
 Install the latest stable release:
 
 ```
-pip install --upgrade robotframework-flaui
+pip install --upgrade robotframework-flaui-jim
 ```
 
 ## Dependencies and python support
