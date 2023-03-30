@@ -21,10 +21,6 @@ namespace WpfApplication
             InitializeComponent();
             var vm = new MainViewModel();
             DataContext = vm;
-            AddHandler(FrameworkElement.MouseDownEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseDown), true);
-            AddHandler(FrameworkElement.MouseUpEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseUp), true);
-            AddHandler(FrameworkElement.MouseRightButtonDownEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseDown), true);
-            AddHandler(FrameworkElement.MouseRightButtonUpEvent, new MouseButtonEventHandler(ClickAndHoldButton_MouseUp), true);
         }
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -111,7 +107,6 @@ namespace WpfApplication
             lblKeyboardKeyUp.Content = GenerateKeyboardOutput(_keysUp);
         }
 
-
         private void ClickAndHoldButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DownTime = DateTime.Now;
@@ -122,6 +117,26 @@ namespace WpfApplication
             UpTime = DateTime.Now;
             TimeSpan differene = UpTime - DownTime;
             ClickAndHoldButton.Content = differene.TotalSeconds.ToString();
+        }
+
+        private void ClickAndHoldButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ClickAndHoldButton_MouseDown(sender,e);
+        }
+
+        private void ClickAndHoldButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ClickAndHoldButton_MouseUp(sender, e);
+        }
+
+        private void ClickAndHoldButton_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ClickAndHoldButton_MouseUp(sender, e);
+        }
+
+        private void ClickAndHoldButton_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ClickAndHoldButton_MouseDown(sender, e);
         }
 
     }

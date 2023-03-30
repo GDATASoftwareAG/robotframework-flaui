@@ -49,6 +49,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@Name='Test Label']
+${XPATH_TOGGLE}             ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Name='Toggle Disabled Button']
 ${XPATH_DISABLED_ELEMENT}   ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='DisabledButton']
 ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 
@@ -195,4 +196,33 @@ Wait Until Element Is Visible Timeout Reached After Amount Of Time
 Wait Until Element Is Visible Timeout Is Reached By Wrong Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
     ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled
+    [Teardown]  Stop Application  ${PID}  ${MAIN_WINDOW_NOTIFIER}
+    ${PID}  Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
+    Wait Until Element Is Visible    ${MAIN_WINDOW_NOTIFIER}
+    Element Should Exist             ${MAIN_WINDOW_NOTIFIER}
+
+Wait Until Element Is Enabled Timeout Reached By Default
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled Timeout Reached After Amount Of Time
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW_NOTIFIER}  1
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled Timeout Is Reached By Wrong Number
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW}  "I'm not a number"
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
