@@ -6,10 +6,14 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+
+## [Release][2.0.7] [2.0.7][2.0.6-2.0.7] - 2023-03-30
+
 - New Keywords for elements implemented
     - Element Should Be Enabled
     - Element Should Be Disabled
     - Wait until Element Is Enabled
+
 ## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
 
 - New Keywords for click and hold implemented
@@ -399,7 +403,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.6...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.7...main
+
+[2.0.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.7
+
+[2.0.6-2.0.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.6...2.0.7
 
 [2.0.6]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.6
 
