@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.9] [2.0.9][2.0.8-2.0.9] - 2023-04-04
+
+### Changed
+- Adjustments in Setup.py for correct version handling
+
 ## [Release][2.0.8] [2.0.8][2.0.7-2.0.8] - 2023-04-04
 
 ### Added
@@ -414,7 +419,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.8...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.9...main
+
+[2.0.9]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.9
+
+[2.0.8-2.0.9]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.8...2.0.9
 
 [2.0.8]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.8
 
