@@ -7,15 +7,22 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.8] [2.0.8][2.0.7-2.0.8] - 2023-04-04
+
+### Added
+- New Keyword implemented
+    - Wait until Element Is Enabled
+
 ## [Release][2.0.7] [2.0.7][2.0.6-2.0.7] - 2023-03-30
 
+### Added
 - New Keywords for elements implemented
     - Element Should Be Enabled
     - Element Should Be Disabled
-    - Wait until Element Is Enabled
 
 ## [Release][2.0.6] [2.0.6][2.0.5-2.0.6] - 2023-03-20
 
+### Added
 - New Keywords for click and hold implemented
     - Maximize Window
     - Minimize Window
@@ -35,6 +42,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Release][2.0.4] [2.0.4][2.0.3-2.0.4] - 2023-03-07
 
+### Added
 - New Should Be Keywords implemented
   - Background Color Should Be
   - Foreground Color Should Be
@@ -403,7 +411,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.7...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.8...main
+
+[2.0.8]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.8
+
+[2.0.7-2.0.8]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.7...2.0.8
 
 [2.0.7]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.7
 
