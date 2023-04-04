@@ -151,13 +151,16 @@ Wrong Window Visual State Should Raise An Exception
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Window Visual State Should Be  ${WINDOW_ELEMENT}  Maximized
 
 Get Window Interaction State
+    Focus  ${WINDOW_ELEMENT}
     ${state}  Get Window Interaction State  ${WINDOW_ELEMENT}
     Should Be Equal    ${state}  ReadyForUserInteraction
 
 Window Interaction State Should Be
+    Focus  ${WINDOW_ELEMENT}
     Window Interaction State Should Be  ${WINDOW_ELEMENT}  ReadyForUserInteraction
 
 Wrong Window Interaction State Should Raise An Exception
+    Focus  ${WINDOW_ELEMENT}
     ${EXP_ERR_MSG}  Format String  ${EXP_PROPERTY_INEQUAL}  ReadyForUserInteraction  NotResponding
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Window Interaction State Should Be  ${WINDOW_ELEMENT}  NotResponding
 
