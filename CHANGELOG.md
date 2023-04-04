@@ -13,6 +13,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - New Keyword implemented
     - Wait until Element Is Enabled
 
+### Changed
+- Bugfix to support Python 3.7 by missing requirements.txt
+
 ## [Release][2.0.7] [2.0.7][2.0.6-2.0.7] - 2023-03-30
 
 ### Added
