@@ -36,6 +36,9 @@ class Property(ModuleInterface):
         NORMALIZE_WINDOW = "NORMALIZE_WINDOW"
         CAN_WINDOW_MINIMIZE = "CAN_WINDOW_MINIMIZE"
         CAN_WINDOW_MAXIMIZE = "CAN_WINDOW_MAXIMIZE"
+        IS_WINDOW_PATTERN_SUPPORTED = "IS_WINDOW_PATTERN_SUPPORTED"
+        IS_TEXT_PATTERN_SUPPORTED = "IS_TEXT_PATTERN_SUPPORTED"
+        IS_TOGGLE_PATTERN_SUPPORTED = "IS_TOGGLE_PATTERN_SUPPORTED"
 
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
@@ -113,6 +116,10 @@ class Property(ModuleInterface):
             * Values ["element"] : Verification if window can be maximized.
             * Returns : Return True if supported otherwise False
 
+         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED
+            * Values ["element"] : Verification if pattern is supported to element.
+            * Returns : Return True if supported otherwise False
+
         Raises:
             FlaUiError: If action is not supported.
 
@@ -139,7 +146,10 @@ class Property(ModuleInterface):
             self.Action.NORMALIZE_WINDOW: lambda: self._set_window_visual_state(values["element"],
                                                                                 WindowVisualState.Normal),
             self.Action.CAN_WINDOW_MAXIMIZE: lambda: self._can_window_maximize(values["element"]),
-            self.Action.CAN_WINDOW_MINIMIZE: lambda: self._can_window_minimize(values["element"])
+            self.Action.CAN_WINDOW_MINIMIZE: lambda: self._can_window_minimize(values["element"]),
+            self.Action.IS_WINDOW_PATTERN_SUPPORTED: lambda: self._is_window_pattern_supported(values["element"]),
+            self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
+            self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -218,7 +228,7 @@ class Property(ModuleInterface):
 
     @staticmethod
     def _get_text_pattern_from_element(element) -> Any:
-        if element.Patterns.Text.IsSupported:
+        if Property._is_text_pattern_supported(element):
             pattern = element.Patterns.Text.Pattern
             if pattern is not None:
                 return pattern
@@ -227,7 +237,7 @@ class Property(ModuleInterface):
 
     @staticmethod
     def _get_window_pattern_from_element(element) -> Any:
-        if element.Patterns.Window.IsSupported:
+        if Property._is_window_pattern_supported(element):
             pattern = element.Patterns.Window.Pattern
             if pattern is not None:
                 return pattern
@@ -236,7 +246,7 @@ class Property(ModuleInterface):
 
     @staticmethod
     def _get_toggle_pattern_from_element(element) -> Any:
-        if element.Patterns.Toggle.IsSupported:
+        if Property._is_toggle_pattern_supported(element):
             pattern = element.Patterns.Toggle.Pattern
             if pattern is not None:
                 return pattern
@@ -257,6 +267,19 @@ class Property(ModuleInterface):
     def _set_window_visual_state(element: Any, window_visual_state: Any) -> None:
         pattern = Property._get_window_pattern_from_element(element)
         pattern.SetWindowVisualState(window_visual_state)
+
+    @staticmethod
+    def _is_window_pattern_supported(element: Any):
+        return element.Patterns.Window.IsSupported
+
+    @staticmethod
+    def _is_text_pattern_supported(element: Any):
+        return element.Patterns.Text.IsSupported
+
+    @staticmethod
+    def _is_toggle_pattern_supported(element: Any):
+        return element.Patterns.Toggle.IsSupported
+
 
     @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
