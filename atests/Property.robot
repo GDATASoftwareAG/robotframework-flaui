@@ -25,6 +25,11 @@ Get Background Color
     ${color}      Get Background Color  ${TEXT_ELEMENT}
     Should Be Equal    ${color}  ${expected_color}
 
+Get Background Color From Element
+    ${expected_color}  Evaluate  (0, 0, 0, 0)
+    ${color}      Get Property From Element  ${TEXT_ELEMENT}  BACKGROUND_COLOR
+    Should Be Equal    ${color}  ${expected_color}
+
 Background Color Should Be
     ${expected_color}  Evaluate  (0, 0, 0, 0)
     Background Color Should Be  ${TEXT_ELEMENT}  ${expected_color}
@@ -38,6 +43,11 @@ Wrong Background Color Should Raise An Exception
 Get Foreground Color
     ${expected_color}  Evaluate  (0, 128, 0, 0)
     ${color}      Get Foreground Color  ${TEXT_ELEMENT}
+    Should Be Equal    ${color}  ${expected_color}
+
+Get Foreground Color From Element
+    ${expected_color}  Evaluate  (0, 128, 0, 0)
+    ${color}      Get Property From Element  ${TEXT_ELEMENT}  FOREGROUND_COLOR
     Should Be Equal    ${color}  ${expected_color}
 
 Foreground Color Should Be
@@ -55,6 +65,11 @@ Get Font Size
     ${font_size}  Get Font Size  ${TEXT_ELEMENT}
     Should Be Equal    ${font_size}  ${expected_font_size}
 
+Get Font Size From Element
+    ${expected_font_size}  Convert To Number  9.0
+    ${font_size}       Get Property From Element  ${TEXT_ELEMENT}  FONT_SIZE
+    Should Be Equal    ${font_size}  ${expected_font_size}
+
 Font Size Should Be
     ${expected_font_size}  Convert To Number  9.0
     ${font_size}  Font Size Should Be  ${TEXT_ELEMENT}  ${expected_font_size}
@@ -70,6 +85,11 @@ Get Font Name
     ${font_name}  Get Font Name  ${TEXT_ELEMENT}
     Should Be Equal    ${font_name}  ${expected_font_name}
 
+Get Font Name From Element
+    ${expected_font_name}  Convert To String  Segoe UI
+    ${font_name}      Get Property From Element  ${TEXT_ELEMENT}  FONT_NAME
+    Should Be Equal    ${font_name}  ${expected_font_name}
+
 Font Name Should Be
     ${expected_font_name}  Convert To String  Segoe UI
     Font Name Should Be  ${TEXT_ELEMENT}  ${expected_font_name}
@@ -83,6 +103,11 @@ Wrong Font Name Should Raise An Exception
 Get Font Weight
     ${expected_font_weight}  Convert To Number  400.0
     ${font_weight}  Get Font Weight  ${TEXT_ELEMENT}
+    Should Be Equal    ${font_weight}  ${expected_font_weight}
+
+Get Font Weight From Element
+    ${expected_font_weight}  Convert To Number  400.0
+    ${font_weight}      Get Property From Element  ${TEXT_ELEMENT}  FONT_WEIGHT
     Should Be Equal    ${font_weight}  ${expected_font_weight}
 
 Font Weight Should Be
@@ -104,6 +129,18 @@ Get Culture
     ELSE
         ${expected_culture}  Convert To String  en-US
         ${culture}  Get Culture  ${TEXT_ELEMENT}
+        Should Be Equal    ${culture}  ${expected_culture}
+    END
+
+Get Culture From Element
+    ${UIA}  Get Variable Value    ${UIA}
+
+    IF  '${UIA}' == 'UIA2'
+        ${ERR_MSG}      Run Keyword And Expect Error   *  Get Property From Element  ${TEXT_ELEMENT}  CULTURE
+        Should Be Equal As Strings  ${EXP_PROPERTY_NOT_SUPPORTED}  ${ERR_MSG}
+    ELSE
+        ${expected_culture}  Convert To String  en-US
+        ${culture}  Get Property From Element  ${TEXT_ELEMENT}  CULTURE
         Should Be Equal    ${culture}  ${expected_culture}
     END
 
@@ -143,6 +180,10 @@ Get Window Visual State
     ${state}  Get Window Visual State  ${WINDOW_ELEMENT}
     Should Be Equal    ${state}  Normal
 
+Get Window Visual State From Element
+    ${state}           Get Property From Element  ${WINDOW_ELEMENT}  WINDOW_VISUAL_STATE
+    Should Be Equal    ${state}  Normal
+
 Window Visual State Should Be
     Window Visual State Should Be  ${WINDOW_ELEMENT}  Normal
 
@@ -153,6 +194,10 @@ Wrong Window Visual State Should Raise An Exception
 Get Window Interaction State
     Focus  ${WINDOW_ELEMENT}
     ${state}  Get Window Interaction State  ${WINDOW_ELEMENT}
+    Should Be Equal    ${state}  ReadyForUserInteraction
+
+Get Window Interaction State From Element
+    ${state}           Get Property From Element  ${WINDOW_ELEMENT}  WINDOW_INTERACTION_STATE
     Should Be Equal    ${state}  ReadyForUserInteraction
 
 Window Interaction State Should Be
@@ -166,6 +211,10 @@ Wrong Window Interaction State Should Raise An Exception
 
 Get Toggle State
     ${state}  Get Toggle State  ${TOGGLE_ELEMENT}
+    Should Be Equal    ${state}  OFF
+
+Get Toggle State From Element
+    ${state}           Get Property From Element  ${TOGGLE_ELEMENT}  TOGGLE_STATE
     Should Be Equal    ${state}  OFF
 
 Toggle State Should Be
@@ -188,6 +237,32 @@ Can Window Be Maximized
     ${result}  Can Window Be Maximized  ${WINDOW_ELEMENT}
     Should Be True  ${result}
 
+Can Window Be Maximized From Element
+    ${result}       Get Property From Element  ${WINDOW_ELEMENT}  CAN_WINDOW_MAXIMIZE
+    Should Be True  ${result}
+
 Can Window Be Minimized
     ${result}  Can Window Be Minimized  ${WINDOW_ELEMENT}
     Should Be True  ${result}
+
+Can Window Be Minimized From Element
+    ${result}       Get Property From Element  ${WINDOW_ELEMENT}  CAN_WINDOW_MINIMIZE
+    Should Be True  ${result}
+
+Is Window Pattern Supported From Element
+    ${result}        Get Property From Element  ${WINDOW_ELEMENT}  IS_WINDOW_PATTERN_SUPPORTED
+    Should Be True   ${result}
+    ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_WINDOW_PATTERN_SUPPORTED
+    Should Be Equal  ${result}  ${False}
+
+Is Text Pattern Supported From Element
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}  IS_TEXT_PATTERN_SUPPORTED
+    Should Be True   ${result}
+    ${result}        Get Property From Element  ${WINDOW_ELEMENT}  IS_TEXT_PATTERN_SUPPORTED
+    Should Be Equal  ${result}  ${False}
+
+Is Toggle Pattern Supported From Element
+    ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_TOGGLE_PATTERN_SUPPORTED
+    Should Be True   ${result}
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}  IS_TOGGLE_PATTERN_SUPPORTED
+    Should Be Equal  ${result}  ${False}

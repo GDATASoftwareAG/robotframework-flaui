@@ -102,6 +102,7 @@ Minimize Window                      Minimize Window  ${EXP_ERR_MSG_XPATH_NOT_FO
 Normalize Window                     Normalize Window  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Can Window Be Maximized              Can Window Be Maximized  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Can Window Be Minimized              Can Window Be Minimized  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get Property From Element            Get Property From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 
 *** Keywords ***
 Execute Keyword And Expect Error Message

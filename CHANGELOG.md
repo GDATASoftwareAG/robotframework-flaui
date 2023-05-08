@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- New Keyword implemented
+    - Get Property From Element
+
 ## [Release][2.0.9] [2.0.9][2.0.8-2.0.9] - 2023-04-04
 
 ### Changed

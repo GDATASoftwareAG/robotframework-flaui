@@ -4,7 +4,7 @@ from FlaUILibrary.flaui.automation.uia import UIA
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
-class PropertyKeywords: # pylint: disable=too-many-public-methods
+class PropertyKeywords:  # pylint: disable=too-many-public-methods
     """
     Interface implementation from robotframework usage for property keywords.
     """
@@ -16,6 +16,65 @@ class PropertyKeywords: # pylint: disable=too-many-public-methods
         ``module`` UIA3 module to handle element interaction.
         """
         self._module = module
+
+    @keyword
+    def get_property_from_element(self, identifier, action, msg=None):
+        # pylint: disable=line-too-long
+        """
+        Returns a supported property value from a given element if supported.
+
+        XPaths syntax is explained in `XPath locator`.
+        
+        Supported operations:
+        | Action | Type | Returns |
+        | BACKGROUND_COLOR | Tuple (Numbers) | (A,R,G,B) |
+        | FOREGROUND_COLOR | Tuple (Numbers) | (A,R,G,B) |
+        | FONT_SIZE | Number | Font size |
+        | FONT_NAME | String | Font name |
+        | FONT_WEIGHT | Float | Font weight |
+        | CULTURE | String | Iso Culture |
+        | WINDOW_VISUAL_STATE | String | "Normal", "Maximized", "Minimized" |
+        | WINDOW_INTERACTION_STATE | String | "Running", "Closing", "ReadyForUserInteraction", "BlockedByModalWindow", "NotResponding" |
+        | TOGGLE_STATE | String | "ON", "OFF", "Indeterminate" |
+        | CAN_WINDOW_MINIMIZE | Bool | True or False |
+        | CAN_WINDOW_MAXIMIZE | Bool | True or False |
+        | IS_WINDOW_PATTERN_SUPPORTED | Bool | True or False |
+        | IS_TEXT_PATTERN_SUPPORTED | Bool | True or False |
+        | IS_TOGGLE_PATTERN_SUPPORTED | Bool | True or False |
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath        |
+        | Pattern is not supported by given element  |
+        | Action is not supported                    |
+        | Try to execute a setter property           |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | action     | string | Action to receive property    |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${value}       Get Property From Element  <XPATH>  <PROPERTY> |
+
+        """
+        # pylint: enable=line-too-long
+        element = self._module.get_element(identifier, msg=msg)
+        action_value = ""
+
+        try:
+            action_value = Property.Action[action.upper()]
+        except KeyError:
+            FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
+
+        if action_value is (Property.Action.MAXIMIZE_WINDOW
+                            or Property.Action.MINIMIZE_WINDOW
+                            or action_value == Property.Action.NORMALIZE_WINDOW):
+            FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
+
+        return self._module.action(action_value,
+                                   Property.create_value_container(element=element, uia=self._module.identifier()),
+                                   msg)
 
     @keyword
     def get_background_color(self, identifier, msg=None):
@@ -67,8 +126,8 @@ class PropertyKeywords: # pylint: disable=too-many-public-methods
         """
         element = self._module.get_element(identifier, msg=msg)
         color = self._module.action(Property.Action.BACKGROUND_COLOR,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+                                    Property.create_value_container(element=element, uia=self._module.identifier()),
+                                    msg)
 
         if color != argb_color:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(color, argb_color))
@@ -123,8 +182,8 @@ class PropertyKeywords: # pylint: disable=too-many-public-methods
         """
         element = self._module.get_element(identifier, msg=msg)
         color = self._module.action(Property.Action.FOREGROUND_COLOR,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+                                    Property.create_value_container(element=element, uia=self._module.identifier()),
+                                    msg)
 
         if color != argb_color:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(color, argb_color))

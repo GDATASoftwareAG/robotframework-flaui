@@ -36,6 +36,7 @@ class FlaUiError(AttributeError):
     ArgumentShouldNotBeList = "The given argument should not be an array"
     PropertyNotSupported = "Property from element is not supported"
     PropertyNotEqual = "Property value '{}' not equal to expected value '{}'"
+    InvalidPropertyArgument = "Set Property can not be executed by Get Property From Element"
 
     @staticmethod
     def raise_fla_ui_error(message):
