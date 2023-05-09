@@ -11,6 +11,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - New Keyword implemented
     - Get Property From Element
 
+### Bugfix
+- Wait Until Element Is Hidden verifies now if element is offscreen
+  - Keyword will be return if element does not exists or element is offscreen
+
 ## [Release][2.0.9] [2.0.9][2.0.8-2.0.9] - 2023-04-04
 
 ### Changed

@@ -57,7 +57,7 @@ class Element(ModuleInterface):
         self._timeout = timeout
 
     @staticmethod
-    def create_value_container(name=None, xpath=None, retries=None, use_exception=None,  msg=None):
+    def create_value_container(name=None, xpath=None, retries=None, use_exception=None, msg=None):
         """
         Helper to create container object.
 
@@ -403,10 +403,11 @@ class Element(ModuleInterface):
         while timer < retries:
 
             try:
-                self._get_element(xpath)
-            except FlaUiError:
+                self._element_should_not_be_visible(xpath)
                 self._set_timeout(old_timeout)
                 return
+            except FlaUiError:
+                pass
 
             time.sleep(1)
             timer += 1
