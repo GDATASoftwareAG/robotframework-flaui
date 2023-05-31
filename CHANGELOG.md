@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.10] [2.0.10][2.0.9-2.0.10] - 2023-05-31
+
 ### Added
 - New Keyword implemented
     - Get Property From Element
@@ -423,7 +425,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.9...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.10...main
+
+[2.0.10]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.10
+
+[2.0.9-2.0.10]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.9...2.0.10
 
 [2.0.9]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.9
 
