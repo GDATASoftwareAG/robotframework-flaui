@@ -1,3 +1,4 @@
+import time
 from enum import Enum
 from typing import Optional, Any
 from FlaUI.Core.Input import Keyboard as FlaUIKeyboard  # pylint: disable=import-error
@@ -19,6 +20,7 @@ class Keyboard(ModuleInterface):
         """
         shortcut: Optional[str]
         shortcuts: Optional[list]
+        delay_in_ms: Optional[int]
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
@@ -26,15 +28,18 @@ class Keyboard(ModuleInterface):
         KEYS_COMBINATIONS = "KEYS_COMBINATIONS"
 
     @staticmethod
-    def create_value_container(shortcut=None, shortcuts=None):
+    def create_value_container(shortcut=None, shortcuts=None, delay_in_ms=None):
         """
         Helper to create container object.
 
         Args:
             shortcut (String): Shortcut command to execute
             shortcuts (List): Shortcut commands to execute as list
+            delay_in_ms (Number): Delay in ms to wait until key was pressed
         """
-        return Keyboard.Container(shortcut=Converter.cast_to_string(shortcut), shortcuts=shortcuts)
+        return Keyboard.Container(shortcut=Converter.cast_to_string(shortcut),
+                                  shortcuts=shortcuts,
+                                  delay_in_ms=delay_in_ms)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -58,8 +63,10 @@ class Keyboard(ModuleInterface):
         """
 
         switcher = {
-            self.Action.KEYS_COMBINATIONS: lambda: self._type_keys_combinations(values["shortcuts"]),
-            self.Action.KEY_COMBINATION: lambda: self._type_key_combination(values["shortcut"])
+            self.Action.KEYS_COMBINATIONS: lambda: self._type_keys_combinations(values["shortcuts"],
+                                                                                values["delay_in_ms"]),
+            self.Action.KEY_COMBINATION: lambda: self._type_key_combination(values["shortcut"],
+                                                                            values["delay_in_ms"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -85,7 +92,7 @@ class Keyboard(ModuleInterface):
         FlaUIKeyboard.Type(text)
 
     @staticmethod
-    def _type_key_combination(key_combination: Any):
+    def _type_key_combination(key_combination: Any, delay_in_ms: Any):
         """
         Execution of key control.
 
@@ -100,11 +107,15 @@ class Keyboard(ModuleInterface):
                 Keyboard._type_text(converting_result)
             elif action == KeyboardInputConverter.InputType.SHORTCUT:
                 Keyboard._type_keys(converting_result)
+
+            if delay_in_ms:
+                time.sleep(int(delay_in_ms) / 1000)
+
         except Exception as ex:
             raise FlaUiError.raise_fla_ui_error(str(ex))
 
     @staticmethod
-    def _type_keys_combinations(keys_combination: Any):
+    def _type_keys_combinations(keys_combination: Any, delay_in_ms: Any):
         """
         Parse a sequence of key controls.
 
@@ -115,6 +126,6 @@ class Keyboard(ModuleInterface):
             raise FlaUiError(FlaUiError.ArgumentShouldBeList)
         try:
             for key_combination in keys_combination:
-                Keyboard._type_key_combination(key_combination)
+                Keyboard._type_key_combination(key_combination, delay_in_ms)
         except Exception as ex:
             raise FlaUiError.raise_fla_ui_error(str(ex))
