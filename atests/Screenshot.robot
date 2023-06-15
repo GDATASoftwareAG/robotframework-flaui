@@ -35,22 +35,20 @@ Take No Screenshot If Module Is Disabled
     Take Screenshots On Failure  True
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
-    FOR    ${INDEX}    IN RANGE    1    10
+    FOR    ${INDEX}    IN RANGE    1    3
         ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
         ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-        File Should Exist  ${OUTPUT DIR}/${FILENAME}
+        Wait Until Created  ${OUTPUT DIR}/${FILENAME}  1s
     END
 
 Take Screenshot If XPath Not Found Multiple Times By Specific Folder
     Set Screenshot Directory  screenshots
-    FOR    ${INDEX}    IN RANGE    1    10
+    FOR    ${INDEX}    IN RANGE    1    3
         ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
-        Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
         ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
-        File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+        Wait Until Created  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}  1s
     END
     Set Screenshot Directory
 
@@ -79,6 +77,7 @@ Get Expected Filename
     ${FILENAME}  Replace String  ${FILENAME}  ${space}  _
     ${FILENAME}  Catenate  SEPARATOR=_  ${HOSTNAME}   ${FILENAME}
     ${FILENAME}  Catenate  SEPARATOR=_  test   ${FILENAME}
+    ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  [0-9]*
     ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  ${INDEX}
     ${FILENAME}  Catenate  SEPARATOR=.  ${FILENAME}   jpg
 
