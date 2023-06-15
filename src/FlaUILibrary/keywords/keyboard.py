@@ -17,22 +17,23 @@ class KeyboardKeywords:
         self._module = module
 
     @keyword
-    def press_key(self, key_combination, identifier=None, msg=None):
+    def press_key(self, key_combination, identifier=None, delay_in_ms=None, msg=None):
         """
-        Keyboard control to execute a user defined one shurcut or text.
+        Keyboard control to execute a user defined one shortcut or text.
 
         Arguments:
-        | Argument         | Type                                  | Description                   |
-        | keys_combination | List of Strings, which should         | Text to be typed by keyboard  |
-        |                  | satisfy one of the following formats: |                               |
-        |                  |    - s'<shortcut>'                    |                               |
-        |                  |    - t'<text>'                        |                               |
-        |                  |    Examples:                          |                               |
-        |                  |    - s'CTRL+A'                        |                               |
-        |                  |    - t'JJJ'                           |                               |
-        |                  |    - s'JJJ' will be executed as text  |                               |
-        | identifier       | String *Optional                      | Optional XPath identifier     |
-        | msg              | String *Optional                      | Custom error message          |
+        | Argument         | Type                                  | Description                                |
+        | keys_combination | List of Strings, which should         | Text to be typed by keyboard               |
+        |                  | satisfy one of the following formats: |                                            |
+        |                  |    - s'<shortcut>'                    |                                            |
+        |                  |    - t'<text>'                        |                                            |
+        |                  |    Examples:                          |                                            |
+        |                  |    - s'CTRL+A'                        |                                            |
+        |                  |    - t'JJJ'                           |                                            |
+        |                  |    - s'JJJ' will be executed as text  |                                            |
+        | identifier       | String *Optional                      | XPath identifier                           |
+        | delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
+        | msg              | String *Optional                      | Custom error message                       |
 
         XPath syntax is explained in `XPath locator`.
 
@@ -93,18 +94,19 @@ class KeyboardKeywords:
         | Press Key  t'A'       ${XPATH_COMBO_BOX_INPUT}                |
         | Press Key  s'CTRL+A'  ${XPATH_COMBO_BOX_INPUT}                |
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
+        | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  500  |
         """
         if identifier is not None:
             self._module.action(Element.Action.FOCUS_ELEMENT,
-                                Element.Container(xpath=identifier, retries=None, name=None),
+                                Element.create_value_container(xpath=identifier, retries=None, name=None),
                                 msg)
 
         self._module.action(Keyboard.Action.KEY_COMBINATION,
-                            Keyboard.create_value_container(shortcut=key_combination),
+                            Keyboard.create_value_container(shortcut=key_combination, delay_in_ms=delay_in_ms),
                             msg)
 
     @keyword
-    def press_keys(self, keys_combinations, identifier=None, msg=None):
+    def press_keys(self, keys_combinations, identifier=None, delay_in_ms=None, msg=None):
         """
         Keyboard control to execute a user defined sequence of shortcuts and text values.
         If identifier set try to attach to given element if
@@ -121,6 +123,7 @@ class KeyboardKeywords:
         |                  |    - t'JJJ'                           |                               |
         |                  |    - s'JJJ' will be executed as text  |                               |
         | identifier       | String *Optional                      | Optional XPath identifier     |
+        | delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
         | msg              | String *Optional                      | Custom error message          |
 
         XPath syntax is explained in `XPath locator`.
@@ -131,18 +134,18 @@ class KeyboardKeywords:
         Press Key supports can only press one key combination at a time
 
         Example:
-        | ***** Variables *****                                                 |
-        | @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                 |
-        |                                                                       |
-        | ***** Test Cases *****                                                |
-        | ...Keyboard usage in Test Case...                                     |
-        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT} |
+        | ***** Variables *****                                                      |
+        | @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                      |
+        |                                                                            |
+        | ***** Test Cases *****                                                     |
+        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}      |
+        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500 |
         """
         if identifier is not None:
             self._module.action(Element.Action.FOCUS_ELEMENT,
-                                Element.Container(xpath=identifier, retries=None, name=None),
+                                Element.create_value_container(xpath=identifier, retries=None, name=None),
                                 msg)
 
         self._module.action(Keyboard.Action.KEYS_COMBINATIONS,
-                            Keyboard.create_value_container(shortcuts=keys_combinations),
+                            Keyboard.create_value_container(shortcuts=keys_combinations, delay_in_ms=delay_in_ms),
                             msg)

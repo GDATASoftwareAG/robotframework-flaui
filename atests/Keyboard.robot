@@ -17,6 +17,7 @@ Documentation   Test suite for keyboard keywords.
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
+Library         DateTime
 
 Resource        util/Common.robot
 Resource        util/Error.robot
@@ -50,6 +51,28 @@ ${KEYBOARD_INPUT_PASTE}            s'CTRL+V'
 @{KEYBOARD_INPUT_TEXT_SHORTCUT}    t'${EXP_VALUE_INPUT_TEXT}'  s'CTRL+A'  s'CTRL+C'  s'END'  s'CTRL+V'
 
 *** Test Cases ***
+Keyboard Type Text By Delay
+    ${TIME_BEFORE}  Get Current Date
+	Press Key  ${KEYBOARD_INPUT_TEXT}   ${XPATH_INPUT_FIELD}  200
+    Press Key  ${KEYBOARD_INPUT_TEXT}   ${XPATH_INPUT_FIELD}  200
+	${TIME_AFTER}  Get Current Date
+    ${TEXT}  Get Text From Textbox  ${XPATH_INPUT_FIELD}
+	Should Be Equal  ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}  ${TEXT}
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 0.4
+    Should Be True  ${TOTAL_MS} < 0.8
+
+Keyboard Types Text By Delay
+    ${TIME_BEFORE}  Get Current Date
+	Press Keys  ${KEYBOARD_INPUT_OVERRIDE_TEXT}   ${XPATH_INPUT_FIELD}  200
+    Press Keys  ${KEYBOARD_INPUT_OVERRIDE_TEXT}   ${XPATH_INPUT_FIELD}  200
+	${TIME_AFTER}  Get Current Date
+    ${TEXT}  Get Text From Textbox  ${XPATH_INPUT_FIELD}
+	Should Be Equal  ${EXP_VALUE_OVERRIDE_INPUT_TEXT}  ${TEXT}
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 0.4
+    Should Be True  ${TOTAL_MS} < 1.2
+
 Keyboard Type Text
 	Press Key  ${KEYBOARD_INPUT_TEXT}   ${XPATH_INPUT_FIELD}
     ${TEXT}  Get Text From Textbox  ${XPATH_INPUT_FIELD}

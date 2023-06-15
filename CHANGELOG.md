@@ -7,6 +7,15 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- Keyword Press Key and Press Keys contains now a delay in ms usage as parameter
+    - Press Key  ${KEYBOARD_INPUT_TEXT}   ${XPATH_INPUT_FIELD}  200
+    - Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500
+    - If error message parameter is in usage this parameter will be interpreted as delay now
+      - Recommendation to avoid such issues is to use msg key by any keyword
+        - Press Key  ${KEYBOARD_INPUT_TEXT}   ${XPATH_INPUT_FIELD}  msg=Error Message
+        - Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  msg=Error Message
+
 ### Fixed
 
 - Take Screenshot keyword will now persist manually created screenshots
