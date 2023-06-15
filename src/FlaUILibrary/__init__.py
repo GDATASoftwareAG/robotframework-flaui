@@ -156,17 +156,19 @@ class FlaUILibrary(DynamicCore):
     def _start_test(self, name, attrs):  # pylint: disable=unused-argument
         self.mode = FlaUILibrary.RobotMode.TEST_RUNNING
         self.screenshots.name = name.replace(" ", "_").lower()
-        self.screenshots.execute_action(Screenshot.Action.RESET, ValueContainer())
+        self.screenshots.execute_action(Screenshot.Action.RESET,
+                                        Screenshot.create_value_container())
 
     def _end_test(self, name, attrs):  # pylint: disable=unused-argument
         self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         if attrs['status'] == 'PASS' and self.screenshots.is_enabled:
-            if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS, ValueContainer()):
+            if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS,
+                                                   Screenshot.create_value_container()):
                 robotlog.log("Not all files were deleted")
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
         if attrs['status'] == 'FAIL' \
                 and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
                 and self.screenshots.is_enabled:
-            # Keyword usage here to include to robot reporting log
-            self.keyword_modules[FlaUILibrary.KeywordModules.SCREENSHOT].take_screenshot()
+            self.screenshots.execute_action(Screenshot.Action.CAPTURE,
+                                            Screenshot.create_value_container())

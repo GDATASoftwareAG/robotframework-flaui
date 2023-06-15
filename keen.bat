@@ -48,6 +48,8 @@ EXIT /B %result_uia3%
     call:test_uia3
     if %result%==0 set /A result = %ERRORLEVEL%
     call rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
+    call xcopy .\result\uia2\screenshots .\result\screenshots\
+    call xcopy .\result\uia3\screenshots .\result\screenshots\
     call python parsly.py
 EXIT /B %result%
 

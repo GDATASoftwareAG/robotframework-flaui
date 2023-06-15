@@ -2,7 +2,6 @@ from robotlibcore import keyword
 from robot.utils import is_truthy
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module.screenshot import Screenshot
-from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.flaui.automation.uia import UIA
 
 
@@ -27,7 +26,8 @@ class ScreenshotKeywords:
         Example:
         | Take Screenshot |
         """
-        filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE, ValueContainer())
+        filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
+                                                    Screenshot.create_value_container(persist=True))
         robotlog.log_screenshot(filepath)
         return filepath
 

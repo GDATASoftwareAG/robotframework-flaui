@@ -7,6 +7,18 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Fixed
+
+- Take Screenshot keyword will now persist manually created screenshots
+    - Automatic screenshots by failures will be still deleted
+    - Screenshots contains now a timestamp
+      - Required if multiple test executions are triggered by seperated names for example UIA2 and UIA3 testing
+      - Screenshot has to be copied after rebot merge because paths are relative to test execution folder
+         - Example usage 
+         - call rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
+         - call xcopy .\result\uia2\screenshots .\result\screenshots\
+         - call xcopy .\result\uia3\screenshots .\result\screenshots\
+
 ## [Release][2.0.10] [2.0.10][2.0.9-2.0.10] - 2023-05-31
 
 ### Added
