@@ -87,6 +87,7 @@ Is Visible                           Is Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND} 
 Get Window Visual State              Get Window Visual State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Window Interaction State         Get Window Interaction State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Toggle State                     Get Toggle State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Get All Data From Grid               Get All Data From Grid  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Toggle                               Toggle  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Background Color Should Be           Background Color Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY
 Foreground Color Should Be           Foreground Color Should Be  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ANY

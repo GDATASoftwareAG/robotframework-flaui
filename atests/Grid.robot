@@ -16,6 +16,7 @@ Documentation   Test suite for grid ui keyword usage.
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         Process
 Library         StringFormat
+Library         Collections
 
 Resource        util/Common.robot
 Resource        util/Error.robot
@@ -29,6 +30,16 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 ${XPATH_GRID_VIEW}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
 
 *** Test Cases ***
+Get All Data From Grid
+    ${DATA}  Get All Data From Grid  ${XPATH_GRID_VIEW}
+    List Should Contain Value    ${DATA}[0]  Name
+    List Should Contain Value    ${DATA}[0]  Number
+    List Should Contain Value    ${DATA}[0]  IsChecked
+    List Should Contain Value    ${DATA}[1]  John
+    List Should Contain Value    ${DATA}[1]  12
+    List Should Contain Value    ${DATA}[2]  Doe
+    List Should Contain Value    ${DATA}[2]  24
+
 Get Selected Grid Rows If Nothing Is Selected
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Be Empty  ${DATA}
