@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- Keyword Get All Data From Grid implemented to get all data values includes header as list of arrays.
+
 ## [Release][2.0.11] [2.0.11][2.0.10-2.0.11] - 2023-06-15
 
 ### Added

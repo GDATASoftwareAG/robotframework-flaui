@@ -29,6 +29,7 @@ class Grid(ModuleInterface):
         GET_ROW_COUNT = "GET_ROW_COUNT"
         SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
         GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
+        GET_ALL_DATA = "GET_ALL_DATA"
 
     @staticmethod
     def create_value_container(element=None, index=None, name=None, msg=None):
@@ -69,6 +70,10 @@ class Grid(ModuleInterface):
             * values ["element"]
             * Returns : String from all selected rows split up by pipe.
 
+         *  Action.GET_ALL_DATA_FROM_GRID
+            * values ["element"]
+            * Returns : Array from all elements by grid.
+
         Raises:
             FlaUiError: If action is not supported.
 
@@ -84,10 +89,41 @@ class Grid(ModuleInterface):
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
                                                                              values["index"],
                                                                              values["name"]),
-            self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"])
+            self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
+            self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+
+    @staticmethod
+    def _get_all_data(control: Any):
+        """
+        Try to get all selected rows as string.
+
+        Args:
+            control (Object): List view to select items.
+
+        Returns:
+            String from all selected items separated as pipe for example | Value_1 | Value_2 |
+        """
+        values = []
+        data = []
+
+        for column in control.Header.Columns:
+            data.append(column.Text)
+
+        values.append(data)
+
+        for row in control.Rows:
+            data = []
+            for cell in row.Cells:
+                if "NewItemPlaceholder" not in cell.Value:
+                    data.append(cell.Value)
+
+            if data:
+                values.append(data)
+
+        return values
 
     @staticmethod
     def _get_selected_rows(control: Any):
