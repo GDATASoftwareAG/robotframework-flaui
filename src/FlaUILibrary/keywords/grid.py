@@ -18,6 +18,34 @@ class GridKeywords:
         self._module = module
 
     @keyword
+    def get_all_data_from_grid(self, identifier, msg=None):
+        """
+        Get all data from a grid as an array collection.
+
+        Includes all header values as first element from list.
+
+        For example data grid:
+        [
+          [ "Value_1", "Value_2", "Value_3" ],
+          [ "Data_1", "Data_2", "Data_3" ],
+        ]
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${data}  Get All Data From Grid  <XPath>   |
+        """
+        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return self._module.action(Grid.Action.GET_ALL_DATA, Grid.create_value_container(element=element), msg)
+
+    @keyword
     def get_selected_grid_rows(self, identifier, msg=None):
         """
         Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string

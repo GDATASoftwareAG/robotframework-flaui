@@ -36,9 +36,11 @@ class Property(ModuleInterface):
         NORMALIZE_WINDOW = "NORMALIZE_WINDOW"
         CAN_WINDOW_MINIMIZE = "CAN_WINDOW_MINIMIZE"
         CAN_WINDOW_MAXIMIZE = "CAN_WINDOW_MAXIMIZE"
+        IS_READ_ONLY = "IS_READ_ONLY"
         IS_WINDOW_PATTERN_SUPPORTED = "IS_WINDOW_PATTERN_SUPPORTED"
         IS_TEXT_PATTERN_SUPPORTED = "IS_TEXT_PATTERN_SUPPORTED"
         IS_TOGGLE_PATTERN_SUPPORTED = "IS_TOGGLE_PATTERN_SUPPORTED"
+        IS_VALUE_PATTERN_SUPPORTED = "IS_VALUE_PATTERN_SUPPORTED"
 
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
@@ -116,7 +118,11 @@ class Property(ModuleInterface):
             * Values ["element"] : Verification if window can be maximized.
             * Returns : Return True if supported otherwise False
 
-         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED
+         *  Action.IS_READ_ONLY
+            * Values ["element"] : Verification if element is read only.
+            * Returns : Return True/False otherwise Pattern not supported exception
+
+         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED, IS_VALUE_PATTERN_SUPPORTED
             * Values ["element"] : Verification if pattern is supported to element.
             * Returns : Return True if supported otherwise False
 
@@ -137,7 +143,7 @@ class Property(ModuleInterface):
             self.Action.CULTURE: lambda: self._get_culture(values["element"], values["uia"]),
             self.Action.IS_HIDDEN: lambda: self._is_hidden(values["element"], values["uia"]),
             self.Action.WINDOW_VISUAL_STATE: lambda: self._get_window_visual_state(values["element"]),
-            self.Action.WINDOW_INTERACTION_STATE: lambda : self._get_window_interaction_state(values["element"]),
+            self.Action.WINDOW_INTERACTION_STATE: lambda: self._get_window_interaction_state(values["element"]),
             self.Action.TOGGLE_STATE: lambda: self._get_toggle_state(values["element"]),
             self.Action.MAXIMIZE_WINDOW: lambda: self._set_window_visual_state(values["element"],
                                                                                WindowVisualState.Maximized),
@@ -147,9 +153,11 @@ class Property(ModuleInterface):
                                                                                 WindowVisualState.Normal),
             self.Action.CAN_WINDOW_MAXIMIZE: lambda: self._can_window_maximize(values["element"]),
             self.Action.CAN_WINDOW_MINIMIZE: lambda: self._can_window_minimize(values["element"]),
+            self.Action.IS_READ_ONLY: lambda: self._is_read_only(values["element"]),
             self.Action.IS_WINDOW_PATTERN_SUPPORTED: lambda: self._is_window_pattern_supported(values["element"]),
             self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
             self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
+            self.Action.IS_VALUE_PATTERN_SUPPORTED: lambda: self._is_value_pattern_supported(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -212,9 +220,9 @@ class Property(ModuleInterface):
     def _is_hidden(element: Any, uia: str) -> bool:
         pattern = Property._get_text_pattern_from_element(element)
         if uia == "UIA2":
-            return bool(pattern.DocumentRange.GetAttributeValue(AttributesUia2.IsHidden))
+            return Property._prop_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia2.IsHidden))
 
-        return bool(pattern.DocumentRange.GetAttributeValue(AttributesUia3.IsHidden))
+        return Property._prop_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia3.IsHidden))
 
     @staticmethod
     def _get_toggle_state(element: Any) -> str:
@@ -222,7 +230,7 @@ class Property(ModuleInterface):
         return str(pattern.ToggleState.Value.ToString()).upper()
 
     @staticmethod
-    def _get_window_interaction_state(element: Any):
+    def _get_window_interaction_state(element: Any) -> str:
         pattern = Property._get_window_pattern_from_element(element)
         return str(pattern.WindowInteractionState.Value.ToString())
 
@@ -256,12 +264,12 @@ class Property(ModuleInterface):
     @staticmethod
     def _can_window_minimize(element: Any) -> bool:
         pattern = Property._get_window_pattern_from_element(element)
-        return bool(pattern.CanMinimize)
+        return Property._prop_to_bool(pattern.CanMinimize)
 
     @staticmethod
     def _can_window_maximize(element: Any) -> bool:
         pattern = Property._get_window_pattern_from_element(element)
-        return bool(pattern.CanMaximize)
+        return Property._prop_to_bool(pattern.CanMaximize)
 
     @staticmethod
     def _set_window_visual_state(element: Any, window_visual_state: Any) -> None:
@@ -269,17 +277,29 @@ class Property(ModuleInterface):
         pattern.SetWindowVisualState(window_visual_state)
 
     @staticmethod
-    def _is_window_pattern_supported(element: Any):
-        return element.Patterns.Window.IsSupported
+    def _is_read_only(element: Any) -> bool:
+        if Property._is_value_pattern_supported(element):
+            pattern = element.Patterns.Value.Pattern
+            if pattern is not None:
+                return Property._prop_to_bool(pattern.IsReadOnly)
+
+        raise FlaUiError(FlaUiError.PropertyNotSupported)
 
     @staticmethod
-    def _is_text_pattern_supported(element: Any):
-        return element.Patterns.Text.IsSupported
+    def _is_window_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.Window.IsSupported)
 
     @staticmethod
-    def _is_toggle_pattern_supported(element: Any):
-        return element.Patterns.Toggle.IsSupported
+    def _is_text_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.Text.IsSupported)
 
+    @staticmethod
+    def _is_toggle_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.Toggle.IsSupported)
+
+    @staticmethod
+    def _is_value_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.Value.IsSupported)
 
     @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
@@ -288,3 +308,12 @@ class Property(ModuleInterface):
         red = (argb_int >> 16) & 255
         alpha = (argb_int >> 24) & 255
         return red, green, blue, alpha
+
+    @staticmethod
+    def _prop_to_bool(prop: Any) -> bool:
+
+        if isinstance(prop, bool):
+            return bool(prop)
+
+        # Should be from type FlaUI.Core.AutomationProperty[Boolean]
+        return bool(prop.Value)
