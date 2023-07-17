@@ -19,7 +19,6 @@ ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='Te
 ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 
 *** Test Cases ***
-
 Get Background Color
     ${expected_color}  Evaluate  (0, 0, 0, 0)
     ${color}      Get Background Color  ${TEXT_ELEMENT}
@@ -249,6 +248,10 @@ Can Window Be Minimized From Element
     ${result}       Get Property From Element  ${WINDOW_ELEMENT}  CAN_WINDOW_MINIMIZE
     Should Be True  ${result}
 
+Is Read Only
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}  IS_READ_ONLY
+    Should Be Equal  ${result}  ${False}
+
 Is Window Pattern Supported From Element
     ${result}        Get Property From Element  ${WINDOW_ELEMENT}  IS_WINDOW_PATTERN_SUPPORTED
     Should Be True   ${result}
@@ -256,7 +259,7 @@ Is Window Pattern Supported From Element
     Should Be Equal  ${result}  ${False}
 
 Is Text Pattern Supported From Element
-    ${result}        Get Property From Element  ${TEXT_ELEMENT}  IS_TEXT_PATTERN_SUPPORTED
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}    IS_TEXT_PATTERN_SUPPORTED
     Should Be True   ${result}
     ${result}        Get Property From Element  ${WINDOW_ELEMENT}  IS_TEXT_PATTERN_SUPPORTED
     Should Be Equal  ${result}  ${False}
@@ -264,5 +267,11 @@ Is Text Pattern Supported From Element
 Is Toggle Pattern Supported From Element
     ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_TOGGLE_PATTERN_SUPPORTED
     Should Be True   ${result}
-    ${result}        Get Property From Element  ${TEXT_ELEMENT}  IS_TOGGLE_PATTERN_SUPPORTED
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}    IS_TOGGLE_PATTERN_SUPPORTED
+    Should Be Equal  ${result}  ${False}
+
+Is Value Pattern Supported From Element
+    ${result}        Get Property From Element  ${TEXT_ELEMENT}    IS_VALUE_PATTERN_SUPPORTED
+    Should Be True   ${result}
+    ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_VALUE_PATTERN_SUPPORTED
     Should Be Equal  ${result}  ${False}

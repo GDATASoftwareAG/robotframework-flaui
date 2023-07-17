@@ -38,9 +38,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | TOGGLE_STATE | String | "ON", "OFF", "Indeterminate" |
         | CAN_WINDOW_MINIMIZE | Bool | True or False |
         | CAN_WINDOW_MAXIMIZE | Bool | True or False |
+        | IS_READ_ONLY | Bool | True or False |
         | IS_WINDOW_PATTERN_SUPPORTED | Bool | True or False |
         | IS_TEXT_PATTERN_SUPPORTED | Bool | True or False |
         | IS_TOGGLE_PATTERN_SUPPORTED | Bool | True or False |
+        | IS_VALUE_PATTERN_SUPPORTED | Bool | True or False |
 
         Possible FlaUI-Errors:
         | Element could not be found by xpath        |
