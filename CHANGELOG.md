@@ -8,7 +8,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
 ### Added
+- Python 3.11 Support
 - Keyword Get All Data From Grid implemented to get all data values includes header as list of arrays.
+- Include additional Get Property From Element parameters
+  - IS_VALUE_PATTERN_SUPPORTED
+  - IS_READ_ONLY
 
 ## [Release][2.0.11] [2.0.11][2.0.10-2.0.11] - 2023-06-15
 
