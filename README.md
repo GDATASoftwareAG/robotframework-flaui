@@ -20,7 +20,7 @@
 [python_38]: https://img.shields.io/badge/Python-3.8-blue
 [python_39]: https://img.shields.io/badge/Python-3.9-blue
 [python_310]: https://img.shields.io/badge/Python-3.10-blue
-[python_311]: https://img.shields.io/badge/Python%203.11-blue
+[python_311]: https://img.shields.io/badge/Python-3.11-blue
 
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
