@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.12] [2.0.12][2.0.11-2.0.12] - 2023-07-18
+
 ### Added
 - Python 3.11 Support
 - Keyword Get All Data From Grid implemented to get all data values includes header as list of arrays.
@@ -455,7 +457,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.11...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.12...main
+
+[2.0.12]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.12
+
+[2.0.11-2.0.12]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.11...2.0.12
 
 [2.0.11]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.11
 
