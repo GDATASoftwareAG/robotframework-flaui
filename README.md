@@ -1,6 +1,8 @@
 # Robotframework-FlaUI Library
 
 [license]: https://img.shields.io/github/license/GDATASoftwareAG/robotframework-flaui?style=flat-square
+[py37x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x86/main?label=3.7&style=flat-square
+[py37x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.7%20x64/main?label=3.7&style=flat-square
 [py38x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x86/main?label=3.8&style=flat-square
 [py38x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.8%20x64/main?label=3.8&style=flat-square
 [py39x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.9%20x86/main?label=3.9&style=flat-square
@@ -29,15 +31,15 @@
 
 [![Join the chat at https://matrix.to/#/#robot-flaui-lobby:gitter.im](https://badges.gitter.im/repo.svg)](https://matrix.to/#/#robot-flaui-lobby:gitter.im)
 
-|                          |                                                              |
-|---                       |--------------------------------------------------------------|
-| License                  | ![][license]                                                 |
-| Python Builds (x86)      | ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86]        |
-| Python Builds (x64)      | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64]        |
-| Tests                    | [![][tests]][tests_url]                                      |
+|                          |                                                                              |
+|---                       |------------------------------------------------------------------------------|
+| License                  | ![][license]                                                                 |
+| Python Builds (x86)      | ![][py37x86] ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86]           |
+| Python Builds (x64)      | ![][py37x64] ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64]           |
+| Tests                    | [![][tests]][tests_url]                                                      |
 | Python                   | ![][python_37] ![][python_38] ![][python_39] ![][python_310] ![][python_311] |
-| Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                          |
-| PyPi                     | [![][pypi]][pypi_url]                                        |
+| Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                                          |
+| PyPi                     | [![][pypi]][pypi_url]                                                        |
 
 ## Introduction
 
