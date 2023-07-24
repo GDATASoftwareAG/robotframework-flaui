@@ -36,7 +36,7 @@ Take No Screenshot If Module Is Disabled
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
     FOR    ${INDEX}    IN RANGE    1    3
-        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}
         ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
         Wait Until Created  ${OUTPUT DIR}/${FILENAME}  1s
@@ -45,7 +45,7 @@ Take Screenshot If XPath Not Found Multiple Times Default Folder
 Take Screenshot If XPath Not Found Multiple Times By Specific Folder
     Set Screenshot Directory  screenshots
     FOR    ${INDEX}    IN RANGE    1    3
-        ${FILENAME}  Get Expected Filename  ${TEST_NAME}  ${INDEX}
+        ${FILENAME}  Get Expected Filename  ${TEST_NAME}
         ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
         Wait Until Created  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}  1s
@@ -66,9 +66,19 @@ Take Manual Screenshot By Keyword
     Set Screenshot Directory
     Take Screenshots On Failure  True
 
+Test Case 1234: Something to Test
+    Set Screenshot Directory  screenshots
+
+    ${FILENAME}  Get Expected Filename  Test Case 1234 Something to Test
+
+    File Should Not Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Take Screenshot
+    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Set Screenshot Directory
+
 *** Keywords ***
 Get Expected Filename
-    [Arguments]  ${TEST_NAME}  ${INDEX}=1
+    [Arguments]  ${TEST_NAME}
     ${FILENAME}  Convert To Lowercase  ${TEST_NAME}
     ${HOSTNAME}  Convert To Lowercase  %{COMPUTERNAME}
 
@@ -78,7 +88,7 @@ Get Expected Filename
     ${FILENAME}  Catenate  SEPARATOR=_  ${HOSTNAME}   ${FILENAME}
     ${FILENAME}  Catenate  SEPARATOR=_  test   ${FILENAME}
     ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  [0-9]*
-    ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  ${INDEX}
+    ${FILENAME}  Catenate  SEPARATOR=_  ${FILENAME}  [0-9]*
     ${FILENAME}  Catenate  SEPARATOR=.  ${FILENAME}   jpg
 
     [Return]  ${FILENAME}

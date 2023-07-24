@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Bugfix
+- Screenshot module removes invalid special characters from testcase name and hostname.
+  - For example 'Test Case 1234: Something to Test'
+
 ## [Release][2.0.12] [2.0.12][2.0.11-2.0.12] - 2023-07-18
 
 ### Added

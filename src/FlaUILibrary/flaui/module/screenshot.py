@@ -92,13 +92,17 @@ class Screenshot(ModuleInterface):
 
         try:
             if persist:
-                filepath = os.path.join(self._get_path(), self._filename.format(self._hostname,
-                                                                                self.name,
+                filepath = os.path.join(self._get_path(), self._filename.format(self._clean_invalid_windows_syntax(
+                                                                                    self._hostname),
+                                                                                self._clean_invalid_windows_syntax(
+                                                                                    self.name),
                                                                                 self._get_current_time_in_ms(),
                                                                                 self._persist_index))
             else:
-                filepath = os.path.join(self._get_path(), self._filename.format(self._hostname,
-                                                                                self.name,
+                filepath = os.path.join(self._get_path(), self._filename.format(self._clean_invalid_windows_syntax(
+                                                                                    self._hostname),
+                                                                                self._clean_invalid_windows_syntax(
+                                                                                    self.name),
                                                                                 self._get_current_time_in_ms(),
                                                                                 self._temp_index))
 
@@ -181,6 +185,10 @@ class Screenshot(ModuleInterface):
         """
         self._temp_index = 1
         self._temp_screenshots.clear()
+
+    @staticmethod
+    def _clean_invalid_windows_syntax(filename, special_characters="\"|%:/,.\\[]<>*?"):
+        return ''.join([c for c in filename if c not in special_characters])
 
     @staticmethod
     def _get_current_time_in_ms():
