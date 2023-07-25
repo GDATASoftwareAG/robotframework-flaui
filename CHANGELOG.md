@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.13] [2.0.13][2.0.12-2.0.13] - 2023-07-25
+
 ### Bugfix
 - Screenshot module removes invalid special characters from testcase name and hostname.
   - For example 'Test Case 1234: Something to Test'
@@ -461,7 +463,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.12...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.13...main
+
+[2.0.13]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.13
+
+[2.0.12-2.0.13]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.12...2.0.13
 
 [2.0.12]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.12
 
