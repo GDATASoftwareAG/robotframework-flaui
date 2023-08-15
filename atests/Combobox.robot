@@ -36,6 +36,16 @@ ${COMBO_BOX_NO_ITEM}        No Such Item
 ${COMBO_BOX_COUNT}          4
 ${COMBO_BOX_ITEM_SELECT}    2
 
+*** Keywords ***
+Check Combobox State
+    [Arguments]  ${identifier}  ${expected_state}
+    # Args:
+    #    expected_state: Collapsed | Expanded
+    ${actual_state}  Get Property From Element  ${identifier}  EXPAND_COLLAPSE_STATE
+    IF  '${actual_state}' != '${expected_state}'
+        Run Keyword And Continue On Failure  Fail  <Expect State: ${expected_state}>\n<Actual State: ${actual_state}>
+    END
+
 *** Test Cases ***
 Get All Selected Texts From Combobox If Nothing Is Selected
     ${DATA}  Get All Selected Texts From Combobox  ${XPATH_COMBO_BOX}
@@ -69,13 +79,16 @@ Get All Selected Names From Combobox
 
 Combobox Should Contain
     Combobox Should Contain  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM}
+    Check Combobox State  ${XPATH_COMBO_BOX}  Collapsed
 
 Combobox Should Contain Wrong Item
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}  ${COMBO_BOX_NO_ITEM}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Combobox Should Contain  ${XPATH_COMBO_BOX}  ${COMBO_BOX_NO_ITEM}
+    Check Combobox State  ${XPATH_COMBO_BOX}  Collapsed
 
 Get Combobox Items Count
     ${COUNT}  Get Combobox Items Count  ${XPATH_COMBO_BOX}
+    Check Combobox State  ${XPATH_COMBO_BOX}  Collapsed
     Should Be Equal As Integers  ${COUNT}  ${COMBO_BOX_COUNT}
 
 Select Combobox Item By Index
@@ -100,11 +113,13 @@ Select Combobox Item By Index Wrong Index Usage
 
 Get All Names From Combobox
     ${DATA}  Get All Names From Combobox  ${XPATH_COMBO_BOX}
+    Check Combobox State  ${XPATH_COMBO_BOX}  Collapsed
     ${EXPECTED_LIST}  Create List  Item 1  Item 2  Item 3  Item 4
     Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
 
 Get All Texts From Combobox
     ${DATA}  Get All Texts From Combobox  ${XPATH_COMBO_BOX}
+    Check Combobox State  ${XPATH_COMBO_BOX}  Collapsed
     ${EXPECTED_LIST}  Create List  Item 1  Item 2  Item 3  Item 4
     Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
 
