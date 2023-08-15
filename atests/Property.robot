@@ -17,6 +17,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 ${WINDOW_ELEMENT}          ${MAIN_WINDOW}
 ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='TextBox']
 ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
+${XPATH_COMBO_BOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
 
 *** Test Cases ***
 Get Background Color
@@ -275,3 +276,21 @@ Is Value Pattern Supported From Element
     Should Be True   ${result}
     ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_VALUE_PATTERN_SUPPORTED
     Should Be Equal  ${result}  ${False}
+
+Is Expand Collapse Pattern Supported
+    ${result}  Get Property From Element  ${XPATH_COMBO_BOX}  IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED
+    Should Be True   ${result}
+    ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED
+    Should Be Equal  ${result}  ${False}
+
+Expand Collapse State From Element
+    ${origin_state}  Get Property From Element  ${XPATH_COMBO_BOX}  EXPAND_COLLAPSE_STATE
+    Should Be Equal As Strings  ${origin_state}  Collapsed
+
+    Expand Combobox  ${XPATH_COMBO_BOX}
+    ${first_state}  Get Property From Element  ${XPATH_COMBO_BOX}  EXPAND_COLLAPSE_STATE
+    Should Be Equal As Strings  ${first_state}  Expanded
+
+    Collapse Combobox  ${XPATH_COMBO_BOX}
+    ${second_state}  Get Property From Element  ${XPATH_COMBO_BOX}  EXPAND_COLLAPSE_STATE
+    Should Be Equal As Strings  ${second_state}  Collapsed
