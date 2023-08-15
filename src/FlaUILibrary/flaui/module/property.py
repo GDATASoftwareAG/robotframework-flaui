@@ -41,6 +41,9 @@ class Property(ModuleInterface):
         IS_TEXT_PATTERN_SUPPORTED = "IS_TEXT_PATTERN_SUPPORTED"
         IS_TOGGLE_PATTERN_SUPPORTED = "IS_TOGGLE_PATTERN_SUPPORTED"
         IS_VALUE_PATTERN_SUPPORTED = "IS_VALUE_PATTERN_SUPPORTED"
+        # for ExpandCollapsePattern
+        IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED = "IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED"
+        EXPAND_COLLAPSE_STATE = "EXPAND_COLLAPSE_STATE"
 
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
@@ -158,6 +161,8 @@ class Property(ModuleInterface):
             self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
             self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
             self.Action.IS_VALUE_PATTERN_SUPPORTED: lambda: self._is_value_pattern_supported(values["element"]),
+            self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(values["element"]),
+            self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -302,6 +307,10 @@ class Property(ModuleInterface):
         return Property._prop_to_bool(element.Patterns.Value.IsSupported)
 
     @staticmethod
+    def _is_expand_collapse_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.ExpandCollapse.IsSupported)
+    
+    @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
         blue = argb_int & 255
         green = (argb_int >> 8) & 255
@@ -317,3 +326,18 @@ class Property(ModuleInterface):
 
         # Should be from type FlaUI.Core.AutomationProperty[Boolean]
         return bool(prop.Value)
+    
+    @staticmethod
+    def _get_expand_collapse_pattern_from_element(element) -> Any:
+        if Property._is_expand_collapse_pattern_supported(element):
+            pattern = element.Patterns.ExpandCollapse.Pattern
+            if pattern is not None:
+                return pattern
+
+        raise FlaUiError(FlaUiError.PatternNotSupported.format("ExpandCollapse"))
+    
+    @staticmethod
+    def _get_expand_collapse_pattern_state(element: Any) -> str:
+        pattern = Property._get_expand_collapse_pattern_from_element(element)
+        return str(pattern.ExpandCollapseState)
+

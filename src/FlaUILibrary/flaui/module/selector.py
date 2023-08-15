@@ -108,8 +108,8 @@ class Selector(ModuleInterface):
                 lambda: self._should_contain(values["element"], values["name"]),
             self.Action.SHOULD_HAVE_SELECTED_ITEM:
                 lambda: self._should_have_selected_item(values["element"], values["name"]),
-            self.Action.GET_ITEMS_COUNT:
-                lambda: values["element"].Items.Length,
+            self.Action.GET_ITEMS_COUNT: 
+                lambda: self._get_items_count(values["element"]),
             self.Action.GET_ALL_NAMES_FROM_SELECTION:
                 lambda: self._get_all_selected_names(values["element"]),
             self.Action.GET_ALL_TEXTS_FROM_SELECTION:
@@ -171,11 +171,16 @@ class Selector(ModuleInterface):
         Returns:
             True if name from combobox item exists otherwise False.
         """
+        is_contain = False
+        
         for item in control.Items:
             if name in (item.Name, item.Text):
-                return
-
-        raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
+                is_contain = True
+                
+        Selector._restore_for_expand_collapse_pattern(control)
+            
+        if not is_contain:
+            raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
 
     @staticmethod
     def _should_have_selected_item(control: Any, item: Any):
@@ -193,6 +198,12 @@ class Selector(ModuleInterface):
         if item not in names:
             raise FlaUiError(FlaUiError.ItemNotSelected.format(item))
 
+    @staticmethod
+    def _get_items_count(control: Any):
+        count = control.Items.Length
+        Selector._restore_for_expand_collapse_pattern(control)
+        return count
+        
     @staticmethod
     def _get_all_selected_names(control: Any):
         """
@@ -245,6 +256,8 @@ class Selector(ModuleInterface):
         for item in control.Items:
             names.append(item.Name)
 
+        Selector._restore_for_expand_collapse_pattern(control)
+        
         return names
 
     @staticmethod
@@ -263,4 +276,16 @@ class Selector(ModuleInterface):
         for item in control.Items:
             texts.append(item.Text)
 
+        Selector._restore_for_expand_collapse_pattern(control)
+        
         return texts
+
+    @staticmethod
+    def _restore_for_expand_collapse_pattern(control: Any):
+        is_supported = control.Patterns.ExpandCollapse.IsSupported
+        is_supported = bool(is_supported) if isinstance(is_supported, bool) else bool(is_supported.Value)
+        if is_supported:
+            pattern = control.Patterns.ExpandCollapse.Pattern
+            state = str(pattern.ExpandCollapseState)
+            if state == "Expanded":
+                control.Collapse() 
