@@ -108,7 +108,7 @@ class Selector(ModuleInterface):
                 lambda: self._should_contain(values["element"], values["name"]),
             self.Action.SHOULD_HAVE_SELECTED_ITEM:
                 lambda: self._should_have_selected_item(values["element"], values["name"]),
-            self.Action.GET_ITEMS_COUNT: 
+            self.Action.GET_ITEMS_COUNT:
                 lambda: self._get_items_count(values["element"]),
             self.Action.GET_ALL_NAMES_FROM_SELECTION:
                 lambda: self._get_all_selected_names(values["element"]),
