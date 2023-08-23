@@ -18,6 +18,8 @@ ${WINDOW_ELEMENT}          ${MAIN_WINDOW}
 ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='TextBox']
 ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 ${XPATH_COMBO_BOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
+${EDITABLE_COMBOX}         ${MAIN_WINDOW}/Tab/TabItem[1]/ComboBox[1]
+${EDITABLE_COMBOX_EDIT}    ${EDITABLE_COMBOX}/Edit
 
 *** Test Cases ***
 Get Background Color
@@ -276,6 +278,19 @@ Is Value Pattern Supported From Element
     Should Be True   ${result}
     ${result}        Get Property From Element  ${TOGGLE_ELEMENT}  IS_VALUE_PATTERN_SUPPORTED
     Should Be Equal  ${result}  ${False}
+
+Value Pattern Value From Element
+    Select Combobox Item By Index  ${EDITABLE_COMBOX}  0
+    ${value}  Get Property From Element  ${EDITABLE_COMBOX_EDIT}  VALUE
+    Should Be Equal As Strings  ${value}  Item 1
+
+    Select Combobox Item By Index  ${EDITABLE_COMBOX}  1
+    ${value}  Get Property From Element  ${EDITABLE_COMBOX_EDIT}  VALUE
+    Should Be Equal As Strings  ${value}  Item 2
+
+    Select Combobox Item By Index  ${EDITABLE_COMBOX}  2
+    ${value}  Get Property From Element  ${EDITABLE_COMBOX_EDIT}  VALUE
+    Should Be Equal As Strings  ${value}  Item 3
 
 Is Expand Collapse Pattern Supported
     ${result}  Get Property From Element  ${XPATH_COMBO_BOX}  IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED
