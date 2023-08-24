@@ -167,8 +167,11 @@ class FlaUILibrary(DynamicCore):
                 robotlog.log("Not all files were deleted")
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
-        if attrs['status'] == 'FAIL' \
-                and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
-                and self.screenshots.is_enabled:
-            self.screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                            Screenshot.create_value_container())
+        # Bugfix: issues/119/case3
+        if not str(name).startswith("BuiltIn.Run Keyword"):
+            if attrs['status'] == 'FAIL' \
+                    and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
+                    and self.screenshots.is_enabled:
+                self.screenshots.execute_action(Screenshot.Action.CAPTURE,
+                                                Screenshot.create_value_container())
+        
