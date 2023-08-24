@@ -43,6 +43,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | IS_TEXT_PATTERN_SUPPORTED | Bool | True or False |
         | IS_TOGGLE_PATTERN_SUPPORTED | Bool | True or False |
         | IS_VALUE_PATTERN_SUPPORTED | Bool | True or False |
+        | VALUE | String |  |
         | IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED | Bool | True or False |
         | EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |        
 

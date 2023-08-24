@@ -9,8 +9,14 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Bugfix
 - [#117](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/117) : Combobox will not restore into Collapsed state after calling 4 related keywords. 
+  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist) 
 
 - [#119](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/119) : Getting Duplicate screen shots when ever script is getting failed.
+
+### Enhancement
+- Get Property From Element
+  - New Supported operations: VALUE
+  
 ## [Release][2.0.13] [2.0.13][2.0.12-2.0.13] - 2023-07-25
 
 ### Bugfix
