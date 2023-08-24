@@ -9,7 +9,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Bugfix
 - [#117](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/117) : Combobox will not restore into Collapsed state after calling 4 related keywords. 
-  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist) 
+  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
 
 - [#119](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/119) : Getting Duplicate screen shots when ever script is getting failed.
 
