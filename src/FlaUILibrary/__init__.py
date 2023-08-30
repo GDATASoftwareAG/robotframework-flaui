@@ -167,8 +167,21 @@ class FlaUILibrary(DynamicCore):
                 robotlog.log("Not all files were deleted")
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
+        if name in self.screenshots.blacklist:
+            # Keyword in blacklist do not screenshot anything
+            return
+
         if attrs['status'] == 'FAIL' \
                 and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
                 and self.screenshots.is_enabled:
+
+            # Default no screenshot should persist if keyword failed
+            # For example Run Keyword And Ignore Error
+            persist = False
+
+            if name in self.screenshots.whitelist:
+                # Screenshot should be stored if failed
+                persist = True
+
             self.screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                            Screenshot.create_value_container())
+                                            Screenshot.create_value_container(persist=persist))
