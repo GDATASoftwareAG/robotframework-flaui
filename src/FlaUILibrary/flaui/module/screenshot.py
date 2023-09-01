@@ -22,6 +22,7 @@ class Screenshot(ModuleInterface):
         Value container from screenshot module.
         """
         persist: bool
+        keywords: list
 
     class Action(Enum):
         """
@@ -30,6 +31,10 @@ class Screenshot(ModuleInterface):
         CAPTURE = "CAPTURE"
         RESET = "RESET"
         DELETE_ALL_SCREENSHOTS = "DELETE_ALL_SCREENSHOTS"
+        SET_WHITELIST = "SET_WHITELIST"
+        SET_BLACKLIST = "SET_BLACKLIST"
+        CLEAR_WHITELIST = "CLEAR_WHITELIST"
+        CLEAR_BLACKLIST = "CLEAR_BLACKLIST"
 
     def __init__(self, directory, is_enabled):
         """
@@ -39,6 +44,8 @@ class Screenshot(ModuleInterface):
         """
         self.is_enabled = is_enabled
         self.directory = directory
+        self.whitelist = []
+        self.blacklist = []
         self.name = ""
         self._temp_index = 1
         self._persist_index = 1
@@ -49,14 +56,18 @@ class Screenshot(ModuleInterface):
         self._sleep = 2  # Sleep in seconds
 
     @staticmethod
-    def create_value_container(persist=False):
+    def create_value_container(persist=False, keywords=None):
         """
         Helper to create container object.
 
         Args:
             persist (bool): Flag to persist screenshot or to create only as temp and delete if test was success.
+            keywords (list): List from all blacklisted or whitelisted keywords.
         """
-        return Screenshot.Container(persist=persist)
+        if keywords is None:
+            keywords = []
+
+        return Screenshot.Container(persist=persist, keywords=keywords)
 
     def execute_action(self, action: Action, values: ValueContainer):
         """
@@ -64,6 +75,10 @@ class Screenshot(ModuleInterface):
 
         * Action.CAPTURE
               * Values : ["persist"]
+              * Returns : None
+
+        * Action.SET_WHITELIST || SET_BLACKLIST || CLEAR_WHITELIST || CLEAR_BLACKLIST
+              * Values : ["keywords"]
               * Returns : None
 
         * Action.RESET || DELETE_ALL_SCREENSHOTS
@@ -79,10 +94,26 @@ class Screenshot(ModuleInterface):
         switcher = {
             self.Action.CAPTURE: lambda: self._capture(values["persist"]),
             self.Action.RESET: lambda: self._reset_temp_screenshots(),
-            self.Action.DELETE_ALL_SCREENSHOTS: lambda: self._remove_all_created_screenshots()
+            self.Action.DELETE_ALL_SCREENSHOTS: lambda: self._remove_all_created_screenshots(),
+            self.Action.SET_WHITELIST: lambda : self._set_whitelist(values["keywords"]),
+            self.Action.SET_BLACKLIST: lambda: self._set_blacklist(values["keywords"]),
+            self.Action.CLEAR_WHITELIST: lambda: self._set_whitelist(values["keywords"]),
+            self.Action.CLEAR_BLACKLIST: lambda: self._set_blacklist(values["keywords"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+
+    def _set_whitelist(self, keywords: list):
+        """
+        Sets whitelist to screenshot module.
+        """
+        self.whitelist = keywords
+
+    def _set_blacklist(self, keywords: list):
+        """
+        Sets blacklist to screenshot module.
+        """
+        self.blacklist = keywords
 
     def _capture(self, persist: bool):
         """

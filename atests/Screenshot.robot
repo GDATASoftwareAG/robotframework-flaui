@@ -24,11 +24,8 @@ ${SCREENSHOT_FOLDER}  screenshots
 *** Test Cases ***
 Take No Screenshot If Module Is Disabled
     ${FILENAME}  Get Expected Filename  ${TEST_NAME}
-
     Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-
     ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-
     Take Screenshots On Failure  False
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Click  ${XPATH_NOT_EXISTS}
     File Should Not Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
@@ -43,7 +40,7 @@ Take Screenshot If XPath Not Found Multiple Times Default Folder
     END
 
 Take Screenshot If XPath Not Found Multiple Times By Specific Folder
-    Set Screenshot Directory  screenshots
+    Set Screenshot Directory  ${SCREENSHOT_FOLDER}
     FOR    ${INDEX}    IN RANGE    1    3
         ${FILENAME}  Get Expected Filename  ${TEST_NAME}
         ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -53,9 +50,8 @@ Take Screenshot If XPath Not Found Multiple Times By Specific Folder
     Set Screenshot Directory
 
 Take Manual Screenshot By Keyword
-    Set Screenshot Directory  screenshots
+    Set Screenshot Directory  ${SCREENSHOT_FOLDER}
     ${FILENAME}  Get Expected Filename  ${TEST_NAME}
-
     Remove File  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshots On Failure  False
     ${EXP_ERR_MSG}  StringFormat.Format String  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -67,16 +63,53 @@ Take Manual Screenshot By Keyword
     Take Screenshots On Failure  True
 
 Test Case 1234: Something to Test
-    Set Screenshot Directory  screenshots
-
+    Set Screenshot Directory  ${SCREENSHOT_FOLDER}
     ${FILENAME}  Get Expected Filename  Test Case 1234 Something to Test
-
     File Should Not Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
     File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
 
+No Screenshots Are Created After Blacklist
+    [Setup]       Reset
+    [Teardown]    Reset
+    Set Screenshot Directory  ${SCREENSHOT_FOLDER}
+	${FILENAME}  Get Expected Filename  No Screenshots Are Created After Blacklist
+    @{blacklist}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail
+    Set Screenshot Blacklist  ${blacklist}
+    Run Keyword And Ignore Error  Wait Until Keyword Succeeds  5x  10ms  Fail  You Should Not Pass
+    File Should Not Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Set Screenshot Directory
+
+Screenshots Are Persisted From Whitelist
+    [Setup]       Reset
+    [Teardown]    Reset
+	Set Screenshot Directory  ${SCREENSHOT_FOLDER}
+	${FILENAME}  Get Expected Filename  Screenshots Are Persisted From Whitelist
+    @{whitelist}  Create List  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail
+    Set Screenshot Whitelist  ${whitelist}
+    Run Keyword And Ignore Error  Fail  You Should Not Pass
+    File Should Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Set Screenshot Directory
+
+Blacklist Is Prioritize From Whitelist
+    [Setup]       Reset
+    [Teardown]    Reset
+	Set Screenshot Directory  ${SCREENSHOT_FOLDER}
+	${FILENAME}  Get Expected Filename  Blacklist Is Prioritize From Whitelist
+    @{list}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail
+    Set Screenshot Whitelist  ${list}
+    Set Screenshot Blacklist  ${list}
+    Run Keyword And Ignore Error  Wait Until Keyword Succeeds  5x  10ms  Fail  You Should Not Pass
+    File Should Not Exist  ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Set Screenshot Directory
+
 *** Keywords ***
+Reset
+	Take Screenshots On Failure  True
+	Clear Blacklist
+	Clear Whitelist
+
 Get Expected Filename
     [Arguments]  ${TEST_NAME}
     ${FILENAME}  Convert To Lowercase  ${TEST_NAME}

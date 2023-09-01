@@ -7,7 +7,7 @@ from FlaUILibrary.flaui.automation.uia import UIA
 
 class ScreenshotKeywords:
     """
-    Interface implementation from robotframework usage for screenshot keywords.
+    Interface implementation from Robotframework usage for screenshot keywords.
     """
 
     def __init__(self, module: UIA, screenshots: Screenshot):
@@ -18,6 +18,62 @@ class ScreenshotKeywords:
         """
         self._screenshots = screenshots
         self._module = module
+
+    @keyword
+    def clear_blacklist(self):
+        """ Clears all blacklist entries
+
+        Example:
+        | Clear Blacklist |
+        """
+        self._screenshots.execute_action(Screenshot.Action.CLEAR_BLACKLIST,
+                                         Screenshot.create_value_container())
+
+    @keyword
+    def clear_whitelist(self):
+        """ Clears all whitelist entries
+
+        Example:
+        | Clear Whitelist |
+        """
+        self._screenshots.execute_action(Screenshot.Action.CLEAR_WHITELIST,
+                                         Screenshot.create_value_container())
+
+    @keyword
+    def set_screenshot_whitelist(self, keywords: list):
+        """ Sets a list of whitelisted keywords which should be ignored from screenshot module.
+
+        Full keyword name including library should be used:
+          - Should Contain is wrong because library is missing
+          - BuiltIn.Should Contain is correct usage here
+
+        Important
+          - Blacklist is prioritize from Whitelist
+
+        Example:
+        | @{list}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail|
+        | Set Screenshot Blacklist  ${whitelist} |
+        """
+        self._screenshots.execute_action(Screenshot.Action.SET_WHITELIST,
+                                         Screenshot.create_value_container(keywords=keywords))
+
+    @keyword
+    def set_screenshot_blacklist(self, keywords: list):
+        """ Sets a list of blacklisted keywords which should be ignored from screenshot module.
+
+        Full keyword name including library should be used:
+          - Should Contain is wrong because library is missing
+          - BuiltIn.Should Contain is correct usage here
+
+        Important
+          - Blacklist is prioritize from Whitelist
+
+        Example:
+        | @{list}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail|
+        | Set Screenshot Blacklist  ${list} |
+        """
+        self._screenshots.execute_action(Screenshot.Action.SET_BLACKLIST,
+                                         Screenshot.create_value_container(keywords=keywords))
 
     @keyword
     def take_screenshot(self):

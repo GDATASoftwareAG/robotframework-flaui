@@ -7,6 +7,16 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- [#122](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/122)
+  - Whitelisting and blacklisting keywords implemented for screenshot library
+    - Keywords can be whitelisted to persist if failed for example
+      - BuiltIn.Run Keyword And Ignore Error should track always a screenshot
+    - Keywords can be blacklisted to ignore by screenshot module
+      - BuiltIn.Wait Until Keyword Succeeds to avoid unecessary screenshots
+    - Blacklist is prioritize before Whitelist
+  - New Keywords Clear Whitelist and Clear Blacklist
+
 ### Bugfix
 - [#117](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/117) : Combobox will not restore into Collapsed state after calling 4 related keywords. 
   - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
@@ -16,7 +26,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Enhancement
 - Get Property From Element
   - New Supported operations: VALUE
-  
+
+### Updated
+- Support to Python.Net 3.0.2
+
 ## [Release][2.0.13] [2.0.13][2.0.12-2.0.13] - 2023-07-25
 
 ### Bugfix
