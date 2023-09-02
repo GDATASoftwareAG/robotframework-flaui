@@ -17,19 +17,17 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
     - Blacklist is prioritize before Whitelist
   - New Keywords Clear Whitelist and Clear Blacklist
 
+- Include new operation 'VALUE' to Get Property From Element Keyword
+  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
+
+- Python.Net 3.0.2 support
+
 ### Bugfix
 - [#117](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/117) : Combobox will not restore into Collapsed state after calling 4 related keywords. 
   - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
 
 - [#119](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/119) : Getting Duplicate screenshots when ever script is getting failed.
   - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
-
-### Enhancement
-- Get Property From Element
-  - New Supported operations: VALUE
-
-### Updated
-- Support to Python.Net 3.0.2
 
 ## [Release][2.0.13] [2.0.13][2.0.12-2.0.13] - 2023-07-25
 
