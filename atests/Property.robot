@@ -18,7 +18,7 @@ ${WINDOW_ELEMENT}          ${MAIN_WINDOW}
 ${TEXT_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Edit[@AutomationId='TextBox']
 ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 ${XPATH_COMBO_BOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
-${EDITABLE_COMBOX}         ${MAIN_WINDOW}/Tab/TabItem[1]/ComboBox[1]
+${EDITABLE_COMBOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='EditableCombo']
 ${EDITABLE_COMBOX_EDIT}    ${EDITABLE_COMBOX}/Edit
 
 *** Test Cases ***

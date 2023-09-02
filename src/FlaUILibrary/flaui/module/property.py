@@ -161,8 +161,9 @@ class Property(ModuleInterface):
             self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
             self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
             self.Action.IS_VALUE_PATTERN_SUPPORTED: lambda: self._is_value_pattern_supported(values["element"]),
-            self.Action.VALUE: lambda: self._get_value_pattern_value(values["element"]),
-            self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(values["element"]),
+            self.Action.VALUE: lambda: self._get_value_from_value_pattern(values["element"]),
+            self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(
+                values["element"]),
             self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
         }
 
@@ -352,6 +353,6 @@ class Property(ModuleInterface):
         raise FlaUiError(FlaUiError.PatternNotSupported.format("Value"))
 
     @staticmethod
-    def _get_value_pattern_value(element: Any) -> str:
+    def _get_value_from_value_pattern(element: Any) -> str:
         pattern = Property._get_value_pattern_from_element(element)
         return str(pattern.Value)
