@@ -37,6 +37,7 @@ class FlaUiError(AttributeError):
     PropertyNotSupported = "Property from element is not supported"
     PropertyNotEqual = "Property value '{}' not equal to expected value '{}'"
     InvalidPropertyArgument = "Set Property can not be executed by Get Property From Element"
+    PatternNotSupported = "Supports '{}' Pattern only, method cannot be used with invalid Pattern"
 
     @staticmethod
     def raise_fla_ui_error(message):
