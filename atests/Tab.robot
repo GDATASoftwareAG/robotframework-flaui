@@ -1,12 +1,6 @@
 *** Settings ***
 Documentation   Test suite for tab keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Get Tab Items Names                   Tab Should Contain List Controls TabItem
-...                                                   Tab Should Not Contain List Controls With No Break Space TabItem
-...                                                   Tab Should Not Contain Not Present TabItem
-...             Select Tab Item By Name               Select Tab Item By Name
-...                                                   Select Tab Item By Name Not Exist
 ...
 
 

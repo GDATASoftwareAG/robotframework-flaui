@@ -1,19 +1,6 @@
 *** Settings ***
 Documentation   Test suite for list box keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Get All Names From Listbox            Get All Names By Listbox
-...             Get All Texts From Listbox            Get All Texts By Listbox
-...             Listbox Selection Should Be           Listbox Selection Should Be
-...                                                   Listbox Selection Should Be Item Not Exist
-...             Select Listbox Item By Index          Select Listbox Item By Index
-...                                                   Select Listbox Item By Index Negative Number
-...                                                   Select Listbox Item By Index String Usage
-...             Select Listbox Item By Name           Select Listbox Item By Name
-...                                                   Select Listbox Item By Name Wrong Element
-...             Listbox Should Contain                Listbox Should Contain
-...                                                   Listbox Should Contain Item Not Exist
-...             Get Listbox Items Count               Get Listbox Items Count
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

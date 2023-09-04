@@ -108,7 +108,6 @@ Get Property From Element            Get Property From Element  ${EXP_ERR_MSG_XP
 *** Keywords ***
 Execute Keyword And Expect Error Message
     [Arguments]  ${keyword}  ${expected_default_error_msg}  @{args}
-    Log  ${args}
     ${EXP_ERR_MSG}  Format String  ${expected_default_error_msg}  ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error  ${EXP_ERR_MSG}  Run Keyword  ${keyword}  @{args}
     Run Keyword And Expect Error  ${EXP_CUSTOM_ERR_MSG}  Run Keyword  ${keyword}  @{args}  msg=${CUSTOM_ERR_MSG}

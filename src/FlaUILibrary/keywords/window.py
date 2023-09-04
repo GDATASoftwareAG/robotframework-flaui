@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Window
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class WindowKeywords:
@@ -9,13 +9,13 @@ class WindowKeywords:
     Interface implementation from robotframework usage for window keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for mouse keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def close_window(self, identifier, msg=None):
@@ -32,7 +32,8 @@ class WindowKeywords:
         | Close Window  <XPATH_TO_APPLICATION_WINDOW> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.WINDOW, msg=msg)
-        self._module.action(Window.Action.CLOSE_WINDOW,
-                            Window.Container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.WINDOW, msg=msg)
+        module.action(Window.Action.CLOSE_WINDOW,
+                      Window.Container(element=element),
+                      msg)

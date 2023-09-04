@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Checkbox as Radio
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class RadioButtonKeywords:
@@ -9,13 +9,13 @@ class RadioButtonKeywords:
     Interface implementation from robotframework usage for radio button keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for radiobutton keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def select_radiobutton(self, identifier, msg=None):
@@ -35,10 +35,11 @@ class RadioButtonKeywords:
         | Select Radiobutton  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
-        self._module.action(Radio.Action.SET_CHECKBOX_BUTTON_STATE,
-                            self._create_value_container(element=element, state=True),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
+        module.action(Radio.Action.SET_CHECKBOX_BUTTON_STATE,
+                      self._create_value_container(element=element, state=True),
+                      msg)
 
     @keyword
     def get_radiobutton_state(self, identifier, msg=None):
@@ -59,10 +60,11 @@ class RadioButtonKeywords:
         | Should Be Equal  ${value}  ${False/True} |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
-        return self._module.action(Radio.Action.GET_CHECKBOX_BUTTON_STATE,
-                                   self._create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
+        return module.action(Radio.Action.GET_CHECKBOX_BUTTON_STATE,
+                             self._create_value_container(element=element),
+                             msg)
 
     @staticmethod
     def _create_value_container(element=None, state=None):

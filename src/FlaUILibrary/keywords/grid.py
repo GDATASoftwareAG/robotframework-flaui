@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Grid
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class GridKeywords:
@@ -9,13 +9,13 @@ class GridKeywords:
     Interface implementation from robotframework usage for grid keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for list view keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def get_all_data_from_grid(self, identifier, msg=None):
@@ -42,8 +42,10 @@ class GridKeywords:
         Examples:
         | ${data}  Get All Data From Grid  <XPath>   |
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
-        return self._module.action(Grid.Action.GET_ALL_DATA, Grid.create_value_container(element=element), msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return module.action(Grid.Action.GET_ALL_DATA, Grid.create_value_container(element=element),
+                             msg)
 
     @keyword
     def get_selected_grid_rows(self, identifier, msg=None):
@@ -66,8 +68,10 @@ class GridKeywords:
         Examples:
         | ${data}  Get Selected Grid Rows  <XPath>   |
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
-        return self._module.action(Grid.Action.GET_SELECTED_ROWS, Grid.create_value_container(element=element), msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return module.action(Grid.Action.GET_SELECTED_ROWS, Grid.create_value_container(element=element),
+                             msg)
 
     @keyword
     def select_grid_row_by_index(self, identifier, index, msg=None):
@@ -88,9 +92,11 @@ class GridKeywords:
         | Select Grid Row By Index  <XPath>  <INDEX>      |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
-        self._module.action(Grid.Action.SELECT_ROW_BY_INDEX,
-                            Grid.create_value_container(element=element, index=index), msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        module.action(Grid.Action.SELECT_ROW_BY_INDEX,
+                      Grid.create_value_container(element=element, index=index),
+                      msg)
 
     @keyword
     def select_grid_row_by_name(self, identifier, index, name, msg=None):
@@ -112,9 +118,11 @@ class GridKeywords:
         | Select Grid Row By Name  <XPath>  <INDEX>      |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
-        self._module.action(Grid.Action.SELECT_ROW_BY_NAME,
-                            Grid.create_value_container(element=element, index=index, name=name), msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        module.action(Grid.Action.SELECT_ROW_BY_NAME,
+                      Grid.create_value_container(element=element, index=index, name=name),
+                      msg)
 
     @keyword
     def get_grid_rows_count(self, identifier, msg=None):
@@ -135,7 +143,8 @@ class GridKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTVIEW, msg)
-        return self._module.action(Grid.Action.GET_ROW_COUNT,
-                                   Grid.create_value_container(element=element, msg=msg),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return module.action(Grid.Action.GET_ROW_COUNT,
+                             Grid.create_value_container(element=element, msg=msg),
+                             msg)

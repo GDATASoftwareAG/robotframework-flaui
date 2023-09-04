@@ -20,10 +20,12 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    TreeKeywords,
                                    TabKeywords,
                                    PropertyKeywords,
-                                   ToggleButtonKeywords)
+                                   ToggleButtonKeywords,
+                                   UiaKeywords)
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
+from FlaUILibrary.flaui.util import AutomationInterfaceContainer
 
 
 # pylint: enable=invalid-name
@@ -97,6 +99,7 @@ class FlaUILibrary(DynamicCore):
         TAB = "Tab"
         PROPERTY = "PROPERTY"
         TOGGLEBUTTON = "TOGGLEBUTTON"
+        AUTOMATION_INTERFACE = "AUTOMATION_INTERFACE"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
         """
@@ -121,31 +124,32 @@ class FlaUILibrary(DynamicCore):
         except ValueError:
             timeout = 1000
 
-        if uia == "UIA2":
-            self.module = UIA2(timeout)
-        else:
-            self.module = UIA3(timeout)
+        if uia != "UIA2" and uia != "UIA3":
+            uia = "UIA3"
+
+        self.container = AutomationInterfaceContainer({"UIA2": UIA2(timeout), "UIA3": UIA3(timeout)}, uia)
 
         self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 
         self.keyword_modules = {
-            FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.module),
-            FlaUILibrary.KeywordModules.CHECKBOX: CheckBoxKeywords(self.module),
-            FlaUILibrary.KeywordModules.COMBOBOX: ComboBoxKeywords(self.module),
-            FlaUILibrary.KeywordModules.DEBUG: DebugKeywords(self.module),
-            FlaUILibrary.KeywordModules.ELEMENT: ElementKeywords(self.module),
-            FlaUILibrary.KeywordModules.GRID: GridKeywords(self.module),
-            FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.module),
-            FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.module),
-            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.module, self.screenshots),
-            FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.module),
-            FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.module),
-            FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.module),
-            FlaUILibrary.KeywordModules.LISTBOX: ListBoxKeywords(self.module),
-            FlaUILibrary.KeywordModules.TREE: TreeKeywords(self.module),
-            FlaUILibrary.KeywordModules.TAB: TabKeywords(self.module),
-            FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.module),
-            FlaUILibrary.KeywordModules.TOGGLEBUTTON: ToggleButtonKeywords(self.module),
+            FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.container),
+            FlaUILibrary.KeywordModules.CHECKBOX: CheckBoxKeywords(self.container),
+            FlaUILibrary.KeywordModules.COMBOBOX: ComboBoxKeywords(self.container),
+            FlaUILibrary.KeywordModules.DEBUG: DebugKeywords(self.container),
+            FlaUILibrary.KeywordModules.ELEMENT: ElementKeywords(self.container),
+            FlaUILibrary.KeywordModules.GRID: GridKeywords(self.container),
+            FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.container),
+            FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.container),
+            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots),
+            FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.container),
+            FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.container),
+            FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.container),
+            FlaUILibrary.KeywordModules.LISTBOX: ListBoxKeywords(self.container),
+            FlaUILibrary.KeywordModules.TREE: TreeKeywords(self.container),
+            FlaUILibrary.KeywordModules.TAB: TabKeywords(self.container),
+            FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.container),
+            FlaUILibrary.KeywordModules.TOGGLEBUTTON: ToggleButtonKeywords(self.container),
+            FlaUILibrary.KeywordModules.AUTOMATION_INTERFACE: UiaKeywords(self.container),
         }
 
         # Robot init

@@ -1,16 +1,5 @@
 *** Settings ***
 Documentation   Test suite for grid ui keyword usage.
-...             Keyword                               Test Case Names
-...             Get Selected Grid Rows                Get Selected Grid Rows If Nothing Is Selected
-...             Select Grid Row By Index              Select Grid Row By Index
-...                                                   Select Grid Row By Index With Wrong Index Number
-...                                                   Select Grid Row By Index With Wrong Index Usage
-...                                                   Select Multiple Grid Items
-...             Select Grid Row By Name               Select Grid Row By Name
-...                                                   Select Grid Row By Name Wrong Name Or Index
-...                                                   Select Grid Row By Name Wrong Index Usage
-...                                                   Select Multiple Grid Items
-...             Get Grid Rows Count                   Get Grid Rows Count
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

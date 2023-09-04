@@ -1,8 +1,7 @@
-from robotlibcore import keyword
 from robot.utils import is_truthy
-from FlaUILibrary.robotframework import robotlog
+from robotlibcore import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.robotframework import robotlog
 
 
 class ScreenshotKeywords:
@@ -10,14 +9,12 @@ class ScreenshotKeywords:
     Interface implementation from Robotframework usage for screenshot keywords.
     """
 
-    def __init__(self, module: UIA, screenshots: Screenshot):
+    def __init__(self, screenshots: Screenshot):
         """Creates screenshot keywords module to handle image capturing.
 
-        ``module`` UIA3 module to handle element interaction.
         ``screenshots`` Screenshots module for image capturing.
         """
         self._screenshots = screenshots
-        self._module = module
 
     @keyword
     def clear_blacklist(self):

@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import ToggleButton
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class ToggleButtonKeywords:
@@ -9,13 +9,13 @@ class ToggleButtonKeywords:
     Interface implementation from robotframework usage for checkbox keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for checkbox keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def toggle(self, identifier, msg=None):
@@ -37,7 +37,8 @@ class ToggleButtonKeywords:
         | Toggle  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.TOGGLEBUTTON, msg=msg)
-        return self._module.action(ToggleButton.Action.TOGGLE,
-                                   ToggleButton.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.TOGGLEBUTTON, msg=msg)
+        return module.action(ToggleButton.Action.TOGGLE,
+                             ToggleButton.create_value_container(element=element),
+                             msg)

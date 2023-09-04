@@ -8,6 +8,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
 ### Added
+- Include new operation 'VALUE' to Get Property From Element Keyword
+  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
+
+- [#118](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/118)
+  - Keyword 'Switch UIA To' implemented to change between UIA2 or UIA3
+
 - [#122](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/122)
   - Whitelisting and blacklisting keywords implemented for screenshot library
     - Keywords can be whitelisted to persist if failed for example
@@ -16,9 +22,6 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
       - BuiltIn.Wait Until Keyword Succeeds to avoid unecessary screenshots
     - Blacklist is prioritize before Whitelist
   - New Keywords Clear Whitelist and Clear Blacklist
-
-- Include new operation 'VALUE' to Get Property From Element Keyword
-  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
 
 - Python.Net 3.0.2 support
 
