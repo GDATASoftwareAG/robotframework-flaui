@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Debug
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class DebugKeywords:
@@ -8,13 +8,13 @@ class DebugKeywords:
     Interface implementation from robotframework usage for debugging keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for debugging keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def get_childs_from_element(self, identifier, msg=None):
@@ -44,8 +44,9 @@ class DebugKeywords:
         | Log  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT, Debug.create_value_container(element=element))
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT, Debug.create_value_container(element=element))
 
     @keyword
     def get_uia_identifier(self):
@@ -58,4 +59,4 @@ class DebugKeywords:
         | ${IDENTIFIER}  Get UIA Identifier  |
         | Log  <IDENTIFIER> |
         """
-        return self._module.identifier()
+        return self._container.get_module().identifier()

@@ -1,9 +1,6 @@
 *** Settings ***
 Documentation   Test suite for debug keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Get Childs From Element               Get Childs From Element
-...             Get UIA Identifier                    Get UIA Identifier
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

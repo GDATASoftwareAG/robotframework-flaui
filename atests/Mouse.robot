@@ -1,12 +1,6 @@
 *** Settings ***
 Documentation   Test suite for mouse keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Click                                 Left Click
-...             Double Click                          Double Click
-...             Right Click                           Right Click
-...             Move To                               Move To
-...             Drag And Drop                         Drag And Drop
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

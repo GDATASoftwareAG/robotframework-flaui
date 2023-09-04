@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Mouse
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class MouseKeywords:
@@ -8,13 +8,13 @@ class MouseKeywords:
     Interface implementation from robotframework usage for mouse keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for mouse keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def click(self, identifier, msg=None):
@@ -34,10 +34,11 @@ class MouseKeywords:
         | Click  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.LEFT_CLICK,
-                            Mouse.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.LEFT_CLICK,
+                      Mouse.create_value_container(element=element),
+                      msg)
 
     @keyword
     def click_hold(self, identifier, timeout_in_ms=1000, msg=None):
@@ -58,10 +59,11 @@ class MouseKeywords:
         | Click Hold <XPATH>  5000 |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.LEFT_CLICK_HOLD,
-                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.LEFT_CLICK_HOLD,
+                      Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
+                      msg)
 
     @keyword
     def double_click(self, identifier, msg=None):
@@ -81,10 +83,11 @@ class MouseKeywords:
         | Double Click  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.DOUBLE_CLICK,
-                            Mouse.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.DOUBLE_CLICK,
+                      Mouse.create_value_container(element=element),
+                      msg)
 
     @keyword
     def double_click_hold(self, identifier, timeout_in_ms=1000, msg=None):
@@ -105,10 +108,11 @@ class MouseKeywords:
         | Double Click Hold  <XPATH>  5000 |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
-                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
+                      Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
+                      msg)
 
     @keyword
     def right_click(self, identifier, msg=None):
@@ -128,10 +132,11 @@ class MouseKeywords:
         | Right Click  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.RIGHT_CLICK,
-                            Mouse.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.RIGHT_CLICK,
+                      Mouse.create_value_container(element=element),
+                      msg)
 
     @keyword
     def right_click_hold(self, identifier, timeout_in_ms=1000, msg=None):
@@ -152,10 +157,11 @@ class MouseKeywords:
         | Right Click Hold  <XPATH>  5000 |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.RIGHT_CLICK_HOLD,
-                            Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.RIGHT_CLICK_HOLD,
+                      Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
+                      msg)
 
     @keyword
     def move_to(self, identifier, msg=None):
@@ -175,10 +181,11 @@ class MouseKeywords:
         | Move To  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Mouse.Action.MOVE_TO,
-                            Mouse.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.MOVE_TO,
+                      Mouse.create_value_container(element=element),
+                      msg)
 
     @keyword
     def drag_and_drop(self, start_identifier, end_identifier, msg=None):
@@ -199,8 +206,9 @@ class MouseKeywords:
         | Drag And Drop  <XPATH>  <XPATH> |
 
         """
-        start_element = self._module.get_element(start_identifier, msg=msg)
-        end_element = self._module.get_element(end_identifier, msg=msg)
-        self._module.action(Mouse.Action.DRAG_AND_DROP,
-                            Mouse.create_value_container(element=start_element, second_element=end_element),
-                            msg)
+        module = self._container.get_module()
+        start_element = module.get_element(start_identifier, msg=msg)
+        end_element = module.get_element(end_identifier, msg=msg)
+        module.action(Mouse.Action.DRAG_AND_DROP,
+                      Mouse.create_value_container(element=start_element, second_element=end_element),
+                      msg)

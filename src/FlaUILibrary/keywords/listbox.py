@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Selector
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class ListBoxKeywords:
@@ -9,13 +9,13 @@ class ListBoxKeywords:
     Interface implementation from robotframework usage for listbox keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for Listbox keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def get_all_names_from_listbox(self, identifier, msg=None):
@@ -31,10 +31,11 @@ class ListBoxKeywords:
         Examples:
         | ${data}  Get All Names From Listbox  <XPATH> <MSG>                   |
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        return self._module.action(Selector.Action.GET_ALL_NAMES,
-                                   Selector.create_value_container(element=element, msg=msg),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return module.action(Selector.Action.GET_ALL_NAMES,
+                             Selector.create_value_container(element=element, msg=msg),
+                             msg)
 
     @keyword
     def get_all_texts_from_listbox(self, identifier, msg=None):
@@ -50,10 +51,11 @@ class ListBoxKeywords:
         Examples:
         | ${data}  Get All Texts From Listbox  <XPATH> <MSG>                   |
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        return self._module.action(Selector.Action.GET_ALL_TEXTS,
-                                   Selector.create_value_container(element=element, msg=msg),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return module.action(Selector.Action.GET_ALL_TEXTS,
+                             Selector.create_value_container(element=element, msg=msg),
+                             msg)
 
     @keyword
     def listbox_selection_should_be(self, identifier, item, msg=None):
@@ -73,10 +75,11 @@ class ListBoxKeywords:
         Examples:
         | Listbox Selection Should Be <XPATH>  <STRING>                |
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        self._module.action(Selector.Action.SHOULD_HAVE_SELECTED_ITEM,
-                            Selector.create_value_container(element=element, name=item, msg=msg),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        module.action(Selector.Action.SHOULD_HAVE_SELECTED_ITEM,
+                      Selector.create_value_container(element=element, name=item, msg=msg),
+                      msg)
 
     @keyword
     def select_listbox_item_by_index(self, identifier, index, msg=None):
@@ -97,10 +100,11 @@ class ListBoxKeywords:
         | Select Listbox Item By Index  <XPATH>  <INDEX>      |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        self._module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
-                            Selector.create_value_container(element=element, index=index, msg=msg),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
+                      Selector.create_value_container(element=element, index=index, msg=msg),
+                      msg)
 
     @keyword
     def select_listbox_item_by_name(self, identifier, name, msg=None):
@@ -121,10 +125,11 @@ class ListBoxKeywords:
         | Select Listbox Item By Name  <XPATH>  <NAME>      |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        self._module.action(Selector.Action.SELECT_ITEM_BY_NAME,
-                            Selector.create_value_container(element=element, name=name, msg=msg),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        module.action(Selector.Action.SELECT_ITEM_BY_NAME,
+                      Selector.create_value_container(element=element, name=name, msg=msg),
+                      msg)
 
     @keyword
     def listbox_should_contain(self, identifier, name, msg=None):
@@ -145,10 +150,11 @@ class ListBoxKeywords:
         | Listbox Should Contain <XPATH>  <STRING> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        self._module.action(Selector.Action.SHOULD_CONTAIN,
-                            Selector.create_value_container(element=element, name=name, msg=msg),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        module.action(Selector.Action.SHOULD_CONTAIN,
+                      Selector.create_value_container(element=element, name=name, msg=msg),
+                      msg)
 
     @keyword
     def get_listbox_items_count(self, identifier, msg=None):
@@ -169,7 +175,8 @@ class ListBoxKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.LISTBOX, msg)
-        return self._module.action(Selector.Action.GET_ITEMS_COUNT,
-                                   Selector.create_value_container(element=element, msg=msg),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        return module.action(Selector.Action.GET_ITEMS_COUNT,
+                             Selector.create_value_container(element=element, msg=msg),
+                             msg)

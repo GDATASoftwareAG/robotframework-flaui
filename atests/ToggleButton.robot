@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation   Test suite for property keywords.
+...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

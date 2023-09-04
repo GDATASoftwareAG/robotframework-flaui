@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import (Keyboard, Element)
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class KeyboardKeywords:
@@ -8,13 +8,13 @@ class KeyboardKeywords:
     Interface implementation from robotframework usage for keyboard keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for element keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def press_key(self, key_combination, identifier=None, delay_in_ms=None, msg=None):
@@ -96,14 +96,15 @@ class KeyboardKeywords:
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  500  |
         """
+        module = self._container.get_module()
         if identifier is not None:
-            self._module.action(Element.Action.FOCUS_ELEMENT,
-                                Element.create_value_container(xpath=identifier, retries=None, name=None),
-                                msg)
+            module.action(Element.Action.FOCUS_ELEMENT,
+                          Element.create_value_container(xpath=identifier, retries=None, name=None),
+                          msg)
 
-        self._module.action(Keyboard.Action.KEY_COMBINATION,
-                            Keyboard.create_value_container(shortcut=key_combination, delay_in_ms=delay_in_ms),
-                            msg)
+        module.action(Keyboard.Action.KEY_COMBINATION,
+                      Keyboard.create_value_container(shortcut=key_combination, delay_in_ms=delay_in_ms),
+                      msg)
 
     @keyword
     def press_keys(self, keys_combinations, identifier=None, delay_in_ms=None, msg=None):
@@ -141,11 +142,12 @@ class KeyboardKeywords:
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}      |
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500 |
         """
+        module = self._container.get_module()
         if identifier is not None:
-            self._module.action(Element.Action.FOCUS_ELEMENT,
-                                Element.create_value_container(xpath=identifier, retries=None, name=None),
-                                msg)
+            module.action(Element.Action.FOCUS_ELEMENT,
+                          Element.create_value_container(xpath=identifier, retries=None, name=None),
+                          msg)
 
-        self._module.action(Keyboard.Action.KEYS_COMBINATIONS,
-                            Keyboard.create_value_container(shortcuts=keys_combinations, delay_in_ms=delay_in_ms),
-                            msg)
+        module.action(Keyboard.Action.KEYS_COMBINATIONS,
+                      Keyboard.create_value_container(shortcuts=keys_combinations, delay_in_ms=delay_in_ms),
+                      msg)

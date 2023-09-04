@@ -1,10 +1,6 @@
 *** Settings ***
 Documentation   Test suite for checkbox keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Set Checkbox State                    Set Checkbox State To True
-...                                                   Set Checkbox State To False
-...             Get Checkbox State                    Get Checkbox State
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

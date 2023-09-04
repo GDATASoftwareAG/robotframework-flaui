@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Property
-from FlaUILibrary.flaui.automation.uia import UIA
 from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class PropertyKeywords:  # pylint: disable=too-many-public-methods
@@ -9,13 +9,13 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
     Interface implementation from robotframework usage for property keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for mouse keywords.
 
-        ``module`` UIA3 module to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def get_property_from_element(self, identifier, action, msg=None):
@@ -64,7 +64,9 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         # pylint: enable=line-too-long
-        element = self._module.get_element(identifier, msg=msg)
+
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
         action_value = ""
 
         try:
@@ -77,9 +79,9 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
                             or action_value == Property.Action.NORMALIZE_WINDOW):
             FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
 
-        return self._module.action(action_value,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        return module.action(action_value,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def get_background_color(self, identifier, msg=None):
@@ -102,10 +104,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${color}  Get Background Color  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.BACKGROUND_COLOR,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.BACKGROUND_COLOR,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def background_color_should_be(self, identifier, argb_color, msg=None):
@@ -129,10 +132,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Background Color Should Be  <XPATH>  <COLOR_ARGB_TUPLE> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        color = self._module.action(Property.Action.BACKGROUND_COLOR,
-                                    Property.create_value_container(element=element, uia=self._module.identifier()),
-                                    msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        color = module.action(Property.Action.BACKGROUND_COLOR,
+                              Property.create_value_container(element=element, uia=module.identifier()),
+                              msg)
 
         if color != argb_color:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(color, argb_color))
@@ -158,10 +162,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${color}  Get Foreground Color  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.FOREGROUND_COLOR,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.FOREGROUND_COLOR,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def foreground_color_should_be(self, identifier, argb_color, msg=None):
@@ -185,10 +190,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Foreground Color Should Be  <XPATH>  <COLOR_ARGB_TUPLE> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        color = self._module.action(Property.Action.FOREGROUND_COLOR,
-                                    Property.create_value_container(element=element, uia=self._module.identifier()),
-                                    msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        color = module.action(Property.Action.FOREGROUND_COLOR,
+                              Property.create_value_container(element=element, uia=module.identifier()),
+                              msg)
 
         if color != argb_color:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(color, argb_color))
@@ -213,10 +219,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_size}  Get Font Size  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.FONT_SIZE,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.FONT_SIZE,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def font_size_should_be(self, identifier, font_size, msg=None):
@@ -240,10 +247,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Size Should Be  <XPATH>  <FONT_SIZE_FLOATING_POINT> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        size = self._module.action(Property.Action.FONT_SIZE,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        size = module.action(Property.Action.FONT_SIZE,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
         if size != font_size:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(size, font_size))
@@ -268,10 +276,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_name}  Get Font Name  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.FONT_NAME,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.FONT_NAME,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def font_name_should_be(self, identifier, font_name, msg=None):
@@ -295,10 +304,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Name Should Be  <XPATH>  <FONT_NAME> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        name = self._module.action(Property.Action.FONT_NAME,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        name = module.action(Property.Action.FONT_NAME,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
         if name != font_name:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(name, font_name))
@@ -323,10 +333,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_weight}  Get Font Weight  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.FONT_WEIGHT,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.FONT_WEIGHT,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def font_weight_should_be(self, identifier, font_weight, msg=None):
@@ -350,10 +361,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Weight Should Be  <XPATH>  <FONT_WEIGHT_FLOATING_POINT> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        weight = self._module.action(Property.Action.FONT_WEIGHT,
-                                     Property.create_value_container(element=element, uia=self._module.identifier()),
-                                     msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        weight = module.action(Property.Action.FONT_WEIGHT,
+                               Property.create_value_container(element=element, uia=module.identifier()),
+                               msg)
 
         if weight != font_weight:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(weight, font_weight))
@@ -379,10 +391,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${culture}  Get Culture  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.CULTURE,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.CULTURE,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def culture_should_be(self, identifier, culture, msg=None):
@@ -407,11 +420,12 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Culture Should Be  <XPATH>  <CULTURE> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        element_culture = self._module.action(Property.Action.CULTURE,
-                                              Property.create_value_container(element=element,
-                                                                              uia=self._module.identifier()),
-                                              msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        element_culture = module.action(Property.Action.CULTURE,
+                                        Property.create_value_container(element=element,
+                                                                        uia=module.identifier()),
+                                        msg)
 
         if culture != element_culture:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(element_culture, culture))
@@ -436,10 +450,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${is_element_hidden}  Is Hidden  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.IS_HIDDEN,
-                                   Property.create_value_container(element=element, uia=self._module.identifier()),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.IS_HIDDEN,
+                             Property.create_value_container(element=element, uia=module.identifier()),
+                             msg)
 
     @keyword
     def is_visible(self, identifier, msg=None):
@@ -461,10 +476,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${is_element_visible}  Is Visible  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return not self._module.action(Property.Action.IS_HIDDEN,
-                                       Property.create_value_container(element=element, uia=self._module.identifier()),
-                                       msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return not module.action(Property.Action.IS_HIDDEN,
+                                 Property.create_value_container(element=element, uia=module.identifier()),
+                                 msg)
 
     @keyword
     def get_window_visual_state(self, identifier, msg=None):
@@ -486,10 +502,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${state}  Get Window Visual State  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.WINDOW_VISUAL_STATE,
-                                   Property.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.WINDOW_VISUAL_STATE,
+                             Property.create_value_container(element=element),
+                             msg)
 
     @keyword
     def window_visual_state_should_be(self, identifier, state, msg=None):
@@ -513,10 +530,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Window Visual State Should Be  <XPATH>  <STATE> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        visual_state = self._module.action(Property.Action.WINDOW_VISUAL_STATE,
-                                           Property.create_value_container(element=element),
-                                           msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        visual_state = module.action(Property.Action.WINDOW_VISUAL_STATE,
+                                     Property.create_value_container(element=element),
+                                     msg)
 
         if visual_state != state:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(visual_state, state))
@@ -554,10 +572,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${state}  Get Window Interaction State  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.WINDOW_INTERACTION_STATE,
-                                   Property.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.WINDOW_INTERACTION_STATE,
+                             Property.create_value_container(element=element),
+                             msg)
 
     @keyword
     def window_interaction_state_should_be(self, identifier, state, msg=None):
@@ -596,10 +615,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         # pylint: enable=line-too-long
-        element = self._module.get_element(identifier, msg=msg)
-        interaction_state = self._module.action(Property.Action.WINDOW_INTERACTION_STATE,
-                                                Property.create_value_container(element=element),
-                                                msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        interaction_state = module.action(Property.Action.WINDOW_INTERACTION_STATE,
+                                          Property.create_value_container(element=element),
+                                          msg)
 
         if interaction_state != state:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(interaction_state, state))
@@ -624,10 +644,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${toggle_state}  Get Toggle State  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.TOGGLE_STATE,
-                                   Property.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.TOGGLE_STATE,
+                             Property.create_value_container(element=element),
+                             msg)
 
     @keyword
     def toggle_state_should_be(self, identifier, state, msg=None):
@@ -651,11 +672,12 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Toggle State Should Be  <XPATH>  <STATE> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
 
-        toggle_state = self._module.action(Property.Action.TOGGLE_STATE,
-                                           Property.create_value_container(element=element),
-                                           msg)
+        toggle_state = module.action(Property.Action.TOGGLE_STATE,
+                                     Property.create_value_container(element=element),
+                                     msg)
 
         if toggle_state != state:
             FlaUiError.raise_fla_ui_error(FlaUiError.PropertyNotEqual.format(toggle_state, state))
@@ -681,10 +703,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Maximize Window  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Property.Action.MAXIMIZE_WINDOW,
-                            Property.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Property.Action.MAXIMIZE_WINDOW,
+                      Property.create_value_container(element=element),
+                      msg)
 
     @keyword
     def minimize_window(self, identifier, msg=None):
@@ -707,10 +730,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Minimize Window  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Property.Action.MINIMIZE_WINDOW,
-                            Property.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Property.Action.MINIMIZE_WINDOW,
+                      Property.create_value_container(element=element),
+                      msg)
 
     @keyword
     def normalize_window(self, identifier, msg=None):
@@ -733,10 +757,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Normalize Window  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        self._module.action(Property.Action.NORMALIZE_WINDOW,
-                            Property.create_value_container(element=element),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        module.action(Property.Action.NORMALIZE_WINDOW,
+                      Property.create_value_container(element=element),
+                      msg)
 
     @keyword
     def can_window_be_maximized(self, identifier, msg=None):
@@ -758,10 +783,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${result}  Can Window Be Maximized  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.CAN_WINDOW_MAXIMIZE,
-                                   Property.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.CAN_WINDOW_MAXIMIZE,
+                             Property.create_value_container(element=element),
+                             msg)
 
     @keyword
     def can_window_be_minimized(self, identifier, msg=None):
@@ -783,7 +809,8 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${result}  Can Window Be Minimized  <XPATH> |
 
         """
-        element = self._module.get_element(identifier, msg=msg)
-        return self._module.action(Property.Action.CAN_WINDOW_MINIMIZE,
-                                   Property.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        return module.action(Property.Action.CAN_WINDOW_MINIMIZE,
+                             Property.create_value_container(element=element),
+                             msg)

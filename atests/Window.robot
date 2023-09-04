@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation   Test suite for window keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Close Window                          Close Window
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

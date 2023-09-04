@@ -1,0 +1,26 @@
+*** Settings ***
+Documentation   Test suite for user automation keywords.
+...
+
+Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
+Library         StringFormat
+
+Resource        util/Common.robot
+Resource        util/Error.robot
+Resource        util/XPath.robot
+
+*** Test Cases ***
+Switch Uia To
+    ${IDENTIFIER}  Get Uia Identifier
+    Should Be Equal  ${IDENTIFIER}  ${UIA}
+
+    Switch UIA To  UIA2
+    ${IDENTIFIER}  Get Uia Identifier
+    Should Be Equal  ${IDENTIFIER}  UIA2
+
+    Switch UIA To  UIA3
+    ${IDENTIFIER}  Get Uia Identifier
+    Should Be Equal  ${IDENTIFIER}  UIA3
+
+Switch Uia To Should Rais Exception If Interface Not Supported
+    Run Keyword And Expect Error  ${EXP_ACTION_NOT_SUPPORTED}  Run Keyword  Switch UIA To  UIA4

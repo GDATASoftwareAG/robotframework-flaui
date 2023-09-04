@@ -1,6 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.application import Application
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class ApplicationKeywords:
@@ -8,13 +8,13 @@ class ApplicationKeywords:
     Interface implementation from robotframework usage for application keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for application keywords.
 
-        ``module`` UIA module to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def attach_application_by_name(self, name, msg=None):
@@ -35,9 +35,9 @@ class ApplicationKeywords:
         Returns:
         | Process id from attached process if successfully |
         """
-        return self._module.action(Application.Action.ATTACH_APPLICATION_BY_NAME,
-                                   Application.create_value_container(name=name, msg=msg),
-                                   msg)
+        return self._container.get_module().action(Application.Action.ATTACH_APPLICATION_BY_NAME,
+                                                   Application.create_value_container(name=name, msg=msg),
+                                                   msg)
 
     @keyword
     def attach_application_by_pid(self, pid, msg=None):
@@ -59,9 +59,9 @@ class ApplicationKeywords:
         | Process id from attached process if successfully |
 
         """
-        return self._module.action(Application.Action.ATTACH_APPLICATION_BY_PID,
-                                   Application.create_value_container(pid=pid, msg=msg),
-                                   msg)
+        return self._container.get_module().action(Application.Action.ATTACH_APPLICATION_BY_PID,
+                                                   Application.create_value_container(pid=pid, msg=msg),
+                                                   msg)
 
     @keyword
     def close_application(self, pid, msg=None):
@@ -76,13 +76,13 @@ class ApplicationKeywords:
         | msg        | string | Custom error message |
 
         Examples:
-        | $[pid}  Launch Application  <APPLICATION> |
-        | Close Application  $[pid}                 |
+        | ${pid}  Launch Application  <APPLICATION> |
+        | Close Application  ${pid}                 |
 
         """
-        self._module.action(Application.Action.EXIT_APPLICATION,
-                            Application.create_value_container(pid=pid, msg=msg),
-                            msg=msg)
+        self._container.get_module().action(Application.Action.EXIT_APPLICATION,
+                                            Application.create_value_container(pid=pid, msg=msg),
+                                            msg=msg)
 
     @keyword
     def launch_application(self, application, msg=None):
@@ -103,9 +103,9 @@ class ApplicationKeywords:
         | Process id from started process if successfully |
 
         """
-        return self._module.action(Application.Action.LAUNCH_APPLICATION,
-                                   Application.create_value_container(name=application, msg=msg),
-                                   msg)
+        return self._container.get_module().action(Application.Action.LAUNCH_APPLICATION,
+                                                   Application.create_value_container(name=application, msg=msg),
+                                                   msg)
 
     @keyword
     def launch_application_with_args(self, application, arguments, msg=None):
@@ -127,6 +127,7 @@ class ApplicationKeywords:
         | Process id from started process if successfully |
 
         """
-        return self._module.action(Application.Action.LAUNCH_APPLICATION_WITH_ARGS,
-                                   Application.create_value_container(name=application, args=arguments, msg=msg),
-                                   msg)
+        module = self._container.get_module()
+        return module.action(Application.Action.LAUNCH_APPLICATION_WITH_ARGS,
+                             Application.create_value_container(name=application, args=arguments, msg=msg),
+                             msg)

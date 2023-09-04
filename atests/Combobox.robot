@@ -1,20 +1,6 @@
 *** Settings ***
 Documentation   Test suite for combobox keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Get All Names From Combobox           Get All Names From Combobox
-...             Get All Texts From Combobox           Get All Texts From Combobox
-...             Get All Selected Texts From Combobox  Get All Selected Texts From Combobox If Nothing Is Selected
-...                                                   Get All Selected Texts From Combobox
-...             Get All Selected Names From Combobox  Get All Selected Names From Combobox If Nothing Is Selected
-...                                                   Get All Selected Names From Combobox
-...             Select Combobox Item By Index         Select Combobox Item By Index
-...                                                   Select Combobox Item By Index Range
-...                                                   Select Combobox Item By Index Wrong Index Number
-...                                                   Select Combobox Item By Index Wrong Index Usage
-...             Combobox Should Contain               Combobox Should Contain,
-...                                                   Combobox Should Contain Wrong Item
-...             Get Combobox Items Count              Get Combobox Items Count
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

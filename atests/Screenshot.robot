@@ -1,12 +1,6 @@
 *** Settings ***
 Documentation   Test suite for screenshot keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Take Screenshot                       Take Screenshot If XPath Not Found Multiple Times Default Folder
-...                                                   Take Manual Screenshot By Keyword
-...             Take Screenshots On Failure           Take No Screenshot If Module Is Disabled
-...             Set Screenshot Directory              Take Screenshot If XPath Not Found Multiple Times By Specific Folder
-...                                                   Take Manual Screenshot By Keyword
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=True

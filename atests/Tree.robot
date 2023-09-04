@@ -1,30 +1,6 @@
 *** Settings ***
 Documentation   Test suite for list box keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Get Root TreeItems Count              Get Root TreeItems Count
-...             Get All Visible TreeItems Count       Get All Visible TreeItems Count
-...             Get All Visible TreeItems Names       Get All Visible TreeItems Names
-...                                                   Get All Visible TreeItems Names After Expand
-...             Expand All TreeItems                  Expand All TreeItems
-...             Collapse All TreeItems                Collapse All TreeItems
-...             TreeItem Should Be Visible            TreeItem Should Be Visible After Expand
-...             Get Selected Treeitems Name           Get Selected Treeitems Name No Item Selected
-...                                                   Get Selected Treeitems Name
-...             Select Visible TreeItem By Name       Select Visible TreeItem By Name
-...                                                   Select Visible TreeItem By Name Wrong Element
-...                                                   Selected TreeItem Should Be Item Not Exist
-...                                                   Select Visible TreeItem By Name After Expand
-...             Select Treeitem                       Select TreeItem
-...                                                   Select TreeItem Wrong Element Name
-...                                                   Select TreeItem Wrong Filter Name False Syntax
-...                                                   Select TreeItem By Index
-...                                                   Select TreeItem By Index Wrong Index
-...             Expand Treeitem                       Expand TreeItem
-...                                                   Expand TreeItem Not Expandable
-...             Collapse TreeItem                     Collapse TreeItem
-...                                                   Collapse TreeItem Not Expandable
-...             Selected TreeItem Should Be           Selected TreeItem Should Be Item Not Exist
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

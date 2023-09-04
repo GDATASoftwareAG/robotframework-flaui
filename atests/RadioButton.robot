@@ -1,9 +1,6 @@
 *** Settings ***
 Documentation   Test suite for radio button keywords.
 ...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
-...             Keyword                               Test Case Names
-...             Select Radiobutton                    Select Radiobutton State
-...             Get Radiobutton State                 Get Radiobutton State
 ...
 
 Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False

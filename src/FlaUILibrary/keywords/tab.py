@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Tab
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class TabKeywords:
@@ -9,13 +9,13 @@ class TabKeywords:
     Interface implementation from robotframework usage for tab keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for tab keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def get_tab_items_names(self, identifier, msg=None):
@@ -38,10 +38,11 @@ class TabKeywords:
         | List<String> child TabItem elements names from the Tab element. |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.TAB, msg=msg)
-        return self._module.action(Tab.Action.GET_TAB_ITEMS_NAMES,
-                                   Tab.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
+        return module.action(Tab.Action.GET_TAB_ITEMS_NAMES,
+                             Tab.create_value_container(element=element),
+                             msg)
 
     @keyword
     def select_tab_item_by_name(self, identifier, name, msg=None):
@@ -62,7 +63,8 @@ class TabKeywords:
         | Select Tab Item By Name  <XPATH>  <NAME> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.TAB, msg=msg)
-        return self._module.action(Tab.Action.SELECT_TAB_ITEM_BY_NAME,
-                                   Tab.create_value_container(element=element, name=name),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
+        return module.action(Tab.Action.SELECT_TAB_ITEM_BY_NAME,
+                             Tab.create_value_container(element=element, name=name),
+                             msg)

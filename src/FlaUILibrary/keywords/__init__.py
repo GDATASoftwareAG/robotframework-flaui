@@ -15,3 +15,4 @@ from .tree import TreeKeywords
 from .tab import TabKeywords
 from .property import PropertyKeywords
 from .togglebutton import ToggleButtonKeywords
+from .uia import UiaKeywords

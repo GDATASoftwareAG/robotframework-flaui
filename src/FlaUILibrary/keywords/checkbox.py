@@ -1,7 +1,7 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.module import Checkbox
-from FlaUILibrary.flaui.automation.uia import UIA
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 class CheckBoxKeywords:
@@ -9,13 +9,13 @@ class CheckBoxKeywords:
     Interface implementation from robotframework usage for checkbox keywords.
     """
 
-    def __init__(self, module: UIA):
+    def __init__(self, container: AutomationInterfaceContainer):
         """
         Constructor for checkbox keywords.
 
-        ``module`` Automation framework module like UIA3 to handle element interaction.
+        ``container`` User automation container to handle element interaction.
         """
-        self._module = module
+        self._container = container
 
     @keyword
     def set_checkbox_state(self, identifier, value, msg=None):
@@ -36,10 +36,11 @@ class CheckBoxKeywords:
         | Set Checkbox State  <XPATH>  ${True/False} |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
-        self._module.action(Checkbox.Action.SET_CHECKBOX_BUTTON_STATE,
-                            Checkbox.create_value_container(element=element, state=value),
-                            msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
+        module.action(Checkbox.Action.SET_CHECKBOX_BUTTON_STATE,
+                      Checkbox.create_value_container(element=element, state=value),
+                      msg)
 
     @keyword
     def get_checkbox_state(self, identifier, msg=None):
@@ -63,7 +64,8 @@ class CheckBoxKeywords:
         | <True> if checkbox is set otherwise <False> |
 
         """
-        element = self._module.get_element(identifier, InterfaceType.CHECKBOX, msg)
-        return self._module.action(Checkbox.Action.GET_CHECKBOX_BUTTON_STATE,
-                                   Checkbox.create_value_container(element=element),
-                                   msg)
+        module = self._container.get_module()
+        element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
+        return module.action(Checkbox.Action.GET_CHECKBOX_BUTTON_STATE,
+                             Checkbox.create_value_container(element=element),
+                             msg)
