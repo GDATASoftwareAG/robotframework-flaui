@@ -48,6 +48,7 @@ class Application(ModuleInterface):
         LAUNCH_APPLICATION = "LAUNCH_APPLICATION"
         LAUNCH_APPLICATION_WITH_ARGS = "LAUNCH_APPLICATION_WITH_ARGS"
         EXIT_APPLICATION = "EXIT_APPLICATION"
+        CLOSE_APPLICATION_BY_NAME = "CLOSE_APPLICATION_BY_NAME"
 
     def __init__(self, automation: Any):
         """
@@ -103,7 +104,11 @@ class Application(ModuleInterface):
           *  Action.EXIT_APPLICATION
             * Values  : ["id"] : PID from process attached or launched process to stop.
             * Returns : None
-
+            
+         *  Action.CLOSE_APPLICATION_BY_NAME
+            * Values  : ["name"] : Process name to close
+            * Returns : None
+            
         Raises:
             FlaUiError: If action is not supported.
 
@@ -119,7 +124,8 @@ class Application(ModuleInterface):
             self.Action.LAUNCH_APPLICATION: lambda: self._launch_application(values["name"]),
             self.Action.LAUNCH_APPLICATION_WITH_ARGS: lambda: self._launch_application_with_args(values["name"],
                                                                                                  values["args"]),
-            self.Action.EXIT_APPLICATION: lambda: self._exit_application(values["pid"])
+            self.Action.EXIT_APPLICATION: lambda: self._exit_application(values["pid"]),
+            self.Action.CLOSE_APPLICATION_BY_NAME: lambda: self._close_application_by_name(values["name"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -208,6 +214,10 @@ class Application(ModuleInterface):
         container.application.Kill()
         self._applications.remove(container)
 
+    def _close_application_by_name(self, name):
+        pid = self._attach_application_by_name(name)
+        self._exit_application(pid)
+    
     def _exists_pid(self, pid):
         """
         Checks if given pid exists in applications list.

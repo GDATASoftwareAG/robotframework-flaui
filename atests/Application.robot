@@ -7,6 +7,7 @@ Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
 Library         StringFormat
 
 Resource        util/Common.robot
+Resource        util/Error.robot
 Resource        util/XPath.robot
 
 *** Test Cases ***
@@ -37,3 +38,11 @@ Launch Application With Arguments
     ${PID}  Launch Application With Args  ${TEST_APP_NOTIFIER}  Hello-World
     Should Not Be Equal As Integers  ${PID}  0
     Wait Until Keyword Succeeds  20x  100ms  Name Contains Text  Hello-World   /Window[@Name='Hello-World']
+
+Close Application By Name
+    [Setup]  Start Application
+    [Teardown]  Run Keyword And Ignore Error  Stop Application  ${PID}
+    Close Application By Name  WpfApplication
+    ${EXP_ERR_MSG}  Format String  ${EXP_APPLICATION_NOT_FOUND}  ${TEST_APP}
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Attach Application By Name  ${TEST_APP}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}

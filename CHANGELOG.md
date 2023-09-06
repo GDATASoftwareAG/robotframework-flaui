@@ -8,11 +8,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ## [Unreleased][]
 
 ### Added
-- Include new operation 'VALUE' to Get Property From Element Keyword
-  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
+- Keyword 'Get Property From Element Keyword'
+  - Add new operation 'VALUE'
 
 - [#118](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/118)
   - Keyword 'Switch UIA To' implemented to change between UIA2 or UIA3
+  - Keyword 'Close Application By Name' implemented to close application
 
 - [#122](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/122)
   - Whitelisting and blacklisting keywords implemented for screenshot library
@@ -30,7 +31,6 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
 
 - [#119](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/119) : Getting Duplicate screenshots when ever script is getting failed.
-  - Thanks to [JimRevolutionist](https://github.com/JimRevolutionist)
 
 ## [Release][2.0.13] [2.0.13][2.0.12-2.0.13] - 2023-07-25
 

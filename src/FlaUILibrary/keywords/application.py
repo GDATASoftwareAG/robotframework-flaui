@@ -83,7 +83,27 @@ class ApplicationKeywords:
         self._container.get_module().action(Application.Action.EXIT_APPLICATION,
                                             Application.create_value_container(pid=pid, msg=msg),
                                             msg=msg)
+    
+    @keyword
+    def close_application_by_name(self, name, msg=None):
+        """
+        Closes the attached application by name.
 
+        If no application is attached an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description          |
+        | name       | string | Process name to close|
+        | msg        | string | Custom error message |
+
+        Examples:
+        | Close Application By Name  $[name}         |
+
+        """
+        self._container.get_module().action(Application.Action.CLOSE_APPLICATION_BY_NAME,
+                            Application.create_value_container(name=name, msg=msg),
+                            msg=msg)
+        
     @keyword
     def launch_application(self, application, msg=None):
         """
