@@ -14,6 +14,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - [#118](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/118)
   - Keyword 'Switch UIA To' implemented to change between UIA2 or UIA3
   - Keyword 'Close Application By Name' implemented to close application
+  - Keyword 'Find All Elements' implemented to close application
 
 - [#122](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/122)
   - Whitelisting and blacklisting keywords implemented for screenshot library

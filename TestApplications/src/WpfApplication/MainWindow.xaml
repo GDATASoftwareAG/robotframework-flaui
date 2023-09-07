@@ -35,7 +35,7 @@
             <StatusBarItem />
         </StatusBar>
         <TabControl>
-            <TabItem Header="Simple Controls">
+            <TabItem AutomationProperties.AutomationId="SimpleControl" Header="Simple Controls">
                 <StackPanel Orientation="Vertical">
                     <Label Content="Test Label" Foreground="Blue" />
                     <TextBox AutomationProperties.AutomationId="TextBox" Text="Test TextBox" Foreground="Green"/>

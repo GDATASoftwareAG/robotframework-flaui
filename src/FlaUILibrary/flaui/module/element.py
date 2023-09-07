@@ -2,9 +2,11 @@ import time
 from enum import Enum
 from typing import Optional, Any
 from System import Exception as CSharpException  # pylint: disable=import-error
+from FlaUI.Core import Debug as FlaUIDebug # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.util.automationelement import AutomationElement
 
 
 class Element(ModuleInterface):
@@ -30,6 +32,7 @@ class Element(ModuleInterface):
         GET_ELEMENT_NAME = "GET_ELEMENT_NAME"
         GET_ELEMENT_RECTANGLE_BOUNDING = "GET_ELEMENT_RECTANGLE_BOUNDING"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
+        FIND_ALL_ELEMENTS = "FIND_ALL_ELEMENTS"
         IS_ELEMENT_ENABLED = "IS_ELEMENT_ENABLED"
         NAME_SHOULD_BE = "NAME_SHOULD_BE"
         NAME_SHOULD_CONTAINS = "NAME_SHOULD_CONTAINS"
@@ -181,7 +184,8 @@ class Element(ModuleInterface):
             self.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE: lambda: self._wait_until_element_is_visible(
                 values["xpath"], values["retries"]),
             self.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED: lambda: self._wait_until_element_is_enabled(
-                values["xpath"], values["retries"])
+                values["xpath"], values["retries"]),
+            self.Action.FIND_ALL_ELEMENTS: lambda: self._find_all_elements(values["xpath"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -280,6 +284,28 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
         """
         return self._automation.GetDesktop().FindFirstByXPath(xpath)
+
+    def _find_all_elements(self, xpath: str):
+        values = []
+        elements = self._get_all_elements_by_xpath(xpath)
+        for element in elements:
+            values.append(AutomationElement(
+                element.AutomationId,
+                element.Name,
+                element.ClassName,
+                FlaUIDebug.GetXPathToElement(element)
+            ))
+
+        return values
+
+    def _get_all_elements_by_xpath(self, xpath: str):
+        """
+        Try to get all elements from xpath by desktop.
+
+        Args:
+            xpath (string): XPath identifier from element.
+        """
+        return self._automation.GetDesktop().FindAllByXPath(xpath)
 
     def _element_should_exist(self, xpath: str, use_exception: bool):
         """

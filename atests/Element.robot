@@ -195,3 +195,43 @@ Wait Until Element Is Enabled Timeout Is Reached By Wrong Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
     ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW}  "I'm not a number"
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Find All Elements
+    ${index}  Set Variable  ${0}
+    ${elements}   Find All Elements  ${MAIN_WINDOW_CONTROLS}
+    Length Should Be  ${elements}  3
+
+	FOR    ${element}    IN    @{elements}
+        ${Xpath}  Set Variable  ${element.Xpath}
+        ${Id}  Set Variable  ${element.AutomationId}
+        ${Name}  Set Variable  ${element.Name}
+        ${ClassName}  Set Variable  ${element.ClassName}
+
+        IF  ${index} == 0
+            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[1]
+            Should Be Equal  ${Id}  /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]
+            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Simple Controls"]
+            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+        END
+
+        IF  ${index} == 1
+            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[2]
+            Should Be Equal  ${Id}  ${EMPTY}
+            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Complex Controls"]
+            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+        END
+
+        IF  ${index} == 2
+            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[3]
+            Should Be Equal  ${Id}  ${EMPTY}
+            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Keyboard Controls"]
+            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+        END
+
+        ${index}  Set Variable  ${index + 1}
+    END
+
+Find All Elements If Xpath Is Wrong
+    ${index}  Set Variable  ${0}
+    ${elements}   Find All Elements  /NOT_A_XPATH
+    Length Should Be  ${elements}  0
