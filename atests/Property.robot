@@ -21,6 +21,11 @@ ${TOGGLE_ELEMENT}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='
 ${XPATH_COMBO_BOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
 ${EDITABLE_COMBOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='EditableCombo']
 ${EDITABLE_COMBOX_EDIT}    ${EDITABLE_COMBOX}/Edit
+${XPATH_TREE}              ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group/Tree[@AutomationId='treeView1']
+${XPATH_TAB}               ${MAIN_WINDOW}/Tab
+${XPATH_RADIO_BUTTON_ONE}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton1']
+${XPATH_RADIO_BUTTON_TWO}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton2']
+${XPATH_GRID_VIEW}         ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
 
 *** Test Cases ***
 Get Background Color
@@ -310,3 +315,67 @@ Expand Collapse State From Element
     Collapse Combobox  ${XPATH_COMBO_BOX}
     ${second_state}  Get Property From Element  ${XPATH_COMBO_BOX}  EXPAND_COLLAPSE_STATE
     Should Be Equal As Strings  ${second_state}  Collapsed
+
+Is Selection Item Pattern Supported
+    [Setup]  Open Complex Tab
+    Wait Until Element Is Enabled  ${XPATH_TREE}
+    ${state}  Get Property From Element  ${XPATH_TREE}  IS_SELECTION_ITEM_PATTERN_SUPPORTED
+    Should Not Be True  ${state}
+    
+    Wait Until Element Is Enabled  ${XPATH_TREE}/TreeItem[1]
+    ${state}  Get Property From Element  ${XPATH_TREE}/TreeItem[1]  IS_SELECTION_ITEM_PATTERN_SUPPORTED
+    Should Be True  ${state}
+
+Is Selected From TreeItem Element
+    [Setup]  Open Complex Tab
+    ${EXP_ERR_MSG}  Format String  ${EXP_PATTERN_NOT_SUPPORTED}  SelectionItem
+    Wait Until Element Is Enabled  ${XPATH_TREE}
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Get Property From Element  ${XPATH_TREE}  IS_SELECTED
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+    Wait Until Element Is Enabled  ${XPATH_TREE}/TreeItem[1]
+    ${state}  Get Property From Element  ${XPATH_TREE}/TreeItem[1]  IS_SELECTED
+    Should Not Be True  ${state}
+
+    Click  ${XPATH_TREE}/TreeItem[1]/Text
+    ${state}  Get Property From Element  ${XPATH_TREE}/TreeItem[1]  IS_SELECTED
+    Should Be True  ${state}
+
+Is Selected From TabItem Element
+    [Setup]  Open Simple Tab
+    Wait Until Element Is Enabled  ${XPATH_TAB}
+    ${state}  Get Property From Element  ${XPATH_TAB}/TabItem[1]  IS_SELECTED
+    Should Be True  ${state}
+    ${state}  Get Property From Element  ${XPATH_TAB}/TabItem[2]  IS_SELECTED
+    Should Not Be True  ${state}
+
+Is Selected From RadioButton Element
+    [Setup]  Open Simple Tab
+    Wait Until Element Is Enabled  ${XPATH_RADIO_BUTTON_ONE}
+    ${state}  Get Property From Element  ${XPATH_RADIO_BUTTON_ONE}  IS_SELECTED
+    Should Not Be True  ${state}
+    
+    Click  ${XPATH_RADIO_BUTTON_ONE}
+    ${state}  Get Property From Element  ${XPATH_RADIO_BUTTON_ONE}  IS_SELECTED
+    Should Be True  ${state}
+    ${state}  Get Property From Element  ${XPATH_RADIO_BUTTON_TWO}  IS_SELECTED
+    Should Not Be True  ${state}
+
+Is Selected From DataGrid DataItem Element
+    [Setup]  Open Complex Tab
+    Wait Until Element Is Enabled  ${XPATH_GRID_VIEW}
+    ${state}  Get Property From Element  ${XPATH_GRID_VIEW}/DataItem[1]  IS_SELECTED
+    Should Not Be True  ${state}
+
+    Click  ${XPATH_GRID_VIEW}/DataItem[1]/Custom
+    ${state}  Get Property From Element  ${XPATH_GRID_VIEW}/DataItem[1]  IS_SELECTED
+    Should Be True  ${state}
+
+Is Selected From Combobox ListItem Element
+    [Setup]  Open Simple Tab
+    Wait Until Element Is Enabled  ${EDITABLE_COMBOX}
+    Select Combobox Item By Index  ${EDITABLE_COMBOX}  0
+    ${state}  Get Property From Element  ${EDITABLE_COMBOX}/ListItem[1]  IS_SELECTED
+    Should Be True  ${state}
+    ${state}  Get Property From Element  ${EDITABLE_COMBOX}/ListItem[2]  IS_SELECTED
+    Should Not Be True  ${state}

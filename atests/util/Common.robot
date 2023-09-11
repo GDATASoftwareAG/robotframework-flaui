@@ -30,6 +30,11 @@ Start Application With Args
     Focus  ${xpath}
     [Return]  ${PID}
 
+Open Simple Tab
+    ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
+    ${TAB_ITEM_LIST_CONTROLS}   Set Variable  Simple Controls
+    Select Tab Item By Name     ${XPATH_TAB}  ${TAB_ITEM_LIST_CONTROLS}
+
 Open Complex Tab
     ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
     ${TAB_ITEM_LIST_CONTROLS}   Set Variable  Complex Controls

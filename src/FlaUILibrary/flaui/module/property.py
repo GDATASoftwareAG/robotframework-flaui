@@ -6,7 +6,6 @@ from FlaUI.Core.Definitions import WindowVisualState  # pylint: disable=import-e
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 
-
 class Property(ModuleInterface):
     """
     Property module wrapper for FlaUI usage to get property values from elements.
@@ -44,7 +43,9 @@ class Property(ModuleInterface):
         VALUE = "VALUE"
         IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED = "IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED"
         EXPAND_COLLAPSE_STATE = "EXPAND_COLLAPSE_STATE"
-
+        IS_SELECTION_ITEM_PATTERN_SUPPORTED = "IS_SELECTION_ITEM_PATTERN_SUPPORTED"
+        IS_SELECTED = "IS_SELECTED"
+        
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
         """
@@ -125,9 +126,14 @@ class Property(ModuleInterface):
             * Values ["element"] : Verification if element is read only.
             * Returns : Return True/False otherwise Pattern not supported exception
 
-         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED, IS_VALUE_PATTERN_SUPPORTED
+         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED, IS_VALUE_PATTERN_SUPPORTED,
+                   IS_SELECTION_ITEM_PATTERN_SUPPORTED
             * Values ["element"] : Verification if pattern is supported to element.
             * Returns : Return True if supported otherwise False
+         
+         *  Action.IS_SELECTED
+            * Values ["element"] : Verification if element is read only.
+            * Returns : Return True/False otherwise Pattern not supported exception
 
         Raises:
             FlaUiError: If action is not supported.
@@ -165,6 +171,9 @@ class Property(ModuleInterface):
             self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(
                 values["element"]),
             self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
+            self.Action.IS_SELECTION_ITEM_PATTERN_SUPPORTED: lambda: self._is_selection_item_pattern_supported(values["element"]),
+            self.Action.IS_SELECTED: lambda: self._is_selected(values["element"]),
+            
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -313,6 +322,10 @@ class Property(ModuleInterface):
         return Property._prop_to_bool(element.Patterns.ExpandCollapse.IsSupported)
     
     @staticmethod
+    def _is_selection_item_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.SelectionItem.IsSupported)
+    
+    @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
         blue = argb_int & 255
         green = (argb_int >> 8) & 255
@@ -356,3 +369,19 @@ class Property(ModuleInterface):
     def _get_value_from_value_pattern(element: Any) -> str:
         pattern = Property._get_value_pattern_from_element(element)
         return str(pattern.Value)
+
+    @staticmethod
+    def _get_selection_item_pattern_from_element(element) -> Any:
+        if Property._is_selection_item_pattern_supported(element):
+            pattern = element.Patterns.SelectionItem.Pattern
+            if pattern is not None:
+                return pattern
+
+        raise FlaUiError(FlaUiError.PatternNotSupported.format("SelectionItem"))
+    
+    @staticmethod
+    def _is_selected(element: Any) -> str:
+        pattern = Property._get_selection_item_pattern_from_element(element)
+        return Property._prop_to_bool(pattern.IsSelected)
+    
+    

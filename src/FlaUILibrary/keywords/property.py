@@ -1,6 +1,8 @@
+import re
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Property
 from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -45,8 +47,10 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | IS_VALUE_PATTERN_SUPPORTED | Bool | True or False |
         | VALUE | String | The Value Property of Element |
         | IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED | Bool | True or False |
-        | EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |        
-
+        | EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |   
+        | IS_SELECTION_ITEM_PATTERN_SUPPORTED | Bool | True or False |    
+        | IS_SELECTED | Bool | True or False |
+        
         Possible FlaUI-Errors:
         | Element could not be found by xpath        |
         | Pattern is not supported by given element  |
@@ -64,24 +68,45 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         # pylint: enable=line-too-long
-
-        module = self._container.get_module()
-        element = module.get_element(identifier, msg=msg)
+        
         action_value = ""
-
         try:
             action_value = Property.Action[action.upper()]
-        except KeyError:
+        except KeyError or action_value in [Property.Action.MAXIMIZE_WINDOW, Property.Action.MINIMIZE_WINDOW, Property.Action.NORMALIZE_WINDOW]:
             FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
-
-        if action_value is (Property.Action.MAXIMIZE_WINDOW
-                            or Property.Action.MINIMIZE_WINDOW
-                            or action_value == Property.Action.NORMALIZE_WINDOW):
-            FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
-
-        return module.action(action_value,
-                             Property.create_value_container(element=element, uia=module.identifier()),
-                             msg)
+        
+        combobox_item_flag = self.__is_combobox_list_item(identifier)
+        if combobox_item_flag:
+            self.__prepare_combobox_element_for_selection_item_pattern(identifier)
+        
+        module = self._container.get_module()
+        element = module.get_element(identifier, msg=msg)
+        property_value = module.action(action_value,
+                            Property.create_value_container(element=element, uia=module.identifier()), 
+                            msg)
+        
+        if combobox_item_flag:
+            self.__prepare_combobox_element_for_selection_item_pattern(identifier)
+        
+        return property_value
+    
+    def __is_combobox_list_item(self, identifier):
+        patterns = identifier.split("/")
+        if "ComboBox" in identifier and "ComboBox" not in patterns[-1]:
+            return True
+        return False
+    
+    def __prepare_combobox_element_for_selection_item_pattern(self, identifier):
+        matches = re.findall(r"/ComboBox.*?/", identifier)
+        s = matches[0] if matches is not [] else ""
+        xpath = f"{identifier.split(s)[0]}{s}"[:-1] if s else ""
+     
+        element = self._container.get_module().get_element(xpath, InterfaceType.COMBOBOX) if xpath else None
+        state = str(element.Patterns.ExpandCollapse.Pattern.ExpandCollapseState) if element else ""
+        if state == "Expanded":
+            element.Collapse()
+        if state == "Collapsed":
+            element.Expand() 
 
     @keyword
     def get_background_color(self, identifier, msg=None):
