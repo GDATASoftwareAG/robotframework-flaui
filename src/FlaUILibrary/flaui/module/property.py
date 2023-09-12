@@ -45,7 +45,8 @@ class Property(ModuleInterface):
         EXPAND_COLLAPSE_STATE = "EXPAND_COLLAPSE_STATE"
         IS_SELECTION_ITEM_PATTERN_SUPPORTED = "IS_SELECTION_ITEM_PATTERN_SUPPORTED"
         IS_SELECTED = "IS_SELECTED"
-        
+        STAGE_FOR_COMBOBOX_SELECTIONITEM = "STAGE_FOR_COMBOBOX_SELECTIONITEM"
+            
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
         """
@@ -173,7 +174,7 @@ class Property(ModuleInterface):
             self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
             self.Action.IS_SELECTION_ITEM_PATTERN_SUPPORTED: lambda: self._is_selection_item_pattern_supported(values["element"]),
             self.Action.IS_SELECTED: lambda: self._is_selected(values["element"]),
-            
+            self.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM: lambda: self._stage_for_combobox_selectionitem(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -384,4 +385,10 @@ class Property(ModuleInterface):
         pattern = Property._get_selection_item_pattern_from_element(element)
         return Property._prop_to_bool(pattern.IsSelected)
     
-    
+    @staticmethod
+    def _stage_for_combobox_selectionitem(element):
+        state = Property._get_expand_collapse_pattern_state(element)
+        if state == "Expanded":
+            element.Collapse()
+        if state == "Collapsed":
+            element.Expand()

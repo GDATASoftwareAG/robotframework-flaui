@@ -1,9 +1,9 @@
-import re
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Property
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
+from FlaUILibrary.flaui.util.converter import Converter
 
 
 class PropertyKeywords:  # pylint: disable=too-many-public-methods
@@ -75,38 +75,30 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         except KeyError or action_value in [Property.Action.MAXIMIZE_WINDOW, Property.Action.MINIMIZE_WINDOW, Property.Action.NORMALIZE_WINDOW]:
             FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
         
-        combobox_item_flag = self.__is_combobox_list_item(identifier)
-        if combobox_item_flag:
-            self.__prepare_combobox_element_for_selection_item_pattern(identifier)
-        
         module = self._container.get_module()
+        
+        # need expand parent ComboBox before to get ComboBox SelectionItem element
+        is_combobox_selectionitem = True if "ComboBox" in identifier and "ComboBox" not in identifier.split("/")[-1] else False
+        if is_combobox_selectionitem:
+            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selection_xpath(identifier)
+            combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+            module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
+                        Property.create_value_container(element=combobox_element, uia=module.identifier()),
+                        msg)
+
         element = module.get_element(identifier, msg=msg)
         property_value = module.action(action_value,
                             Property.create_value_container(element=element, uia=module.identifier()), 
                             msg)
         
-        if combobox_item_flag:
-            self.__prepare_combobox_element_for_selection_item_pattern(identifier)
+        if is_combobox_selectionitem:
+            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selection_xpath(identifier)
+            combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+            module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
+                        Property.create_value_container(element=combobox_element, uia=module.identifier()),
+                        msg)
         
         return property_value
-    
-    def __is_combobox_list_item(self, identifier):
-        patterns = identifier.split("/")
-        if "ComboBox" in identifier and "ComboBox" not in patterns[-1]:
-            return True
-        return False
-    
-    def __prepare_combobox_element_for_selection_item_pattern(self, identifier):
-        matches = re.findall(r"/ComboBox.*?/", identifier)
-        s = matches[0] if matches is not [] else ""
-        xpath = f"{identifier.split(s)[0]}{s}"[:-1] if s else ""
-     
-        element = self._container.get_module().get_element(xpath, InterfaceType.COMBOBOX) if xpath else None
-        state = str(element.Patterns.ExpandCollapse.Pattern.ExpandCollapseState) if element else ""
-        if state == "Expanded":
-            element.Collapse()
-        if state == "Collapsed":
-            element.Expand() 
 
     @keyword
     def get_background_color(self, identifier, msg=None):

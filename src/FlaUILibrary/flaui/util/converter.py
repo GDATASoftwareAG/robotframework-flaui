@@ -1,3 +1,4 @@
+import re
 from typing import Any
 from FlaUILibrary.flaui.exception import FlaUiError
 
@@ -57,3 +58,10 @@ class Converter:
             return False
 
         return bool(value)
+
+    @staticmethod
+    def get_combobox_xpath_from_combobox_selection_xpath(xpath: str) -> str:
+        matches = re.findall(r"/ComboBox.*?/", xpath)
+        s = matches[0] if matches is not [] else ""
+        result = f"{xpath.split(s)[0]}{s}"[:-1] if s else ""
+        return result
