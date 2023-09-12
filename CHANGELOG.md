@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.0.14] [2.0.14][2.0.13-2.0.14] - 2023-09-12
+
 ### Added
 - Keyword 'Get Property From Element Keyword'
   - Add new operation 'VALUE'
@@ -490,7 +492,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.13...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.14...main
+
+[2.0.14]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.14
+
+[2.0.13-2.0.14]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.13...2.0.14
 
 [2.0.13]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.13
 
