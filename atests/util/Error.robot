@@ -32,3 +32,5 @@ ${EXP_PROPERTY_NOT_SUPPORTED}                   FlaUiError: Property from elemen
 ${EXP_PROPERTY_INEQUAL}                         FlaUiError: Property value '{0}' not equal to expected value '{1}'
 ${EXP_APPLICATION_NOT_FOUND}                    FlaUiError: Application with name '{0}' could not be found
 ${EXP_ACTION_NOT_SUPPORTED}                     FlaUiError: Action not supported
+${EXP_PATTERN_NOT_SUPPORTED}                    FlaUiError: Supports '{0}' Pattern only, method cannot be used with invalid Pattern
+${EXP_INVALID_PROPETY_ARGUMENT}                 FlaUiError: Set Property can not be executed by Get Property From Element

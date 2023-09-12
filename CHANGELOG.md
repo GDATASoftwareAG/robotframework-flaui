@@ -10,6 +10,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Added
 - Keyword 'Get Property From Element Keyword'
   - Add new operation 'VALUE'
+  - Add new operation 'IS_SELECTED'
 
 - [#118](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/118)
   - Keyword 'Switch UIA To' implemented to change between UIA2 or UIA3
