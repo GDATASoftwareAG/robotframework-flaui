@@ -77,26 +77,27 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         
         module = self._container.get_module()
         
-        # need expand parent ComboBox before to get ComboBox SelectionItem element
-        is_combobox_selectionitem = True if "ComboBox" in identifier and "ComboBox" not in identifier.split("/")[-1] else False
-        if is_combobox_selectionitem:
-            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selection_xpath(identifier)
-            combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
-            module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
-                        Property.create_value_container(element=combobox_element, uia=module.identifier()),
-                        msg)
+        if action_value is Property.Action.IS_SELECTED:
+            # need expand parent ComboBox before to get ComboBox SelectionItem element
+            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
+            if combobox_xpath:
+                combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+                module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
+                            Property.create_value_container(element=combobox_element, uia=module.identifier()),
+                            msg)
 
         element = module.get_element(identifier, msg=msg)
         property_value = module.action(action_value,
                             Property.create_value_container(element=element, uia=module.identifier()), 
                             msg)
         
-        if is_combobox_selectionitem:
-            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selection_xpath(identifier)
-            combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
-            module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
-                        Property.create_value_container(element=combobox_element, uia=module.identifier()),
-                        msg)
+        if action_value is Property.Action.IS_SELECTED:
+            combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
+            if combobox_xpath:
+                combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+                module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
+                            Property.create_value_container(element=combobox_element, uia=module.identifier()),
+                            msg)
         
         return property_value
 

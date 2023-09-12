@@ -60,8 +60,11 @@ class Converter:
         return bool(value)
 
     @staticmethod
-    def get_combobox_xpath_from_combobox_selection_xpath(xpath: str) -> str:
-        matches = re.findall(r"/ComboBox.*?/", xpath)
-        s = matches[0] if matches is not [] else ""
-        result = f"{xpath.split(s)[0]}{s}"[:-1] if s else ""
-        return result
+    def get_combobox_xpath_from_combobox_selectionitem_xpath(xpath: str) -> str:
+        is_combobox_selectionitem = True if "ComboBox" in xpath and "ComboBox" not in xpath.split("/")[-1] else False
+        if is_combobox_selectionitem:
+            matches = re.findall(r"/ComboBox.*?/", xpath)
+            s = matches[0] if matches is not [] else ""
+            result = f"{xpath.split(s)[0]}{s}"[:-1] if s else ""
+            return result
+        return ""
