@@ -429,3 +429,36 @@ class ElementKeywords:
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
+
+    @keyword
+    def find_all_elements(self, identifier, msg=None):
+        """
+        Find all elements from given xpath, Returns an AutomationElement list which contains properties to Xpath.
+        If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
+
+        | Example usage AutomationElement                                        |
+        | Xpath        --> /Window[1]/Tab/TabItem[1]                             |
+        | AutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"] |
+        | Name         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]       |
+        | ClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]          |
+
+        If any property is not set empty string value will be returned.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Arguments:
+        | Argument   | Type   | Description                                                           |
+        | identifier | string | XPath identifier from element                                         |
+        | msg        | string | Custom error message                                                  |
+
+        Example:
+        | ${elements}  Find All Elements  <XPATH>             |
+        | ${Xpath}  Set Variable  ${element[0].Xpath}         |
+        | ${Id}  Set Variable  ${element[0].AutomationId}     |
+		| ${Name}  Set Variable  ${element[0].Name}           |
+		| ${ClassName}  Set Variable  ${element[0].ClassName} |
+        """
+        module = self._container.get_module()
+        return module.action(Element.Action.FIND_ALL_ELEMENTS,
+                             Element.create_value_container(xpath=identifier),
+                             msg)
