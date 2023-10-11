@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- Python 3.12 Support
+  - Release from Python.Net 3.0.2
+
 ## [Release][2.0.14] [2.0.14][2.0.13-2.0.14] - 2023-09-12
 
 ### Added
