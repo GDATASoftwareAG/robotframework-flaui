@@ -29,8 +29,6 @@
 [rf5]: https://img.shields.io/badge/5-Supported-blue
 [rf6]: https://img.shields.io/badge/6-Supported-blue
 
-[![Join the chat at https://matrix.to/#/#robot-flaui-lobby:gitter.im](https://badges.gitter.im/repo.svg)](https://matrix.to/#/#robot-flaui-lobby:gitter.im)
-
 |                          |                                                                              |
 |---                       |------------------------------------------------------------------------------|
 | License                  | ![][license]                                                                 |
