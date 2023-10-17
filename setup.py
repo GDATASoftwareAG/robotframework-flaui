@@ -17,7 +17,7 @@ with open("./src/FlaUILibrary/version.py", "r") as fh:
     IGNORE, VERSION = VersionFile.split(" = ")
     VERSION = VERSION.replace("\"", "")
 
-with open("Readme.md", "r") as fh:
+with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 with open("requirements.txt", "r") as f:
