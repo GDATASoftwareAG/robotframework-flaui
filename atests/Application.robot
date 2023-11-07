@@ -46,3 +46,91 @@ Close Application By Name
     ${EXP_ERR_MSG}  Format String  ${EXP_APPLICATION_NOT_FOUND}  ${TEST_APP}
     ${ERR_MSG}  Run Keyword And Expect Error  *  Attach Application By Name  ${TEST_APP}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+    
+Wait For Application While Busy By Name Without Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application While Busy By Name  WpfApplication
+    Should Be True  ${RESULT}
+
+Wait For Application While Busy By Name With Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application While Busy By Name  WpfApplication  1000
+    Should Be True  ${RESULT}
+
+Wait For Application While Busy By Name Except Error
+    [Setup]  Start Application
+    [Teardown]  Run Keyword And Ignore Error  Stop Application  ${PID}
+    Close Application By Name  WpfApplication
+    ${EXP_ERR_MSG}  Format String  ${EXP_APPLICATION_NOT_FOUND}  ${TEST_APP}
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Wait For Application While Busy By Name  ${TEST_APP}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait For Application While Busy By PID Without Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application While Busy By PID  ${PID}
+    Should Be True  ${RESULT}
+
+Wait For Application While Busy By PID With Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application While Busy By PID  ${PID}  1000
+    Should Be True  ${RESULT}
+
+Wait For Application While Busy By PID Except Error
+    [Setup]  Start Application
+    [Teardown]  Run Keyword And Ignore Error  Stop Application  ${PID}
+    Close Application By Name  WpfApplication
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_APP_PID_NOT_FOUND}  -1
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Wait For Application While Busy By PID  -1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait For Application Handle By Name Without Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application Handle By Name  WpfApplication
+    Should Be True  ${RESULT}
+
+Wait For Application Handle By Name With Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application Handle By Name  WpfApplication  1000
+    Should Be True  ${RESULT}
+
+Wait For Application Handle By Name Except Error
+    [Setup]  Start Application
+    [Teardown]  Run Keyword And Ignore Error  Stop Application  ${PID}
+    Close Application By Name  WpfApplication
+    ${EXP_ERR_MSG}  Format String  ${EXP_APPLICATION_NOT_FOUND}  ${TEST_APP}
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Wait For Application Handle By Name  ${TEST_APP}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait For Application Handle By PID Without Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application Handle By PID  ${PID}
+    Should Be True  ${RESULT}
+
+Wait For Application Handle By PID With Timeout
+    [Setup]     Start Application
+    [Teardown]  Stop Application  ${PID}
+    ${PID}  Attach Application By Name   ${TEST_APP}
+    ${RESULT}  Wait For Application Handle By PID  ${PID}  1000
+    Should Be True  ${RESULT}
+
+Wait For Application Handle By PID Except Error
+    [Setup]  Start Application
+    [Teardown]  Run Keyword And Ignore Error  Stop Application  ${PID}
+    Close Application By Name  WpfApplication
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_APP_PID_NOT_FOUND}  -1
+    ${ERR_MSG}  Run Keyword And Expect Error  *  Wait For Application Handle By PID  -1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
