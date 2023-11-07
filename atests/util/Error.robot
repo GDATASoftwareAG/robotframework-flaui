@@ -7,6 +7,7 @@ ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}               FlaUiError: Given index '{0}' co
 ${EXP_ERR_MSG_NO_ELEMENT_ATTACHED}              FlaUiError: No element attached
 ${EXP_ERR_MSG_XPATH_NOT_FOUND}                  FlaUiError: Element from XPath '{0}' could not be found
 ${EXP_ERR_MSG_NO_WINDOW_FOUND}                  FlaUiError: No window with name '{0}' found
+${EXP_ERR_MSG_APP_PID_NOT_FOUND}                FlaUiError: Application with pid {0} could not be found
 ${EXP_ERR_MSG_APP_NAME_NOT_FOUND}               FlaUiError: Application with name '{0}' could not be found
 ${EXP_ERR_MSG_APP_NOT_EXIST}                    FlaUiError: Application '{0}' could not be found
 ${EXP_ERR_MSG_APP_NOT_ATTACHED}                 FlaUiError: Application is not attached

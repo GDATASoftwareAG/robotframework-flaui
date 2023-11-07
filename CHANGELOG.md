@@ -10,6 +10,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Added
 - Python 3.12 Support
   - Release from Python.Net 3.0.2
+- [#131](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/131) New Keywords
+  - Wait For Application While Busy By PID
+  - Wait For Application While Busy By Name
+  - Wait For Application Handle By Name
+  - Wait For Application Handle By PID
 
 ## [Release][2.0.14] [2.0.14][2.0.13-2.0.14] - 2023-09-12
 

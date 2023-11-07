@@ -28,7 +28,7 @@ class ApplicationKeywords:
         | name       | string | Process name to attach |
         | msg        | string | Custom error message   |
 
-        Examples:
+        Example:
         | ${pid}  Attach Application By Name  <APPLICATION>                     |
         | ${pid}  Attach Application By Name  <APPLICATION>  You shall not pass |
 
@@ -51,7 +51,7 @@ class ApplicationKeywords:
         | pid        | number | Process identifier to attach |
         | msg        | string | Custom error message         |
 
-        Examples:
+        Example:
         | ${pid}  Attach Application By PID  <PID_NUMBER>                     |
         | ${pid}  Attach Application By PID  <PID_NUMBER>  You shall not pass |
 
@@ -75,7 +75,7 @@ class ApplicationKeywords:
         | pid        | int    | Process id to close  |
         | msg        | string | Custom error message |
 
-        Examples:
+        Example:
         | ${pid}  Launch Application  <APPLICATION> |
         | Close Application  ${pid}                 |
 
@@ -96,7 +96,7 @@ class ApplicationKeywords:
         | name       | string | Process name to close|
         | msg        | string | Custom error message |
 
-        Examples:
+        Example:
         | Close Application By Name  $[name}         |
 
         """
@@ -116,7 +116,7 @@ class ApplicationKeywords:
         | application | string | Relative or absolute path to executable to launch  |
         | msg         | string | Custom error message                               |
 
-        Examples:
+        Example:
         | ${pid}  Launch Application  <APPLICATION> |
 
         Returns:
@@ -140,7 +140,7 @@ class ApplicationKeywords:
         | arguments   | string | Arguments for application to start                 |
         | msg         | string | Custom error message                               |
 
-        Examples:
+        Example:
         | ${pid}  Launch Application With Args  <APPLICATION>  <ARGUMENTS> |
 
         Returns:
@@ -150,4 +150,107 @@ class ApplicationKeywords:
         module = self._container.get_module()
         return module.action(Application.Action.LAUNCH_APPLICATION_WITH_ARGS,
                              Application.create_value_container(name=application, args=arguments, msg=msg),
+                             msg)
+
+    @keyword
+    def wait_for_application_while_busy_by_name(self, name, timeout=None, msg=None):
+        """
+        Wait for application when in busy state until timeout is reached.
+
+        Arguments:
+        | Argument    | Type   | Description                                        |
+        | name        | string | Name from application to wait                      |
+        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used |
+        | msg         | string | Custom error message                               |
+
+        Example:
+        | Wait For Application While Busy By Name  <NAME>  <TIMEOUT> |
+
+        Raise FlaUiError:
+        | If application could not be found by name. |
+
+        Returns:
+        | True if the application is idle, false otherwise |
+
+        """
+        module = self._container.get_module()
+        return module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_NAME,
+                             Application.create_value_container(name=name, timeout=timeout, msg=msg),
+                             msg)
+
+    @keyword
+    def wait_for_application_while_busy_by_pid(self, pid, timeout=None, msg=None):
+        """
+        Wait for application when in busy state until timeout is reached.
+
+        Arguments:
+        | Argument    | Type   | Description                                        |
+        | pid         | number | PID from application to wait                       |
+        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
+        | msg         | string | Custom error message                               |
+
+        Example:
+        | Wait For Application While Busy By Pid  <PID>  <TIMEOUT> |
+
+        Raise FlaUiError:
+        | If application could not be found by name. |
+
+        Returns:
+        | True if the application is idle, false otherwise |
+
+        """
+        module = self._container.get_module()
+        return module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_PID,
+                             Application.create_value_container(pid=pid, timeout=timeout, msg=msg),
+                             msg)
+
+    @keyword
+    def wait_for_application_handle_by_pid(self, pid, timeout=None, msg=None):
+        """
+        Wait for application handle until timeout is reached.
+
+        Arguments:
+        | Argument    | Type   | Description                                        |
+        | pid         | number | PID from application to wait                       |
+        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used      |
+        | msg         | string | Custom error message                               |
+
+        Example:
+        | Wait For Application Handle By Pid  <PID>  <TIMEOUT> |
+
+        Raise FlaUiError:
+        | If application could not be found by pid. |
+
+        Returns:
+        | True a main window handle was found, false otherwise |
+
+        """
+        module = self._container.get_module()
+        return module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_PID,
+                             Application.create_value_container(pid=pid, timeout=timeout, msg=msg),
+                             msg)
+
+    @keyword
+    def wait_for_application_handle_by_name(self, name, timeout=None, msg=None):
+        """
+        Wait for application handle until timeout is reached.
+
+        Arguments:
+        | Argument    | Type   | Description                                        |
+        | name        | string | Name from application to wait                      |
+        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
+        | msg         | string | Custom error message                               |
+
+        Example:
+        | Wait For Application Handle By Name  <NAME>  <TIMEOUT> |
+
+        Raise FlaUiError:
+        | If application could not be found by name. |
+
+        Returns:
+        | True a main window handle was found, false otherwise |
+        """
+        module = self._container.get_module()
+        return module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_NAME,
+                             Application.create_value_container(name=name, timeout=timeout, msg=msg),
                              msg)

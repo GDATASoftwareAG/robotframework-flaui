@@ -1,5 +1,6 @@
 import re
 from typing import Any
+from System import TimeSpan  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 
 
@@ -7,6 +8,13 @@ class Converter:
     """
     Helper class to convert specific values.
     """
+
+    @staticmethod
+    def cast_to_timespan(value: int):
+        if value is None:
+            return None
+
+        return TimeSpan.FromMilliseconds(value)
 
     @staticmethod
     def cast_to_int(value: Any, error_msg=None):
