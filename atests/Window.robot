@@ -15,4 +15,4 @@ Resource        util/XPath.robot
 Close Window
     Start Application
     Close Window    ${MAIN_WINDOW}
-    Wait Until Element Is Hidden  ${MAIN_WINDOW}
+    Wait Until Element Does Not Exist  ${MAIN_WINDOW}

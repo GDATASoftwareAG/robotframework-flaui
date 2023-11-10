@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace WpfApplication
 {
@@ -139,5 +140,12 @@ namespace WpfApplication
             ClickAndHoldButton_MouseDown(sender, e);
         }
 
+        private async void EnableButton_Click(object sender, RoutedEventArgs e)
+        {
+            EnableButton.Content = "Ready to take off";
+            await Task.Delay(2000);
+            DisabledButton.IsEnabled = true;
+            EnableButton.IsEnabled = false;
+        }
     }
 }

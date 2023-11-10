@@ -95,7 +95,17 @@
                            Placement="Top"
                            PlacementTarget="{Binding ElementName=PopupToggleButton2}"
                            StaysOpen="False" />
-                    <Button x:Name="DisabledButton" Content="Disabled Button" AutomationProperties.AutomationId="DisabledButton" IsEnabled="False"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Column="0" Grid.Row="0" x:Name="EnableButton" Content="Enable Button" AutomationProperties.AutomationId="EnableButton" Grid.ColumnSpan="2" Height="20" Margin="0,0,311,0" VerticalAlignment="Top" Click="EnableButton_Click" />
+                        <Button Grid.Column="1" Grid.Row="0" x:Name="DisabledButton" Content="Disabled Button" AutomationProperties.AutomationId="DisabledButton" IsEnabled="False"/>
+                    </Grid>
                     <Button x:Name="ClickAndHoldButton" Content="Click And Hold Button" AutomationProperties.AutomationId="ClickAndHoldButton" PreviewMouseDown="ClickAndHoldButton_PreviewMouseDown" PreviewMouseUp="ClickAndHoldButton_PreviewMouseUp" PreviewMouseRightButtonUp="ClickAndHoldButton_PreviewMouseRightButtonUp" PreviewMouseRightButtonDown="ClickAndHoldButton_PreviewMouseRightButtonDown"/>
                     <TextBlock x:Name="Offscreen_Textblock" TextWrapping="Wrap" Text="Offscreen TextBlock" AutomationProperties.IsOffscreenBehavior="Offscreen" AutomationProperties.AutomationId="OffscreenTextBlock"/>
                     <Label Content="Menu Item Checked" Foreground="Red" x:Name="lblMenuChk"/>

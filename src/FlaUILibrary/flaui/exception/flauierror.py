@@ -16,6 +16,8 @@ class FlaUiError(AttributeError):
     ElementNotClickable = "Element position could not be found because it is hidden."
     ActionNotSupported = "Action not supported"
     ElementExists = "Element '{}' exists"
+    ElementNotExists = "Element '{}' does not exists"
+    ElementIsOffscreen = "Element '{}' is offscreen"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"
     ElementNotEnabled = "Element '{}' is not enabled"

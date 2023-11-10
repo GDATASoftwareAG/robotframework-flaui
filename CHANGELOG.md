@@ -15,6 +15,14 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - Wait For Application While Busy By Name
   - Wait For Application Handle By Name
   - Wait For Application Handle By PID
+- [#96](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/96) New Keywords
+  - Is Element Offscreen
+  - Wait Until Element Is Offscreen
+
+### Changed
+- [#96](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/96) Multiple Keywords renamed because of misleading keyword understanding
+  - 'Wait Until Element Is Visible' to 'Wait Until Element Exist'
+  - 'Wait Until Element Is Hidden' to 'Wait Until Element Does Not Exist'
 
 ## [Release][2.0.14] [2.0.14][2.0.13-2.0.14] - 2023-09-12
 

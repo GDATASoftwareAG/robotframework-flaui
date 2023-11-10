@@ -233,9 +233,9 @@ class ElementKeywords:
                              msg)
 
     @keyword
-    def is_element_visible(self, identifier, msg=None):
+    def is_element_offscreen(self, identifier, msg=None):
         """
-        Checks if element is visible (true) or not (false).
+        Checks if element is offscreen (true) or not (false).
 
         XPaths syntax is explained in `XPath locator`.
 
@@ -248,63 +248,13 @@ class ElementKeywords:
         | msg        | string | Custom error message          |
 
         Example:
-        | ${IS_VISIBLE}  Is Element Visible  <XPATH> |
+        | ${IS_OFFSCREEN}  Is Element Offscreen  <XPATH> |
 
         """
         module = self._container.get_module()
-        return not module.action(Element.Action.IS_ELEMENT_VISIBLE,
+        return not module.action(Element.Action.IS_ELEMENT_OFFSCREEN,
                                  Element.create_value_container(xpath=identifier, msg=msg),
                                  msg)
-
-    @keyword
-    def element_should_be_visible(self, identifier, msg=None):
-        """
-        Checks if element is visible.
-
-        XPaths syntax is explained in `XPath locator`.
-
-        Possible FlaUI-Errors:
-        | Element could not be found by xpath |
-        | Element <XPATH> is not visible      |
-
-        Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
-
-        Example:
-        | Element Should Be Visible  <XPATH> |
-
-        """
-        module = self._container.get_module()
-        module.action(Element.Action.ELEMENT_SHOULD_BE_VISIBLE,
-                      Element.create_value_container(xpath=identifier, msg=msg),
-                      msg)
-
-    @keyword
-    def element_should_not_be_visible(self, identifier, msg=None):
-        """
-        Checks if element is visible.
-
-        XPaths syntax is explained in `XPath locator`.
-
-        Possible FlaUI-Errors:
-        | Element could not be found by xpath |
-        | Element <XPATH> is visible          |
-
-        Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
-
-        Example:
-        | Element Should Not Be Visible  <XPATH> |
-
-        """
-        module = self._container.get_module()
-        module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE,
-                      Element.create_value_container(xpath=identifier, msg=msg),
-                      msg)
 
     @keyword
     def element_should_be_enabled(self, identifier, msg=None):
@@ -357,9 +307,9 @@ class ElementKeywords:
                       msg)
 
     @keyword
-    def wait_until_element_is_hidden(self, identifier, retries=10, msg=None):
+    def wait_until_element_is_offscreen(self, identifier, retries=10, msg=None):
         """
-        Waits until element is hidden or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element is offscreen or timeout was reached. If timeout was reached an FlaUIError occurred.
 
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
@@ -372,36 +322,61 @@ class ElementKeywords:
         | msg        | string | Custom error message                                                  |
 
         Example:
-        | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Is Hidden  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10>  <MSG> |
         """
         module = self._container.get_module()
-        module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN,
+        module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_OFFSCREEN,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
 
     @keyword
-    def wait_until_element_is_visible(self, identifier, retries=10, msg=None):
+    def wait_until_element_exist(self, identifier, retries=10, msg=None):
         """
-        Waits until element is visible or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element exist or timeout was reached. If timeout was reached an FlaUIError occurred.
 
         XPaths syntax is explained in `XPath locator`.
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
-        | Element <XPATH> is not visible      |
+        | Element <XPATH> is not enabled      |
 
         Arguments:
-        | Argument   | Type   | Description                                                           |
-        | identifier | string | XPath identifier from element                                         |
+        | Argument   | Type   | Description                                                            |
+        | identifier | string | XPath identifier from element                                          |
         | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
-        | msg        | string | Custom error message                                                  |
+        | msg        | string | Custom error message                                                   |
 
         Example:
-        | Wait Until Element Is Visible  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Is Visible  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Exist  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Exist  <XPATH>  <RETRIES=10>  <MSG> |
         """
         module = self._container.get_module()
-        module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE,
+        module.action(Element.Action.WAIT_UNTIl_ELEMENT_EXIST,
+                      Element.create_value_container(xpath=identifier, retries=retries),
+                      msg)
+
+    @keyword
+    def wait_until_element_does_not_exist(self, identifier, retries=10, msg=None):
+        """
+        Waits until element does not exist or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+        XPaths syntax is explained in `XPath locator`.
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not enabled      |
+
+        Arguments:
+        | Argument   | Type   | Description                                                            |
+        | identifier | string | XPath identifier from element                                          |
+        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
+        | msg        | string | Custom error message                                                   |
+
+        Example:
+        | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10> |
+        | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10>  <MSG> |
+        """
+        module = self._container.get_module()
+        module.action(Element.Action.WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
 
@@ -455,8 +430,8 @@ class ElementKeywords:
         | ${elements}  Find All Elements  <XPATH>             |
         | ${Xpath}  Set Variable  ${element[0].Xpath}         |
         | ${Id}  Set Variable  ${element[0].AutomationId}     |
-		| ${Name}  Set Variable  ${element[0].Name}           |
-		| ${ClassName}  Set Variable  ${element[0].ClassName} |
+        | ${Name}  Set Variable  ${element[0].Name}           |
+        | ${ClassName}  Set Variable  ${element[0].ClassName} |
         """
         module = self._container.get_module()
         return module.action(Element.Action.FIND_ALL_ELEMENTS,

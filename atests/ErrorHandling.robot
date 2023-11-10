@@ -27,9 +27,7 @@ Collapse All TreeItems               Collapse All TreeItems  ${EXP_ERR_MSG_XPATH
 Drag And Drop FirstElement           Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  /Window
 Drag And Drop SecondElement          Drag And Drop  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  /Window  ${XPATH_NOT_EXISTS}
 Double Click                         Double Click  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Element Should Be Visible            Element Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Element Should Exist                 Element Should Exist  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Element Should Not Be Visible        Element Should Not Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Expand TreeItem                      Expand TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Expand Combobox                      Expand Combobox   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Focus                                Focus  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
@@ -53,7 +51,7 @@ Get Selected Treeitems Name          Get Selected Treeitems Name   ${EXP_ERR_MSG
 Get All Visible TreeItems Names      Get All Visible TreeItems Names   ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Rectangle Bounding From Element  Get Rectangle Bounding From Element  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Is Element Enabled                   Is Element Enabled  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
-Is Element Visible                   Is Element Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
+Is Element Offscreen                 Is Element Offscreen  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 TreeItem Should Be Visible           TreeItem Should Be Visible  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Launch Application                   Launch Application  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}
 Launch Application With Args         Launch Application With Args  ${EXP_ERR_MSG_APP_NOT_EXIST}  ${XPATH_NOT_EXISTS}  ARGS
@@ -75,7 +73,6 @@ Select TreeItem                      Select TreeItem  ${EXP_ERR_MSG_XPATH_NOT_FO
 Select Visible TreeItem By Name      Select Visible TreeItem By Name  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  No Such Item
 Set Checkbox State                   Set Checkbox State  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${False}
 Set Text To Textbox                  Set Text To Textbox  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
-Wait Until Element Is Visible        Wait Until Element Is Visible  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${XPATH_NOT_EXISTS}  10
 Get Background Color                 Get Background Color  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Foreground Color                 Get Foreground Color  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
 Get Font Size                        Get Font Size  ${EXP_ERR_MSG_XPATH_NOT_FOUND}  ${XPATH_NOT_EXISTS}
