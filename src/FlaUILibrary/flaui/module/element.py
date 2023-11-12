@@ -34,18 +34,17 @@ class Element(ModuleInterface):
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
         FIND_ALL_ELEMENTS = "FIND_ALL_ELEMENTS"
         IS_ELEMENT_ENABLED = "IS_ELEMENT_ENABLED"
+        IS_ELEMENT_OFFSCREEN = "IS_ELEMENT_OFFSCREEN"
         NAME_SHOULD_BE = "NAME_SHOULD_BE"
         NAME_SHOULD_CONTAINS = "NAME_SHOULD_CONTAINS"
         ELEMENT_SHOULD_EXIST = "ELEMENT_SHOULD_EXIST"
         ELEMENT_SHOULD_NOT_EXIST = "ELEMENT_SHOULD_NOT_EXIST"
-        IS_ELEMENT_VISIBLE = "IS_ELEMENT_VISIBLE"
-        ELEMENT_SHOULD_BE_VISIBLE = "ELEMENT_SHOULD_BE_VISIBLE"
-        ELEMENT_SHOULD_NOT_BE_VISIBLE = "ELEMENT_SHOULD_NOT_BE_VISIBLE"
         ELEMENT_SHOULD_BE_ENABLED = "ELEMENT_SHOULD_BE_ENABLED"
         ELEMENT_SHOULD_BE_DISABLED = "ELEMENT_SHOULD_BE_DISABLED"
-        WAIT_UNTIL_ELEMENT_IS_HIDDEN = "WAIT_UNTIL_ELEMENT_IS_HIDDEN"
-        WAIT_UNTIL_ELEMENT_IS_VISIBLE = "WAIT_UNTIL_ELEMENT_IS_VISIBLE"
+        WAIT_UNTIL_ELEMENT_IS_OFFSCREEN = "WAIT_UNTIL_ELEMENT_IS_OFFSCREEN"
         WAIT_UNTIL_ELEMENT_IS_ENABLED = "WAIT_UNTIL_ELEMENT_IS_ENABLED"
+        WAIT_UNTIl_ELEMENT_EXIST = "WAIT_UNTIl_ELEMENT_EXIST"
+        WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST = "WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST"
 
     def __init__(self, automation: Any, timeout: int = 1000):
         """
@@ -82,110 +81,44 @@ class Element(ModuleInterface):
     def execute_action(self, action: Action, values: Container):
         """
         If action is not supported an ActionNotSupported error will be raised.
-
-        Supported action usages are:
-
-          *  Action.FOCUS_ELEMENT
-            * Values ["xpath"]
-            * Returns : None
-
-          *  Action.GET_ELEMENT
-            * Values ["xpath"]
-            * Returns (Object): UI entity from XPATH if found
-
-          *  Action.GET_ELEMENT_NAME
-            * Values ["xpath"]
-            * Returns (String): UI entity name from XPATH
-
-          *  Action.GET_ELEMENT_RECTANGLE_BOUNDING
-            * Values ["xpath"]
-            * Returns (String): UI entity name from XPATH
-
-          *  Action.IS_ELEMENT_ENABLED
-            * Values ["xpath"]
-            * Returns : True if element is enabled otherwise False
-
-          *  Action.NAME_SHOULD_BE
-            * Values ["xpath", "name"]
-            * Returns : None
-
-          *  Action.NAME_SHOULD_CONTAINS
-            * Values ["xpath", "name"]
-            * Returns : None
-
-           *  Action.IS_ELEMENT_VISIBLE
-            * Values ["xpath"]
-            * Returns : True if element is visible otherwise False
-
-          *  Action.ELEMENT_SHOULD_BE_VISIBLE
-            * Values ["xpath"]
-            * Returns : None
-
-          *  Action.ELEMENT_SHOULD_NOT_BE_VISIBLE
-            * Values ["xpath"]
-            * Returns : None
-
-          *  Action.ELEMENT_SHOULD_BE_ENABLED
-            * Values ["xpath"]
-            * Returns : None
-
-          *  Action.ELEMENT_SHOULD_BE_DISABLED
-            * Values ["xpath"]
-            * Returns : None
-
-          *  Action.ELEMENT_SHOULD_EXIST
-            * Values ["xpath", "use_exception"]
-            * Returns : True if element exists otherwise False
-
-          *  Action.ELEMENT_SHOULD_NOT_EXIST
-            * Values ["xpath", "use_exception"]
-            * Returns : True if element not exists otherwise False
-
-          *  Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN
-            * Values ["xpath", "retries"]
-            * Returns : None
-
-          *  Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE
-            * Values ["xpath", "retries"]
-            * Returns : None
-
-          *  Action.WAIT_UNTIL_ELEMENT_IS_ENABLED
-            * Values ["xpath", "retries"]
-            * Returns : None
-
-        Raises:
-            FlaUiError: If action is not supported.
-
-        Args:
-            action (Action): Action to use.
-            values (Object): See supported action definitions for value usage.
         """
 
         switcher = {
-            self.Action.FOCUS_ELEMENT: lambda: self._get_element(values["xpath"]).Focus(),
-            self.Action.GET_ELEMENT: lambda: self._get_element(values["xpath"]),
-            self.Action.GET_ELEMENT_NAME: lambda: self._get_name_from_element(values["xpath"]),
-            self.Action.GET_ELEMENT_RECTANGLE_BOUNDING: lambda: self._get_rectangle_bounding_from_element(
+            self.Action.FOCUS_ELEMENT:
+                lambda: self._get_element(values["xpath"]).Focus(),
+            self.Action.GET_ELEMENT:
+                lambda: self._get_element(values["xpath"]),
+            self.Action.GET_ELEMENT_NAME:
+                lambda: self._get_name_from_element(values["xpath"]),
+            self.Action.GET_ELEMENT_RECTANGLE_BOUNDING:
+                lambda: self._get_rectangle_bounding_from_element(
                 values["xpath"]),
-            self.Action.IS_ELEMENT_ENABLED: lambda: self._get_element(values["xpath"]).IsEnabled,
-            self.Action.NAME_SHOULD_BE: lambda: self._name_should_be(values["xpath"], values["name"]),
-            self.Action.NAME_SHOULD_CONTAINS: lambda: self._name_should_contain(values["xpath"], values["name"]),
-            self.Action.IS_ELEMENT_VISIBLE: lambda: self._get_element(values["xpath"]).IsOffscreen,
-            self.Action.ELEMENT_SHOULD_BE_VISIBLE: lambda: self._element_should_be_visible(values["xpath"]),
-            self.Action.ELEMENT_SHOULD_NOT_BE_VISIBLE: lambda: self._element_should_not_be_visible(values["xpath"]),
-            self.Action.ELEMENT_SHOULD_BE_ENABLED: lambda: self._element_should_be_enabled(values["xpath"]),
-            self.Action.ELEMENT_SHOULD_BE_DISABLED: lambda: self._element_should_be_disabled(values["xpath"]),
-            self.Action.ELEMENT_SHOULD_EXIST: lambda: self._element_should_exist(values["xpath"],
-                                                                                 values["use_exception"]),
-            self.Action.ELEMENT_SHOULD_NOT_EXIST: lambda: self._element_should_not_exist(values["xpath"],
-                                                                                         values["use_exception"]),
-            self.Action.WAIT_UNTIL_ELEMENT_IS_HIDDEN: lambda: self._wait_until_element_is_hidden(
-                values["xpath"], values["retries"]),
-            self.Action.WAIT_UNTIL_ELEMENT_IS_VISIBLE: lambda: self._wait_until_element_is_visible(
-                values["xpath"], values["retries"]),
-            self.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED: lambda: self._wait_until_element_is_enabled(
-                values["xpath"], values["retries"]),
-            self.Action.FIND_ALL_ELEMENTS: lambda: self._find_all_elements(values["xpath"])
+            self.Action.IS_ELEMENT_ENABLED:
+                lambda: self._get_element(values["xpath"]).IsEnabled,
+            self.Action.NAME_SHOULD_BE:
+                lambda: self._name_should_be(values["xpath"], values["name"]),
+            self.Action.NAME_SHOULD_CONTAINS:
+                lambda: self._name_should_contain(values["xpath"], values["name"]),
+            self.Action.IS_ELEMENT_OFFSCREEN:
+                lambda: self._element_is_offscreen(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_BE_ENABLED:
+                lambda: self._element_should_be_enabled(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_BE_DISABLED:
+                lambda: self._element_should_be_disabled(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_EXIST:
+                lambda: self._element_should_exist(values["xpath"], values["use_exception"]),
+            self.Action.ELEMENT_SHOULD_NOT_EXIST:
+                lambda: self._element_should_not_exist(values["xpath"], values["use_exception"]),
+            self.Action.WAIT_UNTIL_ELEMENT_IS_OFFSCREEN:
+                lambda: self._wait_until_element_is_offscreen(values["xpath"], values["retries"]),
+            self.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED:
+                lambda: self._wait_until_element_is_enabled(values["xpath"], values["retries"]),
+            self.Action.FIND_ALL_ELEMENTS:
+                lambda: self._find_all_elements(values["xpath"]),
+            self.Action.WAIT_UNTIl_ELEMENT_EXIST:
+                lambda: self._wait_until_element_exist(values["xpath"], values["retries"]),
+            self.Action.WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST:
+                lambda: self._wait_until_element_does_not_exist(values["xpath"], values["retries"])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -347,36 +280,17 @@ class Element(ModuleInterface):
 
         return False
 
-    def _element_should_be_visible(self, xpath: str):
+    def _element_is_offscreen(self, xpath: str):
         """
-        Checks if the element with the given xpath is visible
+        Checks if the element with the given xpath is offscreen (true), otherwise false
 
         Args:
             xpath (string): XPath identifier from element.
 
         Raises:
             FlaUiError: If node could not be found from xpath.
-            FlaUiError: If node by xpath is not visible.
         """
-        hidden = self._get_element(xpath).IsOffscreen
-        if hidden:
-            raise FlaUiError(FlaUiError.ElementNotVisible.format(xpath))
-
-    def _element_should_not_be_visible(self, xpath: str):
-        """
-        Checks if the element with the given xpath is visible
-
-        Args:
-            xpath (string): XPath identifier from element.
-
-        Raises:
-            FlaUiError: If node could not be found from xpath.
-            FlaUiError: If node by xpath is visible.
-        """
-        hidden = self._get_element(xpath).IsOffscreen
-
-        if not hidden:
-            raise FlaUiError(FlaUiError.ElementVisible.format(xpath))
+        return self._get_element(xpath).IsOffscreen
 
     def _element_should_be_enabled(self, xpath: str):
         """
@@ -409,17 +323,75 @@ class Element(ModuleInterface):
         if enabled:
             raise FlaUiError(FlaUiError.ElementNotDisabled.format(xpath))
 
-    def _wait_until_element_is_hidden(self, xpath: str, retries: int):
-        """
-        Wait until element is hidden or timeout occurs.
+    def _wait_until_element_is_offscreen(self, xpath: str, retries: int):
+        """Waits until element is offscreen or timeout occurred.
 
         Args:
             xpath (String): XPath from element which should be hidden
             retries (Number): Maximum number from retries from wait until
         
         Raises:
-            FlaUiError: If node could not be found from xpath.
-            FlaUiError: If node by xpath is visible.
+            FlaUiError: If element could not be found from xpath.
+        """
+
+        timer = 0
+        old_timeout = self._timeout
+        self._set_timeout(0)
+
+        while timer < retries:
+            try:
+                if self._element_is_offscreen(xpath):
+                    self._set_timeout(old_timeout)
+                    return
+            except FlaUiError:
+                return
+
+            time.sleep(1)
+            timer += 1
+
+        self._set_timeout(old_timeout)
+        raise FlaUiError(FlaUiError.ElementIsOffscreen.format(xpath))
+
+    def _wait_until_element_exist(self, xpath: str, retries: int):
+        """Wait until element exist or timeout occurs.
+
+        Args:
+            xpath (String): XPath from element which should be hidden
+            retries (Number): Maximum number from retries from wait until
+
+        Raises:
+            FlaUiError: If element does not exist.
+        """
+
+        timer = 0
+        old_timeout = self._timeout
+        self._set_timeout(0)
+
+        while timer < retries:
+
+            try:
+                self._get_element(xpath)
+                self._set_timeout(old_timeout)
+                return
+            except FlaUiError:
+                pass
+
+            time.sleep(1)
+            timer += 1
+
+        self._set_timeout(old_timeout)
+        raise FlaUiError(FlaUiError.ElementNotExists.format(xpath))
+
+    def _wait_until_element_does_not_exist(self, xpath: str, retries: int):
+        """
+        Wait until element does not exist anymore or timeout occurs.
+
+        Args:
+            xpath (String): XPath from element which should be hidden
+            retries (Number): Maximum number from retries from wait until
+
+        Raises:
+            FlaUiError: If element exists.
         """
 
         timer = 0
@@ -438,38 +410,7 @@ class Element(ModuleInterface):
             timer += 1
 
         self._set_timeout(old_timeout)
-        raise FlaUiError(FlaUiError.ElementVisible.format(xpath))
-
-    def _wait_until_element_is_visible(self, xpath: str, retries: int):
-        """Wait until element is visible or timeout occurs.
-
-        Args:
-            xpath (String): XPath from element which should be hidden
-            retries (Number): Maximum number from retries from wait until
-        
-        Raises:
-            FlaUiError: If node could not be found from xpath.
-            FlaUiError: If node by xpath is hidden.
-        """
-
-        timer = 0
-        old_timeout = self._timeout
-        self._set_timeout(0)
-
-        while timer < retries:
-
-            try:
-                self._element_should_be_visible(xpath)
-                self._set_timeout(old_timeout)
-                return
-            except FlaUiError:
-                pass
-
-            time.sleep(1)
-            timer += 1
-
-        self._set_timeout(old_timeout)
-        raise FlaUiError(FlaUiError.ElementNotVisible.format(xpath))
+        raise FlaUiError(FlaUiError.ElementExists.format(xpath))
 
     def _wait_until_element_is_enabled(self, xpath: str, retries: int):
         """Wait until element is enabled or timeout occurs.

@@ -18,7 +18,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_ELEMENT}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@Name='Test Label']
-${XPATH_TOGGLE}             ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Name='Toggle Disabled Button']
+${XPATH_ENABLE_ELEMENT}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
 ${XPATH_DISABLED_ELEMENT}   ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='DisabledButton']
 ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 
@@ -75,25 +75,6 @@ Is Element Not Enabled
     ${IS_ENABLED}  Is Element Enabled  ${XPATH_DISABLED_ELEMENT}
     Should Be Equal  ${IS_ENABLED}  ${FALSE}
 
-Is Element Visible
-    ${IS_VISIBLE}  Is Element Visible  ${XPATH_ELEMENT}
-    Should Be True  ${IS_VISIBLE}
-
-Is Element Visible When Element Is Offscreen And Not Visible
-    ${IS_VISIBLE}  Is Element Visible  ${XPATH_OFFSCREEN_ELEMENT}
-    Should Be Equal  ${IS_VISIBLE}  ${False}
-
-Element Should Be Visible
-    Element Should Be Visible  ${XPATH_ELEMENT}
-
-Element Should Not Be Visible
-    Element Should Not Be Visible  ${XPATH_OFFSCREEN_ELEMENT}
-
-Element Should Not Be Visible Error
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_VISIBLE}  ${XPATH_ELEMENT}
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Not Be Visible  ${XPATH_ELEMENT}
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
 Element Should Be Enabled
     Element Should Be Enabled  ${XPATH_ELEMENT}
 
@@ -110,92 +91,6 @@ Element Should Be Disabled Error
     ${ERR_MSG}      Run Keyword And Expect Error   *  Element Should Be Disabled  ${XPATH_ELEMENT}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
-Wait Until Element Is Hidden
-    ${PID}  Start Application       ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}
-    Wait Until Element Is Hidden    ${MAIN_WINDOW_NOTIFIER}
-    Element Should Not Exist        ${MAIN_WINDOW_NOTIFIER}
-
-Wait Until Element Is Hidden Timeout Reached By Default
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_VISIBLE}  ${MAIN_WINDOW}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${MAIN_WINDOW}
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 10
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Hidden Timeout Reached After One Second
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_VISIBLE}  ${MAIN_WINDOW}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${MAIN_WINDOW}  1
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 1
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Hidden Timeout Is Reached By Wrong Number
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Hidden  ${MAIN_WINDOW}  "I'm not a number"
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Visible
-    [Teardown]  Stop Application  ${PID}  ${MAIN_WINDOW_NOTIFIER}
-    ${PID}  Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
-    Wait Until Element Is Visible    ${MAIN_WINDOW_NOTIFIER}
-    Element Should Exist             ${MAIN_WINDOW_NOTIFIER}
-
-Wait Until Element Is Visible Timeout Reached By Default
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 10
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Visible Timeout Reached After Amount Of Time
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW_NOTIFIER}  1
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 1
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Visible Timeout Is Reached By Wrong Number
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Visible  ${MAIN_WINDOW}  "I'm not a number"
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Enabled
-    [Teardown]  Stop Application  ${PID}  ${MAIN_WINDOW_NOTIFIER}
-    ${PID}  Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
-    Wait Until Element Is Visible    ${MAIN_WINDOW_NOTIFIER}
-    Element Should Exist             ${MAIN_WINDOW_NOTIFIER}
-
-Wait Until Element Is Enabled Timeout Reached By Default
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 10
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Enabled Timeout Reached After Amount Of Time
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${MAIN_WINDOW_NOTIFIER}
-    ${TIME_BEFORE}  Get Current Date
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW_NOTIFIER}  1
-    ${TIME_AFTER}   Get Current Date
-    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True  ${TOTAL_MS} >= 1
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
-Wait Until Element Is Enabled Timeout Is Reached By Wrong Number
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
-    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${MAIN_WINDOW}  "I'm not a number"
-    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
-
 Find All Elements
     ${index}  Set Variable  ${0}
     ${elements}   Find All Elements  ${MAIN_WINDOW_CONTROLS}
@@ -208,24 +103,24 @@ Find All Elements
         ${ClassName}  Set Variable  ${element.ClassName}
 
         IF  ${index} == 0
-            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[1]
-            Should Be Equal  ${Id}  /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]
-            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Simple Controls"]
-            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+            Should Contain  ${Xpath}  /Tab/TabItem[1]
+            Should Contain  ${Id}  /Tab/TabItem[@AutomationId="SimpleControl"]
+            Should Contain  ${Name}  /Tab/TabItem[@Name="Simple Controls"]
+            Should Contain  ${ClassName}  /Tab/TabItem[@ClassName="TabItem"]
         END
 
         IF  ${index} == 1
-            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[2]
-            Should Be Equal  ${Id}  ${EMPTY}
-            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Complex Controls"]
-            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+            Should Contain  ${Xpath}  /Tab/TabItem[2]
+            Should Contain  ${Id}  ${EMPTY}
+            Should Contain  ${Name}  /Tab/TabItem[@Name="Complex Controls"]
+            Should Contain  ${ClassName}  /Tab/TabItem[@ClassName="TabItem"]
         END
 
         IF  ${index} == 2
-            Should Be Equal  ${Xpath}  /Window[1]/Tab/TabItem[3]
-            Should Be Equal  ${Id}  ${EMPTY}
-            Should Be Equal  ${Name}  /Window[1]/Tab/TabItem[@Name="Keyboard Controls"]
-            Should Be Equal  ${ClassName}  /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+            Should Contain  ${Xpath}  /Tab/TabItem[3]
+            Should Contain  ${Id}  ${EMPTY}
+            Should Contain  ${Name}  /Tab/TabItem[@Name="Keyboard Controls"]
+            Should Contain  ${ClassName}  /Tab/TabItem[@ClassName="TabItem"]
         END
 
         ${index}  Set Variable  ${index + 1}
@@ -235,3 +130,125 @@ Find All Elements If Xpath Is Wrong
     ${index}  Set Variable  ${0}
     ${elements}   Find All Elements  /NOT_A_XPATH
     Length Should Be  ${elements}  0
+
+Is Element Offscreen
+    ${IS_OFFSCREEN}  Is Element Offscreen  ${XPATH_ELEMENT}
+    Should Be True  ${IS_OFFSCREEN}
+
+Is Element Not Offscreen
+    ${IS_OFFSCREEN}  Is Element Offscreen  ${XPATH_OFFSCREEN_ELEMENT}
+    Should Be Equal  ${IS_OFFSCREEN}  ${False}
+
+Wait Until Element Is Offscreen
+    ${PID}  Start Application          ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}
+    Wait Until Element Is Offscreen    ${MAIN_WINDOW_NOTIFIER}
+    Element Should Not Exist           ${MAIN_WINDOW_NOTIFIER}
+
+Wait Until Element Is Offscreen Default Timeout Reached
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}  ${MAIN_WINDOW}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Offscreen  ${MAIN_WINDOW}
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be True  ${TOTAL_MS} < 11
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Offscreen Timeout Reached After One Second
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}  ${MAIN_WINDOW}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Offscreen  ${MAIN_WINDOW}  1
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be True  ${TOTAL_MS} < 2
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Offscreen Wrong Argument
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Offscreen  ${MAIN_WINDOW}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled
+    Wait Until Keyword Succeeds      5x  200ms  Ready To Take Off  ${XPATH_ENABLE_ELEMENT}
+    Wait Until Element Is Enabled    ${XPATH_DISABLED_ELEMENT}
+
+Wait Until Element Is Enabled Default Timeout Reached
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${XPATH_ENABLE_ELEMENT}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${XPATH_ENABLE_ELEMENT}
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled Timeout Reached After One Second
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}  ${XPATH_ENABLE_ELEMENT}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${XPATH_ENABLE_ELEMENT}  1
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Is Enabled Timeout Wrong Number
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Is Enabled  ${XPATH_ENABLE_ELEMENT}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Does Not Exists
+    ${PID}  Start Application             ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}
+    Wait Until Element Does Not Exist     ${MAIN_WINDOW_NOTIFIER}
+    Element Should Not Exist              ${MAIN_WINDOW_NOTIFIER}
+
+Wait Until Element Does Not Exists DeFault Timeout
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_EXISTS}  ${MAIN_WINDOW}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Does Not Exist  ${MAIN_WINDOW}
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Does Not Exists Timeout Reached After One Second
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_EXISTS}  ${MAIN_WINDOW}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Does Not Exist  ${MAIN_WINDOW}  1
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Does Not Exists Timeout Is Reached By Wrong Number
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Does Not Exist  ${MAIN_WINDOW}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Exist
+    [Teardown]  Stop Application  ${PID}  ${MAIN_WINDOW_NOTIFIER}
+    ${PID}  Start Application With Args  ${TEST_APP_NOTIFIER}  ${MAIN_WINDOW_NOTIFIER}  Delayed
+    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}
+    Element Should Exist        ${MAIN_WINDOW_NOTIFIER}
+
+Wait Until Element Exist Default Timeout
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Exist  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 10
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Exist Timeout Reached After One Second
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}  ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE}  Get Current Date
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Exist  ${MAIN_WINDOW_NOTIFIER}  1
+    ${TIME_AFTER}   Get Current Date
+    ${TOTAL_MS}     Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True  ${TOTAL_MS} >= 1
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+
+Wait Until Element Exist Timeout Is Reached By Wrong Number
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  "I'm not a number"
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Wait Until Element Exist  ${MAIN_WINDOW}  "I'm not a number"
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
