@@ -23,21 +23,22 @@
 [python_39]: https://img.shields.io/badge/Python-3.9-blue
 [python_310]: https://img.shields.io/badge/Python-3.10-blue
 [python_311]: https://img.shields.io/badge/Python-3.11-blue
+[python_312]: https://img.shields.io/badge/Python-3.12-blue
 
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
 [rf5]: https://img.shields.io/badge/5-Supported-blue
 [rf6]: https://img.shields.io/badge/6-Supported-blue
 
-|                          |                                                                              |
-|---                       |------------------------------------------------------------------------------|
-| License                  | ![][license]                                                                 |
-| Python Builds (x86)      | ![][py37x86] ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86]           |
-| Python Builds (x64)      | ![][py37x64] ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64]           |
-| Tests                    | [![][tests]][tests_url]                                                      |
-| Python                   | ![][python_37] ![][python_38] ![][python_39] ![][python_310] ![][python_311] |
-| Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                                          |
-| PyPi                     | [![][pypi]][pypi_url]                                                        |
+|                          |                                                                                            |
+|---                       |--------------------------------------------------------------------------------------------|
+| License                  | ![][license]                                                                               |
+| Python Builds (x86)      | ![][py37x86] ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86]                         |
+| Python Builds (x64)      | ![][py37x64] ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64]                         |
+| Tests                    | [![][tests]][tests_url]                                                                    |
+| Python                   | ![][python_37] ![][python_38] ![][python_39] ![][python_310] ![][python_311] ![python_312] |
+| Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6]                                                        |
+| PyPi                     | [![][pypi]][pypi_url]                                                                      |
 
 ## Introduction
 
