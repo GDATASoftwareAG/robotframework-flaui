@@ -5,4 +5,5 @@ pep8==1.7.1
 robotframework-stringformat==0.1.8
 twine==4.0.2
 yattag==1.15.1
+build==1.0.3
 -r requirements.txt
