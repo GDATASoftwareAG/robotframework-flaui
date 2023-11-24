@@ -42,7 +42,7 @@ class GridKeywords:
         Examples:
         | ${data}  Get All Data From Grid  <XPath>   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         return module.action(Grid.Action.GET_ALL_DATA, Grid.create_value_container(element=element),
                              msg)
@@ -68,7 +68,7 @@ class GridKeywords:
         Examples:
         | ${data}  Get Selected Grid Rows  <XPath>   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         return module.action(Grid.Action.GET_SELECTED_ROWS, Grid.create_value_container(element=element),
                              msg)
@@ -92,7 +92,7 @@ class GridKeywords:
         | Select Grid Row By Index  <XPath>  <INDEX>      |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         module.action(Grid.Action.SELECT_ROW_BY_INDEX,
                       Grid.create_value_container(element=element, index=index),
@@ -118,7 +118,7 @@ class GridKeywords:
         | Select Grid Row By Name  <XPath>  <INDEX>      |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         module.action(Grid.Action.SELECT_ROW_BY_NAME,
                       Grid.create_value_container(element=element, index=index, name=name),
@@ -143,7 +143,7 @@ class GridKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         return module.action(Grid.Action.GET_ROW_COUNT,
                              Grid.create_value_container(element=element, msg=msg),

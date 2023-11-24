@@ -7,6 +7,20 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.1.1] [2.1.1][2.1.0-2.1.1] - 2023-11-24
+
+### Bugfix
+
+- [#138](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/138)
+  - Avoid UIA2 instance creation. This is only a workaround. Windows 7 x64 does not work properly with UIA2. 
+
+## [Release][2.0.15] [2.0.15][2.0.14-2.0.15] - 2023-11-24
+
+### Bugfix
+
+- [#138](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/138)
+  - Avoid UIA2 instance creation. This is only a workaround. Windows 7 x64 does not work properly with UIA2. 
+
 ## [Release][2.1.0] [2.1.0][2.0.14-2.1.0] - 2023-11-13
 
 ### Added
@@ -513,9 +527,17 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.14...main
 
+[2.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.1.1
+
+[2.1.0-2.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.1.0...2.1.1
+
 [2.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.1.0
 
 [2.0.14-2.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.14...2.1.0
+
+[2.0.15]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.15
+
+[2.0.14-2.0.15]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.14...2.0.15
 
 [2.0.14]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.14
 

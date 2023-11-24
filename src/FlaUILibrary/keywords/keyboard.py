@@ -96,7 +96,7 @@ class KeyboardKeywords:
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  500  |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         if identifier is not None:
             module.action(Element.Action.FOCUS_ELEMENT,
                           Element.create_value_container(xpath=identifier, retries=None, name=None),
@@ -142,7 +142,7 @@ class KeyboardKeywords:
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}      |
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500 |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         if identifier is not None:
             module.action(Element.Action.FOCUS_ELEMENT,
                           Element.create_value_container(xpath=identifier, retries=None, name=None),

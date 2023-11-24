@@ -22,5 +22,5 @@ Switch Uia To
     ${IDENTIFIER}  Get Uia Identifier
     Should Be Equal  ${IDENTIFIER}  UIA3
 
-Switch Uia To Should Rais Exception If Interface Not Supported
+Switch Uia To Should Raise Exception If Interface Not Supported
     Run Keyword And Expect Error  ${EXP_ACTION_NOT_SUPPORTED}  Run Keyword  Switch UIA To  UIA4

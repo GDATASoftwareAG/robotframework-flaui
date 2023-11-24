@@ -31,7 +31,7 @@ class ListBoxKeywords:
         Examples:
         | ${data}  Get All Names From Listbox  <XPATH> <MSG>                   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         return module.action(Selector.Action.GET_ALL_NAMES,
                              Selector.create_value_container(element=element, msg=msg),
@@ -51,7 +51,7 @@ class ListBoxKeywords:
         Examples:
         | ${data}  Get All Texts From Listbox  <XPATH> <MSG>                   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         return module.action(Selector.Action.GET_ALL_TEXTS,
                              Selector.create_value_container(element=element, msg=msg),
@@ -75,7 +75,7 @@ class ListBoxKeywords:
         Examples:
         | Listbox Selection Should Be <XPATH>  <STRING>                |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         module.action(Selector.Action.SHOULD_HAVE_SELECTED_ITEM,
                       Selector.create_value_container(element=element, name=item, msg=msg),
@@ -100,7 +100,7 @@ class ListBoxKeywords:
         | Select Listbox Item By Index  <XPATH>  <INDEX>      |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
                       Selector.create_value_container(element=element, index=index, msg=msg),
@@ -125,7 +125,7 @@ class ListBoxKeywords:
         | Select Listbox Item By Name  <XPATH>  <NAME>      |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         module.action(Selector.Action.SELECT_ITEM_BY_NAME,
                       Selector.create_value_container(element=element, name=name, msg=msg),
@@ -150,7 +150,7 @@ class ListBoxKeywords:
         | Listbox Should Contain <XPATH>  <STRING> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         module.action(Selector.Action.SHOULD_CONTAIN,
                       Selector.create_value_container(element=element, name=name, msg=msg),
@@ -175,7 +175,7 @@ class ListBoxKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         return module.action(Selector.Action.GET_ITEMS_COUNT,
                              Selector.create_value_container(element=element, msg=msg),

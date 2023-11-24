@@ -36,7 +36,7 @@ class CheckBoxKeywords:
         | Set Checkbox State  <XPATH>  ${True/False} |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
         module.action(Checkbox.Action.SET_CHECKBOX_BUTTON_STATE,
                       Checkbox.create_value_container(element=element, state=value),
@@ -64,7 +64,7 @@ class CheckBoxKeywords:
         | <True> if checkbox is set otherwise <False> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
         return module.action(Checkbox.Action.GET_CHECKBOX_BUTTON_STATE,
                              Checkbox.create_value_container(element=element),

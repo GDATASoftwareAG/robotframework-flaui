@@ -35,7 +35,7 @@ class RadioButtonKeywords:
         | Select Radiobutton  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
         module.action(Radio.Action.SET_CHECKBOX_BUTTON_STATE,
                       self._create_value_container(element=element, state=True),
@@ -60,7 +60,7 @@ class RadioButtonKeywords:
         | Should Be Equal  ${value}  ${False/True} |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
         return module.action(Radio.Action.GET_CHECKBOX_BUTTON_STATE,
                              self._create_value_container(element=element),

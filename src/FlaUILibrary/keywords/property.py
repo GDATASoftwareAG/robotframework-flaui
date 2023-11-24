@@ -75,7 +75,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         except KeyError or action_value in [Property.Action.MAXIMIZE_WINDOW, Property.Action.MINIMIZE_WINDOW, Property.Action.NORMALIZE_WINDOW]:
             FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
         
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         
         if action_value is Property.Action.IS_SELECTED:
             # need expand parent ComboBox before to get ComboBox SelectionItem element
@@ -122,7 +122,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${color}  Get Background Color  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.BACKGROUND_COLOR,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -150,7 +150,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Background Color Should Be  <XPATH>  <COLOR_ARGB_TUPLE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         color = module.action(Property.Action.BACKGROUND_COLOR,
                               Property.create_value_container(element=element, uia=module.identifier()),
@@ -180,7 +180,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${color}  Get Foreground Color  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.FOREGROUND_COLOR,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -208,7 +208,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Foreground Color Should Be  <XPATH>  <COLOR_ARGB_TUPLE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         color = module.action(Property.Action.FOREGROUND_COLOR,
                               Property.create_value_container(element=element, uia=module.identifier()),
@@ -237,7 +237,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_size}  Get Font Size  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.FONT_SIZE,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -265,7 +265,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Size Should Be  <XPATH>  <FONT_SIZE_FLOATING_POINT> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         size = module.action(Property.Action.FONT_SIZE,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -294,7 +294,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_name}  Get Font Name  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.FONT_NAME,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -322,7 +322,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Name Should Be  <XPATH>  <FONT_NAME> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         name = module.action(Property.Action.FONT_NAME,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -351,7 +351,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${font_weight}  Get Font Weight  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.FONT_WEIGHT,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -379,7 +379,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Font Weight Should Be  <XPATH>  <FONT_WEIGHT_FLOATING_POINT> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         weight = module.action(Property.Action.FONT_WEIGHT,
                                Property.create_value_container(element=element, uia=module.identifier()),
@@ -409,7 +409,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${culture}  Get Culture  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.CULTURE,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -438,7 +438,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Culture Should Be  <XPATH>  <CULTURE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         element_culture = module.action(Property.Action.CULTURE,
                                         Property.create_value_container(element=element,
@@ -468,7 +468,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${is_element_hidden}  Is Hidden  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.IS_HIDDEN,
                              Property.create_value_container(element=element, uia=module.identifier()),
@@ -494,7 +494,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${is_element_visible}  Is Visible  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return not module.action(Property.Action.IS_HIDDEN,
                                  Property.create_value_container(element=element, uia=module.identifier()),
@@ -520,7 +520,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${state}  Get Window Visual State  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.WINDOW_VISUAL_STATE,
                              Property.create_value_container(element=element),
@@ -548,7 +548,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Window Visual State Should Be  <XPATH>  <STATE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         visual_state = module.action(Property.Action.WINDOW_VISUAL_STATE,
                                      Property.create_value_container(element=element),
@@ -590,7 +590,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${state}  Get Window Interaction State  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.WINDOW_INTERACTION_STATE,
                              Property.create_value_container(element=element),
@@ -633,7 +633,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         # pylint: enable=line-too-long
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         interaction_state = module.action(Property.Action.WINDOW_INTERACTION_STATE,
                                           Property.create_value_container(element=element),
@@ -662,7 +662,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${toggle_state}  Get Toggle State  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.TOGGLE_STATE,
                              Property.create_value_container(element=element),
@@ -690,7 +690,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Toggle State Should Be  <XPATH>  <STATE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
 
         toggle_state = module.action(Property.Action.TOGGLE_STATE,
@@ -721,7 +721,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Maximize Window  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Property.Action.MAXIMIZE_WINDOW,
                       Property.create_value_container(element=element),
@@ -748,7 +748,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Minimize Window  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Property.Action.MINIMIZE_WINDOW,
                       Property.create_value_container(element=element),
@@ -775,7 +775,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | Normalize Window  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Property.Action.NORMALIZE_WINDOW,
                       Property.create_value_container(element=element),
@@ -801,7 +801,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${result}  Can Window Be Maximized  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.CAN_WINDOW_MAXIMIZE,
                              Property.create_value_container(element=element),
@@ -827,7 +827,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | ${result}  Can Window Be Minimized  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Property.Action.CAN_WINDOW_MINIMIZE,
                              Property.create_value_container(element=element),
