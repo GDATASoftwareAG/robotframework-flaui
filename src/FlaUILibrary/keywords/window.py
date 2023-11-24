@@ -32,7 +32,7 @@ class WindowKeywords:
         | Close Window  <XPATH_TO_APPLICATION_WINDOW> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.WINDOW, msg=msg)
         module.action(Window.Action.CLOSE_WINDOW,
                       Window.Container(element=element),

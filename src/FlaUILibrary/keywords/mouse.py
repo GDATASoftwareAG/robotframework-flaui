@@ -34,7 +34,7 @@ class MouseKeywords:
         | Click  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.LEFT_CLICK,
                       Mouse.create_value_container(element=element),
@@ -59,7 +59,7 @@ class MouseKeywords:
         | Click Hold <XPATH>  5000 |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.LEFT_CLICK_HOLD,
                       Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
@@ -83,7 +83,7 @@ class MouseKeywords:
         | Double Click  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.DOUBLE_CLICK,
                       Mouse.create_value_container(element=element),
@@ -108,7 +108,7 @@ class MouseKeywords:
         | Double Click Hold  <XPATH>  5000 |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
                       Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
@@ -132,7 +132,7 @@ class MouseKeywords:
         | Right Click  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.RIGHT_CLICK,
                       Mouse.create_value_container(element=element),
@@ -157,7 +157,7 @@ class MouseKeywords:
         | Right Click Hold  <XPATH>  5000 |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.RIGHT_CLICK_HOLD,
                       Mouse.create_value_container(element=element, timeout_in_ms=int(timeout_in_ms)),
@@ -181,7 +181,7 @@ class MouseKeywords:
         | Move To  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         module.action(Mouse.Action.MOVE_TO,
                       Mouse.create_value_container(element=element),
@@ -206,7 +206,7 @@ class MouseKeywords:
         | Drag And Drop  <XPATH>  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         start_element = module.get_element(start_identifier, msg=msg)
         end_element = module.get_element(end_identifier, msg=msg)
         module.action(Mouse.Action.DRAG_AND_DROP,

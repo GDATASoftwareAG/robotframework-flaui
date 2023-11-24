@@ -61,7 +61,7 @@ class Application(ModuleInterface):
         self._automation = automation
 
     @staticmethod
-    def create_value_container(name=None, pid=None, args=None, msg=None):
+    def create_value_container(name: object = None, pid: object = None, args: object = None, msg: object = None) -> object:
         """
         Helper to create container object.
 

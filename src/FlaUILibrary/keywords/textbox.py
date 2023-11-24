@@ -38,7 +38,7 @@ class TextBoxKeywords:
         | Text string from textbox |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
         return module.action(Textbox.Action.GET_TEXT_FROM_TEXTBOX,
                              Textbox.create_value_container(element=element),
@@ -63,7 +63,7 @@ class TextBoxKeywords:
         | Set Text To Textbox  <XPATH>  <VALUE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
         module.action(Textbox.Action.SET_TEXT_TO_TEXTBOX,
                       Textbox.create_value_container(element=element, value=value),

@@ -35,9 +35,9 @@ class ApplicationKeywords:
         Returns:
         | Process id from attached process if successfully |
         """
-        return self._container.get_module().action(Application.Action.ATTACH_APPLICATION_BY_NAME,
-                                                   Application.create_value_container(name=name, msg=msg),
-                                                   msg)
+        return self._container.create_or_get_module().action(Application.Action.ATTACH_APPLICATION_BY_NAME,
+                                                             Application.create_value_container(name=name, msg=msg),
+                                                             msg)
 
     @keyword
     def attach_application_by_pid(self, pid, msg=None):
@@ -59,9 +59,9 @@ class ApplicationKeywords:
         | Process id from attached process if successfully |
 
         """
-        return self._container.get_module().action(Application.Action.ATTACH_APPLICATION_BY_PID,
-                                                   Application.create_value_container(pid=pid, msg=msg),
-                                                   msg)
+        return self._container.create_or_get_module().action(Application.Action.ATTACH_APPLICATION_BY_PID,
+                                                             Application.create_value_container(pid=pid, msg=msg),
+                                                             msg)
 
     @keyword
     def close_application(self, pid, msg=None):
@@ -80,10 +80,10 @@ class ApplicationKeywords:
         | Close Application  ${pid}                 |
 
         """
-        self._container.get_module().action(Application.Action.EXIT_APPLICATION,
-                                            Application.create_value_container(pid=pid, msg=msg),
-                                            msg=msg)
-    
+        self._container.create_or_get_module().action(Application.Action.EXIT_APPLICATION,
+                                                      Application.create_value_container(pid=pid, msg=msg),
+                                                      msg=msg)
+
     @keyword
     def close_application_by_name(self, name, msg=None):
         """
@@ -100,10 +100,10 @@ class ApplicationKeywords:
         | Close Application By Name  $[name}         |
 
         """
-        self._container.get_module().action(Application.Action.CLOSE_APPLICATION_BY_NAME,
-                            Application.create_value_container(name=name, msg=msg),
-                            msg=msg)
-        
+        self._container.create_or_get_module().action(Application.Action.CLOSE_APPLICATION_BY_NAME,
+                                                      Application.create_value_container(name=name, msg=msg),
+                                                      msg=msg)
+
     @keyword
     def launch_application(self, application, msg=None):
         """
@@ -123,9 +123,10 @@ class ApplicationKeywords:
         | Process id from started process if successfully |
 
         """
-        return self._container.get_module().action(Application.Action.LAUNCH_APPLICATION,
-                                                   Application.create_value_container(name=application, msg=msg),
-                                                   msg)
+        return self._container.create_or_get_module().action(Application.Action.LAUNCH_APPLICATION,
+                                                             Application.create_value_container(name=application,
+                                                                                                msg=msg),
+                                                             msg)
 
     @keyword
     def launch_application_with_args(self, application, arguments, msg=None):
@@ -147,7 +148,7 @@ class ApplicationKeywords:
         | Process id from started process if successfully |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Application.Action.LAUNCH_APPLICATION_WITH_ARGS,
                              Application.create_value_container(name=application, args=arguments, msg=msg),
                              msg)

@@ -36,7 +36,7 @@ class TreeKeywords:
         | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return module.action(Tree.Action.GET_ROOT_ITEMS_COUNT,
                              Tree.create_value_container(element=element),
@@ -61,7 +61,7 @@ class TreeKeywords:
         | Should Be Equal  ${COUNT}  <TOTAL_COUNT_OF_VISIBLE_TREEITEMS> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return module.action(Tree.Action.GET_VISIBLE_ITEMS_COUNT,
                              Tree.create_value_container(element=element),
@@ -87,7 +87,7 @@ class TreeKeywords:
         | Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}        |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return module.action(Tree.Action.GET_VISIBLE_ITEMS_NAMES,
                              Tree.create_value_container(element=element),
@@ -110,7 +110,7 @@ class TreeKeywords:
         Examples:
         | Expand All TreeItems  <XPATH>                 |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.EXPAND_ALL,
                       Tree.create_value_container(element=element),
@@ -133,7 +133,7 @@ class TreeKeywords:
         Examples:
         | Collapse All TreeItems <XPATH>                 |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.COLLAPSE_ALL,
                       Tree.create_value_container(element=element),
@@ -158,7 +158,7 @@ class TreeKeywords:
         | TreeItem Should Be Visible  <XPATH>  <Name>            |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.ITEM_SHOULD_BE_VISIBLE,
                       Tree.create_value_container(element=element, item=name),
@@ -183,7 +183,7 @@ class TreeKeywords:
         | Should Be Equal     ${Name}  <Name>                 |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         return module.action(Tree.Action.GET_SELECTED_ITEMS_NAME,
                              Tree.create_value_container(element=element),
@@ -209,7 +209,7 @@ class TreeKeywords:
         | Select visible TreeItem By Name  <XPATH>  <NAME>   |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.SELECT_ITEM_BY_NAME,
                       Tree.create_value_container(element=element, item=name),
@@ -241,7 +241,7 @@ class TreeKeywords:
         | Select TreeItem   <XPATH>  ${item}      |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.SELECT_ITEM,
                       Tree.create_value_container(element=element, item=item),
@@ -274,7 +274,7 @@ class TreeKeywords:
 
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.EXPAND_ITEM,
                       Tree.create_value_container(element=element, item=item),
@@ -307,7 +307,7 @@ class TreeKeywords:
 
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.COLLAPSE_ITEM,
                       Tree.create_value_container(element=element, item=item),
@@ -331,7 +331,7 @@ class TreeKeywords:
         Examples:
         | Selected TreeItem Should Be  <XPATH>  <item>                 |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TREE, msg=msg)
         module.action(Tree.Action.SELECTED_ITEM_SHOULD_BE,
                       Tree.create_value_container(element=element, item=item),

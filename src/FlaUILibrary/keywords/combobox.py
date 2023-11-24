@@ -31,7 +31,7 @@ class ComboBoxKeywords:
         Examples:
         | ${data}  Get All Names From Combobox  <XPATH> <MSG>                   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         return module.action(Selector.Action.GET_ALL_NAMES,
                              Selector.create_value_container(element=element, msg=msg),
@@ -51,7 +51,7 @@ class ComboBoxKeywords:
         Examples:
         | ${data}  Get All Texts From Combobox  <XPATH> <MSG>                   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         return module.action(Selector.Action.GET_ALL_TEXTS,
                              Selector.create_value_container(element=element, msg=msg),
@@ -75,7 +75,7 @@ class ComboBoxKeywords:
         Examples:
         | ${data}  Get All Selected Texts From Combobox  <XPath>   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         return module.action(Selector.Action.GET_ALL_TEXTS_FROM_SELECTION,
                              Selector.create_value_container(element=element, msg=msg),
@@ -99,7 +99,7 @@ class ComboBoxKeywords:
         Examples:
         | ${data}  Get All Selected Names From Combobox  <XPath>   |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         return module.action(Selector.Action.GET_ALL_NAMES_FROM_SELECTION,
                              Selector.create_value_container(element=element, msg=msg),
@@ -125,7 +125,7 @@ class ComboBoxKeywords:
         | Select Combobox Item By Index  <XPATH>  <INDEX> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
                       Selector.create_value_container(element=element, index=index, msg=msg),
@@ -153,7 +153,7 @@ class ComboBoxKeywords:
         | Combobox Should Contain  <XPATH>  <NAME> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         module.action(Selector.Action.SHOULD_CONTAIN,
                       Selector.create_value_container(element=element, name=name, msg=msg),
@@ -178,7 +178,7 @@ class ComboBoxKeywords:
         | Should Be Equal  ${value}  ${COUNT}         |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         return module.action(Selector.Action.GET_ITEMS_COUNT,
                              Selector.create_value_container(element=element, msg=msg),
@@ -202,7 +202,7 @@ class ComboBoxKeywords:
         | Collapse Combobox  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         module.action(Combobox.Action.COLLAPSE_COMBOBOX,
                       Selector.create_value_container(element=element),
@@ -226,7 +226,7 @@ class ComboBoxKeywords:
         | Expand Combobox  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
         module.action(Combobox.Action.EXPAND_COMBOBOX,
                       Selector.create_value_container(element=element),

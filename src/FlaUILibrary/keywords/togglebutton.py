@@ -37,7 +37,7 @@ class ToggleButtonKeywords:
         | Toggle  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TOGGLEBUTTON, msg=msg)
         return module.action(ToggleButton.Action.TOGGLE,
                              ToggleButton.create_value_container(element=element),
