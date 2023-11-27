@@ -15,8 +15,9 @@ title: G DATA CyberDefense AG
 
 | Version      | FlaUI Version      | UIA3/UIA2           | Robotframework      | Python.Net          | Min/Max Python Version  | Documentation                                             |
 |:-------------|:------------------ | :------------------ | :------------------ | :------------------ |:------------------      | :------------------                                       |
-| 2.1.0        | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1/3.0.2         | 3.7 / 3.12              | [HTML](./keywords/2.1.0.html)/[XML](./keywords/2.1.0.xml) |
-| 2.0.14       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1/3.0.2         | 3.7 / 3.12              | [HTML](./keywords/2.0.14.html)/[XML](./keywords/2.0.14.xml) |
+| 2.1.0        | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1/3.0.2/3.0.3   | 3.7 / 3.12              | [HTML](./keywords/2.1.0.html)/[XML](./keywords/2.1.0.xml) |
+| 2.0.15       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1/3.0.2/3.0.3   | 3.7 / 3.12              | [HTML](./keywords/2.0.15.html)/[XML](./keywords/2.0.15.xml) |
+| 2.0.14       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1/3.0.2/3.0.3   | 3.7 / 3.12              | [HTML](./keywords/2.0.14.html)/[XML](./keywords/2.0.14.xml) |
 | 2.0.13       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1               | 3.7 / 3.11              | [HTML](./keywords/2.0.13.html)/[XML](./keywords/2.0.13.xml) |
 | 2.0.12       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1               | 3.7 / 3.11              | [HTML](./keywords/2.0.12.html)/[XML](./keywords/2.0.12.xml) |
 | 2.0.11       | 4.0                | Yes / Yes           | 3.2.2 to 6.1        | 3.0.1               | 3.7 / 3.10              | [HTML](./keywords/2.0.11.html)/[XML](./keywords/2.0.11.xml) |
