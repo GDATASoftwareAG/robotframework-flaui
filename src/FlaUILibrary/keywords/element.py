@@ -43,7 +43,7 @@ class ElementKeywords:
         | Wait Until Keyword Succeeds  5x  10ms  Element Should Exist  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.ELEMENT_SHOULD_EXIST,
                              Element.create_value_container(xpath=identifier, use_exception=use_exception, msg=msg),
                              msg)
@@ -76,7 +76,7 @@ class ElementKeywords:
         | Wait Until Keyword Succeeds  5x  10ms  Element Should Not Exist  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.ELEMENT_SHOULD_NOT_EXIST,
                              Element.create_value_container(xpath=identifier, use_exception=use_exception, msg=msg),
                              msg)
@@ -100,7 +100,7 @@ class ElementKeywords:
         | Focus  <XPATH>  |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.FOCUS_ELEMENT,
                       Element.create_value_container(xpath=identifier, msg=msg),
                       msg)
@@ -127,7 +127,7 @@ class ElementKeywords:
         | Name from element if set otherwise empty string |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.GET_ELEMENT_NAME,
                              Element.create_value_container(xpath=identifier, msg=msg),
                              msg)
@@ -154,7 +154,7 @@ class ElementKeywords:
         | An array Rectangle Bounding from element : [rect.X, rect.Y, rect.Width, rect.Height]|
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.GET_ELEMENT_RECTANGLE_BOUNDING,
                              Element.create_value_container(xpath=identifier, msg=msg),
                              msg)
@@ -177,7 +177,7 @@ class ElementKeywords:
          Example:
         | Name Should Be  <NAME>  <XPATH> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.NAME_SHOULD_BE,
                       Element.create_value_container(xpath=identifier, name=name, msg=msg),
                       msg)
@@ -201,7 +201,7 @@ class ElementKeywords:
         | Name Contains Text  <NAME>  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.NAME_SHOULD_CONTAINS,
                       Element.create_value_container(xpath=identifier, name=name, msg=msg),
                       msg)
@@ -227,7 +227,7 @@ class ElementKeywords:
         Returns:
         | <True> if element is enabled otherwise <False> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.IS_ELEMENT_ENABLED,
                              Element.create_value_container(xpath=identifier, msg=msg),
                              msg)
@@ -251,7 +251,7 @@ class ElementKeywords:
         | ${IS_OFFSCREEN}  Is Element Offscreen  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return not module.action(Element.Action.IS_ELEMENT_OFFSCREEN,
                                  Element.create_value_container(xpath=identifier, msg=msg),
                                  msg)
@@ -276,7 +276,7 @@ class ElementKeywords:
         | Element Should Be Enabled  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.ELEMENT_SHOULD_BE_ENABLED,
                       Element.create_value_container(xpath=identifier, msg=msg),
                       msg)
@@ -301,7 +301,7 @@ class ElementKeywords:
         | Element Should Be Disabled  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.ELEMENT_SHOULD_BE_DISABLED,
                       Element.create_value_container(xpath=identifier, msg=msg),
                       msg)
@@ -325,7 +325,7 @@ class ElementKeywords:
         | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10> |
         | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_OFFSCREEN,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
@@ -350,7 +350,7 @@ class ElementKeywords:
         | Wait Until Element Exist  <XPATH>  <RETRIES=10> |
         | Wait Until Element Exist  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIl_ELEMENT_EXIST,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
@@ -375,7 +375,7 @@ class ElementKeywords:
         | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10> |
         | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
@@ -400,7 +400,7 @@ class ElementKeywords:
         | Wait Until Element Is Enabled  <XPATH>  <RETRIES=10> |
         | Wait Until Element Is Enabled  <XPATH>  <RETRIES=10>  <MSG> |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
@@ -433,7 +433,7 @@ class ElementKeywords:
         | ${Name}  Set Variable  ${element[0].Name}           |
         | ${ClassName}  Set Variable  ${element[0].ClassName} |
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         return module.action(Element.Action.FIND_ALL_ELEMENTS,
                              Element.create_value_container(xpath=identifier),
                              msg)

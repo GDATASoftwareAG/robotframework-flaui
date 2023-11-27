@@ -3,7 +3,6 @@ from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
-from FlaUILibrary.flaui.automation import (UIA2, UIA3)
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,
@@ -127,7 +126,7 @@ class FlaUILibrary(DynamicCore):
         if uia != "UIA2" and uia != "UIA3":
             uia = "UIA3"
 
-        self.container = AutomationInterfaceContainer({"UIA2": UIA2(timeout), "UIA3": UIA3(timeout)}, uia)
+        self.container = AutomationInterfaceContainer(timeout, uia)
 
         self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 

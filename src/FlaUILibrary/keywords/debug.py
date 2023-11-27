@@ -44,7 +44,7 @@ class DebugKeywords:
         | Log  <XPATH> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, msg=msg)
         return module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT, Debug.create_value_container(element=element))
 
@@ -59,4 +59,4 @@ class DebugKeywords:
         | ${IDENTIFIER}  Get UIA Identifier  |
         | Log  <IDENTIFIER> |
         """
-        return self._container.get_module().identifier()
+        return self._container.get_identifier()

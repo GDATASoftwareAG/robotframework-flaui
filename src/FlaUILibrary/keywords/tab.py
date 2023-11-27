@@ -38,7 +38,7 @@ class TabKeywords:
         | List<String> child TabItem elements names from the Tab element. |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
         return module.action(Tab.Action.GET_TAB_ITEMS_NAMES,
                              Tab.create_value_container(element=element),
@@ -63,7 +63,7 @@ class TabKeywords:
         | Select Tab Item By Name  <XPATH>  <NAME> |
 
         """
-        module = self._container.get_module()
+        module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
         return module.action(Tab.Action.SELECT_TAB_ITEM_BY_NAME,
                              Tab.create_value_container(element=element, name=name),
