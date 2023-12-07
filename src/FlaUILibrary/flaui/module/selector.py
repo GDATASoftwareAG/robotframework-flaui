@@ -26,6 +26,7 @@ class Selector(ModuleInterface):
         SELECT_ITEM_BY_INDEX = "SELECT_ITEM_BY_INDEX"
         SELECT_ITEM_BY_NAME = "SELECT_ITEM_BY_NAME"
         SHOULD_CONTAIN = "SHOULD_CONTAIN"
+        SHOULD_NOT_CONTAIN = "SHOULD_NOT_CONTAIN"
         GET_ITEMS_COUNT = "GET_ITEMS_COUNT"
         GET_ALL_NAMES_FROM_SELECTION = "GET_ALL_NAMES_FROM_SELECTION"
         SHOULD_HAVE_SELECTED_ITEM = "SHOULD_HAVE_SELECTED_ITEM"
@@ -54,44 +55,6 @@ class Selector(ModuleInterface):
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
 
-        Supported actions for checkbox usages are:
-
-          *  Action.SELECT_ITEM_BY_INDEX
-            * values ["element", "index"]
-            * Returns : None
-
-          *  Action.SELECT_ITEM_BY_NAME
-            * values ["element", "name"]
-            * Returns : None
-
-          *  Action.SHOULD_CONTAIN
-            * values ["element", "name"]
-            * Returns : None
-
-        *  Action.SHOULD_HAVE_SELECTED_ITEM
-            * values ["element", "name"]
-            * Returns : None
-
-          *  Action.GET_ITEMS_COUNT
-            * values ["element"]
-            * Returns : None
-
-        *  Action.GET_ALL_NAMES_FROM_SELECTION
-            * values ["element"]
-            * Returns : List from all selected items from names by element
-
-        *  Action.GET_SELECTED_ITEMS
-            * values ["element"]
-            * Returns : List from all selected texts from names by element
-
-        *  Action.GET_ALL_NAMES
-            * values ["element"]
-            * Returns : List from all names by a selector.
-
-        *  Action.GET_ALL_TEXTS
-            * values ["element"]
-            * Returns : List from all texts by a selector.
-
         Raises:
             FlaUiError: If action is not supported.
 
@@ -106,6 +69,8 @@ class Selector(ModuleInterface):
                 lambda: self._select_by_name(values["element"], values["name"]),
             self.Action.SHOULD_CONTAIN:
                 lambda: self._should_contain(values["element"], values["name"]),
+            self.Action.SHOULD_NOT_CONTAIN:
+                lambda: self._should_not_contain(values["element"], values["name"]),
             self.Action.SHOULD_HAVE_SELECTED_ITEM:
                 lambda: self._should_have_selected_item(values["element"], values["name"]),
             self.Action.GET_ITEMS_COUNT:
@@ -181,6 +146,29 @@ class Selector(ModuleInterface):
             
         if not is_contain:
             raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
+
+    @staticmethod
+    def _should_not_contain(control: Any, name: str):
+        """
+        Checks if selector contains a given item by name or text.
+
+        Args:
+            control (Object): Selector object to use (Combobox, Listbox).
+            name (String): Name or Text from selector item which should exist.
+
+        Returns:
+            True if name from combobox item exists otherwise False.
+        """
+        is_contain = False
+        
+        for item in control.Items:
+            if name in (item.Name, item.Text):
+                is_contain = True
+                
+        Selector._restore_for_expand_collapse_pattern(control)
+            
+        if is_contain:
+            raise FlaUiError(FlaUiError.ControlContainsItem.format(name))
 
     @staticmethod
     def _should_have_selected_item(control: Any, item: Any):
