@@ -150,14 +150,14 @@ class Selector(ModuleInterface):
     @staticmethod
     def _should_not_contain(control: Any, name: str):
         """
-        Checks if selector contains a given item by name or text.
+        Checks if selector does not contain a given item by name or text.
 
         Args:
             control (Object): Selector object to use (Combobox, Listbox).
             name (String): Name or Text from selector item which should exist.
 
         Returns:
-            True if name from combobox item exists otherwise False.
+            True if name from combobox item does not exist otherwise False.
         """
         is_contain = False
         
