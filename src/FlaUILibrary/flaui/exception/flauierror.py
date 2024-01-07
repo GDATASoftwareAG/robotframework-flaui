@@ -28,6 +28,7 @@ class FlaUiError(AttributeError):
     WrongElementType = "'{}' could not be cast as '{}'"
     XPathNotFound = "Element from XPath '{}' could not be found"
     ControlDoesNotContainItem = "Control does not contain item '{}'"
+    ControlContainsItem = "Control contains item '{}'"
     ItemNotSelected = "Item '{}' is not selected"
     NoItemSelected = "No Item is selected"
     KeyboardInvalidKeysCombination = "Keyboard keys combination {} is not valid"

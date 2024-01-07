@@ -6,6 +6,8 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+  - [#143](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/143) New Keyword
+    - Listbox Should Not Contain
 
 ## [Release][2.1.1] [2.1.1][2.1.0-2.1.1] - 2023-11-24
 

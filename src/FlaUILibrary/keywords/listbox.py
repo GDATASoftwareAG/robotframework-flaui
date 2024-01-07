@@ -147,12 +147,37 @@ class ListBoxKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Listbox Should Contain <XPATH>  <STRING> |
+        | Listbox Should Contain  <XPATH>  <STRING> |
 
         """
         module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
         module.action(Selector.Action.SHOULD_CONTAIN,
+                      Selector.create_value_container(element=element, name=name, msg=msg),
+                      msg)
+
+    @keyword
+    def listbox_should_not_contain(self, identifier, name, msg=None):
+        """
+        Checks if listbox does not contain the given item.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | name       | string | Name of item                  |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Listbox Should Not Contain  <XPATH>  <STRING> |
+
+        """
+        module = self._container.create_or_get_module()
+        element = module.get_element(identifier, InterfaceType.LISTBOX, msg)
+        module.action(Selector.Action.SHOULD_NOT_CONTAIN,
                       Selector.create_value_container(element=element, name=name, msg=msg),
                       msg)
 

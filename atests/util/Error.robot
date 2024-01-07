@@ -23,6 +23,7 @@ ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}              FlaUiError: Element '{0}' is not
 ${EXP_ERR_MSG_ELEMENT_NOT_DISABLED}             FlaUiError: Element '{0}' is not disabled
 ${EXP_ERR_MSG_ELEMENT_NOT_EXPANDABLE}           FlaUiError: Element '{0}' is not expandable
 ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    FlaUiError: Control does not contain item '{0}'
+${EXP_ERR_MSG_CONTROL_CONTAINS_ITEM}            FlaUiError: Control contains item '{0}'
 ${EXP_ERR_MSG_ITEM_NOT_SELECTED}                FlaUiError: Item '{0}' is not selected
 ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}          FlaUiError: Item name '{0}' could not be found in column with index '{1}'
 ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}           FlaUiError: Name '{0}' could not be found in element

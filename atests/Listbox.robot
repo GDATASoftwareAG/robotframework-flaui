@@ -31,6 +31,13 @@ Listbox Should Contain Item Not Exist
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}  No Such Item
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Should Contain  ${XPATH_LISTBOX}  No Such Item
 
+Listbox Should Not Contain
+	Listbox Should Not Contain  ${XPATH_LISTBOX}  No Such Item
+
+Listbox Should Not Contain Item Does Exist
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_CONTAINS_ITEM}  ListBox Item #2
+    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Should Not Contain  ${XPATH_LISTBOX}  ListBox Item #2
+
 Select Listbox Item By Name
     Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #2
     Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
