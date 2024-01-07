@@ -14,8 +14,8 @@
 [py311x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.11%20x86/main?label=3.11&style=flat-square
 [py311x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.11%20x64/main?label=3.11&style=flat-square
 
-[py312x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.12%20x86/main?label=3.11&style=flat-square
-[py312x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.12%20x64/main?label=3.11&style=flat-square
+[py312x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.12%20x86/main?label=3.12&style=flat-square
+[py312x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.12%20x64/main?label=3.12&style=flat-square
 
 
 [tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square"
