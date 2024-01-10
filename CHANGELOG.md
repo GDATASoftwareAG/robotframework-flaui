@@ -7,6 +7,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][2.1.3] [2.1.3][2.1.2-2.1.3] - 2024-01-10
+
+### Bugfix
+
+- [#145](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/145)
+  - Whitelisted keywords will be logged now in reports.
+
 ## [Release][2.0.16] [2.0.16][2.0.15-2.0.16] - 2024-01-10
 
 ### Bugfix
@@ -539,7 +546,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.0.16...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.1.3...main
+
+[2.1.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.1.3
+
+[2.1.2-2.1.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/2.1.2...2.1.3
 
 [2.0.16]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/2.0.16
 
