@@ -5,6 +5,7 @@ import time
 from enum import Enum
 from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
+from FlaUILibrary.flaui.enum import ScreenshotMode
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.robotframework import robotlog
@@ -21,7 +22,7 @@ class Screenshot(ModuleInterface):
         """
         Value container from screenshot module.
         """
-        persist: bool
+        mode: ScreenshotMode
         keywords: list
 
     class Action(Enum):
@@ -56,18 +57,18 @@ class Screenshot(ModuleInterface):
         self._sleep = 2  # Sleep in seconds
 
     @staticmethod
-    def create_value_container(persist=False, keywords=None):
+    def create_value_container(mode=ScreenshotMode.TEMP, keywords=None):
         """
         Helper to create container object.
 
         Args:
-            persist (bool): Flag to persist screenshot or to create only as temp and delete if test was success.
+            mode (ScreenshotMode): Enum to persist screenshot or to create only as temp and delete if test was success.
             keywords (list): List from all blacklisted or whitelisted keywords.
         """
         if keywords is None:
             keywords = []
 
-        return Screenshot.Container(persist=persist, keywords=keywords)
+        return Screenshot.Container(mode=mode, keywords=keywords)
 
     def execute_action(self, action: Action, values: ValueContainer):
         """
@@ -92,7 +93,7 @@ class Screenshot(ModuleInterface):
 
         # pylint: disable=unnecessary-lambda
         switcher = {
-            self.Action.CAPTURE: lambda: self._capture(values["persist"]),
+            self.Action.CAPTURE: lambda: self._capture(values["mode"]),
             self.Action.RESET: lambda: self._reset_temp_screenshots(),
             self.Action.DELETE_ALL_SCREENSHOTS: lambda: self._remove_all_created_screenshots(),
             self.Action.SET_WHITELIST: lambda : self._set_whitelist(values["keywords"]),
@@ -115,27 +116,29 @@ class Screenshot(ModuleInterface):
         """
         self.blacklist = keywords
 
-    def _capture(self, persist: bool):
+    def _capture(self, mode: ScreenshotMode):
         """
         Capture image from desktop.
         """
         image = None
 
         try:
-            if persist:
+            if mode == ScreenshotMode.PERSIST:
                 filepath = os.path.join(self._get_path(), self._filename.format(self._clean_invalid_windows_syntax(
                                                                                     self._hostname),
                                                                                 self._clean_invalid_windows_syntax(
                                                                                     self.name),
                                                                                 self._get_current_time_in_ms(),
                                                                                 self._persist_index))
-            else:
+            elif mode == ScreenshotMode.TEMP:
                 filepath = os.path.join(self._get_path(), self._filename.format(self._clean_invalid_windows_syntax(
                                                                                     self._hostname),
                                                                                 self._clean_invalid_windows_syntax(
                                                                                     self.name),
                                                                                 self._get_current_time_in_ms(),
                                                                                 self._temp_index))
+            else:
+                return
 
             directory = os.path.dirname(filepath)
             if not os.path.exists(directory):
@@ -144,14 +147,19 @@ class Screenshot(ModuleInterface):
             try:
                 image = Capture.Screen()
                 image.ToFile(filepath)
-                if not persist:
-                    robotlog.log_screenshot(filepath)
+
+                # Log screenshot from temp or persist mode
+                robotlog.log_screenshot(filepath)
+
+                # Store temp failed tests
+                if mode == ScreenshotMode.TEMP:
                     self._temp_screenshots.append(filepath)
+
             except CSharpException:
                 robotlog.log("Error to save image " + filepath)
 
         finally:
-            if persist:
+            if mode == ScreenshotMode.PERSIST:
                 self._persist_index += 1
             else:
                 self._temp_index += 1
