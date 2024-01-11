@@ -3,6 +3,7 @@ from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
+from FlaUILibrary.flaui.enum import ScreenshotMode
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,
@@ -178,13 +179,10 @@ class FlaUILibrary(DynamicCore):
                 and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
                 and self.screenshots.is_enabled:
 
-            # Default no screenshot should persist if keyword failed
-            # For example Run Keyword And Ignore Error
-            persist = False
+            mode = ScreenshotMode.TEMP
 
             if name in self.screenshots.whitelist:
-                # Screenshot should be stored if failed
-                persist = True
+                mode = ScreenshotMode.PERSIST
 
             self.screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                            Screenshot.create_value_container(persist=persist))
+                                            Screenshot.create_value_container(mode))

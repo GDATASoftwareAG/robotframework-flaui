@@ -1,6 +1,7 @@
 from robot.utils import is_truthy
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
+from FlaUILibrary.flaui.enum import ScreenshotMode
 from FlaUILibrary.robotframework import robotlog
 
 
@@ -80,7 +81,7 @@ class ScreenshotKeywords:
         | Take Screenshot |
         """
         filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                                    Screenshot.create_value_container(persist=True))
+                                                    Screenshot.create_value_container(mode=ScreenshotMode.PERSIST))
         robotlog.log_screenshot(filepath)
         return filepath
 
