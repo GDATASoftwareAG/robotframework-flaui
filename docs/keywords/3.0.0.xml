@@ -1,0 +1,3441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keywordspec name="FlaUILibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" generated="2024-01-11T22:53:19+00:00" specversion="6" source="C:\projects\robotframework-flaui\src\FlaUILibrary\__init__.py" lineno="32">
+<version>3.0.0</version>
+<doc>FlaUILibrary is a Robot Framework library for automating Windows GUI.
+
+It is a wrapper for [https://github.com/Roemer/FlaUI | FlaUI] automation framework, which is based on
+native UI Automation libraries from Microsoft.
+
+= Getting started =
+
+FlaUILibrary uses XPath item identifiers to gain access to user interface components like windows, buttons, textbox
+etc.
+
+== Library screenshot usage ==
+
+FlaUiLibrary contains by default an automatic snapshot module which creates for each error case a snapshot from an
+attached element or desktop. To disable this feature use Library  screenshot_enabled=False.
+
+Following settings could be used for library init.
+
+Library  screenshot_enabled=&lt;True/False&gt;  screenshot_dir=&lt;PATH_TO_STORE_IMAGES&gt;
+
+== XPath locator ==
+
+An XPath is a tree overview from all active module application like a Taskbar or Windows (Outlook, Security Client).
+FlaUILibrary supports to interact with this XPath to select this module components by a AutomationId, Name,
+ClassName or HelpText.
+
+XPath identifier usage examples:
+| = Attribute = | = Description = | = Example = |
+| AutomationId  | Search for element with given automation id | /MenuBar/MenuItem[@AutomationId='&lt;ID&gt;'] |
+| Name  | Search for element with given name | /MenuBar/MenuItem[@Name='&lt;NAME&gt;'] |
+| ClassName  | Search for element with given class type | /MenuBar/MenuItem[@ClassName='&lt;CLASS_NAME&gt;'] |
+| HelpText  |  Search for element with given help text | /MenuBar/MenuItem[@HelpText='&lt;HELP_TEXT&gt;'] |
+
+For FlaUI there is an inspector tool [https://github.com/FlauTech/FlaUInspect | FlaUI Inspect] to verify an XPath
+from all visible UI components. Download the latest release and set UIA3 Mode and enable 'Show XPath' under mode.</doc>
+<tags>
+</tags>
+<inits>
+<init name="__init__" lineno="104">
+<arguments repr="uia=UIA3, screenshot_on_failure=True, screenshot_dir=None, timeout=1000">
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="uia=UIA3">
+<name>uia</name>
+<default>UIA3</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="screenshot_on_failure=True">
+<name>screenshot_on_failure</name>
+<default>True</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="screenshot_dir=None">
+<name>screenshot_dir</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout=1000">
+<name>timeout</name>
+<default>1000</default>
+</arg>
+</arguments>
+<doc>FlaUiLibrary can be imported by following optional arguments:
+
+``uia`` Microsoft UI-Automation framework to use. UIA2 or UIA3
+``screenshot_on_failure`` indicator to disable or enable screenshot feature.
+``screenshot_dir`` is the directory where screenshots are saved.
+``timeout`` maximum amount of waiting time in ms for an element find action. Default value is 1000ms.
+
+If the given directory does not already exist, it will be created when the first screenshot is taken.
+If the argument is not given, the default location for screenshots is the output directory of the Robot run,
+i.e. the directory where output and log files are generated.</doc>
+<shortdoc>FlaUiLibrary can be imported by following optional arguments:</shortdoc>
+</init>
+</inits>
+<keywords>
+<kw name="Attach Application By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="20">
+<arguments repr="name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Attach to a running application by name.
+
+If application with name not exists an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description            |
+| name       | string | Process name to attach |
+| msg        | string | Custom error message   |
+
+Example:
+| ${pid}  Attach Application By Name  &lt;APPLICATION&gt;                     |
+| ${pid}  Attach Application By Name  &lt;APPLICATION&gt;  You shall not pass |
+
+Returns:
+| Process id from attached process if successfully |</doc>
+<shortdoc>Attach to a running application by name.</shortdoc>
+</kw>
+<kw name="Attach Application By Pid" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="43">
+<arguments repr="pid, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="pid">
+<name>pid</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Attach to a running application by pid.
+
+If application with pid not exists an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                  |
+| pid        | number | Process identifier to attach |
+| msg        | string | Custom error message         |
+
+Example:
+| ${pid}  Attach Application By PID  &lt;PID_NUMBER&gt;                     |
+| ${pid}  Attach Application By PID  &lt;PID_NUMBER&gt;  You shall not pass |
+
+Returns:
+| Process id from attached process if successfully |</doc>
+<shortdoc>Attach to a running application by pid.</shortdoc>
+</kw>
+<kw name="Background Color Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="132">
+<arguments repr="identifier, argb_color, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="argb_color">
+<name>argb_color</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if background color is equal.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                |
+| Document pattern is not supported by given element |
+| Color is not equal                                 |
+
+Arguments:
+| Argument   | Type   | Description                            |
+| identifier | string | XPath identifier from element          |
+| argb_color | tuple  | ARGB color format (int, int, int, int) |
+| msg        | string | Custom error message                   |
+
+Example:
+| Background Color Should Be  &lt;XPATH&gt;  &lt;COLOR_ARGB_TUPLE&gt; |</doc>
+<shortdoc>Verification if background color is equal.</shortdoc>
+</kw>
+<kw name="Can Window Be Maximized" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="785">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verifies if window can be maximized (True) if not False.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${result}  Can Window Be Maximized  &lt;XPATH&gt; |</doc>
+<shortdoc>Verifies if window can be maximized (True) if not False.</shortdoc>
+</kw>
+<kw name="Can Window Be Minimized" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="811">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verifies if window can be minimized (True) if not False.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${result}  Can Window Be Minimized  &lt;XPATH&gt; |</doc>
+<shortdoc>Verifies if window can be minimized (True) if not False.</shortdoc>
+</kw>
+<kw name="Clear Blacklist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="21">
+<arguments repr="">
+</arguments>
+<doc>Clears all blacklist entries
+
+Example:
+| Clear Blacklist |</doc>
+<shortdoc>Clears all blacklist entries</shortdoc>
+</kw>
+<kw name="Clear Whitelist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="31">
+<arguments repr="">
+</arguments>
+<doc>Clears all whitelist entries
+
+Example:
+| Clear Whitelist |</doc>
+<shortdoc>Clears all whitelist entries</shortdoc>
+</kw>
+<kw name="Click" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="20">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Left click to element by an XPath.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Click  &lt;XPATH&gt; |</doc>
+<shortdoc>Left click to element by an XPath.</shortdoc>
+</kw>
+<kw name="Click Hold" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="44">
+<arguments repr="identifier, timeout_in_ms=1000, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout_in_ms=1000">
+<name>timeout_in_ms</name>
+<default>1000</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Left click and hold to element by XPath and release after timeout.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument         | Type   | Description                   |
+| identifier       | string | XPath identifier from element |
+| timeout_in_ms    | int    | Holding time in ms            |
+| msg              | string | Custom error message          |
+
+Examples:
+| Click Hold &lt;XPATH&gt;  5000 |</doc>
+<shortdoc>Left click and hold to element by XPath and release after timeout.</shortdoc>
+</kw>
+<kw name="Close Application" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="67">
+<arguments repr="pid, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="pid">
+<name>pid</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Closes the attached application.
+
+If no application is attached an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description          |
+| pid        | int    | Process id to close  |
+| msg        | string | Custom error message |
+
+Example:
+| ${pid}  Launch Application  &lt;APPLICATION&gt; |
+| Close Application  ${pid}                 |</doc>
+<shortdoc>Closes the attached application.</shortdoc>
+</kw>
+<kw name="Close Application By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="88">
+<arguments repr="name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Closes the attached application by name.
+
+If no application is attached an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description          |
+| name       | string | Process name to close|
+| msg        | string | Custom error message |
+
+Example:
+| Close Application By Name  $[name}         |</doc>
+<shortdoc>Closes the attached application by name.</shortdoc>
+</kw>
+<kw name="Close Window" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\window.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Try to close window from element.
+
+Arguments:
+| Argument   | Type   | Description                             |
+| identifier | string | XPath identifier from element to search |
+| msg        | string | Custom error message                    |
+
+Example:
+| Launch Application  &lt;APPLICATION&gt;           |
+| Close Window  &lt;XPATH_TO_APPLICATION_WINDOW&gt; |</doc>
+<shortdoc>Try to close window from element.</shortdoc>
+</kw>
+<kw name="Collapse All Treeitems" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="120">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Collapse every collapsable tree items of the given tree.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                   |
+| identifier | string          | XPath identifier from element |
+| msg        | string          | Custom error message          |
+
+Examples:
+| Collapse All TreeItems &lt;XPATH&gt;                 |</doc>
+<shortdoc>Collapse every collapsable tree items of the given tree.</shortdoc>
+</kw>
+<kw name="Collapse Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="188">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Collapse combobox.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Collapse Combobox  &lt;XPATH&gt; |</doc>
+<shortdoc>Collapse combobox.</shortdoc>
+</kw>
+<kw name="Collapse Treeitem" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="284">
+<arguments repr="identifier, item, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="item">
+<name>item</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Collapses item from tree by hybrid pointers, series of indexes and names.
+
+Tree item will be located using the following syntax:
+N:Name1-&gt;I:index2-&gt;N:Name3
+Means in the root level of tree the item with name Name1 will be expanded.
+Under it will be taken the item with index of (int) index2 and expanded.
+Under it there is an item with name Name3 will be Collapsed.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| item       | string | Hybrid solution               |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${item}=  N:name1-&gt;N:name2-&gt;N:name3        |
+| Collapse TreeItem   &lt;XPATH&gt;  ${item}      |</doc>
+<shortdoc>Collapses item from tree by hybrid pointers, series of indexes and names.</shortdoc>
+</kw>
+<kw name="Combobox Should Contain" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="138">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if Combobox contains an item
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | Name from item                |
+| msg        | string | Custom error message          |
+
+Examples:
+| Combobox Should Contain  &lt;XPATH&gt;  &lt;NAME&gt; |</doc>
+<shortdoc>Checks if Combobox contains an item</shortdoc>
+</kw>
+<kw name="Culture Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="419">
+<arguments repr="identifier, culture, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="culture">
+<name>culture</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element is in given culture. This keyword only works by UIA3. UIA2 contains currently a bug.
+See https://github.com/FlaUI/FlaUI/issues/554 for more information.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element is not in expected culture format         |
+| Element could not be found by xpath               |
+| Culture pattern is not supported by given element |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| culture    | string | Culture to equalize           |
+| msg        | string | Custom error message          |
+
+Example:
+| Culture Should Be  &lt;XPATH&gt;  &lt;CULTURE&gt; |</doc>
+<shortdoc>Checks if element is in given culture. This keyword only works by UIA3. UIA2 contains currently a bug. See https://github.com/FlaUI/FlaUI/issues/554 for more information.</shortdoc>
+</kw>
+<kw name="Double Click" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="69">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Double click to element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Double Click  &lt;XPATH&gt; |</doc>
+<shortdoc>Double click to element.</shortdoc>
+</kw>
+<kw name="Double Click Hold" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="93">
+<arguments repr="identifier, timeout_in_ms=1000, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout_in_ms=1000">
+<name>timeout_in_ms</name>
+<default>1000</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Double click and hold to element by XPath and release after timeout.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument         | Type   | Description                       |
+| identifier       | string | XPath identifier from element     |
+| timeout_in_ms    | int    | Holding time in ms                |
+| msg              | string | Custom error message              |
+
+Examples:
+| Double Click Hold  &lt;XPATH&gt;  5000 |</doc>
+<shortdoc>Double click and hold to element by XPath and release after timeout.</shortdoc>
+</kw>
+<kw name="Drag And Drop" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="191">
+<arguments repr="start_identifier, end_identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="start_identifier">
+<name>start_identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="end_identifier">
+<name>end_identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Clicks and hold the item with start_identifier and drops it at item with end_identifier.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument         | Type   | Description                                                        |
+| start_identifier | string | XPath identifier of element which should be holded and draged from |
+| end_identifier   | string | XPath identifier of element which should be holded and draged to   |
+| msg              | string | Custom error message                                               |
+
+Examples:
+| Drag And Drop  &lt;XPATH&gt;  &lt;XPATH&gt; |</doc>
+<shortdoc>Clicks and hold the item with start_identifier and drops it at item with end_identifier.</shortdoc>
+</kw>
+<kw name="Element Should Be Disabled" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="285">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element is disabled.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is not disabled     |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| Element Should Be Disabled  &lt;XPATH&gt; |</doc>
+<shortdoc>Checks if element is disabled.</shortdoc>
+</kw>
+<kw name="Element Should Be Enabled" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="260">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element is enabled.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is not enabled      |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| Element Should Be Enabled  &lt;XPATH&gt; |</doc>
+<shortdoc>Checks if element is enabled.</shortdoc>
+</kw>
+<kw name="Element Should Exist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="20">
+<arguments repr="identifier, use_exception=True, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="use_exception=True">
+<name>use_exception</name>
+<default>True</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element exists. If element exists True will be returned otherwise False.
+If element could not be found by xpath False will be returned.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument      | Type   | Description                   |
+| identifier    | string | XPath identifier from element |
+| use_exception | bool   | Indicator if an FlaUI exception should be called if element
+                           could not be found by xpath |
+| msg           | string | Custom error message |
+
+Example for custom result handling:
+| ${RESULT}  Element Should Exist  &lt;XPATH&gt;  ${FALSE} |
+| Run Keyword If  ${RESULT} == ${False} |
+
+Example if element will be shown after a click and takes a few seconds to open:
+| Click  &lt;XPATH&gt; |
+| Wait Until Keyword Succeeds  5x  10ms  Element Should Exist  &lt;XPATH&gt; |</doc>
+<shortdoc>Checks if element exists. If element exists True will be returned otherwise False. If element could not be found by xpath False will be returned.</shortdoc>
+</kw>
+<kw name="Element Should Not Exist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="52">
+<arguments repr="identifier, use_exception=True, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="use_exception=True">
+<name>use_exception</name>
+<default>True</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element exists. If element exists False will be returned otherwise True.
+If element could not be found by xpath True will be returned.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element &lt;XPATH&gt; exists |
+
+Arguments:
+| Argument      | Type   | Description                   |
+| identifier    | string | XPath identifier from element |
+| use_exception | bool   | Indicator if an FlaUI exception should be called if element
+                           could not be found by xpath |
+| msg           | string | Custom error message |
+
+
+Example for custom result handling:
+| ${RESULT}  Element Should Not Exist  &lt;XPATH&gt;  ${FALSE} |
+| Run Keyword If  ${RESULT} == ${False} |
+
+Example if element will be shown after a click and takes a few seconds to open:
+| Click  &lt;XPATH&gt; |
+| Wait Until Keyword Succeeds  5x  10ms  Element Should Not Exist  &lt;XPATH&gt; |</doc>
+<shortdoc>Checks if element exists. If element exists False will be returned otherwise True. If element could not be found by xpath True will be returned.</shortdoc>
+</kw>
+<kw name="Expand All Treeitems" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="97">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Expands every expandable Tree items of the given tree.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                   |
+| identifier | string          | XPath identifier from element |
+| msg        | string          | Custom error message          |
+
+Examples:
+| Expand All TreeItems  &lt;XPATH&gt;                 |</doc>
+<shortdoc>Expands every expandable Tree items of the given tree.</shortdoc>
+</kw>
+<kw name="Expand Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="212">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Expand combobox.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Expand Combobox  &lt;XPATH&gt; |</doc>
+<shortdoc>Expand combobox.</shortdoc>
+</kw>
+<kw name="Expand Treeitem" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="251">
+<arguments repr="identifier, item, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="item">
+<name>item</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Expands item from tree by hybrid pointers, series of indexes and names.
+
+Tree item will be located using the following syntax:
+N:Name1-&gt;I:index2-&gt;N:Name3
+Means in the root level of tree the item with name Name1 will be expanded.
+Under it will be taken the item with index of (int) index2 and expanded.
+Under it there is an item with name Name3 will be expanded.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| item       | string | Hybrid solution               |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${item}=  N:name1-&gt;N:name2-&gt;N:name3      |
+| Expand TreeItem   &lt;XPATH&gt;  ${item}      |</doc>
+<shortdoc>Expands item from tree by hybrid pointers, series of indexes and names.</shortdoc>
+</kw>
+<kw name="Find All Elements" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="409">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Find all elements from given xpath, Returns an AutomationElement list which contains properties to Xpath.
+If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
+
+| Example usage AutomationElement                                        |
+| Xpath        --&gt; /Window[1]/Tab/TabItem[1]                             |
+| AutomationId --&gt; /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"] |
+| Name         --&gt; /Window[1]/Tab/TabItem[@Name="Simple Controls"]       |
+| ClassName    --&gt; /Window[1]/Tab/TabItem[@ClassName="TabItem"]          |
+
+If any property is not set empty string value will be returned.
+
+XPaths syntax is explained in `XPath locator`.
+
+Arguments:
+| Argument   | Type   | Description                                                           |
+| identifier | string | XPath identifier from element                                         |
+| msg        | string | Custom error message                                                  |
+
+Example:
+| ${elements}  Find All Elements  &lt;XPATH&gt;             |
+| ${Xpath}  Set Variable  ${element[0].Xpath}         |
+| ${Id}  Set Variable  ${element[0].AutomationId}     |
+| ${Name}  Set Variable  ${element[0].Name}           |
+| ${ClassName}  Set Variable  ${element[0].ClassName} |</doc>
+<shortdoc>Find all elements from given xpath, Returns an AutomationElement list which contains properties to Xpath. If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.</shortdoc>
+</kw>
+<kw name="Focus" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="85">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Try to focus element by given xpath.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| Focus  &lt;XPATH&gt;  |</doc>
+<shortdoc>Try to focus element by given xpath.</shortdoc>
+</kw>
+<kw name="Font Name Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="304">
+<arguments repr="identifier, font_name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="font_name">
+<name>font_name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if font name is equal.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                |
+| Document pattern is not supported by given element |
+| Font name is not equal                             |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| font_name  | string | Font name to equalize         |
+| msg        | string | Custom error message          |
+
+Example:
+| Font Name Should Be  &lt;XPATH&gt;  &lt;FONT_NAME&gt; |</doc>
+<shortdoc>Verification if font name is equal.</shortdoc>
+</kw>
+<kw name="Font Size Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="247">
+<arguments repr="identifier, font_size, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="font_size">
+<name>font_size</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if font size is equal.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                |
+| Document pattern is not supported by given element |
+| Font size is not equal                             |
+
+Arguments:
+| Argument   | Type    | Description                       |
+| identifier | string  | XPath identifier from element     |
+| font_size  | float   | Font size as floating point value |
+| msg        | string  | Custom error message              |
+
+Example:
+| Font Size Should Be  &lt;XPATH&gt;  &lt;FONT_SIZE_FLOATING_POINT&gt; |</doc>
+<shortdoc>Verification if font size is equal.</shortdoc>
+</kw>
+<kw name="Font Weight Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="361">
+<arguments repr="identifier, font_weight, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="font_weight">
+<name>font_weight</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if font weight is equal.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                |
+| Document pattern is not supported by given element |
+| Font weight is not equal                           |
+
+Arguments:
+| Argument     | Type   | Description                         |
+| identifier   | string | XPath identifier from element       |
+| font_weight  | float  | Font weight as floating point value |
+| msg          | string | Custom error message                |
+
+Example:
+| Font Weight Should Be  &lt;XPATH&gt;  &lt;FONT_WEIGHT_FLOATING_POINT&gt; |</doc>
+<shortdoc>Verification if font weight is equal.</shortdoc>
+</kw>
+<kw name="Foreground Color Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="190">
+<arguments repr="identifier, argb_color, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="argb_color">
+<name>argb_color</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if foreground color is equal.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                |
+| Document pattern is not supported by given element |
+| Color is not equal                                 |
+
+Arguments:
+| Argument   | Type   | Description                            |
+| identifier | string | XPath identifier from element          |
+| argb_color | tuple  | ARGB color format (int, int, int, int) |
+| msg        | string | Custom error message                   |
+
+Example:
+| Foreground Color Should Be  &lt;XPATH&gt;  &lt;COLOR_ARGB_TUPLE&gt; |</doc>
+<shortdoc>Verification if foreground color is equal.</shortdoc>
+</kw>
+<kw name="Get All Data From Grid" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all data from a grid as an array collection.
+
+Includes all header values as first element from list.
+
+For example data grid:
+[
+  [ "Value_1", "Value_2", "Value_3" ],
+  [ "Data_1", "Data_2", "Data_3" ],
+]
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${data}  Get All Data From Grid  &lt;XPath&gt;   |</doc>
+<shortdoc>Get all data from a grid as an array collection.</shortdoc>
+</kw>
+<kw name="Get All Names From Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all names from a combobox as a list.
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                            |
+| identifier | string          | XPath identifier from combobox element |
+| msg        | string          | Custom error message                   |
+
+Examples:
+| ${data}  Get All Names From Combobox  &lt;XPATH&gt; &lt;MSG&gt;                   |</doc>
+<shortdoc>Get all names from a combobox as a list. If element could not be found by xpath an error message will be thrown.</shortdoc>
+</kw>
+<kw name="Get All Names From Listbox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all names from a listbox as a list.
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                           |
+| identifier | string          | XPath identifier from listbox element |
+| msg        | string          | Custom error message                  |
+
+Examples:
+| ${data}  Get All Names From Listbox  &lt;XPATH&gt; &lt;MSG&gt;                   |</doc>
+<shortdoc>Get all names from a listbox as a list. If element could not be found by xpath an error message will be thrown.</shortdoc>
+</kw>
+<kw name="Get All Selected Names From Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="85">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all selected items from combobox as list.
+If nothing is selected empty list will be returned.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${data}  Get All Selected Names From Combobox  &lt;XPath&gt;   |</doc>
+<shortdoc>Get all selected items from combobox as list. If nothing is selected empty list will be returned.</shortdoc>
+</kw>
+<kw name="Get All Selected Texts From Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="61">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all selected items from combobox as list.
+If nothing is selected empty list will be returned.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${data}  Get All Selected Texts From Combobox  &lt;XPath&gt;   |</doc>
+<shortdoc>Get all selected items from combobox as list. If nothing is selected empty list will be returned.</shortdoc>
+</kw>
+<kw name="Get All Texts From Combobox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="41">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all texts from a combobox as a list.
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                            |
+| identifier | string          | XPath identifier from combobox element |
+| msg        | string          | Custom error message                   |
+
+Examples:
+| ${data}  Get All Texts From Combobox  &lt;XPATH&gt; &lt;MSG&gt;                   |</doc>
+<shortdoc>Get all texts from a combobox as a list. If element could not be found by xpath an error message will be thrown.</shortdoc>
+</kw>
+<kw name="Get All Texts From Listbox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="41">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all texts from a listbox as a list.
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                           |
+| identifier | string          | XPath identifier from listbox element |
+| msg        | string          | Custom error message                  |
+
+Examples:
+| ${data}  Get All Texts From Listbox  &lt;XPATH&gt; &lt;MSG&gt;                   |</doc>
+<shortdoc>Get all texts from a listbox as a list. If element could not be found by xpath an error message will be thrown.</shortdoc>
+</kw>
+<kw name="Get All Visible Treeitems Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="46">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Returns the count of every visible tree item.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${COUNT}  Get All Visible TreeItems Count  &lt;XPATH&gt;  |
+| Should Be Equal  ${COUNT}  &lt;TOTAL_COUNT_OF_VISIBLE_TREEITEMS&gt; |</doc>
+<shortdoc>Returns the count of every visible tree item.</shortdoc>
+</kw>
+<kw name="Get All Visible Treeitems Names" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="71">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Returns a list of names of every visible tree item.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| @{LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}  Create List name1  name2  name3 |
+| ${Name}  Get All Visible TreeItems Names  &lt;XPATH&gt;                      |
+| Should Be Equal  ${Name}  ${LIST_OF_NAMES_OF_VISIBLE_TREEITEMS}        |</doc>
+<shortdoc>Returns a list of names of every visible tree item.</shortdoc>
+</kw>
+<kw name="Get Background Color" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="105">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Returns background color as ARGB Tuple (int, int, int, int) from element if background color pattern is
+supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                                     |
+| Document pattern is not supported by given element to receive background color property |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${color}  Get Background Color  &lt;XPATH&gt; |</doc>
+<shortdoc>Returns background color as ARGB Tuple (int, int, int, int) from element if background color pattern is supported.</shortdoc>
+</kw>
+<kw name="Get Checkbox State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\checkbox.py" lineno="46">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return actual checked state ${True} or ${False} from checkbox.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${value}  Get Checkbox State  &lt;XPATH&gt; |
+| Should Be Equal  ${value}  ${False/True} |
+
+Returns:
+| &lt;True&gt; if checkbox is set otherwise &lt;False&gt; |</doc>
+<shortdoc>Return actual checked state ${True} or ${False} from checkbox.</shortdoc>
+</kw>
+<kw name="Get Childs From Element" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\debug.py" lineno="20">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Gets full output from element and childs output. Information to print out are AutomationId, Name,
+ControlType and FrameworkId.
+
+Example output ${CHILDS}  &lt;XPATH&gt;
+  | AutomationId:, Name:Warning, ControlType:dialog, FrameworkId:Win32 |
+  | ------&gt; AutomationId:, Name:Warning, ControlType:pane, FrameworkId:Win32 |
+  | ------&gt; AutomationId:1002, Name:, ControlType:document, FrameworkId:Win32 |
+  | ------&gt; AutomationId:1, Name:OK, ControlType:button, FrameworkId:Win32 |
+  | ------&gt; AutomationId:1009, Name:Do not display further messages, ControlType:check box, FrameworkId:Win32 |
+  | ------&gt; AutomationId:1011, Name:Web protection, ControlType:text, FrameworkId:Win32 |
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${CHILDS}  Get Childs From Element  &lt;XPATH&gt; |
+| Log  &lt;XPATH&gt; |</doc>
+<shortdoc>Gets full output from element and childs output. Information to print out are AutomationId, Name, ControlType and FrameworkId.</shortdoc>
+</kw>
+<kw name="Get Combobox Items Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="163">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return actual count of items in combobox.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${COUNT}  Get Combobox Items Count  &lt;XPATH&gt; |
+| Should Be Equal  ${value}  ${COUNT}         |</doc>
+<shortdoc>Return actual count of items in combobox.</shortdoc>
+</kw>
+<kw name="Get Culture" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="392">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug.
+See https://github.com/FlaUI/FlaUI/issues/554 for more information.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Culture pattern is not supported by given element |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| ${culture}  Get Culture  &lt;XPATH&gt; |</doc>
+<shortdoc>Get culture from given element. This keyword only works by UIA3. UIA2 contains currently a bug. See https://github.com/FlaUI/FlaUI/issues/554 for more information.</shortdoc>
+</kw>
+<kw name="Get Font Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="278">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get font name from element.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                              |
+| Document pattern is not supported by given element to receive font name property |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${font_name}  Get Font Name  &lt;XPATH&gt; |</doc>
+<shortdoc>Get font name from element.</shortdoc>
+</kw>
+<kw name="Get Font Size" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="221">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get font size as floating point value.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                              |
+| Document pattern is not supported by given element to receive font size property |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${font_size}  Get Font Size  &lt;XPATH&gt; |</doc>
+<shortdoc>Get font size as floating point value.</shortdoc>
+</kw>
+<kw name="Get Font Weight" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="335">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get font weight as floating point value.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath            |
+| Document pattern is not supported by given element |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| ${font_weight}  Get Font Weight  &lt;XPATH&gt; |</doc>
+<shortdoc>Get font weight as floating point value.</shortdoc>
+</kw>
+<kw name="Get Foreground Color" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="163">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Returns foreground color as ARGB Tuple (int, int, int, int) from element if foreground color pattern is
+supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath                                                     |
+| Document pattern is not supported by given element to receive foreground color property |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${color}  Get Foreground Color  &lt;XPATH&gt; |</doc>
+<shortdoc>Returns foreground color as ARGB Tuple (int, int, int, int) from element if foreground color pattern is supported.</shortdoc>
+</kw>
+<kw name="Get Grid Rows Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="128">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return count of rows from data grid.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${COUNT}  Get Grid Rows Count  &lt;XPATH&gt; |
+| Should Be Equal  ${COUNT}  &lt;VALUE_TO_COMPARE&gt; |</doc>
+<shortdoc>Return count of rows from data grid.</shortdoc>
+</kw>
+<kw name="Get Listbox Items Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="185">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return count of rows in listbox.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${COUNT}  Get Listbox Items Count  &lt;XPATH&gt;  |
+| Should Be Equal  ${COUNT}  &lt;VALUE_TO_COMPARE&gt; |</doc>
+<shortdoc>Return count of rows in listbox.</shortdoc>
+</kw>
+<kw name="Get Name From Element" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="109">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return name value from element.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${NAME}  Get Name From Element  &lt;XPATH&gt; |
+
+Returns:
+| Name from element if set otherwise empty string |</doc>
+<shortdoc>Return name value from element.</shortdoc>
+</kw>
+<kw name="Get Property From Element" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="23">
+<arguments repr="identifier, action, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="action">
+<name>action</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Returns a supported property value from a given element if supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Supported operations:
+| Action | Type | Returns |
+| BACKGROUND_COLOR | Tuple (Numbers) | (A,R,G,B) |
+| FOREGROUND_COLOR | Tuple (Numbers) | (A,R,G,B) |
+| FONT_SIZE | Number | Font size |
+| FONT_NAME | String | Font name |
+| FONT_WEIGHT | Float | Font weight |
+| CULTURE | String | Iso Culture |
+| WINDOW_VISUAL_STATE | String | "Normal", "Maximized", "Minimized" |
+| WINDOW_INTERACTION_STATE | String | "Running", "Closing", "ReadyForUserInteraction", "BlockedByModalWindow", "NotResponding" |
+| TOGGLE_STATE | String | "ON", "OFF", "Indeterminate" |
+| CAN_WINDOW_MINIMIZE | Bool | True or False |
+| CAN_WINDOW_MAXIMIZE | Bool | True or False |
+| IS_READ_ONLY | Bool | True or False |
+| IS_WINDOW_PATTERN_SUPPORTED | Bool | True or False |
+| IS_TEXT_PATTERN_SUPPORTED | Bool | True or False |
+| IS_TOGGLE_PATTERN_SUPPORTED | Bool | True or False |
+| IS_VALUE_PATTERN_SUPPORTED | Bool | True or False |
+| VALUE | String | The Value Property of Element |
+| IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED | Bool | True or False |
+| EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |   
+| IS_SELECTION_ITEM_PATTERN_SUPPORTED | Bool | True or False |    
+| IS_SELECTED | Bool | True or False |
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath        |
+| Pattern is not supported by given element  |
+| Action is not supported                    |
+| Try to execute a setter property           |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| action     | string | Action to receive property    |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${value}       Get Property From Element  &lt;XPATH&gt;  &lt;PROPERTY&gt; |</doc>
+<shortdoc>Returns a supported property value from a given element if supported.</shortdoc>
+</kw>
+<kw name="Get Radiobutton State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\radiobutton.py" lineno="45">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return actual state ${True} or ${False} from radiobutton.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${value}  Get Radiobutton State &lt;XPATH&gt; |
+| Should Be Equal  ${value}  ${False/True} |</doc>
+<shortdoc>Return actual state ${True} or ${False} from radiobutton.</shortdoc>
+</kw>
+<kw name="Get Rectangle Bounding From Element" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="136">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return rectangle value from element.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| @{Rectangle}  Get Rectangle Bounding From Element  &lt;XPATH&gt; |
+
+Returns:
+| An array Rectangle Bounding from element : [rect.X, rect.Y, rect.Width, rect.Height]|</doc>
+<shortdoc>Return rectangle value from element.</shortdoc>
+</kw>
+<kw name="Get Root Treeitems Count" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return count of items in the first level of the tree.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${COUNT}  Get Root TreeItems Count  &lt;XPATH&gt;  |
+| Should Be Equal  ${COUNT}  &lt;VALUE_TO_COMPARE&gt; |</doc>
+<shortdoc>Return count of items in the first level of the tree.</shortdoc>
+</kw>
+<kw name="Get Selected Grid Rows" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="51">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string
+will be returned.
+
+For example:
+  | Value_1 | Value_2 | Value_3 |
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${data}  Get Selected Grid Rows  &lt;XPath&gt;   |</doc>
+<shortdoc>Get all selected rows as string. Representation for each cell is a pipe. If nothing is selected empty string will be returned.</shortdoc>
+</kw>
+<kw name="Get Selected Treeitems Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="168">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from tree with given index number
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${Name}  Get Selected Treeitems Name  ${XPATH_TREE} |
+| Should Be Equal     ${Name}  &lt;Name&gt;                 |</doc>
+<shortdoc>Selects item from tree with given index number</shortdoc>
+</kw>
+<kw name="Get Tab Items Names" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tab.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return child TabItems names from the parent Tab element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| @{CHILD_TAB_ITEMS}  Get Tab Items Names  &lt;XPATH&gt; |
+
+Returns:
+| List&lt;String&gt; child TabItem elements names from the Tab element. |</doc>
+<shortdoc>Return child TabItems names from the parent Tab element.</shortdoc>
+</kw>
+<kw name="Get Text From Textbox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\textbox.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return text from textbox element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| name       | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${TEXT}  Get Text From Textbox  &lt;XPATH&gt; |
+
+Returns:
+| Text string from textbox |</doc>
+<shortdoc>Return text from textbox element.</shortdoc>
+</kw>
+<kw name="Get Toggle State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="646">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Toggle pattern is not supported by given element  |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${toggle_state}  Get Toggle State  &lt;XPATH&gt; |</doc>
+<shortdoc>Get Toggle State as string. Possible states are "ON", "OFF", "Indeterminate"</shortdoc>
+</kw>
+<kw name="Get Uia Identifier" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\debug.py" lineno="52">
+<arguments repr="">
+</arguments>
+<doc>Gets given Windows User Automation Identifier which is in usage for the test.
+
+Possible Identifier are : UIA2 or UIA3
+
+Examples:
+| ${IDENTIFIER}  Get UIA Identifier  |
+| Log  &lt;IDENTIFIER&gt; |</doc>
+<shortdoc>Gets given Windows User Automation Identifier which is in usage for the test.</shortdoc>
+</kw>
+<kw name="Get Window Interaction State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="561">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get Windows Interaction State as string.
+
+Possible states are:
+
+"Running" - The window is running. This does not guarantee that the window is ready for user interaction
+            or is responding.
+
+"Closing" - The window is closing.
+
+"ReadyForUserInteraction" - The window is ready for user interaction.
+
+"BlockedByModalWindow" - The window is blocked by a modal window.
+
+"NotResponding" - The window is not responding.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${state}  Get Window Interaction State  &lt;XPATH&gt; |</doc>
+<shortdoc>Get Windows Interaction State as string.</shortdoc>
+</kw>
+<kw name="Get Window Visual State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="504">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Get Windows Visual State as string. Possible states are "Normal", "Maximized", "Minimized"
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${state}  Get Window Visual State  &lt;XPATH&gt; |</doc>
+<shortdoc>Get Windows Visual State as string. Possible states are "Normal", "Maximized", "Minimized"</shortdoc>
+</kw>
+<kw name="Is Element Enabled" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="210">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verifies if element is enabled (true) or not (false).
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| ${IS_ENABLED} =  Is Element Enabled  &lt;XPATH&gt; |
+
+Returns:
+| &lt;True&gt; if element is enabled otherwise &lt;False&gt; |</doc>
+<shortdoc>Verifies if element is enabled (true) or not (false).</shortdoc>
+</kw>
+<kw name="Is Element Offscreen" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="236">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if element is offscreen (true) or not (false).
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| ${IS_OFFSCREEN}  Is Element Offscreen  &lt;XPATH&gt; |</doc>
+<shortdoc>Checks if element is offscreen (true) or not (false).</shortdoc>
+</kw>
+<kw name="Is Hidden" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="452">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if element is hidden. Returns True if element is Hidden otherwise False.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Text pattern is not supported by given element |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${is_element_hidden}  Is Hidden  &lt;XPATH&gt; |</doc>
+<shortdoc>Verification if element is hidden. Returns True if element is Hidden otherwise False.</shortdoc>
+</kw>
+<kw name="Is Visible" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="478">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if element is visible. Return True if Element is Visible otherwise False.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Text pattern is not supported by given element |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${is_element_visible}  Is Visible  &lt;XPATH&gt; |</doc>
+<shortdoc>Verification if element is visible. Return True if Element is Visible otherwise False.</shortdoc>
+</kw>
+<kw name="Launch Application" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="108">
+<arguments repr="application, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="application">
+<name>application</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Launches an application.
+
+If application could not be found an error message will be thrown.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| application | string | Relative or absolute path to executable to launch  |
+| msg         | string | Custom error message                               |
+
+Example:
+| ${pid}  Launch Application  &lt;APPLICATION&gt; |
+
+Returns:
+| Process id from started process if successfully |</doc>
+<shortdoc>Launches an application.</shortdoc>
+</kw>
+<kw name="Launch Application With Args" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="132">
+<arguments repr="application, arguments, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="application">
+<name>application</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="arguments">
+<name>arguments</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Launches an application with given arguments.
+
+If application could not be found an error message will be thrown.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| application | string | Relative or absolute path to executable to launch  |
+| arguments   | string | Arguments for application to start                 |
+| msg         | string | Custom error message                               |
+
+Example:
+| ${pid}  Launch Application With Args  &lt;APPLICATION&gt;  &lt;ARGUMENTS&gt; |
+
+Returns:
+| Process id from started process if successfully |</doc>
+<shortdoc>Launches an application with given arguments.</shortdoc>
+</kw>
+<kw name="Listbox Selection Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="61">
+<arguments repr="identifier, item, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="item">
+<name>item</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if the selected listbox items are same with the given ones.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                   |
+| identifier | string          | XPath identifier from element |
+| item       | several strings | Name of items                 |
+| msg        | string | Custom error message                   |
+
+Examples:
+| Listbox Selection Should Be &lt;XPATH&gt;  &lt;STRING&gt;                |</doc>
+<shortdoc>Checks if the selected listbox items are same with the given ones.</shortdoc>
+</kw>
+<kw name="Listbox Should Contain" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="135">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if listbox contains the given item.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | Name of item                  |
+| msg        | string | Custom error message          |
+
+Examples:
+| Listbox Should Contain  &lt;XPATH&gt;  &lt;STRING&gt; |</doc>
+<shortdoc>Checks if listbox contains the given item.</shortdoc>
+</kw>
+<kw name="Listbox Should Not Contain" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="160">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if listbox does not contain the given item.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | Name of item                  |
+| msg        | string | Custom error message          |
+
+Examples:
+| Listbox Should Not Contain  &lt;XPATH&gt;  &lt;STRING&gt; |</doc>
+<shortdoc>Checks if listbox does not contain the given item.</shortdoc>
+</kw>
+<kw name="Maximize Window" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="704">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Maximize given window if supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+| Window could not be maximized                     |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Maximize Window  &lt;XPATH&gt; |</doc>
+<shortdoc>Maximize given window if supported.</shortdoc>
+</kw>
+<kw name="Minimize Window" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="731">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Minimize given window if supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+| Window could not be minimized                     |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Minimize Window  &lt;XPATH&gt; |</doc>
+<shortdoc>Minimize given window if supported.</shortdoc>
+</kw>
+<kw name="Move To" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="167">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Move mouse cursor to given element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Move To  &lt;XPATH&gt; |</doc>
+<shortdoc>Move mouse cursor to given element.</shortdoc>
+</kw>
+<kw name="Name Contains Text" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="186">
+<arguments repr="name, identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verifies if element name contains to name.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath              |
+| Name from element &lt;XPATH&gt; does not contain &lt;NAME&gt; |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| name       | string | Name to compare               |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Example:
+| Name Contains Text  &lt;NAME&gt;  &lt;XPATH&gt; |</doc>
+<shortdoc>Verifies if element name contains to name.</shortdoc>
+</kw>
+<kw name="Name Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="163">
+<arguments repr="name, identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verifies if name from element is equal.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Name from element &lt;XPATH&gt; is not equals to &lt;NAME&gt; |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| name       | string | Name to compare               |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+ Example:
+| Name Should Be  &lt;NAME&gt;  &lt;XPATH&gt; |</doc>
+<shortdoc>Verifies if name from element is equal.</shortdoc>
+</kw>
+<kw name="Normalize Window" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="758">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Normalize given window if supported.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+| Window could not be normalized                    |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Normalize Window  &lt;XPATH&gt; |</doc>
+<shortdoc>Normalize given window if supported.</shortdoc>
+</kw>
+<kw name="Press Key" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\keyboard.py" lineno="20">
+<arguments repr="key_combination, identifier=None, delay_in_ms=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="key_combination">
+<name>key_combination</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="identifier=None">
+<name>identifier</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="delay_in_ms=None">
+<name>delay_in_ms</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Keyboard control to execute a user defined one shortcut or text.
+
+Arguments:
+| Argument         | Type                                  | Description                                |
+| keys_combination | List of Strings, which should         | Text to be typed by keyboard               |
+|                  | satisfy one of the following formats: |                                            |
+|                  |    - s'&lt;shortcut&gt;'                    |                                            |
+|                  |    - t'&lt;text&gt;'                        |                                            |
+|                  |    Examples:                          |                                            |
+|                  |    - s'CTRL+A'                        |                                            |
+|                  |    - t'JJJ'                           |                                            |
+|                  |    - s'JJJ' will be executed as text  |                                            |
+| identifier       | String *Optional                      | XPath identifier                           |
+| delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
+| msg              | String *Optional                      | Custom error message                       |
+
+XPath syntax is explained in `XPath locator`.
+
+The following keys are supported for usage as a part of key_combination:
+| LBUTTON     |     Left mouse button                           |
+| RBUTTON     |     Right mouse button                          |
+| CANCEL      |     Control-break processing                    |
+| MBUTTON     |     Middle mouse button (three-button mouse)    |
+| XBUTTON1    |     Windows 2000/XP: X1 mouse button            |
+| XBUTTON2    |     Windows 2000/XP: X2 mouse button            |
+| BACK        |     BACKSPACE key                               |
+| TAB         |     TAB key                                     |
+| CLEAR       |     CLEAR key                                   |
+| ENTER       |     ENTER key                                   |
+| SHIFT       |     SHIFT key                                   |
+| CTRL        |     CTRL key                                    |
+| ALT         |     ALT key                                     |
+| CAPITAL     |     CAPITAL key                                 |
+| PAUSE       |     PAUSE key                                   |
+| ESCAPE      |     ESC key                                     |
+| ESC         |     ESC key                                     |
+| SPACE       |     Blank space key                             |
+| NEXT        |     Next key                                    |
+| END         |     END key                                     |
+| HOME        |     HOME key                                    |
+| LEFT        |     LEFT ARROW key                              |
+| RIGHT       |     RIGHT ARROW key                             |
+| UP          |     UP ARROW key                                |
+| DOWN        |     DOWN ARROW key                              |
+| SELECT      |     SELECT key                                  |
+| PRINT       |     PRINT key                                   |
+| EXECUTE     |     EXEC key                                    |
+| INSERT      |     INS key                                     |
+| DELETE      |     DEL key                                     |
+| HELP        |     HELP key                                    |
+| 0 - 9       |                                                 |
+| A - Z       |                                                 |
+| F1 - F12    |                                                 |
+| LWIN        |     Left Windows key                            |
+| RWIN        |     Right Windows key                           |
+| APPS        |                                                 |
+| SLEEP       |                                                 |
+| MULTIPLY    |     '*' key                                     |
+| ADD         |     '+' key                                     |
+| SEPARATOR   |                                                 |
+| SUBTRACT    |                                                 |
+| DECIMAL     |                                                 |
+| DIVIDE      |                                                 |
+
+Example:
+
+| ***** Variables *****                                         |
+| ${KEYBOARD_INPUT_CUT}  s'CTRL+X'                              |
+|                                                               |
+| ***** Test Cases *****                                        |
+| ...Keyboard usage in Test Case...                             |
+| Press Key  s'CTRL'    ${XPATH_COMBO_BOX_INPUT}                |
+| Press Key  t'A'       ${XPATH_COMBO_BOX_INPUT}                |
+| Press Key  s'CTRL+A'  ${XPATH_COMBO_BOX_INPUT}                |
+| Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
+| Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  500  |</doc>
+<shortdoc>Keyboard control to execute a user defined one shortcut or text.</shortdoc>
+</kw>
+<kw name="Press Keys" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\keyboard.py" lineno="110">
+<arguments repr="keys_combinations, identifier=None, delay_in_ms=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="keys_combinations">
+<name>keys_combinations</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="identifier=None">
+<name>identifier</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="delay_in_ms=None">
+<name>delay_in_ms</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Keyboard control to execute a user defined sequence of shortcuts and text values.
+If identifier set try to attach to given element if
+operation was successfully old element will be reattached automatically.
+
+Arguments:
+| Argument         | Type                                  | Description                   |
+| keys_combination | List of Strings, which should         | Text to be typed by keyboard  |
+|                  | satisfy one of the following formats: |                               |
+|                  |    - s'&lt;shortcut&gt;'                    |                               |
+|                  |    - t'&lt;text&gt;'                        |                               |
+|                  |    Examples:                          |                               |
+|                  |    - s'CTRL+A'                        |                               |
+|                  |    - t'JJJ'                           |                               |
+|                  |    - s'JJJ' will be executed as text  |                               |
+| identifier       | String *Optional                      | Optional XPath identifier     |
+| delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
+| msg              | String *Optional                      | Custom error message          |
+
+XPath syntax is explained in `XPath locator`.
+
+The list of all key_combinations can be seen under Press Key keyword.
+The only difference between both keywords is:
+Press Keys supports a sequence of several to be pressed after each other
+Press Key supports can only press one key combination at a time
+
+Example:
+| ***** Variables *****                                                      |
+| @{KEYBOARD_INPUT_SELECT_CUT_TEXT} s'CTRL+A' s'CTRL+X'                      |
+|                                                                            |
+| ***** Test Cases *****                                                     |
+| Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}      |
+| Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500 |</doc>
+<shortdoc>Keyboard control to execute a user defined sequence of shortcuts and text values. If identifier set try to attach to given element if operation was successfully old element will be reattached automatically.</shortdoc>
+</kw>
+<kw name="Right Click" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="118">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Right click to element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Right Click  &lt;XPATH&gt; |</doc>
+<shortdoc>Right click to element.</shortdoc>
+</kw>
+<kw name="Right Click Hold" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\mouse.py" lineno="142">
+<arguments repr="identifier, timeout_in_ms=1000, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout_in_ms=1000">
+<name>timeout_in_ms</name>
+<default>1000</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Right click and hold to element by XPath and release after timeout.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument      | Type   | Description                   |
+| identifier    | string | XPath identifier from element |
+| timeout_in_ms | int    | Holding time in ms            |
+| msg           | string | Custom error message          |
+
+Examples:
+| Right Click Hold  &lt;XPATH&gt;  5000 |</doc>
+<shortdoc>Right click and hold to element by XPath and release after timeout.</shortdoc>
+</kw>
+<kw name="Select Combobox Item By Index" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\combobox.py" lineno="109">
+<arguments repr="identifier, index, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="index">
+<name>index</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from combobox with given index number.
+Combobox will be automatic collapsed after selection is done.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| index      | string | index of item                 |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Combobox Item By Index  &lt;XPATH&gt;  &lt;INDEX&gt; |</doc>
+<shortdoc>Selects item from combobox with given index number. Combobox will be automatic collapsed after selection is done.</shortdoc>
+</kw>
+<kw name="Select Grid Row By Index" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="77">
+<arguments repr="identifier, index, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="index">
+<name>index</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Select rows from data grid with the given index.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| index      | string | IndexNumber                   |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Grid Row By Index  &lt;XPath&gt;  &lt;INDEX&gt;      |</doc>
+<shortdoc>Select rows from data grid with the given index.</shortdoc>
+</kw>
+<kw name="Select Grid Row By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\grid.py" lineno="102">
+<arguments repr="identifier, index, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="index">
+<name>index</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Select specific row by name from data grid.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| index      | string | Column IndexNumber            |
+| name       | string | Column items Name             |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Grid Row By Name  &lt;XPath&gt;  &lt;INDEX&gt;      |</doc>
+<shortdoc>Select specific row by name from data grid.</shortdoc>
+</kw>
+<kw name="Select Listbox Item By Index" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="85">
+<arguments repr="identifier, index, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="index">
+<name>index</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from listbox with given index number
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| index      | string | index of item                 |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Listbox Item By Index  &lt;XPATH&gt;  &lt;INDEX&gt;      |</doc>
+<shortdoc>Selects item from listbox with given index number</shortdoc>
+</kw>
+<kw name="Select Listbox Item By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\listbox.py" lineno="110">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from listbox by name.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | name from item                |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Listbox Item By Name  &lt;XPATH&gt;  &lt;NAME&gt;      |</doc>
+<shortdoc>Selects item from listbox by name.</shortdoc>
+</kw>
+<kw name="Select Radiobutton" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\radiobutton.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Select given radiobutton by xpath.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Radiobutton  &lt;XPATH&gt; |</doc>
+<shortdoc>Select given radiobutton by xpath.</shortdoc>
+</kw>
+<kw name="Select Tab Item By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tab.py" lineno="48">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Return child TabItems names from the parent Tab element.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | Name from tab to select       |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select Tab Item By Name  &lt;XPATH&gt;  &lt;NAME&gt; |</doc>
+<shortdoc>Return child TabItems names from the parent Tab element.</shortdoc>
+</kw>
+<kw name="Select Treeitem" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="219">
+<arguments repr="identifier, item, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="item">
+<name>item</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from tree by hybrid pointers, series of indexes and names.
+
+Tree item will be located using the following syntax:
+N:Name1-&gt;I:index2-&gt;N:Name3
+Means in the root level of tree the item with name Name1 will be expanded.
+Under it will be taken the item with index of (int) index2 and expanded.
+Under it there is an item with name Name3 will be selected.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| item       | string | Hybrid solution               |
+| msg        | string | Custom error message          |
+
+Examples:
+| ${item}=  N:name1-&gt;N:name2-&gt;N:name3      |
+| Select TreeItem   &lt;XPATH&gt;  ${item}      |</doc>
+<shortdoc>Selects item from tree by hybrid pointers, series of indexes and names.</shortdoc>
+</kw>
+<kw name="Select Visible Treeitem By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="193">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Selects item from tree by name.
+If the given name could not be found or was not visible in tree FlauiError will be thrown.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| name       | string | name from item                |
+| msg        | string | Custom error message          |
+
+Examples:
+| Select visible TreeItem By Name  &lt;XPATH&gt;  &lt;NAME&gt;   |</doc>
+<shortdoc>Selects item from tree by name. If the given name could not be found or was not visible in tree FlauiError will be thrown.</shortdoc>
+</kw>
+<kw name="Selected Treeitem Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="317">
+<arguments repr="identifier, item, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="item">
+<name>item</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Checks if the selected tree items are same with the given ones.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                   |
+| identifier | string          | XPath identifier from element |
+| item       | string          | Name of treeitem              |
+| msg        | string          | Custom error message          |
+
+Examples:
+| Selected TreeItem Should Be  &lt;XPATH&gt;  &lt;item&gt;                 |</doc>
+<shortdoc>Checks if the selected tree items are same with the given ones.</shortdoc>
+</kw>
+<kw name="Set Checkbox State" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\checkbox.py" lineno="21">
+<arguments repr="identifier, value, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="value">
+<name>value</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Set checkbox state to ${True} or ${False}
+
+XPath syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| enable     | bool   | ${True} / ${False}            |
+| msg        | string | Custom error message          |
+
+Examples:
+| Set Checkbox State  &lt;XPATH&gt;  ${True/False} |</doc>
+<shortdoc>Set checkbox state to ${True} or ${False}</shortdoc>
+</kw>
+<kw name="Set Screenshot Blacklist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="59">
+<arguments repr="keywords: list">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="keywords: list">
+<name>keywords</name>
+<type name="list" typedoc="list"/>
+</arg>
+</arguments>
+<doc>Sets a list of blacklisted keywords which should be ignored from screenshot module.
+
+Full keyword name including library should be used:
+  - Should Contain is wrong because library is missing
+  - BuiltIn.Should Contain is correct usage here
+
+Important
+  - Blacklist is prioritize from Whitelist
+
+Example:
+| @{list}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail|
+| Set Screenshot Blacklist  ${list} |</doc>
+<shortdoc>Sets a list of blacklisted keywords which should be ignored from screenshot module.</shortdoc>
+</kw>
+<kw name="Set Screenshot Directory" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="107">
+<arguments repr="directory=None">
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="directory=None">
+<name>directory</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Set directory for captured images. If no directory is set default output directory will be used from robot.
+
+Arguments:
+| Argument   | Type   | Description                                  |
+| directory | string | Relative or absolute path to directory folder |
+
+Example:
+| Set Screenshot Directory  &lt;STRING_PATH&gt; |</doc>
+<shortdoc>Set directory for captured images. If no directory is set default output directory will be used from robot.</shortdoc>
+</kw>
+<kw name="Set Screenshot Whitelist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="41">
+<arguments repr="keywords: list">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="keywords: list">
+<name>keywords</name>
+<type name="list" typedoc="list"/>
+</arg>
+</arguments>
+<doc>Sets a list of whitelisted keywords which should be ignored from screenshot module.
+
+Full keyword name including library should be used:
+  - Should Contain is wrong because library is missing
+  - BuiltIn.Should Contain is correct usage here
+
+Important
+  - Blacklist is prioritize from Whitelist
+
+Example:
+| @{list}  Create List  BuiltIn.Wait Until Keyword Succeeds  BuiltIn.Run Keyword And Ignore Error  BuiltIn.Fail|
+| Set Screenshot Blacklist  ${whitelist} |</doc>
+<shortdoc>Sets a list of whitelisted keywords which should be ignored from screenshot module.</shortdoc>
+</kw>
+<kw name="Set Text To Textbox" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\textbox.py" lineno="48">
+<arguments repr="identifier, value, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="value">
+<name>value</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Inputs value to a textbox module.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from textbox |
+| value      | string | Value to set to textbox       |
+| msg        | string | Custom error message          |
+
+Examples:
+| Set Text To Textbox  &lt;XPATH&gt;  &lt;VALUE&gt; |</doc>
+<shortdoc>Inputs value to a textbox module.</shortdoc>
+</kw>
+<kw name="Switch Uia To" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\uia.py" lineno="20">
+<arguments repr="uia">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="uia">
+<name>uia</name>
+</arg>
+</arguments>
+<doc>Switch automation user interface from library.
+
+Possible arguments are 'UIA2' or 'UIA3'.
+
+All other interface usage will force a Rush Exception.
+
+Arguments:
+| Argument   | Type   | Description                             |
+| uia        | string | 'UIA2' or 'UIA3'                        |
+
+Example:
+| Switch UIA To  UIA2           |
+| Switch UIA To  UIA3           |</doc>
+<shortdoc>Switch automation user interface from library.</shortdoc>
+</kw>
+<kw name="Take Screenshot" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="77">
+<arguments repr="">
+</arguments>
+<doc>Takes a screenshot of the whole desktop. Returns path to the screenshot file.
+
+Example:
+| Take Screenshot |</doc>
+<shortdoc>Takes a screenshot of the whole desktop. Returns path to the screenshot file.</shortdoc>
+</kw>
+<kw name="Take Screenshots On Failure" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\screenshot.py" lineno="89">
+<arguments repr="enabled">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="enabled">
+<name>enabled</name>
+</arg>
+</arguments>
+<doc>Takes a screenshot of the whole desktop if no element is attached otherwise attached element will be captured.
+Returns path to the screenshot file.
+
+Arguments:
+| Argument   | Type   | Description      |
+| enabled    | string | True or False    |
+
+Example:
+| Take Screenshots On Failure  ${FALSE/TRUE} |</doc>
+<shortdoc>Takes a screenshot of the whole desktop if no element is attached otherwise attached element will be captured. Returns path to the screenshot file.</shortdoc>
+</kw>
+<kw name="Toggle" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\togglebutton.py" lineno="21">
+<arguments repr="identifier, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Toggle given element.
+
+If pattern is not supported a Not Supported Exception will be called.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| msg        | string | Custom error message          |
+
+Examples:
+| Toggle  &lt;XPATH&gt; |</doc>
+<shortdoc>Toggle given element.</shortdoc>
+</kw>
+<kw name="Toggle State Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="672">
+<arguments repr="identifier, state, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="state">
+<name>state</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if element is in expected toggle state.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Toggle pattern is not supported by given element  |
+| Toggle state is not equal to given state          |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| state      | string | Possible states are "ON", "OFF", "Indeterminate" |
+| msg        | string | Custom error message          |
+
+Examples:
+| Toggle State Should Be  &lt;XPATH&gt;  &lt;STATE&gt; |</doc>
+<shortdoc>Verification if element is in expected toggle state.</shortdoc>
+</kw>
+<kw name="Treeitem Should Be Visible" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\tree.py" lineno="143">
+<arguments repr="identifier, name, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Iterates every visible tree item. And fails if a node does not contain by given name.
+
+XPaths syntax is explained in `XPath locator`.
+
+If element could not be found by xpath an error message will be thrown.
+
+Arguments:
+| Argument   | Type            | Description                   |
+| identifier | string          | XPath identifier from element |
+| name       | string          | Name of treeitem              |
+| msg        | string          | Custom error message          |
+
+Examples:
+| TreeItem Should Be Visible  &lt;XPATH&gt;  &lt;Name&gt;            |</doc>
+<shortdoc>Iterates every visible tree item. And fails if a node does not contain by given name.</shortdoc>
+</kw>
+<kw name="Wait For Application Handle By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="235">
+<arguments repr="name, timeout=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout=None">
+<name>timeout</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Wait for application handle until timeout is reached.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| name        | string | Name from application to wait                      |
+| timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
+| msg         | string | Custom error message                               |
+
+Example:
+| Wait For Application Handle By Name  &lt;NAME&gt;  &lt;TIMEOUT&gt; |
+
+Raise FlaUiError:
+| If application could not be found by name. |
+
+Returns:
+| True a main window handle was found, false otherwise |</doc>
+<shortdoc>Wait for application handle until timeout is reached.</shortdoc>
+</kw>
+<kw name="Wait For Application Handle By Pid" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="209">
+<arguments repr="pid, timeout=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="pid">
+<name>pid</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout=None">
+<name>timeout</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Wait for application handle until timeout is reached.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| pid         | number | PID from application to wait                       |
+| timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used      |
+| msg         | string | Custom error message                               |
+
+Example:
+| Wait For Application Handle By Pid  &lt;PID&gt;  &lt;TIMEOUT&gt; |
+
+Raise FlaUiError:
+| If application could not be found by pid. |
+
+Returns:
+| True a main window handle was found, false otherwise |</doc>
+<shortdoc>Wait for application handle until timeout is reached.</shortdoc>
+</kw>
+<kw name="Wait For Application While Busy By Name" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="157">
+<arguments repr="name, timeout=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="name">
+<name>name</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout=None">
+<name>timeout</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Wait for application when in busy state until timeout is reached.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| name        | string | Name from application to wait                      |
+| timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used |
+| msg         | string | Custom error message                               |
+
+Example:
+| Wait For Application While Busy By Name  &lt;NAME&gt;  &lt;TIMEOUT&gt; |
+
+Raise FlaUiError:
+| If application could not be found by name. |
+
+Returns:
+| True if the application is idle, false otherwise |</doc>
+<shortdoc>Wait for application when in busy state until timeout is reached.</shortdoc>
+</kw>
+<kw name="Wait For Application While Busy By Pid" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\application.py" lineno="183">
+<arguments repr="pid, timeout=None, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="pid">
+<name>pid</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="timeout=None">
+<name>timeout</name>
+<default>None</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Wait for application when in busy state until timeout is reached.
+
+Arguments:
+| Argument    | Type   | Description                                        |
+| pid         | number | PID from application to wait                       |
+| timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
+| msg         | string | Custom error message                               |
+
+Example:
+| Wait For Application While Busy By Pid  &lt;PID&gt;  &lt;TIMEOUT&gt; |
+
+Raise FlaUiError:
+| If application could not be found by name. |
+
+Returns:
+| True if the application is idle, false otherwise |</doc>
+<shortdoc>Wait for application when in busy state until timeout is reached.</shortdoc>
+</kw>
+<kw name="Wait Until Element Does Not Exist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="359">
+<arguments repr="identifier, retries=10, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="retries=10">
+<name>retries</name>
+<default>10</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Waits until element does not exist or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+XPaths syntax is explained in `XPath locator`.
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is not enabled      |
+
+Arguments:
+| Argument   | Type   | Description                                                            |
+| identifier | string | XPath identifier from element                                          |
+| retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
+| msg        | string | Custom error message                                                   |
+
+Example:
+| Wait Until Element Does Not Exist  &lt;XPATH&gt;  &lt;RETRIES=10&gt; |
+| Wait Until Element Does Not Exist  &lt;XPATH&gt;  &lt;RETRIES=10&gt;  &lt;MSG&gt; |</doc>
+<shortdoc>Waits until element does not exist or timeout was reached. If timeout was reached an FlaUIError occurred.</shortdoc>
+</kw>
+<kw name="Wait Until Element Exist" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="334">
+<arguments repr="identifier, retries=10, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="retries=10">
+<name>retries</name>
+<default>10</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Waits until element exist or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+XPaths syntax is explained in `XPath locator`.
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is not enabled      |
+
+Arguments:
+| Argument   | Type   | Description                                                            |
+| identifier | string | XPath identifier from element                                          |
+| retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
+| msg        | string | Custom error message                                                   |
+
+Example:
+| Wait Until Element Exist  &lt;XPATH&gt;  &lt;RETRIES=10&gt; |
+| Wait Until Element Exist  &lt;XPATH&gt;  &lt;RETRIES=10&gt;  &lt;MSG&gt; |</doc>
+<shortdoc>Waits until element exist or timeout was reached. If timeout was reached an FlaUIError occurred.</shortdoc>
+</kw>
+<kw name="Wait Until Element Is Enabled" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="384">
+<arguments repr="identifier, retries=10, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="retries=10">
+<name>retries</name>
+<default>10</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Waits until element is enabled or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+XPaths syntax is explained in `XPath locator`.
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is not enabled      |
+
+Arguments:
+| Argument   | Type   | Description                                                           |
+| identifier | string | XPath identifier from element                                         |
+| retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
+| msg        | string | Custom error message                                                  |
+
+Example:
+| Wait Until Element Is Enabled  &lt;XPATH&gt;  &lt;RETRIES=10&gt; |
+| Wait Until Element Is Enabled  &lt;XPATH&gt;  &lt;RETRIES=10&gt;  &lt;MSG&gt; |</doc>
+<shortdoc>Waits until element is enabled or timeout was reached. If timeout was reached an FlaUIError occurred.</shortdoc>
+</kw>
+<kw name="Wait Until Element Is Offscreen" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\element.py" lineno="310">
+<arguments repr="identifier, retries=10, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="retries=10">
+<name>retries</name>
+<default>10</default>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Waits until element is offscreen or timeout was reached. If timeout was reached an FlaUIError occurred.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath |
+| Element &lt;XPATH&gt; is visible          |
+
+Arguments:
+| Argument   | Type   | Description                                                           |
+| identifier | string | XPath identifier from element                                         |
+| retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
+| msg        | string | Custom error message                                                  |
+
+Example:
+| Wait Until Element Is Offscreen  &lt;XPATH&gt;  &lt;RETRIES=10&gt; |
+| Wait Until Element Is Offscreen  &lt;XPATH&gt;  &lt;RETRIES=10&gt;  &lt;MSG&gt; |</doc>
+<shortdoc>Waits until element is offscreen or timeout was reached. If timeout was reached an FlaUIError occurred.</shortdoc>
+</kw>
+<kw name="Window Interaction State Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="600">
+<arguments repr="identifier, state, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="state">
+<name>state</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if window is in given window interaction state.
+
+Possible states are:
+
+"Running" - The window is running. This does not guarantee that the window is ready for user interaction
+            or is responding.
+
+"Closing" - The window is closing.
+
+"ReadyForUserInteraction" - The window is ready for user interaction.
+
+"BlockedByModalWindow" - The window is blocked by a modal window.
+
+"NotResponding" - The window is not responding.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+| Visual state is not equal to given state          |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| state      | string | Possible states are "Running", "Closing", "ReadyForUserInteraction", "BlockedByModalWindow", "NotResponding"  |
+| msg        | string | Custom error message          |
+
+Examples:
+| Window Interaction State Should Be  &lt;XPATH&gt;  &lt;STATE&gt; |</doc>
+<shortdoc>Verification if window is in given window interaction state.</shortdoc>
+</kw>
+<kw name="Window Visual State Should Be" source="C:\projects\robotframework-flaui\src\FlaUILibrary\keywords\property.py" lineno="530">
+<arguments repr="identifier, state, msg=None">
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="identifier">
+<name>identifier</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="true" repr="state">
+<name>state</name>
+</arg>
+<arg kind="POSITIONAL_OR_NAMED" required="false" repr="msg=None">
+<name>msg</name>
+<default>None</default>
+</arg>
+</arguments>
+<doc>Verification if window is in given window visual state.
+
+XPaths syntax is explained in `XPath locator`.
+
+Possible FlaUI-Errors:
+| Element could not be found by xpath               |
+| Window pattern is not supported by given element  |
+| Visual state is not equal to given state          |
+
+Arguments:
+| Argument   | Type   | Description                   |
+| identifier | string | XPath identifier from element |
+| state      | string | Possible states are "Normal", "Maximized", "Minimized"  |
+| msg        | string | Custom error message          |
+
+Examples:
+| Window Visual State Should Be  &lt;XPATH&gt;  &lt;STATE&gt; |</doc>
+<shortdoc>Verification if window is in given window visual state.</shortdoc>
+</kw>
+</keywords>
+<typedocs>
+<type name="list" type="Standard">
+<doc>Strings must be Python [https://docs.python.org/library/stdtypes.html#list|list]
+literals. They are converted to actual lists using the
+[https://docs.python.org/library/ast.html#ast.literal_eval|ast.literal_eval]
+function. They can contain any values ``ast.literal_eval`` supports, including
+lists and other containers.
+
+If the type has nested types like ``list[int]``, items are converted
+to those types automatically. This in new in Robot Framework 6.0.
+
+Examples: ``['one', 'two']``, ``[('one', 1), ('two', 2)]``
+</doc>
+<accepts>
+<type>string</type>
+<type>Sequence</type>
+</accepts>
+<usages>
+<usage>Set Screenshot Blacklist</usage>
+<usage>Set Screenshot Whitelist</usage>
+</usages>
+</type>
+</typedocs>
+</keywordspec>
