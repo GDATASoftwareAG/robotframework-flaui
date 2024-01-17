@@ -5,6 +5,7 @@ import FlaUI.Core.Input  # pylint: disable=import-error
 from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.module.element import Element
 
 
 class Mouse(ModuleInterface):
@@ -13,6 +14,16 @@ class Mouse(ModuleInterface):
     Wrapper module executes methods from Mouse.cs implementation.
     """
 
+    def __init__(self, automation: Any):
+        """
+        Mouse module wrapper for FlaUI usage.
+
+        Args:
+            automation (Object): UIA3/UIA2 automation object from FlaUI.
+        """
+        self._automation = automation
+        self._element = Element(self._automation, timeout=0)
+
     class Container(ValueContainer):
         """
         Value container from mouse module.
@@ -20,12 +31,24 @@ class Mouse(ModuleInterface):
         element: Optional[Any]
         second_element: Optional[Any]
         timeout_in_ms: Optional[int]
+        max_repeat: Optional[int]
+        click_element_xpath: Optional[str]
+        goal_element_xpath: Optional[str]
+        focus_element_xpath_before: Optional[str]
+        focus_element_xpath_after: Optional[str]
+        ignore_if: Optional[bool]
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
         LEFT_CLICK = "LEFT_CLICK"
+        LEFT_CLICK_OPEN = "LEFT_CLICK_OPEN"
+        LEFT_CLICK_CLOSE = "LEFT_CLICK_CLOSE"
         RIGHT_CLICK = "RIGHT_CLICK"
+        RIGHT_CLICK_OPEN = "RIGHT_CLICK_OPEN"
+        RIGHT_CLICK_CLOSE = "RIGHT_CLICK_CLOSE"
         DOUBLE_CLICK = "DOUBLE_CLICK"
+        DOUBLE_CLICK_OPEN = "DOUBLE_CLICK_OPEN"
+        DOUBLE_CLICK_CLOSE = "DOUBLE_CLICK_CLOSE"
         LEFT_CLICK_HOLD = "LEFT_CLICK_HOLD"
         RIGHT_CLICK_HOLD = "RIGHT_CLICK_HOLD"
         DOUBLE_CLICK_HOLD = "DOUBLE_CLICK_HOLD"
@@ -33,32 +56,31 @@ class Mouse(ModuleInterface):
         DRAG_AND_DROP = "DRAG_AND_DROP"
 
     @staticmethod
-    def create_value_container(element=None, second_element=None, timeout_in_ms=None):
+    def create_value_container(element=None, second_element=None, timeout_in_ms=None, max_repeat = None,
+        click_element_xpath = None, goal_element_xpath = None,
+        focus_element_xpath_before = None, focus_element_xpath_after = None,
+        ignore_if =  None):
         """
         Helper to create container object.
 
         Args:
             element (Object): Element to click
             second_element (Object): To Element from drag and drop
+            timeout_in_ms: Total time of hold in Click Hold, Timeout in between waiting loops between clicking and existance profing of Click Open/ Click Close
+            max_repeat: Maximum number of repeats of clicking and wating in Click Open/ Click Close
+            click_element_xpath: The element to be clicked in Click Open/ Click Close
+            goal_element_xpath: Close element from Click Close/ open element from Click Open
+            focus_element_xpath_before: Focus element before clicking in Click Open/ Click Close
+            focus_element_xpath_after: Focus element after clicking in Click Open/ Click Close
+            ignore_if: The execution will be ignored if the clicking element exist in Click Open / does not exist in Click Close
         """
-        return Mouse.Container(element=element, second_element=second_element, timeout_in_ms=timeout_in_ms)
+        return Mouse.Container(element=element, second_element=second_element, timeout_in_ms=timeout_in_ms, max_repeat = max_repeat,
+        click_element_xpath = click_element_xpath, goal_element_xpath = goal_element_xpath,
+        focus_element_xpath_before = focus_element_xpath_before, focus_element_xpath_after = focus_element_xpath_after,
+        ignore_if = ignore_if)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
-
-        Supported action usages are:
-
-          *  Action.LEFT_CLICK, RIGHT_CLICK, DOUBLE_CLICK, MOVE_TO
-            * Values ["element"] : UIA3 Element from FlaUI to interact
-            * Returns : None
-
-          *  Action.LEFT_CLICK_HOLD, RIGHT_CLICK_HOLD, DOUBLE_CLICK_HOLD,
-            * Values ["element","timeout"] : UIA3 Element from FlaUI to interact
-            * Returns : None
-
-         *  Action.DRAG_AND_DROP
-            * Values ["element", "second_element"] : UIA3 Elements from FlaUI to drag and drop
-            * Returns : None
 
         Raises:
             FlaUiError: If action is not supported.
@@ -70,6 +92,24 @@ class Mouse(ModuleInterface):
 
         switcher = {
             self.Action.LEFT_CLICK: lambda: self._click(values["element"]),
+            self.Action.LEFT_CLICK_OPEN: lambda: self._click_open(Mouse._click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
+            self.Action.RIGHT_CLICK_OPEN: lambda: self._click_open(Mouse._right_click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
+            self.Action.DOUBLE_CLICK_OPEN: lambda: self._click_open(Mouse._double_click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
+            self.Action.LEFT_CLICK_CLOSE: lambda: self._click_close(Mouse._click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
+            self.Action.RIGHT_CLICK_CLOSE: lambda: self._click_close(Mouse._right_click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
+            self.Action.DOUBLE_CLICK_CLOSE: lambda: self._click_close(Mouse._double_click, values["click_element_xpath"], values["goal_element_xpath"], 
+                                                                  values["focus_element_xpath_before"], values["focus_element_xpath_after"], 
+                                                                  values["max_repeat"], values["timeout_in_ms"], values["ignore_if"]),
             self.Action.RIGHT_CLICK: lambda: self._right_click(values["element"]),
             self.Action.DOUBLE_CLICK: lambda: self._double_click(values["element"]),
             self.Action.LEFT_CLICK_HOLD: lambda: self._click_hold(values["element"], values["timeout_in_ms"]),
@@ -145,5 +185,53 @@ class Mouse(ModuleInterface):
     def _drag_and_drop(element_from: Any, element_to: Any):
         try:
             FlaUI.Core.Input.Mouse.Drag(element_from.GetClickablePoint(), element_to.GetClickablePoint())
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+
+    def _click_open(self, click_type, click_element_xpath: str, open_element_xpath: str, 
+                    focus_element_xpath_before_click: str = None, focus_element_xpath_after_open: str = None , 
+                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_open: bool = True):
+        try:
+            if ignore_if_already_open:
+                alreadyOpen = self._element._get_element_by_xpath(open_element_xpath)
+                if alreadyOpen:
+                    return True
+            if focus_element_xpath_before_click:
+                self._element._get_element_by_xpath(focus_element_xpath_before_click).focus()
+            for i in range(max_repeat):
+                click_element = self._element._get_element_by_xpath(click_element_xpath)
+                if click_element:
+                    click_type(click_element)
+                    openElement = self._element._get_element_by_xpath(open_element_xpath)
+                    if openElement:
+                        if focus_element_xpath_after_open:
+                            self._element._get_element_by_xpath(focus_element_xpath_after_open).focus()
+                        return True
+                time.sleep(float(timeout_between_repeates)/1000)
+            raise FlaUiError(FlaUiError.ElementNotOpened.format(open_element_xpath, click_element_xpath))
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+
+    def _click_close(self, click_type, click_element_xpath: str, close_element_xpath: str, 
+                    focus_element_xpath_before_click: str = None, focus_element_xpath_after_close: str = None , 
+                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_close: bool = True):
+        try:
+            if ignore_if_already_close:
+                alreadyOpen = self._element._get_element_by_xpath(close_element_xpath)
+                if not alreadyOpen:
+                    return True
+            if focus_element_xpath_before_click:
+                self._element._get_element_by_xpath(focus_element_xpath_before_click).focus()
+            for i in range(max_repeat):
+                click_element = self._element._get_element_by_xpath(click_element_xpath)
+                if click_element:
+                    click_type(click_element)
+                    openElement = self._element._get_element_by_xpath(close_element_xpath)
+                    if not openElement:
+                        if focus_element_xpath_after_close:
+                            self._element._get_element_by_xpath(focus_element_xpath_after_close).focus()
+                        return True
+                time.sleep(float(timeout_between_repeates)/1000)
+            raise FlaUiError(FlaUiError.ElementNotClosed.format(close_element_xpath, click_element_xpath))
         except NoClickablePointException:
             raise FlaUiError(FlaUiError.ElementNotClickable) from None

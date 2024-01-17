@@ -212,3 +212,73 @@ class MouseKeywords:
         module.action(Mouse.Action.DRAG_AND_DROP,
                       Mouse.create_value_container(element=start_element, second_element=end_element),
                       msg)
+
+    @keyword
+    def click_open(self, click_element_identifier: str, open_element_identifier: str, 
+                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_open: str = None , 
+                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_open: bool = True, msg=None):
+        """
+        Left clicks to element by an XPath and excepts an element to be opened.
+        It repeats the act of clicking until the excepted element is there by waiting for given seconds each time.
+        Maximum repeating time could also be changed
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | click_element_identifier | string | XPath identifier from element to be clicked |
+        | open_element_identifier | string | XPath identifier from element to be opened after clicking click_element |
+        | focus_element_identifier_before_click | string | XPath identifier from element to be focused before clicking click_element |
+        | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
+        | max_repeat | int | Maximum number of tries |
+        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
+        | msg | string | Custom error message |
+
+        Examples:
+        | Click Open  <XPATH>  <XPATH>  |
+
+        """
+        module = self._container.create_or_get_module()
+        module.action(Mouse.Action.LEFT_CLICK_OPEN,
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=open_element_identifier, 
+                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_open,
+                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_open),
+                      msg)
+
+    @keyword
+    def click_close(self, click_element_identifier: str, close_element_identifier: str, 
+                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_close: str = None , 
+                    max_repeat: int = 5, timeout_between_repeates: int = 1, ignore_if_already_close: bool = True, msg=None):
+        """
+        Left clicks an element by an XPath and excepts an element to be closed.
+        It repeats the act of clicking until the excepted element is closed by waiting for given seconds each time.
+        Maximum repeating time could also be changed
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | click_element_identifier | string | XPath identifier from element to be clicked |
+        | close_element_identifier | string | XPath identifier from element to be closed after clicking click_element |
+        | focus_element_identifier_before_click | string | XPath identifier from element to be focused before clicking click_element |
+        | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
+        | max_repeat | int | Maximum number of tries |
+        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Click Open  <XPATH>  <XPATH>  |
+
+        """
+        module = self._container.create_or_get_module()
+        module.action(Mouse.Action.LEFT_CLICK_CLOSE,
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=close_element_identifier, 
+                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_close,
+                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_close),
+                      msg)
