@@ -52,8 +52,8 @@ class UIA(WindowsAutomationInterface, ABC):
         Args:
             automation (Object)       : Windows user automation object.
         """
-        modules = [Application(automation), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
-                   Grid(), Mouse(), Textbox(), Tree(), Checkbox(), Tab(), Window(automation), Combobox(),
+        modules = [Application(), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
+                   Grid(), Mouse(automation), Textbox(), Tree(), Checkbox(), Tab(), Window(), Combobox(),
                    Property(), ToggleButton()]
 
         for module in modules:

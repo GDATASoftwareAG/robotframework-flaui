@@ -6,6 +6,13 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+  - [#147](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/147) New Keywords
+    - Click Open
+    - Click Close
+    - Double Click Open
+    - Double Click Close
+    - Right Click Open
+    - Right Click Close
 
 ## [Release][3.0.0] [3.0.0][2.1.3-3.0.0] - 2024-01-11
 

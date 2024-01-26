@@ -23,6 +23,8 @@ class FlaUiError(AttributeError):
     ElementNotEnabled = "Element '{}' is not enabled"
     ElementNotDisabled = "Element '{}' is not disabled"
     ElementNotExpandable = "Element '{}' is not expandable"
+    ElementNotOpened = "Element '{}' could not be opened after clicking on '{}'"
+    ElementNotClosed = "Element '{}' could not be closed after clicking on '{}'"
     NoWindowWithNameFound = "No window with name '{}' found"
     WindowCloseNotSupported = "Close operation only supported for window elements"
     WrongElementType = "'{}' could not be cast as '{}'"
