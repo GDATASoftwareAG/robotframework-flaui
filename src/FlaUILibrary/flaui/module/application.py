@@ -58,15 +58,11 @@ class Application(ModuleInterface):
         WAIT_WHILE_APPLICATION_IS_BUSY_BY_NAME = "WAIT_WHILE_APPLICATION_IS_BUSY_BY_NAME"
         WAIT_WHILE_APPLICATION_IS_BUSY_BY_PID = "WAIT_WHILE_APPLICATION_IS_BUSY_BY_PID"
 
-    def __init__(self, automation: Any):
+    def __init__(self):
         """
         Application module wrapper for FlaUI usage.
-
-        Args:
-            automation (Object): UIA3/UIA2 automation object from FlaUI.
         """
         self._applications = []
-        self._automation = automation
 
     @staticmethod
     def create_value_container(name=None, pid=None, timeout=None, args=None, msg=None):

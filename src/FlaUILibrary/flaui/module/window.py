@@ -23,14 +23,6 @@ class Window(ModuleInterface):
         """
         CLOSE_WINDOW = "CLOSE_WINDOW"
 
-    def __init__(self, automation):
-        """Window module wrapper for FlaUI usage.
-
-        Args:
-            automation (Object): UIA3/UIA2 automation object from FlaUI.
-        """
-        self._automation = automation
-
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
 

@@ -154,7 +154,7 @@ class FlaUILibrary(DynamicCore):
 
         # Robot init
         self.ROBOT_LIBRARY_LISTENER = self  # pylint: disable=invalid-name
-        self.libraries = self.keyword_modules.values()
+        self.libraries = list(self.keyword_modules.values())
         DynamicCore.__init__(self, self.libraries)
 
     def _start_test(self, name, attrs):  # pylint: disable=unused-argument
