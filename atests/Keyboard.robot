@@ -20,11 +20,14 @@ Test Setup       Wait Until Keyword Succeeds    5x    10ms    Reset Textbox
 *** Variables ***
 ${XPATH_INPUT_FIELD}        ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Edit[@AutomationId='KeyboardInputField']
 ${XPATH_RESET}              ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Button[@AutomationId='ResetKeyboardInputs']
-${XPATH_LABEL_INPUT_UP}     ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyDown']
+${XPATH_LABEL_INPUT_UP}     ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyUp']
+${XPATH_LABEL_INPUT_DOWN}     ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyDown']
 
 ${EXP_VALUE_INPUT_TEXT} =  Type text
 ${EXP_VALUE_OVERRIDE_INPUT_TEXT} =  Override
 ${EXP_VALUE_INPUT_TEXT_SHORTCUT} =  ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}
+
+@{KEYBOARD_KEY_LIST}  A  B  C  LEFT  RIGHT  UP  DOWN 
 
 ${KEYBOARD_INPUT_TEXT}             t'${EXP_VALUE_INPUT_TEXT}'
 @{KEYBOARD_INPUT_TEXT_ARRAY}       t'${EXP_VALUE_INPUT_TEXT}'
@@ -143,9 +146,35 @@ False Argument Type
 	${ERR_MSG}      Run Keyword and Expect Error   *  Press Key   ${KEYBOARD_INPUT_TEXT_ARRAY}  ${XPATH_INPUT_FIELD}
     Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
 
+Keyboard Key Down Key Up
+    [Documentation]    Check if Key Down / Key Up Events are displayed correctly
+	...                in their respective labels
+	FOR    ${KEY}    IN     @{KEYBOARD_KEY_LIST}
+	    Check Key Up Key Down  KEY=s'${KEY}'   EXPECTED_TEXT=${KEY}       
+	END
+
+
 *** Keywords ***
 Reset Textbox
     Click    ${XPATH_RESET}
     ${TEXT}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
     Should Be Empty  ${TEXT}
     Set Text To Textbox  ${XPATH_INPUT_FIELD}  ${EMPTY}
+
+Check Key Up Key Down
+    [Arguments]    ${KEY}    ${EXPECTED_TEXT}
+	[Documentation]    Check if Key Down / Key Up Events are displayed correctly
+	Focus    ${XPATH_INPUT_FIELD}
+
+	${UP_TEXT_BEFORE_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
+	Press Key  ${KEY}  ${XPATH_INPUT_FIELD}  press_only=${True}
+	${UP_TEXT_AFTER_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
+	${DOWN_TEXT_AFTER_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_DOWN}
+	Should Be Equal As Strings  ${UP_TEXT_BEFORE_KEY_DOWN}  ${UP_TEXT_AFTER_KEY_DOWN}
+	Should Be Equal As Strings  ${DOWN_TEXT_AFTER_KEY_DOWN}  ${EXPECTED_TEXT}  strip_spaces=True
+
+	Press Key  ${KEY}  ${XPATH_INPUT_FIELD}  release_only=${True}
+	${UP_TEXT_AFTER_KEY_UP}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
+	Should Be Equal As Strings  ${UP_TEXT_AFTER_KEY_UP}  ${EXPECTED_TEXT}  strip_spaces=True
+	${DOWN_TEXT_AFTER_KEY_UP}  Get Name From Element  ${XPATH_LABEL_INPUT_DOWN}
+	Should Be Equal As Strings  ${DOWN_TEXT_AFTER_KEY_DOWN}  ${DOWN_TEXT_AFTER_KEY_UP}

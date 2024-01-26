@@ -21,6 +21,8 @@ class Keyboard(ModuleInterface):
         shortcut: Optional[str]
         shortcuts: Optional[list]
         delay_in_ms: Optional[int]
+        press_only: Optional[bool]
+        release_only: Optional[bool]
 
     class Action(Enum):
         """Supported actions for execute action implementation."""
@@ -28,7 +30,8 @@ class Keyboard(ModuleInterface):
         KEYS_COMBINATIONS = "KEYS_COMBINATIONS"
 
     @staticmethod
-    def create_value_container(shortcut=None, shortcuts=None, delay_in_ms=None):
+    def create_value_container(shortcut=None, shortcuts=None, delay_in_ms=None,
+                               press_only=False, release_only=False):
         """
         Helper to create container object.
 
@@ -36,10 +39,14 @@ class Keyboard(ModuleInterface):
             shortcut (String): Shortcut command to execute
             shortcuts (List): Shortcut commands to execute as list
             delay_in_ms (Number): Delay in ms to wait until key was pressed
+            press_only (Bool): Press key only without releasing
+            release_only (Bool): Release key only without pressing
         """
         return Keyboard.Container(shortcut=Converter.cast_to_string(shortcut),
                                   shortcuts=shortcuts,
-                                  delay_in_ms=delay_in_ms)
+                                  delay_in_ms=delay_in_ms,
+                                  press_only=press_only,
+                                  release_only=release_only)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -63,10 +70,14 @@ class Keyboard(ModuleInterface):
         """
 
         switcher = {
-            self.Action.KEYS_COMBINATIONS: lambda: self._type_keys_combinations(values["shortcuts"],
-                                                                                values["delay_in_ms"]),
-            self.Action.KEY_COMBINATION: lambda: self._type_key_combination(values["shortcut"],
-                                                                            values["delay_in_ms"])
+        self.Action.KEYS_COMBINATIONS: lambda: self._type_keys_combinations(values["shortcuts"],
+                                                                            values["delay_in_ms"],
+                                                                            values['press_only'],
+                                                                            values['release_only']),
+        self.Action.KEY_COMBINATION: lambda: self._type_key_combination(values["shortcut"],
+                                                                        values["delay_in_ms"],
+                                                                        values['press_only'],
+                                                                        values['release_only'])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -92,12 +103,38 @@ class Keyboard(ModuleInterface):
         FlaUIKeyboard.Type(text)
 
     @staticmethod
-    def _type_key_combination(key_combination: Any, delay_in_ms: Any):
+    def _press_keys(key_shorts: Any):
+        """
+        Send input data from keyboard. Press only without releasing keys.
+
+        Args:
+            key_shorts (VirtualKeyShort array): Array from VirtualKeyShort usage to execute keyboard actions.
+        """
+        for key in key_shorts:
+            FlaUIKeyboard.Press(key)
+
+    @staticmethod
+    def _release_keys(key_shorts: Any):
+        """
+        Send input data from keyboard. Release only without pressing keys.
+
+        Args:
+            key_shortcuts (VirtualKeyShort array): Array from VirtualKeyShort usage to execute keyboard actions.
+        """
+        for key in key_shorts:
+            FlaUIKeyboard.Release(key)
+
+    @staticmethod
+    def _type_key_combination(key_combination: Any, delay_in_ms: Any, 
+                              press_only: bool, release_only: bool):
         """
         Execution of key control.
 
         Args:
             key_combination (String): Array from String to execute keyboard actions or send input data.
+            delay_in_ms (Number): Delay in ms to wait until key was pressed
+            press_only (Bool): Press key only without releasing
+            release_only (Bool): Release key only without pressing
         """
         if isinstance(key_combination, list):
             raise FlaUiError(FlaUiError.ArgumentShouldNotBeList)
@@ -106,7 +143,12 @@ class Keyboard(ModuleInterface):
             if action == KeyboardInputConverter.InputType.TEXT:
                 Keyboard._type_text(converting_result)
             elif action == KeyboardInputConverter.InputType.SHORTCUT:
-                Keyboard._type_keys(converting_result)
+                if press_only:
+                    Keyboard._press_keys(converting_result)
+                elif release_only:
+                    Keyboard._release_keys(converting_result)
+                else:
+                    Keyboard._type_keys(converting_result)
 
             if delay_in_ms:
                 time.sleep(int(delay_in_ms) / 1000)
@@ -115,17 +157,24 @@ class Keyboard(ModuleInterface):
             raise FlaUiError.raise_fla_ui_error(str(ex))
 
     @staticmethod
-    def _type_keys_combinations(keys_combination: Any, delay_in_ms: Any):
+    def _type_keys_combinations(keys_combination: Any, delay_in_ms: Any,
+                                press_only: bool, release_only: bool):
         """
         Parse a sequence of key controls.
 
         Args:
             keys_combination (String array): Array from String to execute keyboard actions or send input data.
+            delay_in_ms (Number): Delay in ms to wait until key was pressed
+            press_only (Bool): Press key only without releasing
+            release_only (Bool): Release key only without pressing
         """
         if not isinstance(keys_combination, list):
             raise FlaUiError(FlaUiError.ArgumentShouldBeList)
         try:
             for key_combination in keys_combination:
-                Keyboard._type_key_combination(key_combination, delay_in_ms)
+                Keyboard._type_key_combination(key_combination, delay_in_ms,
+                                               press_only=press_only, 
+                                               release_only=release_only
+                                               )
         except Exception as ex:
             raise FlaUiError.raise_fla_ui_error(str(ex))
