@@ -36,8 +36,6 @@ ${XPATH_COMBO_BOX_ITEM}    ${XPATH_COMBO_BOX}/ListItem[@Name='Item 3']/Text[@Nam
 ${XPATH_TREE_PARENT}       ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/Text[@Name='Lvl1 a']
 ${XPATH_TREE_CHILD}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/TreeItem[@Name='Lvl2 a']/Text[@Name='Lvl2 a']
 
-/Window[@Name='FlaUI WPF Test App']/Window[@ClassName='Popup']/Menu[@ClassName='ContextMenu']/MenuItem[@Name='Context 2']
-
 *** Test Cases ***
 
 Left Click

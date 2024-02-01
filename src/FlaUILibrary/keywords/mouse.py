@@ -273,7 +273,7 @@ class MouseKeywords:
         | msg | string | Custom error message |
 
         Examples:
-        | Click Open  <XPATH>  <XPATH>  |
+        | Double Click Open  <XPATH>  <XPATH>  |
 
         """
         module = self._container.create_or_get_module()
@@ -308,7 +308,7 @@ class MouseKeywords:
         | msg | string | Custom error message |
 
         Examples:
-        | Click Open  <XPATH>  <XPATH>  |
+        | Right Click Open  <XPATH>  <XPATH>  |
 
         """
         module = self._container.create_or_get_module()
@@ -343,7 +343,9 @@ class MouseKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Click Open  <XPATH>  <XPATH>  |
+        | Click Close  <XPATH>  <XPATH>  |
+        or
+        | Click Close  <XPATH>  |
 
         """
         if not close_element_identifier:
@@ -380,7 +382,9 @@ class MouseKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Click Open  <XPATH>  <XPATH>  |
+        | Double Click Close  <XPATH>  <XPATH>  |
+        or
+        | Double Click Close  <XPATH>  |
 
         """
         if not close_element_identifier:
@@ -417,7 +421,9 @@ class MouseKeywords:
         | msg        | string | Custom error message          |
 
         Examples:
-        | Click Open  <XPATH>  <XPATH>  |
+        | Right Click Close  <XPATH>  <XPATH>  |
+        or
+        | Right Click Close  <XPATH>  |
 
         """
         if not close_element_identifier:
