@@ -171,10 +171,11 @@ Check Key Up Key Down
 	${UP_TEXT_AFTER_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
 	${DOWN_TEXT_AFTER_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_DOWN}
 	Should Be Equal As Strings  ${UP_TEXT_BEFORE_KEY_DOWN}  ${UP_TEXT_AFTER_KEY_DOWN}
-	Should Be Equal As Strings  ${DOWN_TEXT_AFTER_KEY_DOWN}  ${EXPECTED_TEXT}  strip_spaces=True
+	Should Be Equal As Strings  ${DOWN_TEXT_AFTER_KEY_DOWN}  ${EXPECTED_TEXT}  strip_spaces=True  ignore_case=True
+	
 
 	Press Key  ${KEY}  ${XPATH_INPUT_FIELD}  release_only=${True}
 	${UP_TEXT_AFTER_KEY_UP}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
-	Should Be Equal As Strings  ${UP_TEXT_AFTER_KEY_UP}  ${EXPECTED_TEXT}  strip_spaces=True
+	Should Be Equal As Strings  ${UP_TEXT_AFTER_KEY_UP}  ${EXPECTED_TEXT}  strip_spaces=True  ignore_case=True
 	${DOWN_TEXT_AFTER_KEY_UP}  Get Name From Element  ${XPATH_LABEL_INPUT_DOWN}
 	Should Be Equal As Strings  ${DOWN_TEXT_AFTER_KEY_DOWN}  ${DOWN_TEXT_AFTER_KEY_UP}
