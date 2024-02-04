@@ -149,7 +149,7 @@ False Argument Type
 Keyboard Key Down Key Up
     [Documentation]    Check if Key Down / Key Up Events are displayed correctly
 	...                in their respective labels
-	FOR    ${KEY}    IN     @{KEYBOARD_KEY_LIST}
+	FOR  ${KEY}   IN  @{KEYBOARD_KEY_LIST}
 	    Check Key Up Key Down  KEY=s'${KEY}'   EXPECTED_TEXT=${KEY}       
 	END
 
@@ -162,9 +162,9 @@ Reset Textbox
     Set Text To Textbox  ${XPATH_INPUT_FIELD}  ${EMPTY}
 
 Check Key Up Key Down
-    [Arguments]    ${KEY}    ${EXPECTED_TEXT}
-	[Documentation]    Check if Key Down / Key Up Events are displayed correctly
-	Focus    ${XPATH_INPUT_FIELD}
+    [Arguments]  ${KEY}  ${EXPECTED_TEXT}
+	[Documentation]  Check if Key Down / Key Up Events are displayed correctly
+	Focus  ${XPATH_INPUT_FIELD}
 
 	${UP_TEXT_BEFORE_KEY_DOWN}  Get Name From Element  ${XPATH_LABEL_INPUT_UP}
 	Press Key  ${KEY}  ${XPATH_INPUT_FIELD}  press_only=${True}
