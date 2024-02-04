@@ -15,6 +15,9 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${EXPECTED_CONTEXT_MENU}   ${MAIN_WINDOW}/Window/Menu
+${CONTEXT_MENUITEM1}       ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 1']
+${CONTEXT_MENUITEM2}       ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 2']
+${CONTEXT_MENUITEM3}       ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 2']/MenuItem[@Name='Inner Context']
 ${CLICK_BUTTON}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='InvokableButton']
 ${HOLD_BUTTON}             ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ClickAndHoldButton']
 ${RIGHT_CLICK_BUTTON}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
@@ -27,6 +30,11 @@ ${PopupToggle2_BUTTON}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='
 ${ENABLE_BUTTON}           ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
 ${READYTOTAKEOFF_TEXT}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']/Text[@Name='Ready to take off']
 ${TOGGLE_BUTTON}           ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
+${XPATH_COMBO_BOX}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
+${CONTEXTMENU_BUTTON}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
+${XPATH_COMBO_BOX_ITEM}    ${XPATH_COMBO_BOX}/ListItem[@Name='Item 3']/Text[@Name='Item 3']
+${XPATH_TREE_PARENT}       ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/Text[@Name='Lvl1 a']
+${XPATH_TREE_CHILD}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/TreeItem[@Name='Lvl2 a']/Text[@Name='Lvl2 a']
 
 *** Test Cases ***
 
@@ -85,6 +93,12 @@ Drag And Drop
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Contain    ${DATA}   : 1
 
+Double Click Open Double Click Close
+    Double Click Open  ${XPATH_TREE_PARENT}  ${XPATH_TREE_CHILD}
+    Element Should Exist    ${XPATH_TREE_CHILD}
+    Double Click Close  ${XPATH_TREE_PARENT}  ${XPATH_TREE_CHILD}
+    Element Should Not Exist    ${XPATH_TREE_CHILD}
+
 Left Click Open
     Click Open  ${MAIN_WINDOW_SIMPLE_CONTROLS}  ${PopupToggle2_BUTTON}
     Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
@@ -102,7 +116,24 @@ Left Click Open Error
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_OPENED}  ${XPATH_NOT_EXISTS}  ${CLICK_BUTTON}
     Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Open  ${CLICK_BUTTON}  ${XPATH_NOT_EXISTS}
 
+Right Click Open
+    Right Click Open  ${RIGHT_CLICK_BUTTON}  ${CONTEXT_MENUITEM1}
+    Element Should Exist  ${CONTEXT_MENUITEM1}
+    Right Click Open    ${CONTEXT_MENUITEM1}  ${CONTEXT_MENUITEM1}  ignore_if_already_open=${True}
+    Element Should Exist  ${CONTEXT_MENUITEM1}
+    
+Left Click Close
+    Click Open   ${XPATH_COMBO_BOX}  ${XPATH_COMBO_BOX_ITEM}
+    Click Close  ${XPATH_COMBO_BOX_ITEM}
+    Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
+
 Left Click Close Error
-    Click OPEN  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
+    Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_CLOSED}  ${SOME_MENUITEM}  ${PopupToggle2_BUTTON}
     Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Close  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
+    Element Should Exist  ${SOME_MENUITEM}
+
+Right Click Close
+    Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
+    Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
+    Right Click Close   ${PopupToggle2_BUTTON}  ${XPATH_COMBO_BOX_ITEM}
