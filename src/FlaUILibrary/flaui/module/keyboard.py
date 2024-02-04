@@ -128,7 +128,8 @@ class Keyboard(ModuleInterface):
     def _type_key_combination(key_combination: Any, delay_in_ms: Any, 
                               press_only: bool, release_only: bool):
         """
-        Execution of key control.
+        Execution of key control. 
+        press_only and release_only supports keys only, not text.
 
         Args:
             key_combination (String): Array from String to execute keyboard actions or send input data.
@@ -141,7 +142,12 @@ class Keyboard(ModuleInterface):
         try:
             (action, converting_result) = KeyboardInputConverter.convert_key_combination(key_combination)
             if action == KeyboardInputConverter.InputType.TEXT:
-                Keyboard._type_text(converting_result)
+                if press_only or release_only:
+                    raise FlaUiError(
+                        FlaUiError.PatternNotSupported.format(" s'SOMEKEY' ") + \
+                            " for key press_only and release_only events")
+                else:
+                    Keyboard._type_text(converting_result)
             elif action == KeyboardInputConverter.InputType.SHORTCUT:
                 if press_only:
                     Keyboard._press_keys(converting_result)

@@ -21,7 +21,7 @@ Test Setup       Wait Until Keyword Succeeds    5x    10ms    Reset Textbox
 ${XPATH_INPUT_FIELD}        ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Edit[@AutomationId='KeyboardInputField']
 ${XPATH_RESET}              ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Button[@AutomationId='ResetKeyboardInputs']
 ${XPATH_LABEL_INPUT_UP}     ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyUp']
-${XPATH_LABEL_INPUT_DOWN}     ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyDown']
+${XPATH_LABEL_INPUT_DOWN}   ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyDown']
 
 ${EXP_VALUE_INPUT_TEXT} =  Type text
 ${EXP_VALUE_OVERRIDE_INPUT_TEXT} =  Override

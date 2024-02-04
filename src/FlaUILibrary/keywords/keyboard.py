@@ -21,6 +21,7 @@ class KeyboardKeywords:
                   msg=None, press_only=False, release_only=False):
         """
         Keyboard control to execute a user defined one shortcut or text.
+        press_only and release_only supports key shortcut only, not text.
 
         Arguments:
         | Argument         | Type                                  | Description                                |
@@ -119,6 +120,7 @@ class KeyboardKeywords:
         Keyboard control to execute a user defined sequence of shortcuts and text values.
         If identifier set try to attach to given element if
         operation was successfully old element will be reattached automatically.
+        press_only and release_only supports key shortcut only, not text.
 
         Arguments:
         | Argument         | Type                                  | Description                   |
