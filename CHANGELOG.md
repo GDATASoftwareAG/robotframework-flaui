@@ -6,6 +6,9 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+
+### Added
+
   - [#147](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/147) New Keywords
     - Click Open
     - Click Close
@@ -14,9 +17,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
     - Right Click Open
     - Right Click Close
 
-### Added
+### Updated
 
-- [#152](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/152)
+- [#152](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/152) Add additional keyboard parameters
   - Support for key press or key release only in "Press Key" Keyword
   - Update WPF test application to handle key down / up events correctly
 
