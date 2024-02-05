@@ -55,13 +55,14 @@ namespace WpfApplication
         {
             AddKey(_keysDown, e.Key);
             lblKeyboardKeyDown.Content = GenerateKeyboardOutput(_keysDown);
+            RemoveKey(_keysUp, e.Key);
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
             AddKey(_keysUp, e.Key);
             lblKeyboardKeyUp.Content = GenerateKeyboardOutput(_keysUp);
-            RemoveKey(e.Key);
+            RemoveKey(_keysDown, e.Key);
         }
 
         private static void AddKey(ICollection<Key> keys, Key key)
@@ -72,9 +73,9 @@ namespace WpfApplication
             }
         }
 
-        private void RemoveKey(Key key)
+        private void RemoveKey(ICollection<Key> keys, Key key)
         {
-            _keysDown.Remove(key);
+            keys.Remove(key);
             if (_keysDown.Count == 0)
             {
                 _keysUp.Clear();

@@ -17,9 +17,11 @@ class KeyboardKeywords:
         self._container = container
 
     @keyword
-    def press_key(self, key_combination, identifier=None, delay_in_ms=None, msg=None):
+    def press_key(self, key_combination, identifier=None, delay_in_ms=None, 
+                  msg=None, press_only=False, release_only=False):
         """
         Keyboard control to execute a user defined one shortcut or text.
+        press_only and release_only supports key shortcut only, not text.
 
         Arguments:
         | Argument         | Type                                  | Description                                |
@@ -34,6 +36,8 @@ class KeyboardKeywords:
         | identifier       | String *Optional                      | XPath identifier                           |
         | delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
         | msg              | String *Optional                      | Custom error message                       |
+        | press_only       | Bool   *Optional                      | Send key press event only                  |
+        | release_only     | Bool   *Optional                      | Send key release event only                |
 
         XPath syntax is explained in `XPath locator`.
 
@@ -103,15 +107,20 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEY_COMBINATION,
-                      Keyboard.create_value_container(shortcut=key_combination, delay_in_ms=delay_in_ms),
+                      Keyboard.create_value_container(shortcut=key_combination, 
+                                                      delay_in_ms=delay_in_ms,
+                                                      press_only=press_only, 
+                                                      release_only=release_only),
                       msg)
 
     @keyword
-    def press_keys(self, keys_combinations, identifier=None, delay_in_ms=None, msg=None):
+    def press_keys(self, keys_combinations, identifier=None, delay_in_ms=None,
+                   msg=None, press_only=False, release_only=False):
         """
         Keyboard control to execute a user defined sequence of shortcuts and text values.
         If identifier set try to attach to given element if
         operation was successfully old element will be reattached automatically.
+        press_only and release_only supports key shortcut only, not text.
 
         Arguments:
         | Argument         | Type                                  | Description                   |
@@ -126,6 +135,8 @@ class KeyboardKeywords:
         | identifier       | String *Optional                      | Optional XPath identifier     |
         | delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
         | msg              | String *Optional                      | Custom error message          |
+        | press_only       | Bool   *Optional                      | Send key press event only                  |
+        | release_only     | Bool   *Optional                      | Send key release event only                |
 
         XPath syntax is explained in `XPath locator`.
 
@@ -149,5 +160,8 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEYS_COMBINATIONS,
-                      Keyboard.create_value_container(shortcuts=keys_combinations, delay_in_ms=delay_in_ms),
+                      Keyboard.create_value_container(shortcuts=keys_combinations, 
+                                                      delay_in_ms=delay_in_ms,
+                                                      press_only=press_only, 
+                                                      release_only=release_only),
                       msg)

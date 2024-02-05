@@ -14,6 +14,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
     - Right Click Open
     - Right Click Close
 
+### Added
+
+- [#152](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/152)
+  - Support for key press or key release only in "Press Key" Keyword
+  - Update WPF test application to handle key down / up events correctly
+
 ## [Release][3.0.0] [3.0.0][2.1.3-3.0.0] - 2024-01-11
 
 ### Added
