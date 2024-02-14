@@ -100,7 +100,7 @@ Double Click Open Double Click Close
     Element Should Not Exist    ${XPATH_TREE_CHILD}
 
 Left Click Open
-    Click Open  ${MAIN_WINDOW_SIMPLE_CONTROLS}  ${PopupToggle2_BUTTON}
+    Click Open  ${MAIN_WINDOW_SIMPLE_CONTROLS}  ${PopupToggle2_BUTTON}  ${MAIN_WINDOW}
     Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
     Click Open  ${ENABLE_BUTTON}  ${READYTOTAKEOFF_TEXT}
     # Hold Button is already there. It should not be any click action

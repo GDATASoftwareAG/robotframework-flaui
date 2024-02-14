@@ -93,7 +93,7 @@ class Element(ModuleInterface):
             self.Action.GET_ELEMENT_BY_XPATH:
                 lambda: self._get_element_by_xpath(values["xpath"]),
             self.Action.FOCUS_ELEMENT_BY_XPATH:
-                lambda: self._get_element_by_xpath(values["xpath"]).focus(),
+                lambda: self._get_element_by_xpath(values["xpath"]).Focus(),
             self.Action.GET_ELEMENT_NAME:
                 lambda: self._get_name_from_element(values["xpath"]),
             self.Action.GET_ELEMENT_RECTANGLE_BOUNDING:
