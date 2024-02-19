@@ -108,6 +108,7 @@ There are various tools around which help inspecting application that should be 
 
 Some of them are:
 * [FlaUI Inspect](https://github.com/FlaUI/FlaUInspect)
+* Alternatively [FlaUInspectStable](https://github.com/noubar/FlaUInspectStable) more stable version
 * [Microsoft Accessibility Insights For Windows](https://accessibilityinsights.io)
 * VisualUIAVerify
 * Inspect
