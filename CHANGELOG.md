@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+  - [#155](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/155) New Keywords
+    - Select Combobox Item By Name
+
 ## [Release][3.0.1] [3.0.1][3.0.0-3.0.1] - 2024-02-06
 
 ### Added

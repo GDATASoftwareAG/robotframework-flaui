@@ -135,6 +135,35 @@ class ComboBoxKeywords:
                       msg)
 
     @keyword
+    def select_combobox_item_by_name(self, identifier, name, msg=None):
+        """
+        Selects item from combobox with given name.
+        Combobox will be automatic collapsed after selection is done.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | name       | string | name of item to select        |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Select Combobox Item By Name  <XPATH>  <NAME> |
+
+        """
+        module = self._container.create_or_get_module()
+        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        module.action(Selector.Action.SELECT_ITEM_BY_NAME,
+                      Selector.create_value_container(element=element, name=name, msg=msg),
+                      msg)
+        module.action(Combobox.Action.COLLAPSE_COMBOBOX,
+                      Selector.create_value_container(element=element),
+                      msg)
+
+    @keyword
     def combobox_should_contain(self, identifier, name, msg=None):
         """
         Checks if Combobox contains an item
