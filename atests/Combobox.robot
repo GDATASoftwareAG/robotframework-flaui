@@ -80,7 +80,12 @@ Get Combobox Items Count
 Select Combobox Item By Index
     Select Combobox Item By Index  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM_SELECT}
     ${DATA}  Get All Selected Texts From Combobox  ${XPATH_COMBO_BOX}
-    Should Contain  ${DATA}  Item 3
+    Should Contain  ${DATA}  ${COMBO_BOX_ITEM}
+
+Select Combobox Item By Name
+    Select Combobox Item By Name  ${XPATH_COMBO_BOX}  ${COMBO_BOX_ITEM}
+    ${DATA}  Get All Selected Texts From Combobox  ${XPATH_COMBO_BOX}
+    Should Contain  ${DATA}  ${COMBO_BOX_ITEM}
 
 Select Combobox Item By Index Range
     FOR  ${i}  IN RANGE  0  2
