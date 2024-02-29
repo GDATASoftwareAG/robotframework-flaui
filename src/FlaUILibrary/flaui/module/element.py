@@ -2,6 +2,7 @@ import time
 from enum import Enum
 from typing import Optional, Any
 from System import Exception as CSharpException  # pylint: disable=import-error
+from System import InvalidOperationException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
@@ -87,13 +88,13 @@ class Element(ModuleInterface):
 
         switcher = {
             self.Action.FOCUS_ELEMENT:
-                lambda: self._get_element(values["xpath"]).Focus(),
+                lambda: self._focus_element(self._get_element(values["xpath"]), values["xpath"]),
             self.Action.GET_ELEMENT:
                 lambda: self._get_element(values["xpath"]),
             self.Action.GET_ELEMENT_BY_XPATH:
                 lambda: self._get_element_by_xpath(values["xpath"]),
             self.Action.FOCUS_ELEMENT_BY_XPATH:
-                lambda: self._get_element_by_xpath(values["xpath"]).Focus(),
+                lambda: self._focus_element(self._get_element_by_xpath(values["xpath"]), values["xpath"]),
             self.Action.GET_ELEMENT_NAME:
                 lambda: self._get_name_from_element(values["xpath"]),
             self.Action.GET_ELEMENT_RECTANGLE_BOUNDING:
@@ -218,6 +219,7 @@ class Element(ModuleInterface):
     def _get_element_by_xpath(self, xpath: str):
         """
         Try to get element from xpath by desktop.
+        Different from self._get_element, it is abstracted from timeout and error handling.
 
         Args:
             xpath (string): XPath identifier from element.
@@ -255,7 +257,7 @@ class Element(ModuleInterface):
             use_exception (bool): Indicator if to throw an FlaUI error
 
         Raises:
-            FlaUiError: If element could not be found
+            FlaUiError: If element could not be found.
         """
         try:
             if self._get_element(xpath):
@@ -274,7 +276,7 @@ class Element(ModuleInterface):
             xpath (string): XPath identifier from element.
 
         Raises:
-            FlaUiError: If element could be found
+            FlaUiError: If element could be found.
         """
         try:
             component = self._get_element(xpath)
@@ -456,3 +458,19 @@ class Element(ModuleInterface):
             timeout (Number): Timeout value in seconds
         """
         self._timeout = timeout
+
+    def _focus_element(self, element, xpath):
+        """Triggers focus action in given element.
+
+        Args:
+            element (Element): The element to be focused
+            xpath (String): XPath of element to be focused
+        
+        Raises:
+            FlaUiError: If the given element is not focusable.
+        """
+        try:
+            element.Focus()
+        except InvalidOperationException:
+            raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath))
+        

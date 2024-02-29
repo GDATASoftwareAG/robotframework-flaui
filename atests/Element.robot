@@ -26,6 +26,11 @@ ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='O
 Focus
     Focus  ${MAIN_WINDOW}
 
+Focus Error
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_FOCUSABLE}  ${XPATH_DISABLED_ELEMENT}
+    ${ERR_MSG}      Run Keyword And Expect Error   *  Focus  ${XPATH_DISABLED_ELEMENT}
+    Should Be Equal As Strings  ${EXP_ERR_MSG}  ${ERR_MSG}
+    
 Get Name From Element By XPath
     ${TEXT}  Get Name From Element  ${XPATH_ELEMENT}
     Should Be Equal  Test Label  ${TEXT}
