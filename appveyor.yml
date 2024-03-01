@@ -66,8 +66,7 @@ install:
     
     .\keen.bat dependency
 
-build:
-  verbosity: minimal
+build: off
 test_script:
 - cmd: .\keen.bat test
 artifacts:
