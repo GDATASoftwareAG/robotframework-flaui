@@ -472,5 +472,5 @@ class Element(ModuleInterface):
         try:
             element.Focus()
         except InvalidOperationException:
-            raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath))
+            raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath)) from None
         
