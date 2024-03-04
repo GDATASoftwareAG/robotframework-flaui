@@ -17,7 +17,7 @@ class FlaUiError(AttributeError):
     ActionNotSupported = "Action not supported"
     ElementNotFocusable = "Element '{}' is not focusable"
     ElementExists = "Element '{}' exists"
-    ElementNotExists = "Element '{}' does not exists"
+    ElementNotExists = "Element '{}' does not exist"
     ElementIsOffscreen = "Element '{}' is offscreen"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"

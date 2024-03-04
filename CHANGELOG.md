@@ -15,6 +15,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Bugfix
   - [#158](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/158) Improve element focus action
     - Added error handling to focus
+    
+### Updated
+  - [#163](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/163) Improved Error Message
+    - Stable clicks Will distiguinsh if the click element or the element to be opened/closed is not available 
+    - Correcting an error message grammatically
 
 ## [Release][3.0.1] [3.0.1][3.0.0-3.0.1] - 2024-02-06
 
