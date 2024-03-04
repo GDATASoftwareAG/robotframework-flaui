@@ -12,6 +12,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - [#155](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/155) New Keywords
     - Select Combobox Item By Name
 
+### Bugfix
+  - [#158](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/158) Improve element focus action
+    - Added error handling to focus
+
 ## [Release][3.0.1] [3.0.1][3.0.0-3.0.1] - 2024-02-06
 
 ### Added

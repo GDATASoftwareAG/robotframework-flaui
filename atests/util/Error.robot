@@ -13,7 +13,8 @@ ${EXP_ERR_MSG_APP_NOT_EXIST}                    FlaUiError: Application '{0}' co
 ${EXP_ERR_MSG_APP_NOT_ATTACHED}                 FlaUiError: Application is not attached
 ${EXP_ERR_MSG_NAME_DOES_NOT_CONTAIN}            FlaUiError: Name from element '{0}' does not contain '{1}'
 ${EXP_ERR_MSG_NAME_NOT_EQUALS}                  FlaUiError: Name from element '{0}' is not equals to '{1}'
-${EXP_ERR_MSG_WRONG_ELEMENT_TYPE}               FlaUiError: '{0}' could not be cast as '{1}'
+${EXP_ERR_MSG_ELEMENT_NOT_FOCUSABLE}            FlaUiError: Element '{0}' is not focusable
+${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}          FlaUiError: Element '{0}' does not exists
 ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}                FlaUiError: Element '{0}' is offscreen
