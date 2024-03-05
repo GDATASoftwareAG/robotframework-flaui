@@ -145,6 +145,14 @@ class Mouse(ModuleInterface):
     def _click_open(self, click_type, click_element_xpath: str, open_element_xpath: str,
                     focus_element_xpath_before_click: str = None, focus_element_xpath_after_open: str = None,
                     max_repeat: int = 5, timeout_between_repeats: int = 1000, ignore_if_already_open: bool = True):
+        """
+        Clicks on click element and expects the open element to be opened.
+        Trys for max_repeat times and sleeps between every try for timeout_between_repeats.
+        
+        Raises:
+            FlaUiError: If Click Element is not available.
+            FlaUiError: If Open Element is not available after clicking for maximal times on Click Element.
+        """
         try:
             if ignore_if_already_open:
                 container = Element.create_value_container(xpath=open_element_xpath)
@@ -153,13 +161,14 @@ class Mouse(ModuleInterface):
 
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
-                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT_BY_XPATH, container)
-
+                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+            _click_element_found = False
             for i in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
                 click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                 if click_element:
+                    _click_element_found = True
                     click_type(click_element)
                     container = Element.create_value_container(xpath=open_element_xpath)
                     open_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
@@ -167,11 +176,13 @@ class Mouse(ModuleInterface):
                     if open_element:
                         if focus_element_xpath_after_open:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_open)
-                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT_BY_XPATH, container)
+                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
-
+            
+            if not _click_element_found:
+                raise FlaUiError(FlaUiError.ElementNotExists.format(click_element_xpath))
             raise FlaUiError(FlaUiError.ElementNotOpened.format(open_element_xpath, click_element_xpath))
         except NoClickablePointException:
             raise FlaUiError(FlaUiError.ElementNotClickable) from None
@@ -179,6 +190,14 @@ class Mouse(ModuleInterface):
     def _click_close(self, click_type, click_element_xpath: str, close_element_xpath: str,
                      focus_element_xpath_before_click: str = None, focus_element_xpath_after_close: str = None,
                      max_repeat: int = 5, timeout_between_repeats: int = 1000, ignore_if_already_close: bool = True):
+        """
+        Clicks on click element and expects the close element to be closed.
+        Trys for max_repeat time and sleeps between every try for timeout_between_repeats.
+        
+        Raises:
+            FlaUiError: If Click Element is not available and ignore_if_already_close set to False.
+            FlaUiError: If Close Element is still available after clicking for maximal times on Click Element.
+        """
         try:
             if ignore_if_already_close:
                 container = Element.create_value_container(xpath=close_element_xpath)
@@ -187,13 +206,15 @@ class Mouse(ModuleInterface):
 
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
-                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT_BY_XPATH, container)
-
+                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+            
+            _click_element_found = False
             for i in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
-                click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT, container)
+                click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                 if click_element:
+                    _click_element_found = True
                     click_type(click_element)
 
                     container = Element.create_value_container(xpath=close_element_xpath)
@@ -202,11 +223,13 @@ class Mouse(ModuleInterface):
                     if not open_element:
                         if focus_element_xpath_after_close:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_close)
-                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT_BY_XPATH, container)
+                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
-
+                
+            if not _click_element_found:
+                raise FlaUiError(FlaUiError.ElementNotExists.format(click_element_xpath))
             raise FlaUiError(FlaUiError.ElementNotClosed.format(close_element_xpath, click_element_xpath))
         except NoClickablePointException:
             raise FlaUiError(FlaUiError.ElementNotClickable) from None

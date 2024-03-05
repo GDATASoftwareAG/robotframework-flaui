@@ -112,9 +112,13 @@ Left Click Open
     ${state}   Get Toggle State    ${TOGGLE_BUTTON}
     Should Be True    '${state}'=='ON'
     
-Left Click Open Error
+Left Click Open Error Cannot Open
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_OPENED}  ${XPATH_NOT_EXISTS}  ${CLICK_BUTTON}
     Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Open  ${CLICK_BUTTON}  ${XPATH_NOT_EXISTS}
+    
+Left Click Open Error Not Exist
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
+    Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Open  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
 
 Right Click Open
     Right Click Open  ${RIGHT_CLICK_BUTTON}  ${CONTEXT_MENUITEM1}
@@ -127,11 +131,16 @@ Left Click Close
     Click Close  ${XPATH_COMBO_BOX_ITEM}
     Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
 
-Left Click Close Error
+Left Click Close Error Cannot Close
     Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NOT_CLOSED}  ${SOME_MENUITEM}  ${PopupToggle2_BUTTON}
     Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Close  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}
     Element Should Exist  ${SOME_MENUITEM}
+
+Left Click Close Error Not Exist
+    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
+    Click Close  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}
+    Run Keyword and Expect Error  EQUALS: ${EXP_ERR_MSG}  Click Close  ${XPATH_NOT_EXISTS}  ${XPATH_NOT_EXISTS}  ignore_if_already_close=${False}
 
 Right Click Close
     Click Open  ${PopupToggle2_BUTTON}  ${SOME_MENUITEM}

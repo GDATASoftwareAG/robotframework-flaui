@@ -32,7 +32,6 @@ class Element(ModuleInterface):
         GET_ELEMENT = "GET_ELEMENT"
         GET_ELEMENT_NAME = "GET_ELEMENT_NAME"
         GET_ELEMENT_BY_XPATH = "GET_ELEMENT_BY_XPATH"
-        FOCUS_ELEMENT_BY_XPATH = "FOCUS_ELEMENT_BY_XPATH"
         GET_ELEMENT_RECTANGLE_BOUNDING = "GET_ELEMENT_RECTANGLE_BOUNDING"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
         FIND_ALL_ELEMENTS = "FIND_ALL_ELEMENTS"
@@ -88,13 +87,11 @@ class Element(ModuleInterface):
 
         switcher = {
             self.Action.FOCUS_ELEMENT:
-                lambda: self._focus_element(self._get_element(values["xpath"]), values["xpath"]),
+                lambda: self._focus_element(values["xpath"]),
             self.Action.GET_ELEMENT:
                 lambda: self._get_element(values["xpath"]),
             self.Action.GET_ELEMENT_BY_XPATH:
                 lambda: self._get_element_by_xpath(values["xpath"]),
-            self.Action.FOCUS_ELEMENT_BY_XPATH:
-                lambda: self._focus_element(self._get_element_by_xpath(values["xpath"]), values["xpath"]),
             self.Action.GET_ELEMENT_NAME:
                 lambda: self._get_name_from_element(values["xpath"]),
             self.Action.GET_ELEMENT_RECTANGLE_BOUNDING:
@@ -459,7 +456,7 @@ class Element(ModuleInterface):
         """
         self._timeout = timeout
 
-    def _focus_element(self, element, xpath):
+    def _focus_element(self,xpath):
         """Triggers focus action in given element.
 
         Args:
@@ -469,6 +466,7 @@ class Element(ModuleInterface):
         Raises:
             FlaUiError: If the given element is not focusable.
         """
+        element = self._get_element(xpath)
         try:
             element.Focus()
         except InvalidOperationException:
