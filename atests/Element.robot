@@ -22,6 +22,8 @@ ${XPATH_ENABLE_ELEMENT}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId=
 ${XPATH_DISABLED_ELEMENT}   ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='DisabledButton']
 ${XPATH_OFFSCREEN_ELEMENT}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 
+${XPATH_MFC_APP_MENU_FILE}  ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='File']
+
 *** Test Cases ***
 Focus
     Focus  ${MAIN_WINDOW}
@@ -126,6 +128,31 @@ Find All Elements
             Should Contain  ${Id}  ${EMPTY}
             Should Contain  ${Name}  /Tab/TabItem[@Name="Keyboard Controls"]
             Should Contain  ${ClassName}  /Tab/TabItem[@ClassName="TabItem"]
+        END
+
+        ${index}  Set Variable  ${index + 1}
+    END
+
+Find All Elements Not Supported Exception Should Return Empty String
+    [Teardown]  Stop Application  ${PID}  ${TEST_APP_MFC}
+    ${PID}  Start Application  ${TEST_APP_MFC}
+    Wait Until Element Exist  ${XPATH_MFC_APP_MENU_FILE}
+
+    ${index}  Set Variable  ${0}
+    ${elements}   Find All Elements  ${XPATH_MFC_APP_MENU_FILE}
+    Length Should Be  ${elements}  1
+
+	FOR    ${element}    IN    @{elements}
+        ${Xpath}  Set Variable  ${element.Xpath}
+        ${Id}  Set Variable  ${element.AutomationId}
+        ${Name}  Set Variable  ${element.Name}
+        ${ClassName}  Set Variable  ${element.ClassName}
+
+        IF  ${index} == 0
+            Should Not Be Empty  ${Xpath}
+            Should Be Empty  ${Id}
+            Should Not Be Empty  ${Name}
+            Should Be Empty  ${ClassName}
         END
 
         ${index}  Set Variable  ${index + 1}

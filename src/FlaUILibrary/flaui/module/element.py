@@ -3,7 +3,8 @@ from enum import Enum
 from typing import Optional, Any
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import InvalidOperationException # pylint: disable=import-error
-from FlaUI.Core import Debug as FlaUIDebug # pylint: disable=import-error
+from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
+from FlaUI.Core.Exceptions import PropertyNotSupportedException  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
@@ -61,7 +62,7 @@ class Element(ModuleInterface):
         self._timeout = timeout
 
     @staticmethod
-    def create_value_container(name=None, xpath=None, retries=None, use_exception=None,  msg=None):
+    def create_value_container(name=None, xpath=None, retries=None, use_exception=None, msg=None):
         """
         Helper to create container object.
 
@@ -96,7 +97,7 @@ class Element(ModuleInterface):
                 lambda: self._get_name_from_element(values["xpath"]),
             self.Action.GET_ELEMENT_RECTANGLE_BOUNDING:
                 lambda: self._get_rectangle_bounding_from_element(
-                values["xpath"]),
+                    values["xpath"]),
             self.Action.IS_ELEMENT_ENABLED:
                 lambda: self._get_element(values["xpath"]).IsEnabled,
             self.Action.NAME_SHOULD_BE:
@@ -228,9 +229,9 @@ class Element(ModuleInterface):
         elements = self._get_all_elements_by_xpath(xpath)
         for element in elements:
             values.append(AutomationElement(
-                element.AutomationId,
-                element.Name,
-                element.ClassName,
+                self._try_get_automation_id_property(element),
+                self._try_get_name_property(element),
+                self._try_get_classname_property(element),
                 FlaUIDebug.GetXPathToElement(element)
             ))
 
@@ -472,3 +473,41 @@ class Element(ModuleInterface):
         except InvalidOperationException:
             raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath)) from None
         
+    @staticmethod
+    def _try_get_automation_id_property(element):
+        """
+        Try to get automation id property from element. Return empty string if failed.
+
+        Args:
+            element (UIA): AutomationElement.
+        """
+        try:
+            return element.AutomationId
+        except PropertyNotSupportedException:
+            return ""
+
+    @staticmethod
+    def _try_get_name_property(element):
+        """
+        Try to get name property from element. Return empty string if failed.
+
+        Args:
+            element (UIA): AutomationElement.
+        """
+        try:
+            return element.Name
+        except PropertyNotSupportedException:
+            return ""
+
+    @staticmethod
+    def _try_get_classname_property(element):
+        """
+        Try to get class name property from element. Return empty string if failed.
+
+        Args:
+            element (UIA): AutomationElement.
+        """
+        try:
+            return element.ClassName
+        except PropertyNotSupportedException:
+            return ""

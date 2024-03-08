@@ -13,10 +13,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
     - Select Combobox Item By Name
 
 ### Bugfix
+
   - [#158](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/158) Improve element focus action
     - Added error handling to focus
+  - [#160](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/160) Catch PropertyNotSupportedException on Find All Elements Keyword
     
 ### Updated
+
   - [#163](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/163) Improved Error Message
     - Stable clicks Will distiguinsh if the click element or the element to be opened/closed is not available 
     - Correcting an error message grammatically
