@@ -336,3 +336,22 @@ class TreeKeywords:
         module.action(Tree.Action.SELECTED_ITEM_SHOULD_BE,
                       Tree.create_value_container(element=element, item=item),
                       msg)
+
+    @keyword
+    def set_tree_item_seperator(self, seperator, msg=None):
+        """
+        Sets specific tree item seperator to split.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Arguments:
+        | Argument   | Type            | Description                   |
+        | seperator  | string          | Seperator to set to split up  |
+
+        Examples:
+        | Set Tree Item Seperator  <seperator>                         |
+        """
+        module = self._container.create_or_get_module()
+        module.action(Tree.Action.SET_SEPERATOR,
+                      Tree.create_value_container(seperator=seperator),
+                      msg)

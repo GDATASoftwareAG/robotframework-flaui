@@ -21,7 +21,7 @@ Start Application
     Should Not Be Equal As Integers  ${PID}  0
     Wait Until Element Exist  ${xpath}
     Focus  ${xpath}
-    [Return]  ${PID}
+    RETURN  ${PID}
 
 Start Application With Args
     [Arguments]   ${application}=${TEST_APP}  ${xpath}=${MAIN_WINDOW}  ${arguments}=${EXP_WINDOW_TITLE}
@@ -29,7 +29,7 @@ Start Application With Args
     Should Not Be Equal As Integers  ${PID}  0
     Wait Until Element Exist  ${xpath}
     Focus  ${xpath}
-    [Return]  ${PID}
+    RETURN  ${PID}
 
 Open Simple Tab
     ${XPATH_TAB}                Set Variable  ${MAIN_WINDOW}/Tab
