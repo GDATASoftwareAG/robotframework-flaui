@@ -35,7 +35,6 @@ Get Header From Grid
     Should Be Equal    ${DATA}[1]  Number
     Should Be Equal    ${DATA}[2]  IsChecked
 
-
 Get Selected Grid Rows If Nothing Is Selected
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Be Empty  ${DATA}
