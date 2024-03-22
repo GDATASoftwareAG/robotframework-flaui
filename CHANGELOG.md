@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+  - [#1170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keywords
+    - Get Header From Grid
+
 ## [Release][3.0.2] [3.0.2][3.0.1-3.0.2] - 2024-03-08
 
 ### Added

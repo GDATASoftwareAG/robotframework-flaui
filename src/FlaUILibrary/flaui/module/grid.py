@@ -30,6 +30,7 @@ class Grid(ModuleInterface):
         SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
         GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
         GET_ALL_DATA = "GET_ALL_DATA"
+        GET_HEADER = "GET_HEADER"
 
     @staticmethod
     def create_value_container(element=None, index=None, name=None, msg=None):
@@ -53,27 +54,6 @@ class Grid(ModuleInterface):
         """
         If action is not supported an ActionNotSupported error will be raised.
 
-        Supported actions for mouse usages are:
-          *  Action.SELECT_ROW_BY_INDEX
-            * values ["element", "index"]
-            * Returns : None
-
-          *  Action.GET_ROW_COUNT
-            * values ["element"]
-            * Returns : None
-
-         *  Action.SELECT_ROW_BY_NAME
-            * values ["element", "index"]
-            * Returns : None
-
-         *  Action.GET_SELECTED_ROWS
-            * values ["element"]
-            * Returns : String from all selected rows split up by pipe.
-
-         *  Action.GET_ALL_DATA_FROM_GRID
-            * values ["element"]
-            * Returns : Array from all elements by grid.
-
         Raises:
             FlaUiError: If action is not supported.
 
@@ -90,7 +70,8 @@ class Grid(ModuleInterface):
                                                                              values["index"],
                                                                              values["name"]),
             self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
-            self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"])
+            self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"]),
+            self.Action.GET_HEADER: lambda: self._get_header(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -98,13 +79,13 @@ class Grid(ModuleInterface):
     @staticmethod
     def _get_all_data(control: Any):
         """
-        Try to get all selected rows as string.
+        Try to get all rows as string.
 
         Args:
             control (Object): List view to select items.
 
         Returns:
-            String from all selected items separated as pipe for example | Value_1 | Value_2 |
+            String array of header and columns as texts [[header1, header2, ...], [row1column1, row1column2, ...], [row2column1, row2column2, ...] ...] 
         """
         values = []
         data = []
@@ -124,6 +105,24 @@ class Grid(ModuleInterface):
                 values.append(data)
 
         return values
+
+    @staticmethod
+    def _get_header(control: Any):
+        """
+        Try to get all selected rows as string.
+
+        Args:
+            control (Object): List view to select items.
+
+        Returns:
+            String array of header columns as texts [header1, header2, ...]
+        """
+        data = []
+
+        for column in control.Header.Columns:
+            data.append(column.Text)
+
+        return data
 
     @staticmethod
     def _get_selected_rows(control: Any):
