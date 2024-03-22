@@ -14,6 +14,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - [#155](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/155) New Keywords
     - Select Combobox Item By Name
 
+  - [#177](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/177) New Keywords
+    - Get Grid Columns Count
+
+
 ### Bugfix
 
   - [#158](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/158) Improve element focus action

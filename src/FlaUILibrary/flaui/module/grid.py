@@ -30,6 +30,7 @@ class Grid(ModuleInterface):
         SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
         GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
         GET_ALL_DATA = "GET_ALL_DATA"
+        GET_COLUMN_COUNT = "GET_COLUMN_COUNT"
 
     @staticmethod
     def create_value_container(element=None, index=None, name=None, msg=None):
@@ -84,6 +85,7 @@ class Grid(ModuleInterface):
         """
 
         switcher = {
+            self.Action.GET_COLUMN_COUNT: lambda: values["element"].RowCount,
             self.Action.GET_ROW_COUNT: lambda: values["element"].Rows.Length,
             self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], values["index"]),
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
