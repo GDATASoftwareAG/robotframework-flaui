@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Bugfix
+
+  - [#174](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/174) Improve grid wrong row count
+    - Grid wrong row count fixed
+  
 ### Added
 
   - [#1170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keyword

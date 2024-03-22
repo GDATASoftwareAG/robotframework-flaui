@@ -64,7 +64,7 @@ class Grid(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_ROW_COUNT: lambda: values["element"].Rows.Length,
+            self.Action.GET_ROW_COUNT: lambda: values["element"].RowCount,
             self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], values["index"]),
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
                                                                              values["index"],
