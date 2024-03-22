@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- [#177](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/177) New Keywords
+  - Get Grid Columns Count
+
 ### Bugfix
 
 - [#187](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/187) uncatched exception in reliable cliks
