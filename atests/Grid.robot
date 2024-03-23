@@ -29,6 +29,12 @@ Get All Data From Grid
     List Should Contain Value    ${DATA}[2]  Doe
     List Should Contain Value    ${DATA}[2]  24
 
+Get Header From Grid
+    ${DATA}  Get Header From Grid  ${XPATH_GRID_VIEW}
+    Should Be Equal    ${DATA}[0]  Name
+    Should Be Equal    ${DATA}[1]  Number
+    Should Be Equal    ${DATA}[2]  IsChecked
+
 Get Selected Grid Rows If Nothing Is Selected
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Be Empty  ${DATA}
