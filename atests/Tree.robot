@@ -15,9 +15,10 @@ Suite Setup      Run Keywords  Init Main Application
 ...              AND           Open Complex Tab
 Suite Teardown   Stop Application  ${MAIN_PID}
 
+Test Teardown    Set Tree Item Seperator  ->
+
 *** Variables ***
 ${XPATH_TREE}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group/Tree[@AutomationId='treeView1']
-
 
 *** Test Cases ***
 Get Selected Treeitems Name No Item Selected
@@ -128,3 +129,26 @@ Select TreeItem By Index Wrong Index
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  1
     Run Keyword and Expect Error   ${EXP_ERR_MSG}  Select TreeItem  ${XPATH_TREE}  I:0->I:1->I:1
     Selected TreeItem Should Be  ${XPATH_TREE}  Lvl2 b
+
+Select TreeItem With Custom Seperator
+    Set Tree Item Seperator  ${SPACE}->${SPACE}
+    Select TreeItem  ${XPATH_TREE}  N:Lvl1 a -> I:1 -> N:Lvl3 a
+    Selected TreeItem Should Be  ${XPATH_TREE}  Lvl3 a
+    Select TreeItem  ${XPATH_TREE}  N:Lvl1 a -> N:Lvl2 a
+    Selected TreeItem Should Be  ${XPATH_TREE}  Lvl2 a
+    Select TreeItem  ${XPATH_TREE}  N:Lvl1 a
+    Selected TreeItem Should Be  ${XPATH_TREE}  Lvl1 a
+    Select TreeItem  ${XPATH_TREE}  I:0
+    Selected TreeItem Should Be  ${XPATH_TREE}  Lvl1 a
+
+Expand TreeItem With Custom Seperator
+    Set Tree Item Seperator  ${SPACE}->${SPACE}
+    Expand TreeItem  ${XPATH_TREE}  I:0 -> I:1
+    ${COUNT}  Get All Visible TreeItems Count  ${XPATH_TREE}
+    Should Be Equal As Integers  ${COUNT}  6
+
+Collapse TreeItem With Custom Seperator
+    Set Tree Item Seperator  ${SPACE}->${SPACE}
+    Collapse TreeItem  ${XPATH_TREE}  I:0 -> I:1
+    ${COUNT}  Get All Visible TreeItems Count  ${XPATH_TREE}
+    Should Be Equal As Integers  ${COUNT}  5

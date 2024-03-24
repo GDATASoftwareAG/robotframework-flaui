@@ -12,8 +12,11 @@ class TreeItemsParser:
     location = N:Nameofitem1->I:indexofitem2->I:indexofitem3
     """
 
-    def __init__(self, location):
-        self.location = location.split("->")
+    IndexSeperator = "I:"
+    NameSeperator = "N:"
+
+    def __init__(self, location, seperator):
+        self.location = location.split(seperator)
 
     def get_treeitem(self, treeitems: Any, index: Any):
         """
@@ -23,14 +26,14 @@ class TreeItemsParser:
         """
         loc = self.location[index]
 
-        if loc.startswith("I:"):
+        if loc.startswith(self.IndexSeperator):
             loc = loc[2:]
             try:
                 return treeitems[int(loc)]
             except IndexError:
                 raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(int(loc))) from None
 
-        elif loc.startswith("N:"):
+        elif loc.startswith(self.NameSeperator):
             loc = loc[2:]
             for item in treeitems:
                 if item.Name == loc:

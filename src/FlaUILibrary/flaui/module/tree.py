@@ -13,12 +13,16 @@ class Tree(ModuleInterface):
     Wrapper module executes methods from Tree.cs implementation.
     """
 
+    def __init__(self):
+        self._seperator = "->"
+
     class Container(ValueContainer):
         """
         Value container from tree module.
         """
         element: Optional[Any]
         item: Optional[str]
+        seperator: Optional[str]
 
     class Action(Enum):
         """
@@ -36,9 +40,10 @@ class Tree(ModuleInterface):
         COLLAPSE_ITEM = "COLLAPSE_ITEM"
         SELECTED_ITEM_SHOULD_BE = "SELECTED_ITEM_SHOULD_BE"
         GET_SELECTED_ITEMS_NAME = "GET_SELECTED_ITEMS_NAME"
+        SET_SEPERATOR = "SET_SEPERATOR"
 
     @staticmethod
-    def create_value_container(element=None, item=None):
+    def create_value_container(element=None, item=None, seperator=None):
         """
         Helper to create container object.
 
@@ -48,54 +53,14 @@ class Tree(ModuleInterface):
         Args:
             element (Object): Tree element to execute action
             item (String): Value from item to use
+            seperator (String): Seperator to split up tree items.
         """
         return Tree.Container(element=element,
-                              item=Converter.cast_to_string(item))
+                              item=Converter.cast_to_string(item),
+                              seperator=seperator)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
-
-        Supported actions for checkbox usages are:
-
-          *  Action.GET_ROOT_ITEMS_COUNT
-            * values ["element"]
-            * Returns : (integer) count of tree items in the root level
-
-          *  Action.GET_VISIBLE_ITEMS_COUNT
-            * values ["element"]
-            * Returns : (integer) count of every visible tree item.
-
-          *  Action.GET_VISIBLE_ITEMS_NAME
-            * values ["element"]
-            * Returns : (Array) names of every visible tree item.
-
-        *  Action.ITEM_SHOULD_BE_VISIBLE
-            * values ["element", "item"]
-            * Returns : None
-
-          *  Action.EXPAND_ALL
-            * values ["element"]
-            * Returns : None
-
-          *  Action.COLLAPSE_ALL
-            * values ["element"]
-            * Returns : None
-
-          *  Action.SELECT_ITEM_BY_NAME
-            * values ["element", "item"]
-            * Returns : None
-
-          *  Action.SELECT_ITEM
-            * values ["element", "item"]
-            * Returns : None
-
-        *  Action.SELECTED_ITEM_SHOULD_BE
-            * values ["element", "item"]
-            * Returns : None
-
-        *  Action.GET_SELECTED_ITEMS_NAME
-            * values ["element"]
-            * Returns : String the name of selected items.
 
         Raises:
             FlaUiError: If action is not supported.
@@ -120,18 +85,45 @@ class Tree(ModuleInterface):
             self.Action.SELECT_ITEM_BY_NAME:
                 lambda: TreeItems.select_visible_node_by_name(values["element"].Items, values["item"]),
             self.Action.SELECT_ITEM:
-                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.SELECT),
+                lambda: TreeItems.execute_by_location(values["element"].Items,
+                                                      values["item"],
+                                                      self._seperator,
+                                                      TreeItemAction.SELECT),
             self.Action.EXPAND_ITEM:
-                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.EXPAND),
+                lambda: TreeItems.execute_by_location(values["element"].Items,
+                                                      values["item"],
+                                                      self._seperator,
+                                                      TreeItemAction.EXPAND),
             self.Action.COLLAPSE_ITEM:
-                lambda: TreeItems.execute_by_location(values["element"].Items, values["item"], TreeItemAction.COLLAPSE),
+                lambda: TreeItems.execute_by_location(values["element"].Items,
+                                                      values["item"],
+                                                      self._seperator,
+                                                      TreeItemAction.COLLAPSE),
             self.Action.SELECTED_ITEM_SHOULD_BE:
                 lambda: self._selected_item_should_be(values["element"], values["item"]),
             self.Action.GET_SELECTED_ITEMS_NAME:
                 lambda: self._get_selected_items_name(values["element"]),
+            self.Action.SET_SEPERATOR:
+                lambda: self._set_seperator(values["seperator"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+
+    def _set_seperator(self, seperator):
+        """
+        Sets specific seperator to split up tree items.
+
+        Args:
+            seperator (Object): Seperator to split items.
+
+        Raises:
+            FlaUiError: If seperator is invalid to set
+        """
+        if seperator is None:
+            raise FlaUiError(FlaUiError.InvalidSeparator)
+
+        self._seperator = seperator
+
 
     @staticmethod
     def _should_be_visible(control: Any, name: str):

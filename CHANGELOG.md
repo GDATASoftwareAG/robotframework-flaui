@@ -9,8 +9,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 
-  - [#1170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keywords
+  - [#1170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keyword
     - Get Header From Grid
+  - [#167](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/167) New Keyword
+    - Set Tree Item Seperator
 
 ## [Release][3.0.2] [3.0.2][3.0.1-3.0.2] - 2024-03-08
 

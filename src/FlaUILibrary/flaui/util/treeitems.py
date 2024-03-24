@@ -90,13 +90,14 @@ class TreeItems:
             raise FlaUiError(FlaUiError.ElementNameNotFound.format(name))
 
     @staticmethod
-    def execute_by_location(nodes: Any, location: str, action: TreeItemAction):
+    def execute_by_location(nodes: Any, location: str, seperator: str, action: TreeItemAction):
         """
         Executes the given TreeItemAction to the last element from a tree location.
 
         Args:
             nodes (Object): TreeItems[] from current node
             location (String): Location string to execute operations on nodes.
+            seperator (String): Seperator to split up tree items
             action (TreeItemAction) : Action to operate on node.
 
         Raises:
@@ -104,7 +105,7 @@ class TreeItems:
             FlaUiError: If location syntax is wrong.
             FlaUiError: If node is not expandable.
         """
-        parser = TreeItemsParser(location)
+        parser = TreeItemsParser(location, seperator)
         current_nodes = nodes
 
         for index in range(len(parser.location)):
