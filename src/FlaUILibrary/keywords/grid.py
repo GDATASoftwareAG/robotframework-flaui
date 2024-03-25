@@ -104,7 +104,7 @@ class GridKeywords:
                              msg)
 
     @keyword
-    def select_grid_row_by_index(self, identifier, index, msg=None):
+    def select_grid_row_by_index(self, identifier, index, multiselect=True, msg=None):
         """
         Select rows from data grid with the given index.
 
@@ -116,6 +116,7 @@ class GridKeywords:
         | Argument   | Type   | Description                   |
         | identifier | string | XPath identifier from element |
         | index      | string | IndexNumber                   |
+        | multiselect | bool   | Multiselect availble or not  |
         | msg        | string | Custom error message          |
 
         Examples:
@@ -125,7 +126,7 @@ class GridKeywords:
         module = self._container.create_or_get_module()
         element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
         module.action(Grid.Action.SELECT_ROW_BY_INDEX,
-                      Grid.create_value_container(element=element, index=index),
+                      Grid.create_value_container(element=element, index=index, multiselect=multiselect),
                       msg)
 
     @keyword

@@ -20,6 +20,7 @@ class Grid(ModuleInterface):
         element: Optional[Any]
         index: Optional[int]
         name: Optional[str]
+        multiselect: Optional[bool]
 
     class Action(Enum):
         """
@@ -33,7 +34,7 @@ class Grid(ModuleInterface):
         GET_HEADER = "GET_HEADER"
 
     @staticmethod
-    def create_value_container(element=None, index=None, name=None, msg=None):
+    def create_value_container(element=None, index=None, name=None, multiselect=None, msg=None):
         """
         Helper to create container object.
 
@@ -44,10 +45,12 @@ class Grid(ModuleInterface):
             element (Object): Grid element to access
             index (Number): Index value to select from grid data
             name (String): Name from grid element
+            multiselect (Boolean): If grid supports multiselect
             msg (String): Optional error message
         """
         return Grid.Container(element=element,
                               index=Converter.cast_to_int(index, msg),
+                              multiselect=Converter.cast_to_bool(multiselect),
                               name=Converter.cast_to_string(name))
 
     def execute_action(self, action: Action, values: Container):
@@ -68,7 +71,7 @@ class Grid(ModuleInterface):
             self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], values["index"]),
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
                                                                              values["index"],
-                                                                             values["name"]),
+                                                                             values["name"], values["multiselect"]),
             self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
             self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"]),
             self.Action.GET_HEADER: lambda: self._get_header(values["element"]),
@@ -147,13 +150,14 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_row_by_index(control: Any, index: int):
+    def _select_row_by_index(control: Any, index: int, multiselect = True):
         """
         Try to select element from given index.
 
         Args:
             control (Object): List view to select items.
             index   (Number): Index number to select.
+            multiselect   (bool): Multiselect or single select.
 
         Raises:
             FlaUiError: By an array out of bound exception
@@ -161,7 +165,10 @@ class Grid(ModuleInterface):
         """
         try:
             if control.Rows.Length > 0:
-                control.AddToSelection(index)
+                if multiselect:
+                    control.AddToSelection(index)
+                else:
+                    control.Select(index)
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ArgumentOutOfRangeException:
@@ -170,7 +177,7 @@ class Grid(ModuleInterface):
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
-    def _select_row_by_name(control: Any, index: int, name: str):
+    def _select_row_by_name(control: Any, index: int, name: str, multiselect:bool):
         """
         Try to select element from given name from given column index
 
@@ -178,6 +185,7 @@ class Grid(ModuleInterface):
             control (Object): List view to select items.
             index   (Number): Index number to select.
             name    (String): Expected row name.
+            multiselect   (bool): Multiselect or single select.
         Raises:
             FlaUiError: By an array out of bound exception
             FlaUiError: If value is not a number.
@@ -185,7 +193,11 @@ class Grid(ModuleInterface):
         """
         try:
             if control.Rows.Length > 0:
-                control.AddToSelection(index, name)
+                if multiselect:
+                    control.AddToSelection(index, name)
+                else:
+                    control.Select(index, name)
+                
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ArgumentOutOfRangeException:
