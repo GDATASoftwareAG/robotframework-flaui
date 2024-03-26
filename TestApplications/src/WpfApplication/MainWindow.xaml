@@ -186,6 +186,9 @@
                         <GroupBox Header="Grid">
                             <DataGrid AutomationProperties.AutomationId="dataGridView" CanUserAddRows="True" ItemsSource="{Binding DataGridItems}" />
                         </GroupBox>
+                        <GroupBox Header="GridSingleSelect">
+                            <DataGrid AutomationProperties.AutomationId="dataGridViewSingle" SelectionMode="Single" ItemsSource="{Binding DataGridItems}" />
+                        </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
