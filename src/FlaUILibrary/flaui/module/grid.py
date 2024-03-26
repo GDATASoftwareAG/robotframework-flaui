@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Optional, Any
 from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from System import NullReferenceException  # pylint: disable=import-error
+from System import InvalidOperationException  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
@@ -68,10 +69,13 @@ class Grid(ModuleInterface):
 
         switcher = {
             self.Action.GET_ROW_COUNT: lambda: values["element"].RowCount,
-            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], values["index"]),
+            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], 
+                                                                               values["index"], 
+                                                                               values["multiselect"]),
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
                                                                              values["index"],
-                                                                             values["name"], values["multiselect"]),
+                                                                             values["name"], 
+                                                                             values["multiselect"]),
             self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
             self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"]),
             self.Action.GET_HEADER: lambda: self._get_header(values["element"]),
@@ -150,7 +154,7 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_row_by_index(control: Any, index: int, multiselect = True):
+    def _select_row_by_index(control: Any, index: int, multiselect:bool):
         """
         Try to select element from given index.
 
@@ -164,9 +168,12 @@ class Grid(ModuleInterface):
             FlaUiError: If value is not a number.
         """
         try:
-            if control.Rows.Length > 0:
+            if control.RowCount > 0:
                 if multiselect:
-                    control.AddToSelection(index)
+                    try:
+                        control.AddToSelection(index)
+                    except InvalidOperationException:
+                        raise FlaUiError(FlaUiError.GridIsSingleSelect) from None
                 else:
                     control.Select(index)
         except IndexError:
@@ -192,12 +199,14 @@ class Grid(ModuleInterface):
             FlaUIError: If Name Could not be found in the given Index.
         """
         try:
-            if control.Rows.Length > 0:
+            if control.RowCount > 0:
                 if multiselect:
-                    control.AddToSelection(index, name)
+                    try:
+                        control.AddToSelection(index, name)
+                    except InvalidOperationException:
+                        raise FlaUiError(FlaUiError.GridIsSingleSelect) from None
                 else:
                     control.Select(index, name)
-                
         except IndexError:
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
         except ArgumentOutOfRangeException:

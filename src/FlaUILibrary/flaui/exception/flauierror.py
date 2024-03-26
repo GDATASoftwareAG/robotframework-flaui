@@ -45,6 +45,7 @@ class FlaUiError(AttributeError):
     InvalidPropertyArgument = "Set Property can not be executed by Get Property From Element"
     PatternNotSupported = "Supports '{}' Pattern only, method cannot be used with invalid Pattern"
     InvalidSeparator = "Try to set invalid separator"
+    GridIsSingleSelect = "The Grid only supports single select. Change the muliselect argument to false"
 
     @staticmethod
     def raise_fla_ui_error(message):

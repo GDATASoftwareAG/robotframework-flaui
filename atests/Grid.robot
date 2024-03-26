@@ -17,6 +17,7 @@ Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
 ${XPATH_GRID_VIEW}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
+${XPATH_SINGLE_GRID_VIEW}  ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='GridSingleSelect']/DataGrid[@AutomationId='dataGridViewSingle']
 
 *** Test Cases ***
 Get All Data From Grid
@@ -49,6 +50,22 @@ Select Grid Row By Index
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Contain  ${DATA}  | Doe | 24 |
 
+Select Grid Row By Index Single
+    Element Should Exist  ${XPATH_GRID_VIEW}
+    Select Grid Row By Index  ${XPATH_GRID_VIEW}  1
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Contain  ${DATA}  | Doe | 24 |
+    Select Grid Row By Index  ${XPATH_GRID_VIEW}  2
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Contain  ${DATA}  | Doe | 24 |
+    Select Grid Row By Index  ${XPATH_GRID_VIEW}  2  ${False}
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Not Contain  ${DATA}  | Doe | 24 |
+
+Select Grid Row By Index Single Only
+    Element Should Exist  ${XPATH_SINGLE_GRID_VIEW}
+    Run Keyword and Expect Error  ${EXP_GRID_ONLY_SINGLE_SELECT}  Select Grid Row By Index  ${XPATH_SINGLE_GRID_VIEW}  1
+
 Select Grid Row By Index With Wrong Index Number
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_GRID_VIEW}
     Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Grid Row By Index  ${XPATH_GRID_VIEW}  -2000
@@ -61,6 +78,22 @@ Select Grid Row By Name
     Select Grid Row By Name  ${XPATH_GRID_VIEW}  0  Doe
     ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
     Should Contain  ${DATA}  | Doe | 24 |
+
+Select Grid Row By Name Single
+    Select Grid Row By Name  ${XPATH_GRID_VIEW}  0  Doe
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Contain  ${DATA}  | Doe | 24 |
+    Select Grid Row By Name  ${XPATH_GRID_VIEW}  0  John
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Contain  ${DATA}  | Doe | 24 |
+    Select Grid Row By Name  ${XPATH_GRID_VIEW}  0  John  ${False}
+    ${DATA}  Get Selected Grid Rows  ${XPATH_GRID_VIEW}
+    Should Contain  ${DATA}  | John | 12 |
+    Should Not Contain  ${DATA}  | Doe | 24 |
+
+Select Grid Row By Name Single Only
+    Element Should Exist  ${XPATH_SINGLE_GRID_VIEW}
+    Run Keyword and Expect Error  ${EXP_GRID_ONLY_SINGLE_SELECT}  Select Grid Row By Name  ${XPATH_SINGLE_GRID_VIEW}  0  John
 
 Select Grid Row By Name Wrong Name Or Index
     ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}   Simple item which does not exist  -2000
