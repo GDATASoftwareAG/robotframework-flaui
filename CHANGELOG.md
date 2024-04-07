@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][3.0.3] [3.0.3][3.0.2-3.0.3] - 2024-04-07
+
 ### Bugfix
 
   - [#174](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/174) Improve grid wrong row count
@@ -610,7 +612,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.0.2...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.0.3...main
+
+[3.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.0.3
+
+[3.0.2-3.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.0.2...3.0.3
 
 [3.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.0.2
 
