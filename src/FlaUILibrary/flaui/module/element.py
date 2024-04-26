@@ -46,7 +46,7 @@ class Element(ModuleInterface):
         ELEMENT_SHOULD_BE_DISABLED = "ELEMENT_SHOULD_BE_DISABLED"
         WAIT_UNTIL_ELEMENT_IS_OFFSCREEN = "WAIT_UNTIL_ELEMENT_IS_OFFSCREEN"
         WAIT_UNTIL_ELEMENT_IS_ENABLED = "WAIT_UNTIL_ELEMENT_IS_ENABLED"
-        WAIT_UNTIl_ELEMENT_EXIST = "WAIT_UNTIl_ELEMENT_EXIST"
+        WAIT_UNTIL_ELEMENT_EXIST = "WAIT_UNTIL_ELEMENT_EXIST"
         WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST = "WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST"
 
     def __init__(self, automation: Any, timeout: int = 1000):
@@ -120,7 +120,7 @@ class Element(ModuleInterface):
                 lambda: self._wait_until_element_is_enabled(values["xpath"], values["retries"]),
             self.Action.FIND_ALL_ELEMENTS:
                 lambda: self._find_all_elements(values["xpath"]),
-            self.Action.WAIT_UNTIl_ELEMENT_EXIST:
+            self.Action.WAIT_UNTIL_ELEMENT_EXIST:
                 lambda: self._wait_until_element_exist(values["xpath"], values["retries"]),
             self.Action.WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST:
                 lambda: self._wait_until_element_does_not_exist(values["xpath"], values["retries"])
@@ -472,7 +472,7 @@ class Element(ModuleInterface):
             element.Focus()
         except InvalidOperationException:
             raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath)) from None
-        
+
     @staticmethod
     def _try_get_automation_id_property(element):
         """

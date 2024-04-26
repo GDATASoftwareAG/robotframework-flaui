@@ -11,6 +11,12 @@ class Converter:
 
     @staticmethod
     def cast_to_timespan(value: int):
+        """
+        Helper to cast value to timespan. If value is null, None will be returned.
+
+        Args:
+            value (int): Value to convert as timespan
+        """
         if value is None:
             return None
 
@@ -69,10 +75,16 @@ class Converter:
 
     @staticmethod
     def get_combobox_xpath_from_combobox_selectionitem_xpath(xpath: str) -> str:
-        is_combobox_selectionitem = True if "ComboBox" in xpath and "ComboBox" not in xpath.split("/")[-1] else False
+        """
+        Try to find first combobox from xpath. If found xpath will be returned otherwise empty string.
+
+        Args:
+            xpath (String): XPath find combobox element.
+        """
+        is_combobox_selectionitem = "ComboBox" in xpath and "ComboBox" not in xpath.split("/")[-1]
         if is_combobox_selectionitem:
             matches = re.findall(r"/ComboBox.*?/", xpath)
-            s = matches[0] if matches is not [] else ""
+            s = "" if not matches else matches[0]
             result = f"{xpath.split(s)[0]}{s}"[:-1] if s else ""
             return result
         return ""

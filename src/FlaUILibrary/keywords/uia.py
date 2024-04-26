@@ -34,9 +34,8 @@ class UiaKeywords:
         | Switch UIA To  UIA3           |
 
         """
-        if uia == "UIA2" or uia == "UIA3":
+        if uia in ("UIA2", "UIA3"):
             self._container.set_identifier(uia)
             return
 
         raise FlaUiError(FlaUiError.ActionNotSupported) from None
-

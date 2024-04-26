@@ -124,7 +124,7 @@ class FlaUILibrary(DynamicCore):
         except ValueError:
             timeout = 1000
 
-        if uia != "UIA2" and uia != "UIA3":
+        if uia not in ("UIA2", "UIA3"):
             uia = "UIA3"
 
         self.container = AutomationInterfaceContainer(timeout, uia)

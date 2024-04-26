@@ -125,7 +125,7 @@ class Keyboard(ModuleInterface):
             FlaUIKeyboard.Release(key)
 
     @staticmethod
-    def _type_key_combination(key_combination: Any, delay_in_ms: Any, 
+    def _type_key_combination(key_combination: Any, delay_in_ms: Any,
                               press_only: bool, release_only: bool):
         """
         Execution of key control. 
@@ -140,14 +140,15 @@ class Keyboard(ModuleInterface):
         if isinstance(key_combination, list):
             raise FlaUiError(FlaUiError.ArgumentShouldNotBeList)
         try:
-            (action, converting_result) = KeyboardInputConverter.convert_key_combination(key_combination)
+            action, converting_result = KeyboardInputConverter.convert_key_combination(key_combination)
+
             if action == KeyboardInputConverter.InputType.TEXT:
                 if press_only or release_only:
                     raise FlaUiError(
                         FlaUiError.PatternNotSupported.format(" s'SOMEKEY' ") + \
                             " for key press_only and release_only events")
-                else:
-                    Keyboard._type_text(converting_result)
+
+                Keyboard._type_text(converting_result)
             elif action == KeyboardInputConverter.InputType.SHORTCUT:
                 if press_only:
                     Keyboard._press_keys(converting_result)
@@ -179,7 +180,7 @@ class Keyboard(ModuleInterface):
         try:
             for key_combination in keys_combination:
                 Keyboard._type_key_combination(key_combination, delay_in_ms,
-                                               press_only=press_only, 
+                                               press_only=press_only,
                                                release_only=release_only
                                                )
         except Exception as ex:

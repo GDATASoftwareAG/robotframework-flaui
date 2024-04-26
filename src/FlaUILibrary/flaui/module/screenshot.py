@@ -138,7 +138,7 @@ class Screenshot(ModuleInterface):
                                                                                 self._get_current_time_in_ms(),
                                                                                 self._temp_index))
             else:
-                return
+                return ""
 
             directory = os.path.dirname(filepath)
             if not os.path.exists(directory):

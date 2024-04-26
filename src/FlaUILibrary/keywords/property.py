@@ -68,15 +68,20 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         # pylint: enable=line-too-long
-        
+
         action_value = ""
         try:
             action_value = Property.Action[action.upper()]
-        except KeyError or action_value in [Property.Action.MAXIMIZE_WINDOW, Property.Action.MINIMIZE_WINDOW, Property.Action.NORMALIZE_WINDOW]:
+        except KeyError:
             FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
-        
+
+        if action_value in [Property.Action.MAXIMIZE_WINDOW,
+                            Property.Action.MINIMIZE_WINDOW,
+                            Property.Action.NORMALIZE_WINDOW]:
+            FlaUiError.raise_fla_ui_error(FlaUiError.InvalidPropertyArgument)
+
         module = self._container.create_or_get_module()
-        
+
         if action_value is Property.Action.IS_SELECTED:
             # need expand parent ComboBox before to get ComboBox SelectionItem element
             combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
@@ -88,9 +93,9 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         element = module.get_element(identifier, msg=msg)
         property_value = module.action(action_value,
-                            Property.create_value_container(element=element, uia=module.identifier()), 
+                            Property.create_value_container(element=element, uia=module.identifier()),
                             msg)
-        
+
         if action_value is Property.Action.IS_SELECTED:
             combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
             if combobox_xpath:
@@ -98,7 +103,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
                 module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
                             Property.create_value_container(element=combobox_element, uia=module.identifier()),
                             msg)
-        
+
         return property_value
 
     @keyword

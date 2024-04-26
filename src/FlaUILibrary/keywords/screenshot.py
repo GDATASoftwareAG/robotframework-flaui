@@ -75,14 +75,17 @@ class ScreenshotKeywords:
 
     @keyword
     def take_screenshot(self):
-        """ Takes a screenshot of the whole desktop. Returns path to the screenshot file.
+        """ Takes a screenshot of the whole desktop. Returns path to the screenshot if screenshot was created.
 
         Example:
         | Take Screenshot |
         """
         filepath = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
                                                     Screenshot.create_value_container(mode=ScreenshotMode.PERSIST))
-        robotlog.log_screenshot(filepath)
+
+        if filepath:
+            robotlog.log_screenshot(filepath)
+
         return filepath
 
     @keyword

@@ -214,9 +214,15 @@ class MouseKeywords:
                       msg)
 
     @keyword
-    def click_open(self, click_element_identifier: str, open_element_identifier: str, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_open: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_open: bool = True, msg=None):
+    def click_open(self, click_element_identifier: str,
+                   open_element_identifier: str,
+                   focus_element_identifier_before_click: str = None,
+                   focus_element_identifier_after_open: str = None,
+                   max_repeat: int = 5,
+                   timeout_between_repeates: int = 1000,
+                   ignore_if_already_open: bool = True,
+                   msg=None):
+        # pylint: disable=C0301
         """
         Left clicks to element by an XPath and excepts an element to be opened.
         It repeats the act of clicking until the excepted element is there by waiting for given seconds each time.
@@ -241,17 +247,28 @@ class MouseKeywords:
         | Click Open  <XPATH>  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.LEFT_CLICK_OPEN,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=open_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_open,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_open),
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=open_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_open,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_open),
                       msg)
 
     @keyword
-    def double_click_open(self, click_element_identifier: str, open_element_identifier: str, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_open: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_open: bool = True, msg=None):
+    def double_click_open(self, click_element_identifier: str,
+                          open_element_identifier: str,
+                          focus_element_identifier_before_click: str = None,
+                          focus_element_identifier_after_open: str = None,
+                          max_repeat: int = 5,
+                          timeout_between_repeates: int = 1000,
+                          ignore_if_already_open: bool = True,
+                          msg=None):
+        # pylint: disable=C0301
         """
         Double clicks to element by an XPath and excepts an element to be opened.
         It repeats the act of double clicking until the excepted element is there by waiting for given seconds each time.
@@ -276,17 +293,26 @@ class MouseKeywords:
         | Double Click Open  <XPATH>  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.DOUBLE_CLICK_OPEN,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=open_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_open,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_open),
-                      msg)
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=open_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_open,
+                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_open), msg)
 
     @keyword
-    def right_click_open(self, click_element_identifier: str, open_element_identifier: str, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_open: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1000, ignore_if_already_open: bool = True, msg=None):
+    def right_click_open(self, click_element_identifier: str,
+                         open_element_identifier: str,
+                         focus_element_identifier_before_click: str = None,
+                         focus_element_identifier_after_open: str = None,
+                         max_repeat: int = 5,
+                         timeout_between_repeates: int = 1000,
+                         ignore_if_already_open: bool = True,
+                         msg=None):
+        # pylint: disable=C0301
         """
         Right clicks to element by an XPath and excepts an element to be opened.
         It repeats the act of right clicking until the excepted element is there by waiting for given seconds each time.
@@ -311,17 +337,27 @@ class MouseKeywords:
         | Right Click Open  <XPATH>  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.RIGHT_CLICK_OPEN,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=open_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_open,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_open),
-                      msg)
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=open_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_open,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_open), msg)
 
     @keyword
-    def click_close(self, click_element_identifier: str, close_element_identifier: str = None, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_close: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1, ignore_if_already_close: bool = True, msg=None):
+    def click_close(self, click_element_identifier: str,
+                    close_element_identifier: str = None,
+                    focus_element_identifier_before_click: str = None,
+                    focus_element_identifier_after_close: str = None,
+                    max_repeat: int = 5,
+                    timeout_between_repeates: int = 1,
+                    ignore_if_already_close: bool = True,
+                    msg=None):
+        # pylint: disable=C0301
         """
         Left clicks an element by an XPath and excepts an element to be closed.
         It repeats the act of clicking until the excepted element is closed by waiting for given seconds each time.
@@ -348,19 +384,29 @@ class MouseKeywords:
         | Click Close  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         if not close_element_identifier:
             close_element_identifier = click_element_identifier
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.LEFT_CLICK_CLOSE,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=close_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_close,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_close),
-                      msg)
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=close_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_close,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_close), msg)
 
     @keyword
-    def double_click_close(self, click_element_identifier: str, close_element_identifier: str = None, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_close: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1, ignore_if_already_close: bool = True, msg=None):
+    def double_click_close(self, click_element_identifier: str,
+                           close_element_identifier: str = None,
+                           focus_element_identifier_before_click: str = None,
+                           focus_element_identifier_after_close: str = None,
+                           max_repeat: int = 5,
+                           timeout_between_repeates: int = 1,
+                           ignore_if_already_close: bool = True,
+                           msg=None):
+        # pylint: disable=C0301
         """
         Double clicks an element by an XPath and excepts an element to be closed.
         It repeats the act of double clicking until the excepted element is closed by waiting for given seconds each time.
@@ -387,19 +433,29 @@ class MouseKeywords:
         | Double Click Close  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         if not close_element_identifier:
             close_element_identifier = click_element_identifier
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.DOUBLE_CLICK_CLOSE,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=close_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_close,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_close),
-                      msg)
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=close_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_close,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_close), msg)
 
     @keyword
-    def right_click_close(self, click_element_identifier: str, close_element_identifier: str = None, 
-                    focus_element_identifier_before_click: str = None, focus_element_identifier_after_close: str = None , 
-                    max_repeat: int = 5, timeout_between_repeates: int = 1, ignore_if_already_close: bool = True, msg=None):
+    def right_click_close(self, click_element_identifier: str,
+                          close_element_identifier: str = None,
+                          focus_element_identifier_before_click: str = None,
+                          focus_element_identifier_after_close: str = None,
+                          max_repeat: int = 5,
+                          timeout_between_repeates: int = 1,
+                          ignore_if_already_close: bool = True,
+                          msg=None):
+        # pylint: disable=C0301
         """
         Right clicks an element by an XPath and excepts an element to be closed.
         It repeats the act of right clicking until the excepted element is closed by waiting for given seconds each time.
@@ -426,11 +482,15 @@ class MouseKeywords:
         | Right Click Close  <XPATH>  |
 
         """
+        # pylint: enable=C0301
         if not close_element_identifier:
             close_element_identifier = click_element_identifier
         module = self._container.create_or_get_module()
         module.action(Mouse.Action.RIGHT_CLICK_CLOSE,
-                      Mouse.create_value_container(click_element_xpath=click_element_identifier, goal_element_xpath=close_element_identifier, 
-                                                   focus_element_xpath_before=focus_element_identifier_before_click, focus_element_xpath_after=focus_element_identifier_after_close,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates, ignore_if=ignore_if_already_close),
-                      msg)
+                      Mouse.create_value_container(click_element_xpath=click_element_identifier,
+                                                   goal_element_xpath=close_element_identifier,
+                                                   focus_element_xpath_before=focus_element_identifier_before_click,
+                                                   focus_element_xpath_after=focus_element_identifier_after_close,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeates,
+                                                   ignore_if=ignore_if_already_close), msg)
