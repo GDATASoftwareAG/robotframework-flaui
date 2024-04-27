@@ -45,10 +45,16 @@ EXIT /B %result_uia3%
   python -m pylint src
 EXIT /B %ERRORLEVEL%
 
+:tidy
+  python -m robotidy atests --check
+EXIT /B %ERRORLEVEL%
+
 :test
     call:install
     set /A result = %ERRORLEVEL%
     call:pylint
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call:tidy
     if %result%==0 set /A result = %ERRORLEVEL%
     call:test_uia2
     if %result%==0 set /A result = %ERRORLEVEL%
