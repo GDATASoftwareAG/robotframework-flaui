@@ -60,6 +60,7 @@ class Mouse(ModuleInterface):
                                click_element_xpath=None, goal_element_xpath=None,
                                focus_element_xpath_before=None, focus_element_xpath_after=None,
                                ignore_if=None):
+        # pylint: disable=C0301
         """
         Helper to create container object.
 
@@ -74,6 +75,7 @@ class Mouse(ModuleInterface):
             focus_element_xpath_after: Focus element after clicking in Click Open/ Click Close
             ignore_if: The execution will be ignored if the clicking element exist in Click Open / does not exist in Click Close
         """
+        # pylint: enable=C0301
         return Mouse.Container(element=element, second_element=second_element, timeout_in_ms=timeout_in_ms,
                                max_repeat=max_repeat,
                                click_element_xpath=click_element_xpath, goal_element_xpath=goal_element_xpath,
@@ -163,7 +165,7 @@ class Mouse(ModuleInterface):
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
                 self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
             _click_element_found = False
-            for i in range(max_repeat):
+            for _ in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
                 click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
@@ -180,7 +182,7 @@ class Mouse(ModuleInterface):
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
-            
+
             if not _click_element_found:
                 raise FlaUiError(FlaUiError.ElementNotExists.format(click_element_xpath))
             raise FlaUiError(FlaUiError.ElementNotOpened.format(open_element_xpath, click_element_xpath))
@@ -207,9 +209,9 @@ class Mouse(ModuleInterface):
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
                 self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
-            
+
             _click_element_found = False
-            for i in range(max_repeat):
+            for _ in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
                 click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
@@ -227,7 +229,7 @@ class Mouse(ModuleInterface):
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
-                
+
             if not _click_element_found:
                 raise FlaUiError(FlaUiError.ElementNotExists.format(click_element_xpath))
             raise FlaUiError(FlaUiError.ElementNotClosed.format(close_element_xpath, click_element_xpath))

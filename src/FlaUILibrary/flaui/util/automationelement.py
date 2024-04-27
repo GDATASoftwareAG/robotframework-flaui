@@ -12,6 +12,7 @@ class AutomationElement:
             ``class_name`` Class Name from element.
             ``xpath`` Xpath from element.
         """
+        # pylint: disable=C0103
         self.Xpath = xpath
         self.AutomationId = ""
         self.Name = ""
@@ -25,6 +26,7 @@ class AutomationElement:
 
         if class_name:
             self.ClassName = self._get_argument_in_xpath(self.Xpath, "[@ClassName=\"" + class_name + "\"]")
+        # pylint: enable=C0103
 
     @staticmethod
     def _get_argument_in_xpath(xpath, argument) -> str:

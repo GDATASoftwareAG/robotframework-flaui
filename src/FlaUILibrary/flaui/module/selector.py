@@ -137,13 +137,13 @@ class Selector(ModuleInterface):
             True if name from combobox item exists otherwise False.
         """
         is_contain = False
-        
+
         for item in control.Items:
             if name in (item.Name, item.Text):
                 is_contain = True
-                
+
         Selector._restore_for_expand_collapse_pattern(control)
-            
+
         if not is_contain:
             raise FlaUiError(FlaUiError.ControlDoesNotContainItem.format(name))
 
@@ -160,13 +160,13 @@ class Selector(ModuleInterface):
             True if name from combobox item does not exist otherwise False.
         """
         is_contain = False
-        
+
         for item in control.Items:
             if name in (item.Name, item.Text):
                 is_contain = True
-                
+
         Selector._restore_for_expand_collapse_pattern(control)
-            
+
         if is_contain:
             raise FlaUiError(FlaUiError.ControlContainsItem.format(name))
 
@@ -191,7 +191,7 @@ class Selector(ModuleInterface):
         count = control.Items.Length
         Selector._restore_for_expand_collapse_pattern(control)
         return count
-        
+
     @staticmethod
     def _get_all_selected_names(control: Any):
         """
@@ -245,7 +245,7 @@ class Selector(ModuleInterface):
             names.append(item.Name)
 
         Selector._restore_for_expand_collapse_pattern(control)
-        
+
         return names
 
     @staticmethod
@@ -265,7 +265,7 @@ class Selector(ModuleInterface):
             texts.append(item.Text)
 
         Selector._restore_for_expand_collapse_pattern(control)
-        
+
         return texts
 
     @staticmethod
@@ -276,4 +276,4 @@ class Selector(ModuleInterface):
             pattern = control.Patterns.ExpandCollapse.Pattern
             state = str(pattern.ExpandCollapseState)
             if state == "Expanded":
-                control.Collapse() 
+                control.Collapse()

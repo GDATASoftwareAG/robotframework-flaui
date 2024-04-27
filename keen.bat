@@ -11,7 +11,7 @@ EXIT /B 0
 
 :dependency
     call python -m pip install --upgrade pip setuptools wheel
-    call pip install -r requirements-dev.txt
+    call python -m pip install -r requirements-dev.txt
 EXIT /B %ERRORLEVEL%
 
 :build
@@ -28,37 +28,41 @@ EXIT /B %ERRORLEVEL%
 
 :test_uia2
     call cd atests
-    call robot --name "UIA2" --variable UIA:UIA2 --outputdir ../result/uia2 .
+    call python -m robot --name "UIA2" --variable UIA:UIA2 --outputdir ../result/uia2 .
     set /A result_uia2 = %ERRORLEVEL%
     call cd ..
 EXIT /B %result_uia2%
 
 :test_uia3
     call cd atests
-    call robot --name "UIA3" --variable UIA:UIA3 --outputdir ../result/uia3 .
+    call python -m robot --name "UIA3" --variable UIA:UIA3 --outputdir ../result/uia3 .
     set /A result_uia3 = %ERRORLEVEL%
     call cd ..
 EXIT /B %result_uia3%
 
-:test
-    call:install
-    call:pylint
-    call:test_uia2
-    set /A result = %ERRORLEVEL%
-    call:test_uia3
-    if %result%==0 set /A result = %ERRORLEVEL%
-    call rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
-    call xcopy .\result\uia2\screenshots .\result\screenshots\
-    call xcopy .\result\uia3\screenshots .\result\screenshots\
-    call python parsly.py
-EXIT /B %result%
-
 :pylint
   mkdir result
-  pylint src > result/pylint.json
-  pylint-json2html result/pylint.json > result/pylint.html
+  python -m pylint src
 EXIT /B %ERRORLEVEL%
 
+:test
+    call:install
+    set /A result = %ERRORLEVEL%
+    call:pylint
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call:test_uia2
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call:test_uia3
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call python -m robot.rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call xcopy .\result\uia2\screenshots .\result\screenshots\
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call xcopy .\result\uia3\screenshots .\result\screenshots\
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call python parsly.py
+    if %result%==0 set /A result = %ERRORLEVEL%
+EXIT /B %result%
 
 :MAIN
 IF NOT "%~1" == "" call:%1

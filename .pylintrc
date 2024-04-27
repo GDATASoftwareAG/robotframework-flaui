@@ -5,9 +5,10 @@ max-line-length=120
 disable=
     C0114, # missing-module-docstring
     R0903, # too-few-public-methods
+    R0913, # too-many-arguments
 
-[REPORTS]
-output-format=json
+# Specify a score threshold under which the program will exit with error.
+fail-under=10
 
 [SIMILARITIES]
 # Ignore comments when computing similarities.

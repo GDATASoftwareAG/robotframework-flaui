@@ -46,7 +46,7 @@ class Property(ModuleInterface):
         IS_SELECTION_ITEM_PATTERN_SUPPORTED = "IS_SELECTION_ITEM_PATTERN_SUPPORTED"
         IS_SELECTED = "IS_SELECTED"
         STAGE_FOR_COMBOBOX_SELECTIONITEM = "STAGE_FOR_COMBOBOX_SELECTIONITEM"
-            
+
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
         """
@@ -59,91 +59,6 @@ class Property(ModuleInterface):
         return Property.Container(element=element, uia=uia)
 
     def execute_action(self, action: Action, values: Container):
-        """If action is not supported an ActionNotSupported error will be raised.
-
-        Supported action usages are:
-
-          *  Action.FOREGROUND_COLOR
-            * Values ["element", "uia"] : Element to get foreground color property from uia2 or uia3.
-            * Returns : Foreground color as (a,r,g,b) tuple.
-
-         *  Action.BACKGROUND_COLOR
-            * Values ["element", "uia"] : Element to get background color property from uia2 or uia3.
-            * Returns : Foreground color as (a,r,g,b) tuple.
-
-         *  Action.FONT_SIZE
-            * Values ["element", "uia"] : Element to get font size property from uia2 or uia3.
-            * Returns : Font size as floating point value
-
-         *  Action.FONT_NAME
-            * Values ["element", "uia"] : Element to get font name property from uia2 or uia3.
-            * Returns : String name from font
-
-         *  Action.FONT_WEIGHT
-            * Values ["element", "uia"] : Element to get font weight property from uia2 or uia3.
-            * Returns : Font weight as floating point value
-
-         *  Action.CULTURE
-            * Values ["element", "uia"] : Element to get culture property from uia2 or uia3.
-            * Returns : Culture property as string
-
-         *  Action.IS_HIDDEN
-            * Values ["element", "uia"] : Element to get culture property from uia2 or uia3.
-            * Returns : Bool if element is hidden.
-
-         *  Action.WINDOW_VISUAL_STATE
-            * Values ["element"] : Element to get window visual state property from window.
-            * Returns : String from visual state.
-
-         *  Action.WINDOW_INTERACTION_STATE
-            * Values ["element"] : Element to get window visual state property from window.
-            * Returns : String from window interaction state.
-
-         *  Action.TOGGLE_STATE
-            * Values ["element", "uia"] : Element to get toggle state property from uia2 or uia3 element.
-            * Returns : String from toggle state like ON, OFF, Intermediate as string.
-
-         *  Action.MAXIMIZE_WINDOW
-            * Values ["element"] : Maximize window
-            * Returns : None
-
-         *  Action.MINIMIZE_WINDOW
-            * Values ["element"] : Minimize window
-            * Returns : None
-
-         *  Action.NORMALIZE_WINDOW
-            * Values ["element"] : Normalize window
-            * Returns : None
-
-         *  Action.CAN_WINDOW_MINIMIZE
-            * Values ["element"] : Verification if window can be minimized.
-            * Returns : Return True if supported otherwise False
-
-         *  Action.CAN_WINDOW_MAXIMIZE
-            * Values ["element"] : Verification if window can be maximized.
-            * Returns : Return True if supported otherwise False
-
-         *  Action.IS_READ_ONLY
-            * Values ["element"] : Verification if element is read only.
-            * Returns : Return True/False otherwise Pattern not supported exception
-
-         *  Action.IS_WINDOW_PATTERN_SUPPORTED, IS_TEXT_PATTERN_SUPPORTED, IS_TOGGLE_PATTERN_SUPPORTED, IS_VALUE_PATTERN_SUPPORTED,
-                   IS_SELECTION_ITEM_PATTERN_SUPPORTED
-            * Values ["element"] : Verification if pattern is supported to element.
-            * Returns : Return True if supported otherwise False
-         
-         *  Action.IS_SELECTED
-            * Values ["element"] : Verification if element is read only.
-            * Returns : Return True/False otherwise Pattern not supported exception
-
-        Raises:
-            FlaUiError: If action is not supported.
-
-        Args:
-            action (Action): Action to use.
-            values (Object): See supported action definitions for value usage.
-        """
-
         switcher = {
             self.Action.FOREGROUND_COLOR: lambda: self._get_foreground_color(values["element"], values["uia"]),
             self.Action.BACKGROUND_COLOR: lambda: self._get_background_color(values["element"], values["uia"]),
@@ -172,9 +87,11 @@ class Property(ModuleInterface):
             self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(
                 values["element"]),
             self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
-            self.Action.IS_SELECTION_ITEM_PATTERN_SUPPORTED: lambda: self._is_selection_item_pattern_supported(values["element"]),
+            self.Action.IS_SELECTION_ITEM_PATTERN_SUPPORTED: lambda: self._is_selection_item_pattern_supported(
+                values["element"]),
             self.Action.IS_SELECTED: lambda: self._is_selected(values["element"]),
-            self.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM: lambda: self._stage_for_combobox_selectionitem(values["element"]),
+            self.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM: lambda: self._stage_for_combobox_selectionitem(
+                values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -321,11 +238,11 @@ class Property(ModuleInterface):
     @staticmethod
     def _is_expand_collapse_pattern_supported(element: Any) -> bool:
         return Property._prop_to_bool(element.Patterns.ExpandCollapse.IsSupported)
-    
+
     @staticmethod
     def _is_selection_item_pattern_supported(element: Any) -> bool:
         return Property._prop_to_bool(element.Patterns.SelectionItem.IsSupported)
-    
+
     @staticmethod
     def _int_to_rgba(argb_int: int) -> (int, int, int, int):
         blue = argb_int & 255
@@ -342,7 +259,7 @@ class Property(ModuleInterface):
 
         # Should be from type FlaUI.Core.AutomationProperty[Boolean]
         return bool(prop.Value)
-    
+
     @staticmethod
     def _get_expand_collapse_pattern_from_element(element) -> Any:
         if Property._is_expand_collapse_pattern_supported(element):
@@ -351,7 +268,7 @@ class Property(ModuleInterface):
                 return pattern
 
         raise FlaUiError(FlaUiError.PatternNotSupported.format("ExpandCollapse"))
-    
+
     @staticmethod
     def _get_expand_collapse_pattern_state(element: Any) -> str:
         pattern = Property._get_expand_collapse_pattern_from_element(element)
@@ -379,12 +296,12 @@ class Property(ModuleInterface):
                 return pattern
 
         raise FlaUiError(FlaUiError.PatternNotSupported.format("SelectionItem"))
-    
+
     @staticmethod
     def _is_selected(element: Any) -> str:
         pattern = Property._get_selection_item_pattern_from_element(element)
         return Property._prop_to_bool(pattern.IsSelected)
-    
+
     @staticmethod
     def _stage_for_combobox_selectionitem(element):
         state = Property._get_expand_collapse_pattern_state(element)

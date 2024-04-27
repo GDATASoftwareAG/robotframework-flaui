@@ -351,7 +351,7 @@ class ElementKeywords:
         | Wait Until Element Exist  <XPATH>  <RETRIES=10>  <MSG> |
         """
         module = self._container.create_or_get_module()
-        module.action(Element.Action.WAIT_UNTIl_ELEMENT_EXIST,
+        module.action(Element.Action.WAIT_UNTIL_ELEMENT_EXIST,
                       Element.create_value_container(xpath=identifier, retries=retries),
                       msg)
 

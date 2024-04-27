@@ -17,7 +17,7 @@ class KeyboardKeywords:
         self._container = container
 
     @keyword
-    def press_key(self, key_combination, identifier=None, delay_in_ms=None, 
+    def press_key(self, key_combination, identifier=None, delay_in_ms=None,
                   msg=None, press_only=False, release_only=False):
         """
         Keyboard control to execute a user defined one shortcut or text.
@@ -107,9 +107,9 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEY_COMBINATION,
-                      Keyboard.create_value_container(shortcut=key_combination, 
+                      Keyboard.create_value_container(shortcut=key_combination,
                                                       delay_in_ms=delay_in_ms,
-                                                      press_only=press_only, 
+                                                      press_only=press_only,
                                                       release_only=release_only),
                       msg)
 
@@ -160,8 +160,8 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEYS_COMBINATIONS,
-                      Keyboard.create_value_container(shortcuts=keys_combinations, 
+                      Keyboard.create_value_container(shortcuts=keys_combinations,
                                                       delay_in_ms=delay_in_ms,
-                                                      press_only=press_only, 
+                                                      press_only=press_only,
                                                       release_only=release_only),
                       msg)

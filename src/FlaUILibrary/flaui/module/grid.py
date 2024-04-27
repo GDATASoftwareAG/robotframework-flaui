@@ -69,12 +69,12 @@ class Grid(ModuleInterface):
 
         switcher = {
             self.Action.GET_ROW_COUNT: lambda: values["element"].RowCount,
-            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"], 
-                                                                               values["index"], 
+            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"],
+                                                                               values["index"],
                                                                                values["multiselect"]),
             self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
                                                                              values["index"],
-                                                                             values["name"], 
+                                                                             values["name"],
                                                                              values["multiselect"]),
             self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
             self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"]),
@@ -85,6 +85,7 @@ class Grid(ModuleInterface):
 
     @staticmethod
     def _get_all_data(control: Any):
+        # pylint: disable=C0301
         """
         Try to get all rows as string.
 
@@ -94,6 +95,7 @@ class Grid(ModuleInterface):
         Returns:
             String array of header and columns as texts [[header1, header2, ...], [row1column1, row1column2, ...], [row2column1, row2column2, ...] ...] 
         """
+        # pylint: enable=C0301
         values = []
         data = []
 
