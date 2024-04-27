@@ -1,82 +1,86 @@
 *** Settings ***
-Documentation   Test suite for list box keywords.
-...             XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
+Documentation       Test suite for list box keywords.
+...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library         FlaUILibrary  uia=${UIA}  screenshot_on_failure=False
-Library         Process
-Library         StringFormat
-Library         Collections
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
+Library             Process
+Library             StringFormat
+Library             Collections
+Resource            util/Common.robot
+Resource            util/Error.robot
+Resource            util/XPath.robot
 
-Resource        util/Common.robot
-Resource        util/Error.robot
-Resource        util/XPath.robot
+Suite Setup         Init Main Application
+Suite Teardown      Stop Application    ${MAIN_PID}
 
-Suite Setup      Init Main Application
-Suite Teardown   Stop Application  ${MAIN_PID}
 
 *** Variables ***
-${XPATH_LISTBOX}  ${MAIN_WINDOW_SIMPLE_CONTROLS}/List[@AutomationId='ListBox']
+${XPATH_LISTBOX}    ${MAIN_WINDOW_SIMPLE_CONTROLS}/List[@AutomationId='ListBox']
 
 
 *** Test Cases ***
 Get Listbox Items Count
-    ${COUNT}  Get Listbox Items Count  ${XPATH_LISTBOX}
-    Should Be Equal As Integers  ${COUNT}  2
+    ${COUNT}    Get Listbox Items Count    ${XPATH_LISTBOX}
+    Should Be Equal As Integers    ${COUNT}    2
 
 Listbox Should Contain
-	Listbox Should Contain  ${XPATH_LISTBOX}  ListBox Item #2
+    Listbox Should Contain    ${XPATH_LISTBOX}    ListBox Item #2
 
 Listbox Should Contain Item Not Exist
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}  No Such Item
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Should Contain  ${XPATH_LISTBOX}  No Such Item
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    No Such Item
+    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Listbox Should Contain    ${XPATH_LISTBOX}    No Such Item
 
 Listbox Should Not Contain
-	Listbox Should Not Contain  ${XPATH_LISTBOX}  No Such Item
+    Listbox Should Not Contain    ${XPATH_LISTBOX}    No Such Item
 
 Listbox Should Not Contain Item Does Exist
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_CONTROL_CONTAINS_ITEM}  ListBox Item #2
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Should Not Contain  ${XPATH_LISTBOX}  ListBox Item #2
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_CONTROL_CONTAINS_ITEM}    ListBox Item #2
+    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Listbox Should Not Contain    ${XPATH_LISTBOX}    ListBox Item #2
 
 Select Listbox Item By Name
-    Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #2
-    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
-    Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #1
-    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #1
+    Select Listbox Item By Name    ${XPATH_LISTBOX}    ListBox Item #2
+    Listbox Selection Should Be    ${XPATH_LISTBOX}    ListBox Item #2
+    Select Listbox Item By Name    ${XPATH_LISTBOX}    ListBox Item #1
+    Listbox Selection Should Be    ${XPATH_LISTBOX}    ListBox Item #1
 
 Select Listbox Item By Name Wrong Element
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}  ListBox Item #999
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Listbox Item By Name  ${XPATH_LISTBOX}  ListBox Item #999
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NAME_NOT_FOUND}    ListBox Item #999
+    Run Keyword and Expect Error
+    ...    ${EXP_ERR_MSG}
+    ...    Select Listbox Item By Name
+    ...    ${XPATH_LISTBOX}
+    ...    ListBox Item #999
 
 Select Listbox Item By Index
-    Select Listbox Item By Index  ${XPATH_LISTBOX}  1
-    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
-    Select Listbox Item By Index  ${XPATH_LISTBOX}  0
-    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #1
+    Select Listbox Item By Index    ${XPATH_LISTBOX}    1
+    Listbox Selection Should Be    ${XPATH_LISTBOX}    ListBox Item #2
+    Select Listbox Item By Index    ${XPATH_LISTBOX}    0
+    Listbox Selection Should Be    ${XPATH_LISTBOX}    ListBox Item #1
 
 Select Listbox Item By Index Negative Number
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}  -2000  ${XPATH_LISTBOX}
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Listbox Item By Index  ${XPATH_LISTBOX}  -2000
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}    -2000    ${XPATH_LISTBOX}
+    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Select Listbox Item By Index    ${XPATH_LISTBOX}    -2000
 
 Select Listbox Item By Index String Usage
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}  NOT_AN_ARRAY  ${XPATH_LISTBOX}
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Select Listbox Item By Index  ${XPATH_LISTBOX}  NOT_AN_ARRAY
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    NOT_AN_ARRAY    ${XPATH_LISTBOX}
+    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Select Listbox Item By Index    ${XPATH_LISTBOX}    NOT_AN_ARRAY
 
 Listbox Selection Should Be
-    Select Listbox Item By Index  ${XPATH_LISTBOX}  1
-    Listbox Selection Should Be  ${XPATH_LISTBOX}  ListBox Item #2
+    Select Listbox Item By Index    ${XPATH_LISTBOX}    1
+    Listbox Selection Should Be    ${XPATH_LISTBOX}    ListBox Item #2
 
 Listbox Selection Should Be Item Not Exist
-    Select Listbox Item By Index  ${XPATH_LISTBOX}  1
-    ${EXP_ERR_MSG}  Format String  ${EXP_ERR_MSG_ITEM_NOT_SELECTED}  No Such Item
-    Run Keyword and Expect Error  ${EXP_ERR_MSG}  Listbox Selection Should Be  ${XPATH_LISTBOX}  No Such Item
+    Select Listbox Item By Index    ${XPATH_LISTBOX}    1
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ITEM_NOT_SELECTED}    No Such Item
+    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Listbox Selection Should Be    ${XPATH_LISTBOX}    No Such Item
 
 Get All Names By Listbox
-    ${DATA}  Get All Names From Listbox  ${XPATH_LISTBOX}
-    ${EXPECTED_LIST}  Create List  ListBox Item \#1  ListBox Item \#2
-    Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
+    ${DATA}    Get All Names From Listbox    ${XPATH_LISTBOX}
+    ${EXPECTED_LIST}    Create List    ListBox Item \#1    ListBox Item \#2
+    Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
 Get All Texts By Listbox
-    ${DATA}  Get All Texts From Listbox  ${XPATH_LISTBOX}
-    ${EXPECTED_LIST}  Create List  ListBox Item \#1  ListBox Item \#2
-    Lists Should Be Equal  ${DATA}  ${EXPECTED_LIST}
+    ${DATA}    Get All Texts From Listbox    ${XPATH_LISTBOX}
+    ${EXPECTED_LIST}    Create List    ListBox Item \#1    ListBox Item \#2
+    Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
