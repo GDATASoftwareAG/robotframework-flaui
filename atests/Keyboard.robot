@@ -3,13 +3,13 @@ Documentation       Test suite for keyboard keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             Process
-Library             StringFormat
 Library             DateTime
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Library             StringFormat
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Run Keywords    Init Main Application
 ...                     AND    Open Keyboard Tab
@@ -23,9 +23,9 @@ ${XPATH_RESET}                          ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Button[
 ${XPATH_LABEL_INPUT_UP}                 ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyUp']
 ${XPATH_LABEL_INPUT_DOWN}               ${MAIN_WINDOW_KEYBOARD_CONTROLS}/Text[@AutomationId='lblKeyboardKeyDown']
 
-${EXP_VALUE_INPUT_TEXT} =               Type text
-${EXP_VALUE_OVERRIDE_INPUT_TEXT} =      Override
-${EXP_VALUE_INPUT_TEXT_SHORTCUT} =      ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}
+${EXP_VALUE_INPUT_TEXT}                 Type text
+${EXP_VALUE_OVERRIDE_INPUT_TEXT}        Override
+${EXP_VALUE_INPUT_TEXT_SHORTCUT}        ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}
 
 @{KEYBOARD_KEY_LIST}                    A    B    C    LEFT    RIGHT    UP    DOWN
 
@@ -135,20 +135,20 @@ Keyboard Type Generic Key Combination
 
 Delete Text
     ${LENGTH}    Get Length    ${EXP_VALUE_INPUT_TEXT_SHORTCUT}
-    FOR    ${i}    IN RANGE    0    ${LENGTH}
+    FOR    ${_}    IN RANGE    0    ${LENGTH}
         Press Key    ${KEYBOARD_INPUT_BACKSPACE}    ${XPATH_INPUT_FIELD}
     END
     ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
     Should Be Equal    ${TEXT}    ${EMPTY}
 
 False Argument Type
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG_ARGUMENT_ARRAY}
     ...    Press Keys
     ...    ${KEYBOARD_INPUT_TEXT}
     ...    ${XPATH_INPUT_FIELD}
     ${EXP_ERR_MSG}    Format String    ${EXP_INVALID_KEYBOARD_COMBINATION}    ${KEYBOARD_INPUT_TEXT_ARRAY}
-    ${ERR_MSG}    Run Keyword and Expect Error
+    ${ERR_MSG}    Run Keyword And Expect Error
     ...    *
     ...    Press Key
     ...    ${KEYBOARD_INPUT_TEXT_ARRAY}

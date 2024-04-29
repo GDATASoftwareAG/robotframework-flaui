@@ -1,9 +1,10 @@
-wheel==0.42.0
+wheel==0.43.0
 pylint==3.1.0
 pep8==1.7.1
 robotframework-stringformat==0.1.8
 robotframework-tidy==4.11.0
-twine==4.0.2
+robotframework-robocop==5.0.4
+twine==5.0.0
 yattag==1.15.2
-build==1.0.3
+build==1.2.1
 -r requirements.txt

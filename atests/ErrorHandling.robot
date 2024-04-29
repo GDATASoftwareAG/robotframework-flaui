@@ -4,8 +4,8 @@ Documentation       Error handling test suite for all common flaui keywords.
 
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False    timeout=0
 Library             StringFormat
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Test Template       Execute Keyword And Expect Error Message
 

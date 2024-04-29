@@ -5,9 +5,9 @@ Documentation       Test suite for application keywords.
 
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 
 *** Test Cases ***
