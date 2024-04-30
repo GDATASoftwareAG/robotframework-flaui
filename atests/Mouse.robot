@@ -5,36 +5,33 @@ Documentation       Test suite for mouse keywords.
 
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Init Main Application
 Suite Teardown      Stop Application    ${MAIN_PID}
 
 
 *** Variables ***
-${EXPECTED_CONTEXT_MENU}    ${MAIN_WINDOW}/Window/Menu
-${CONTEXT_MENUITEM1}        ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 1']
-${CONTEXT_MENUITEM2}        ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 2']
-${CONTEXT_MENUITEM3}        ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 2']/MenuItem[@Name='Inner Context']
-${CLICK_BUTTON}             ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='InvokableButton']
-${HOLD_BUTTON}              ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ClickAndHoldButton']
-${RIGHT_CLICK_BUTTON}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
-${DOUBLE_CLICK_BUTTON}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/CheckBox[@Name='3-Way Test Checkbox']
-${XPATH_GRID_VIEW}          ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
-${DRAG_FROM}                ${XPATH_GRID_VIEW}/Header/HeaderItem[3]/Text
-${DRAG_TO}                  ${XPATH_GRID_VIEW}/Header/HeaderItem[1]/Text
-${SOME_MENUITEM}            ${EXPECTED_CONTEXT_MENU}/MenuItem[@Name='Some MenuItem']/Text[@Name='Some MenuItem']
-${PopupToggle2_BUTTON}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='PopupToggleButton2']
-${ENABLE_BUTTON}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
-${READYTOTAKEOFF_TEXT}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']/Text[@Name='Ready to take off']
-${TOGGLE_BUTTON}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
-${XPATH_COMBO_BOX}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
-${CONTEXTMENU_BUTTON}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
-${XPATH_COMBO_BOX_ITEM}     ${XPATH_COMBO_BOX}/ListItem[@Name='Item 3']/Text[@Name='Item 3']
-${XPATH_TREE_PARENT}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/Text[@Name='Lvl1 a']
-${XPATH_TREE_CHILD}         ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/TreeItem[@Name='Lvl2 a']/Text[@Name='Lvl2 a']
+${EXPECTED_CONTEXT_MENU}        ${MAIN_WINDOW}/Window/Menu
+${CONTEXT_MENUITEM1}            ${MAIN_WINDOW}/Window/Menu/MenuItem[@Name='Context 1']
+${CLICK_BUTTON}                 ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='InvokableButton']
+${HOLD_BUTTON}                  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ClickAndHoldButton']
+${RIGHT_CLICK_BUTTON}           ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
+${DOUBLE_CLICK_BUTTON}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/CheckBox[@Name='3-Way Test Checkbox']
+${XPATH_GRID_VIEW}              ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
+${DRAG_FROM}                    ${XPATH_GRID_VIEW}/Header/HeaderItem[3]/Text
+${DRAG_TO}                      ${XPATH_GRID_VIEW}/Header/HeaderItem[1]/Text
+${SOME_MENUITEM}                ${EXPECTED_CONTEXT_MENU}/MenuItem[@Name='Some MenuItem']/Text[@Name='Some MenuItem']
+${POPUP_TOGGLE_BUTTON}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='PopupToggleButton2']
+${ENABLE_BUTTON}                ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
+${READY_TO_TAKE_OFF_TEXT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']/Text[@Name='Ready to take off']
+${TOGGLE_BUTTON}                ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
+${XPATH_COMBO_BOX}              ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
+${XPATH_COMBO_BOX_ITEM}         ${XPATH_COMBO_BOX}/ListItem[@Name='Item 3']/Text[@Name='Item 3']
+${XPATH_TREE_PARENT}            ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/Text[@Name='Lvl1 a']
+${XPATH_TREE_CHILD}             ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/TreeItem[@Name='Lvl2 a']/Text[@Name='Lvl2 a']
 
 
 *** Test Cases ***
@@ -58,25 +55,19 @@ Left Click And Hold
     Click Hold    ${HOLD_BUTTON}    2050
     ${status1}    Run Keyword And Return Status    Name Contains Text    2,    ${HOLD_BUTTON}    # DE number
     ${status2}    Run Keyword And Return Status    Name Contains Text    2.    ${HOLD_BUTTON}    # US Number
-    IF    ${status1}==${False} and ${status2}==${False}
-        Fail    Click And Hold did not work
-    END
+    Should Be True    not ${status1} or not ${status2}    Click And Hold did not work
 
 Double Click And Hold
     Double Click Hold    ${HOLD_BUTTON}    3050
     ${status1}    Run Keyword And Return Status    Name Contains Text    3,    ${HOLD_BUTTON}    # DE number
     ${status2}    Run Keyword And Return Status    Name Contains Text    3.    ${HOLD_BUTTON}    # US Number
-    IF    ${status1}==${False} and ${status2}==${False}
-        Fail    Click And Hold did not work
-    END
+    Should Be True    not ${status1} or not ${status2}    Double Click And Hold did not work
 
 Right Click And Hold
     Right Click Hold    ${HOLD_BUTTON}    4050
     ${status1}    Run Keyword And Return Status    Name Contains Text    4,    ${HOLD_BUTTON}    # DE number
     ${status2}    Run Keyword And Return Status    Name Contains Text    4.    ${HOLD_BUTTON}    # US Number
-    IF    ${status1}==${False} and ${status2}==${False}
-        Fail    Click And Hold did not work
-    END
+    Should Be True    not ${status1} or not ${status2}    Right Click And Hold not work
 
 Move To
     Move To    ${RIGHT_CLICK_BUTTON}
@@ -100,9 +91,9 @@ Double Click Open Double Click Close
     Element Should Not Exist    ${XPATH_TREE_CHILD}
 
 Left Click Open
-    Click Open    ${MAIN_WINDOW_SIMPLE_CONTROLS}    ${PopupToggle2_BUTTON}    ${MAIN_WINDOW}
-    Click Open    ${PopupToggle2_BUTTON}    ${SOME_MENUITEM}
-    Click Open    ${ENABLE_BUTTON}    ${READYTOTAKEOFF_TEXT}
+    Click Open    ${MAIN_WINDOW_SIMPLE_CONTROLS}    ${POPUP_TOGGLE_BUTTON}    ${MAIN_WINDOW}
+    Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
+    Click Open    ${ENABLE_BUTTON}    ${READY_TO_TAKE_OFF_TEXT}
     # Hold Button is already there. It should not be any click action
     Click Open    ${TOGGLE_BUTTON}    ${HOLD_BUTTON}
     ${state}    Get Toggle State    ${TOGGLE_BUTTON}
@@ -114,11 +105,11 @@ Left Click Open
 
 Left Click Open Error Cannot Open
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_OPENED}    ${XPATH_NOT_EXISTS}    ${CLICK_BUTTON}
-    Run Keyword and Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${CLICK_BUTTON}    ${XPATH_NOT_EXISTS}
+    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${CLICK_BUTTON}    ${XPATH_NOT_EXISTS}
 
 Left Click Open Error Not Exist
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
-    Run Keyword and Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
+    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
 
 Right Click Open
     Right Click Open    ${RIGHT_CLICK_BUTTON}    ${CONTEXT_MENUITEM1}
@@ -132,15 +123,15 @@ Left Click Close
     Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
 
 Left Click Close Error Cannot Close
-    Click Open    ${PopupToggle2_BUTTON}    ${SOME_MENUITEM}
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_CLOSED}    ${SOME_MENUITEM}    ${PopupToggle2_BUTTON}
-    Run Keyword and Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Close    ${PopupToggle2_BUTTON}    ${SOME_MENUITEM}
+    Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_CLOSED}    ${SOME_MENUITEM}    ${POPUP_TOGGLE_BUTTON}
+    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Close    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
     Element Should Exist    ${SOME_MENUITEM}
 
 Left Click Close Error Not Exist
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
     Click Close    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    EQUALS: ${EXP_ERR_MSG}
     ...    Click Close
     ...    ${XPATH_NOT_EXISTS}
@@ -148,6 +139,6 @@ Left Click Close Error Not Exist
     ...    ignore_if_already_close=${False}
 
 Right Click Close
-    Click Open    ${PopupToggle2_BUTTON}    ${SOME_MENUITEM}
+    Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
     Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
-    Right Click Close    ${PopupToggle2_BUTTON}    ${XPATH_COMBO_BOX_ITEM}
+    Right Click Close    ${POPUP_TOGGLE_BUTTON}    ${XPATH_COMBO_BOX_ITEM}

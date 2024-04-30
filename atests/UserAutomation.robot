@@ -4,9 +4,7 @@ Documentation       Test suite for user automation keywords.
 
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Resource            util/Error.resource
 
 
 *** Test Cases ***

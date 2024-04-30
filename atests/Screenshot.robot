@@ -3,13 +3,13 @@ Documentation       Test suite for screenshot keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True
-Library             StringFormat
 Library             Process
 Library             String
 Library             OperatingSystem
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Library             StringFormat
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 
 *** Variables ***
@@ -27,7 +27,7 @@ Take No Screenshot If Module Is Disabled
     Take Screenshots On Failure    True
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
-    FOR    ${INDEX}    IN RANGE    1    3
+    FOR    ${_}    IN RANGE    1    3
         ${FILENAME}    Get Expected Filename    ${TEST_NAME}
         ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
@@ -36,7 +36,7 @@ Take Screenshot If XPath Not Found Multiple Times Default Folder
 
 Take Screenshot If XPath Not Found Multiple Times By Specific Folder
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
-    FOR    ${INDEX}    IN RANGE    1    3
+    FOR    ${_}    IN RANGE    1    3
         ${FILENAME}    Get Expected Filename    ${TEST_NAME}
         ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
         Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
@@ -69,8 +69,7 @@ No Screenshots Are Created After Blacklist
     [Setup]    Reset
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
     ${FILENAME}    Get Expected Filename    No Screenshots Are Created After Blacklist
-    @{blacklist}    Create List
-    ...    BuiltIn.Wait Until Keyword Succeeds
+    VAR    @{blacklist}    BuiltIn.Wait Until Keyword Succeeds
     ...    BuiltIn.Run Keyword And Ignore Error
     ...    BuiltIn.Fail
     Set Screenshot Blacklist    ${blacklist}
@@ -83,7 +82,7 @@ Screenshots Are Persisted From Whitelist
     [Setup]    Reset
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
     ${FILENAME}    Get Expected Filename    Screenshots Are Persisted From Whitelist
-    @{whitelist}    Create List    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Fail
+    VAR    @{whitelist}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Fail
     Set Screenshot Whitelist    ${whitelist}
     Run Keyword And Ignore Error    Fail    You Should Not Pass
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
@@ -94,8 +93,7 @@ Blacklist Is Prioritize From Whitelist
     [Setup]    Reset
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
     ${FILENAME}    Get Expected Filename    Blacklist Is Prioritize From Whitelist
-    @{list}    Create List
-    ...    BuiltIn.Wait Until Keyword Succeeds
+    VAR    @{list}    BuiltIn.Wait Until Keyword Succeeds
     ...    BuiltIn.Run Keyword And Ignore Error
     ...    BuiltIn.Fail
     Set Screenshot Whitelist    ${list}
@@ -113,8 +111,8 @@ Reset
     Clear Whitelist
 
 Get Expected Filename
-    [Arguments]    ${TEST_NAME}
-    ${FILENAME}    Convert To Lowercase    ${TEST_NAME}
+    [Arguments]    ${TEST_FILENAME}
+    ${FILENAME}    Convert To Lowercase    ${TEST_FILENAME}
     ${HOSTNAME}    Convert To Lowercase    %{COMPUTERNAME}
 
     Should Be Lowercase    ${FILENAME}

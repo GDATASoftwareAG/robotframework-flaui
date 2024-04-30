@@ -3,14 +3,14 @@ Documentation       Test suite for element keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             Process
-Library             StringFormat
-Library             DateTime
 Library             Collections
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Library             DateTime
+Library             StringFormat
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Init Main Application
 Suite Teardown      Stop Application    ${MAIN_PID}
@@ -113,21 +113,21 @@ Find All Elements
         ${Name}    Set Variable    ${element.Name}
         ${ClassName}    Set Variable    ${element.ClassName}
 
-        IF    ${index} == 0
+        IF    ${index} == ${0}
             Should Contain    ${Xpath}    /Tab/TabItem[1]
             Should Contain    ${Id}    /Tab/TabItem[@AutomationId="SimpleControl"]
             Should Contain    ${Name}    /Tab/TabItem[@Name="Simple Controls"]
             Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
         END
 
-        IF    ${index} == 1
+        IF    ${index} == ${1}
             Should Contain    ${Xpath}    /Tab/TabItem[2]
             Should Contain    ${Id}    ${EMPTY}
             Should Contain    ${Name}    /Tab/TabItem[@Name="Complex Controls"]
             Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
         END
 
-        IF    ${index} == 2
+        IF    ${index} == ${2}
             Should Contain    ${Xpath}    /Tab/TabItem[3]
             Should Contain    ${Id}    ${EMPTY}
             Should Contain    ${Name}    /Tab/TabItem[@Name="Keyboard Controls"]
@@ -139,6 +139,7 @@ Find All Elements
 
 Find All Elements Not Supported Exception Should Return Empty String
     ${PID}    Start Application    ${TEST_APP_MFC}
+    VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
     Wait Until Element Exist    ${XPATH_MFC_APP_MENU_FILE}
 
     ${index}    Set Variable    ${0}
@@ -151,7 +152,7 @@ Find All Elements Not Supported Exception Should Return Empty String
         ${Name}    Set Variable    ${element.Name}
         ${ClassName}    Set Variable    ${element.ClassName}
 
-        IF    ${index} == 0
+        IF    ${index} == ${0}
             Should Not Be Empty    ${Xpath}
             Should Be Empty    ${Id}
             Should Not Be Empty    ${Name}
@@ -163,7 +164,6 @@ Find All Elements Not Supported Exception Should Return Empty String
     [Teardown]    Stop Application    ${PID}    ${TEST_APP_MFC}
 
 Find All Elements If Xpath Is Wrong
-    ${index}    Set Variable    ${0}
     ${elements}    Find All Elements    /NOT_A_XPATH
     Length Should Be    ${elements}    0
 
@@ -177,6 +177,7 @@ Is Element Not Offscreen
 
 Wait Until Element Is Offscreen
     ${PID}    Start Application    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}
+    VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
     Wait Until Element Is Offscreen    ${MAIN_WINDOW_NOTIFIER}
     Element Should Not Exist    ${MAIN_WINDOW_NOTIFIER}
 
@@ -242,6 +243,7 @@ Wait Until Element Is Enabled Timeout Wrong Number
 
 Wait Until Element Does Not Exists
     ${PID}    Start Application    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}
+    VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
     Wait Until Element Does Not Exist    ${MAIN_WINDOW_NOTIFIER}
     Element Should Not Exist    ${MAIN_WINDOW_NOTIFIER}
 

@@ -3,12 +3,12 @@ Documentation       Test suite for property keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
+Library             Collections
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
-Library             Collections
-Resource            util/Error.robot
-Resource            util/Common.robot
-Resource            util/XPath.robot
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Init Main Application
 Suite Teardown      Stop Application    ${MAIN_PID}
@@ -47,7 +47,7 @@ Wrong Background Color Should Raise An Exception
     ${expected_color}    Evaluate    (0, 0, 0, 0)
     ${wrong_color}    Evaluate    (0, 128, 0, 0)
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_color}    ${wrong_color}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Background Color Should Be    ${TEXT_ELEMENT}    ${wrong_color}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Background Color Should Be    ${TEXT_ELEMENT}    ${wrong_color}
 
 Get Foreground Color
     ${expected_color}    Evaluate    (0, 128, 0, 0)
@@ -67,7 +67,7 @@ Wrong Foreground Color Should Raise An Exception
     ${expected_color}    Evaluate    (0, 128, 0, 0)
     ${wrong_color}    Evaluate    (0, 0, 0, 0)
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_color}    ${wrong_color}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Foreground Color Should Be    ${TEXT_ELEMENT}    ${wrong_color}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Foreground Color Should Be    ${TEXT_ELEMENT}    ${wrong_color}
 
 Get Font Size
     ${expected_font_size}    Convert To Number    9.0
@@ -81,13 +81,13 @@ Get Font Size From Element
 
 Font Size Should Be
     ${expected_font_size}    Convert To Number    9.0
-    ${font_size}    Font Size Should Be    ${TEXT_ELEMENT}    ${expected_font_size}
+    Font Size Should Be    ${TEXT_ELEMENT}    ${expected_font_size}
 
 Wrong Font Size Should Raise An Exception
     ${expected_font_size}    Convert To Number    9.0
     ${wrong_font_size}    Convert To Number    8.9
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_font_size}    ${wrong_font_size}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Font Size Should Be    ${TEXT_ELEMENT}    ${wrong_font_size}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Font Size Should Be    ${TEXT_ELEMENT}    ${wrong_font_size}
 
 Get Font Name
     ${expected_font_name}    Convert To String    Segoe UI
@@ -107,7 +107,7 @@ Wrong Font Name Should Raise An Exception
     ${expected_font_name}    Convert To String    Segoe UI
     ${wrong_font_name}    Convert To String    Arial
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_font_name}    ${wrong_font_name}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Font Name Should Be    ${TEXT_ELEMENT}    ${wrong_font_name}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Font Name Should Be    ${TEXT_ELEMENT}    ${wrong_font_name}
 
 Get Font Weight
     ${expected_font_weight}    Convert To Number    400.0
@@ -127,7 +127,7 @@ Wrong Font Weight Should Raise An Exception
     ${expected_font_weight}    Convert To Number    400.0
     ${wrong_font_weight}    Convert To Number    399
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_font_weight}    ${wrong_font_weight}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Font Weight Should Be    ${TEXT_ELEMENT}    ${wrong_font_weight}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Font Weight Should Be    ${TEXT_ELEMENT}    ${wrong_font_weight}
 
 Get Culture
     ${UIA}    Get Variable Value    ${UIA}
@@ -174,7 +174,7 @@ Wrong Culture Should Raise An Exception
         ${wrong_culture}    Convert To String    de-DE
         ${expected_culture}    Convert To String    en-US
         ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ${expected_culture}    ${wrong_culture}
-        Run Keyword and Expect Error    ${EXP_ERR_MSG}    Culture Should Be    ${TEXT_ELEMENT}    ${wrong_culture}
+        Run Keyword And Expect Error    ${EXP_ERR_MSG}    Culture Should Be    ${TEXT_ELEMENT}    ${wrong_culture}
     END
 
 Is Hidden
@@ -198,7 +198,7 @@ Window Visual State Should Be
 
 Wrong Window Visual State Should Raise An Exception
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    Normal    Maximized
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Window Visual State Should Be    ${WINDOW_ELEMENT}    Maximized
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Window Visual State Should Be    ${WINDOW_ELEMENT}    Maximized
 
 Get Window Interaction State
     Focus    ${WINDOW_ELEMENT}
@@ -216,7 +216,7 @@ Window Interaction State Should Be
 Wrong Window Interaction State Should Raise An Exception
     Focus    ${WINDOW_ELEMENT}
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    ReadyForUserInteraction    NotResponding
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG}
     ...    Window Interaction State Should Be
     ...    ${WINDOW_ELEMENT}
@@ -235,7 +235,7 @@ Toggle State Should Be
 
 Wrong Toggle State Should Raise An Exception
     ${EXP_ERR_MSG}    Format String    ${EXP_PROPERTY_INEQUAL}    OFF    ON
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Toggle State Should Be    ${TOGGLE_ELEMENT}    ON
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Toggle State Should Be    ${TOGGLE_ELEMENT}    ON
 
 Set Visual State To
     Window Visual State Should Be    ${WINDOW_ELEMENT}    Normal

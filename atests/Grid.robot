@@ -2,13 +2,13 @@
 Documentation       Test suite for grid ui keyword usage.
 ...
 
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             Process
-Library             StringFormat
 Library             Collections
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Library             StringFormat
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Run Keywords    Init Main Application
 ...                     AND    Open Complex Tab
@@ -65,7 +65,7 @@ Select Grid Row By Index Single
 
 Select Grid Row By Index Single Only
     Element Should Exist    ${XPATH_SINGLE_GRID_VIEW}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_GRID_ONLY_SINGLE_SELECT}
     ...    Select Grid Row By Index
     ...    ${XPATH_SINGLE_GRID_VIEW}
@@ -73,11 +73,11 @@ Select Grid Row By Index Single Only
 
 Select Grid Row By Index With Wrong Index Number
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}    -2000    ${XPATH_GRID_VIEW}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Select Grid Row By Index    ${XPATH_GRID_VIEW}    -2000
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Select Grid Row By Index    ${XPATH_GRID_VIEW}    -2000
 
 Select Grid Row By Index With Wrong Index Usage
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    NOT_AN_ARRAY    ${XPATH_GRID_VIEW}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Select Grid Row By Index    ${XPATH_GRID_VIEW}    NOT_AN_ARRAY
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Select Grid Row By Index    ${XPATH_GRID_VIEW}    NOT_AN_ARRAY
 
 Select Grid Row By Name
     Select Grid Row By Name    ${XPATH_GRID_VIEW}    0    Doe
@@ -98,7 +98,7 @@ Select Grid Row By Name Single
 
 Select Grid Row By Name Single Only
     Element Should Exist    ${XPATH_SINGLE_GRID_VIEW}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_GRID_ONLY_SINGLE_SELECT}
     ...    Select Grid Row By Name
     ...    ${XPATH_SINGLE_GRID_VIEW}
@@ -110,7 +110,7 @@ Select Grid Row By Name Wrong Name Or Index
     ...    ${EXP_ERR_MSG_LISTVIEW_ITEM_NOT_FOUND}
     ...    Simple item which does not exist
     ...    -2000
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG}
     ...    Select Grid Row By Name
     ...    ${XPATH_GRID_VIEW}
@@ -119,7 +119,7 @@ Select Grid Row By Name Wrong Name Or Index
 
 Select Grid Row By Name Wrong Index Usage
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    NOT_AN_ARRAY    ${XPATH_GRID_VIEW}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG}
     ...    Select Grid Row By Name
     ...    ${XPATH_GRID_VIEW}

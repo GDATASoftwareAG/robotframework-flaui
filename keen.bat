@@ -49,9 +49,15 @@ EXIT /B %ERRORLEVEL%
   python -m robotidy atests --check
 EXIT /B %ERRORLEVEL%
 
+:robocop
+  python -m robocop atests --configure return_status:quality_gate:E=0:W=0:I=0
+EXIT /B %ERRORLEVEL%
+
 :test
     call:install
     set /A result = %ERRORLEVEL%
+    call:robocop
+    if %result%==0 set /A result = %ERRORLEVEL%
     call:pylint
     if %result%==0 set /A result = %ERRORLEVEL%
     call:tidy

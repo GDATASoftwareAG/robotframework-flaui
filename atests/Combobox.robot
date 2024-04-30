@@ -3,13 +3,13 @@ Documentation       Test suite for combobox keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
-Library             Process
-Library             StringFormat
 Library             Collections
-Resource            util/Common.robot
-Resource            util/Error.robot
-Resource            util/XPath.robot
+Library             Process
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
+Library             StringFormat
+Resource            util/Common.resource
+Resource            util/Error.resource
+Resource            util/XPath.resource
 
 Suite Setup         Init Main Application
 Suite Teardown      Stop Application    ${MAIN_PID}
@@ -34,23 +34,23 @@ Get All Selected Names From Combobox If Nothing Is Selected
 
 Get All Selected Texts From Combobox
     Select Combobox Item By Index    ${XPATH_COMBO_BOX}    1
-    ${EXPECTED_LIST}    Create List    Item 2
+    VAR    @{EXPECTED_LIST}    Item 2
     ${DATA}    Get All Selected Texts From Combobox    ${XPATH_COMBO_BOX}
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
     Select Combobox Item By Index    ${XPATH_COMBO_BOX}    0
-    ${EXPECTED_LIST}    Create List    Item 1
+    VAR    @{EXPECTED_LIST}    Item 1
     ${DATA}    Get All Selected Texts From Combobox    ${XPATH_COMBO_BOX}
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
 Get All Selected Names From Combobox
     Select Combobox Item By Index    ${XPATH_COMBO_BOX}    1
-    ${EXPECTED_LIST}    Create List    Item 2
+    VAR    @{EXPECTED_LIST}    Item 2
     ${DATA}    Get All Selected Names From Combobox    ${XPATH_COMBO_BOX}
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
     Select Combobox Item By Index    ${XPATH_COMBO_BOX}    0
-    ${EXPECTED_LIST}    Create List    Item 1
+    VAR    @{EXPECTED_LIST}    Item 1
     ${DATA}    Get All Selected Names From Combobox    ${XPATH_COMBO_BOX}
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
@@ -60,7 +60,7 @@ Combobox Should Contain
 
 Combobox Should Contain Wrong Item
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_CONTROL_DOES_NOT_CONTAIN_ITEM}    ${COMBO_BOX_NO_ITEM}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG}
     ...    Combobox Should Contain
     ...    ${XPATH_COMBO_BOX}
@@ -91,11 +91,11 @@ Select Combobox Item By Index Range
 
 Select Combobox Item By Index Wrong Index Number
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}    -2000    ${XPATH_COMBO_BOX}
-    Run Keyword and Expect Error    ${EXP_ERR_MSG}    Select Combobox Item By Index    ${XPATH_COMBO_BOX}    -2000
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Select Combobox Item By Index    ${XPATH_COMBO_BOX}    -2000
 
 Select Combobox Item By Index Wrong Index Usage
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    NOT_AN_ARRAY    ${XPATH_COMBO_BOX}
-    Run Keyword and Expect Error
+    Run Keyword And Expect Error
     ...    ${EXP_ERR_MSG}
     ...    Select Combobox Item By Index
     ...    ${XPATH_COMBO_BOX}
@@ -104,19 +104,19 @@ Select Combobox Item By Index Wrong Index Usage
 Get All Names From Combobox
     ${DATA}    Get All Names From Combobox    ${XPATH_COMBO_BOX}
     Check Combobox State    ${XPATH_COMBO_BOX}    Collapsed
-    ${EXPECTED_LIST}    Create List    Item 1    Item 2    Item 3    Item 4
+    VAR    @{EXPECTED_LIST}    Item 1    Item 2    Item 3    Item 4
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
 Get All Texts From Combobox
     ${DATA}    Get All Texts From Combobox    ${XPATH_COMBO_BOX}
     Check Combobox State    ${XPATH_COMBO_BOX}    Collapsed
-    ${EXPECTED_LIST}    Create List    Item 1    Item 2    Item 3    Item 4
+    VAR    @{EXPECTED_LIST}    Item 1    Item 2    Item 3    Item 4
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
 
 Expand and Collapse Combobox
     Expand Combobox    ${XPATH_COMBO_BOX}
     ${DATA}    Get All Texts From Combobox    ${XPATH_COMBO_BOX}
-    ${EXPECTED_LIST}    Create List    Item 1    Item 2    Item 3    Item 4
+    VAR    @{EXPECTED_LIST}    Item 1    Item 2    Item 3    Item 4
     Lists Should Be Equal    ${DATA}    ${EXPECTED_LIST}
     Collapse Combobox    ${XPATH_COMBO_BOX}
 

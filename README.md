@@ -163,7 +163,9 @@ Following arguments are supported:
   * test - Test robotframework-flaui (UIA2 and UIA3)
   * test_uia2 - Test UIA2 interface usage
   * test_uia3 - Test UIA3 interface usage
-  * pylint - Static code analysis for PEP 8. Generates pylint.html file in results.
+  * pylint - Static code analysis for python code
+  * robocop - Static code analysis for robotframework code
+  * tidy - Formatter for robotframework code
 
 ## Acknowledgements
 
