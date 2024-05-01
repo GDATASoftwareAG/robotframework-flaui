@@ -3,7 +3,6 @@ from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
-from FlaUILibrary.flaui.enum import ScreenshotMode
 from FlaUILibrary.keywords import (ApplicationKeywords,
                                    CheckBoxKeywords,
                                    ComboBoxKeywords,
@@ -115,7 +114,6 @@ class FlaUILibrary(DynamicCore):
         i.e. the directory where output and log files are generated.
         """
         # FlaUI init
-        self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
         self.builtin = BuiltIn()
 
         try:
@@ -158,31 +156,13 @@ class FlaUILibrary(DynamicCore):
         DynamicCore.__init__(self, self.libraries)
 
     def _start_test(self, name, attrs):  # pylint: disable=unused-argument
-        self.mode = FlaUILibrary.RobotMode.TEST_RUNNING
-        self.screenshots.name = name.replace(" ", "_").lower()
-        self.screenshots.execute_action(Screenshot.Action.RESET,
-                                        Screenshot.create_value_container())
-
-    def _end_test(self, name, attrs):  # pylint: disable=unused-argument
-        self.mode = FlaUILibrary.RobotMode.TEST_NOT_RUNNING
-        if attrs['status'] == 'PASS' and self.screenshots.is_enabled:
-            if not self.screenshots.execute_action(Screenshot.Action.DELETE_ALL_SCREENSHOTS,
-                                                   Screenshot.create_value_container()):
-                robotlog.log("Not all files were deleted")
+        self.screenshots.set_name(name)
+        self.screenshots.img_counter = 1
 
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
-        if name in self.screenshots.blacklist:
-            # Keyword in blacklist do not screenshot anything
-            return
-
         if attrs['status'] == 'FAIL' \
-                and self.mode == FlaUILibrary.RobotMode.TEST_RUNNING \
-                and self.screenshots.is_enabled:
-
-            mode = ScreenshotMode.TEMP
-
-            if name in self.screenshots.whitelist:
-                mode = ScreenshotMode.PERSIST
+                and self.screenshots.is_enabled \
+                and attrs['libname'] == "FlaUILibrary":
 
             self.screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                            Screenshot.create_value_container(mode))
+                                            Screenshot.create_value_container())

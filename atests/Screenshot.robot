@@ -65,51 +65,17 @@ Test Case 1234: Something to Test
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
 
-No Screenshots Are Created After Blacklist
-    [Setup]    Reset
+No Screenshots Should Created For No Library Keywords
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
-    ${FILENAME}    Get Expected Filename    No Screenshots Are Created After Blacklist
-    VAR    @{blacklist}    BuiltIn.Wait Until Keyword Succeeds
-    ...    BuiltIn.Run Keyword And Ignore Error
-    ...    BuiltIn.Fail
-    Set Screenshot Blacklist    ${blacklist}
-    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    10ms    Fail    You Should Not Pass
+    ${FILENAME}    Get Expected Filename    No Screenshots Should Created For No Library Keywords
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Set Screenshot Directory
-    [Teardown]    Reset
-
-Screenshots Are Persisted From Whitelist
-    [Setup]    Reset
-    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
-    ${FILENAME}    Get Expected Filename    Screenshots Are Persisted From Whitelist
-    VAR    @{whitelist}    BuiltIn.Run Keyword And Ignore Error    BuiltIn.Fail
-    Set Screenshot Whitelist    ${whitelist}
     Run Keyword And Ignore Error    Fail    You Should Not Pass
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Set Screenshot Directory
-    [Teardown]    Reset
-
-Blacklist Is Prioritize From Whitelist
-    [Setup]    Reset
-    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
-    ${FILENAME}    Get Expected Filename    Blacklist Is Prioritize From Whitelist
-    VAR    @{list}    BuiltIn.Wait Until Keyword Succeeds
-    ...    BuiltIn.Run Keyword And Ignore Error
-    ...    BuiltIn.Fail
-    Set Screenshot Whitelist    ${list}
-    Set Screenshot Blacklist    ${list}
     Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    10ms    Fail    You Should Not Pass
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
-    [Teardown]    Reset
 
 
 *** Keywords ***
-Reset
-    Take Screenshots On Failure    True
-    Clear Blacklist
-    Clear Whitelist
-
 Get Expected Filename
     [Arguments]    ${TEST_FILENAME}
     ${FILENAME}    Convert To Lowercase    ${TEST_FILENAME}
