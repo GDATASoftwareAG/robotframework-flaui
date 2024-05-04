@@ -1,7 +1,8 @@
 import re
-from typing import Any
+from typing import Any, Union
 from System import TimeSpan  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.util.automationelement import AutomationElement
 
 
 class Converter:
@@ -58,6 +59,20 @@ class Converter:
             return ""
 
         return str(value)
+
+    @staticmethod
+    def cast_to_xpath_string(value: Union[str, AutomationElement]):
+        """
+        Helper to cast value as xpath string.
+        If value is None empty string will be returned.
+
+        Args:
+            value (Object): Value to convert
+        """
+        if isinstance(value, AutomationElement):
+            return Converter.cast_to_string(value.Xpath)
+
+        return Converter.cast_to_string(value)
 
     @staticmethod
     def cast_to_bool(value: Any):

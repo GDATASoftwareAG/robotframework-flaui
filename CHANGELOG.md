@@ -7,6 +7,19 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+  - [#185](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/185) Include AutomationElement Keyword usage
+    - AutomationElement object from Find All Elements Keyword can be used for all FlaUILibrary Keywords directly
+    ```
+    @{elements}    Find All Elements    //*[@AutomationId="CarouselMenuText"]
+
+    FOR    ${element}    IN    @{elements}
+      ${name}    Get Name From Element    ${element}
+      Log  ${name}
+    END
+    ```
+
 ## [Release][3.0.3] [3.0.3][3.0.2-3.0.3] - 2024-04-07
 
 ### Bugfix
@@ -18,7 +31,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   
 ### Added
 
-  - [#1170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keyword
+  - [#170](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/170) New Keyword
     - Get Header From Grid
   - [#167](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/167) New Keyword
     - Set Tree Item Seperator

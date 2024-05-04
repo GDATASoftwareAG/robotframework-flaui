@@ -49,6 +49,10 @@ EXIT /B %ERRORLEVEL%
   python -m robotidy atests --check
 EXIT /B %ERRORLEVEL%
 
+:tidy-fix
+  python -m robotidy atests
+EXIT /B %ERRORLEVEL%
+
 :robocop
   python -m robocop atests --configure return_status:quality_gate:E=0:W=0:I=0
 EXIT /B %ERRORLEVEL%
