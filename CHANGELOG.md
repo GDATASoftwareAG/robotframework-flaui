@@ -19,6 +19,15 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
       Log  ${name}
     END
     ```
+    
+### Changed
+
+  - [#169](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/169), [#179](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/179), [#168](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/168) Redesign from screenshots module
+    - Screenshots are only created from FlaUILibrary keywords
+
+### Removed
+  - [#169](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/169), [#179](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/179), [#168](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/168) Redesign from screenshots module
+    - Blacklist and Whitelist Keywords removed from FlaUILibrary
 
 ## [Release][3.0.3] [3.0.3][3.0.2-3.0.3] - 2024-04-07
 
