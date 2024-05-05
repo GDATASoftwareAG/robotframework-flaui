@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][3.1.0] [3.1.0][3.0.3-3.1.0] - 2024-05-05
+
 ### Added
 
   - [#185](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/185) Include AutomationElement Keyword usage
@@ -632,7 +634,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.0.3...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.1.0...main
+
+[3.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.1.0
+
+[3.0.3-3.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.0.3...3.1.0
 
 [3.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.0.3
 
