@@ -137,6 +137,14 @@ Find All Elements
         ${index}    Set Variable    ${index + 1}
     END
 
+Find All Elements Xpath Usage Can Be Used To Any Keyword
+    ${elements}    Find All Elements    ${MAIN_WINDOW_CONTROLS}
+    Length Should Be    ${elements}    3
+
+    FOR    ${element}    IN    @{elements}
+        Element Should Exist    ${element}
+    END
+
 Find All Elements Not Supported Exception Should Return Empty String
     ${PID}    Start Application    ${TEST_APP_MFC}
     VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL

@@ -1,6 +1,6 @@
 import time
 from enum import Enum
-from typing import Optional, Any
+from typing import Optional, Any, Union
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import InvalidOperationException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
@@ -21,7 +21,7 @@ class Element(ModuleInterface):
         """
         Value container from element module.
         """
-        xpath: Optional[str]
+        xpath: Union[str, AutomationElement]
         name: Optional[str]
         use_exception: Optional[bool]
         retries: Optional[int]
@@ -71,13 +71,13 @@ class Element(ModuleInterface):
 
         Args:
             name (String): Name from element
-            xpath (String): Searched element as xpath
+            xpath (String | AutomationElement): Searched element as xpath from string or AutomationElement
             retries (Number): Retry counter to repeat calls as number
             use_exception (Bool) : Indicator to ignore exception handling by Flaui
             msg (String): Optional error message
         """
         return Element.Container(name=Converter.cast_to_string(name),
-                                 xpath=Converter.cast_to_string(xpath),
+                                 xpath=Converter.cast_to_xpath_string(xpath),
                                  use_exception=Converter.cast_to_bool(use_exception),
                                  retries=Converter.cast_to_int(retries, msg))
 
@@ -217,7 +217,6 @@ class Element(ModuleInterface):
     def _get_element_by_xpath(self, xpath: str):
         """
         Try to get element from xpath by desktop.
-        Different from self._get_element, it is abstracted from timeout and error handling.
 
         Args:
             xpath (string): XPath identifier from element.
@@ -225,6 +224,12 @@ class Element(ModuleInterface):
         return self._automation.GetDesktop().FindFirstByXPath(xpath)
 
     def _find_all_elements(self, xpath: str):
+        """
+        Try to find all elements from xpath by desktop.
+
+        Args:
+            xpath (string): XPath identifier from element.
+        """
         values = []
         elements = self._get_all_elements_by_xpath(xpath)
         for element in elements:
