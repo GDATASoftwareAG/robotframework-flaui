@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Bugfix
+
+- [#187](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/187) uncatched exception in reliable cliks
+  - exception catching added
+
 ## [Release][3.1.0] [3.1.0][3.0.3-3.1.0] - 2024-05-05
 
 ### Added
