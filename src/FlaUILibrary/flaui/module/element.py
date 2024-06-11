@@ -4,7 +4,7 @@ from typing import Optional, Any, Union
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import InvalidOperationException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
-from FlaUI.Core.Exceptions import PropertyNotSupportedException  # pylint: disable=import-error
+from FlaUI.Core.Exceptions import PropertyNotSupportedException, ElementNotAvailableException # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
@@ -221,7 +221,10 @@ class Element(ModuleInterface):
         Args:
             xpath (string): XPath identifier from element.
         """
-        return self._automation.GetDesktop().FindFirstByXPath(xpath)
+        try:
+            return self._automation.GetDesktop().FindFirstByXPath(xpath)
+        except ElementNotAvailableException:
+            return None
 
     def _find_all_elements(self, xpath: str):
         """
