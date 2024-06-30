@@ -180,3 +180,28 @@ class GridKeywords:
         return module.action(Grid.Action.GET_ROW_COUNT,
                              Grid.create_value_container(element=element, msg=msg),
                              msg)
+
+    @keyword
+    def get_grid_columns_count(self, identifier, msg=None):
+        """
+        Return count of columns from data grid.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | ${COUNT}  Get Grid Columns Count  <XPATH> |
+        | Should Be Equal  ${COUNT}  <VALUE_TO_COMPARE> |
+
+        """
+        module = self._container.create_or_get_module()
+        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        return module.action(Grid.Action.GET_COLUMN_COUNT,
+                             Grid.create_value_container(element=element, msg=msg),
+                             msg)

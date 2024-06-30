@@ -45,6 +45,10 @@ Get Grid Rows Count
     ${COUNT}    Get Grid Rows Count    ${XPATH_GRID_VIEW}
     Should Be Equal As Integers    ${COUNT}    3
 
+Get Grid Columns Count
+    ${COUNT}    Get Grid Columns Count    ${XPATH_GRID_VIEW}
+    Should Be Equal As Integers    ${COUNT}    3
+
 Select Grid Row By Index
     Element Should Exist    ${XPATH_GRID_VIEW}
     Select Grid Row By Index    ${XPATH_GRID_VIEW}    1
