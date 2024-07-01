@@ -2,6 +2,8 @@ from enum import Enum
 from typing import Optional, Any
 import time
 import FlaUI.Core.Input  # pylint: disable=import-error
+from FlaUI.Core.Input import Mouse as FlaUIMouse # pylint: disable=import-error
+from FlaUI.Core.Input import MouseButton # pylint: disable=import-error
 from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
@@ -43,6 +45,9 @@ class Mouse(ModuleInterface):
         LEFT_CLICK = "LEFT_CLICK"
         LEFT_CLICK_OPEN = "LEFT_CLICK_OPEN"
         LEFT_CLICK_CLOSE = "LEFT_CLICK_CLOSE"
+        MIDDLE_CLICK = "MIDDLE_CLICK"
+        MIDDLE_CLICK_OPEN = "MIDDLE_CLICK_OPEN"
+        MIDDLE_CLICK_CLOSE = "MIDDLE_CLICK_CLOSE"
         RIGHT_CLICK = "RIGHT_CLICK"
         RIGHT_CLICK_OPEN = "RIGHT_CLICK_OPEN"
         RIGHT_CLICK_CLOSE = "RIGHT_CLICK_CLOSE"
@@ -52,6 +57,7 @@ class Mouse(ModuleInterface):
         LEFT_CLICK_HOLD = "LEFT_CLICK_HOLD"
         RIGHT_CLICK_HOLD = "RIGHT_CLICK_HOLD"
         DOUBLE_CLICK_HOLD = "DOUBLE_CLICK_HOLD"
+        MIDDLE_CLICK_HOLD = "DOUBLE_CLICK_HOLD"
         MOVE_TO = "MOVE_TO"
         DRAG_AND_DROP = "DRAG_AND_DROP"
 
@@ -114,6 +120,12 @@ class Mouse(ModuleInterface):
                                                                     values["focus_element_xpath_after"],
                                                                     values["max_repeat"], values["timeout_in_ms"],
                                                                     values["ignore_if"]),
+            self.Action.MIDDLE_CLICK_OPEN: lambda: self._click_open(Mouse._middle_click, values["click_element_xpath"],
+                                                                    values["goal_element_xpath"],
+                                                                    values["focus_element_xpath_before"],
+                                                                    values["focus_element_xpath_after"],
+                                                                    values["max_repeat"], values["timeout_in_ms"],
+                                                                    values["ignore_if"]),
             self.Action.LEFT_CLICK_CLOSE: lambda: self._click_close(Mouse._click, values["click_element_xpath"],
                                                                     values["goal_element_xpath"],
                                                                     values["focus_element_xpath_before"],
@@ -133,11 +145,20 @@ class Mouse(ModuleInterface):
                                                                       values["focus_element_xpath_after"],
                                                                       values["max_repeat"], values["timeout_in_ms"],
                                                                       values["ignore_if"]),
+            self.Action.MIDDLE_CLICK_CLOSE: lambda: self._click_close(Mouse._middle_click,
+                                                                      values["click_element_xpath"],
+                                                                      values["goal_element_xpath"],
+                                                                      values["focus_element_xpath_before"],
+                                                                      values["focus_element_xpath_after"],
+                                                                      values["max_repeat"], values["timeout_in_ms"],
+                                                                      values["ignore_if"]),
             self.Action.RIGHT_CLICK: lambda: self._right_click(values["element"]),
+            self.Action.MIDDLE_CLICK: lambda: self._middle_click(values["element"]),
             self.Action.DOUBLE_CLICK: lambda: self._double_click(values["element"]),
             self.Action.LEFT_CLICK_HOLD: lambda: self._click_hold(values["element"], values["timeout_in_ms"]),
             self.Action.RIGHT_CLICK_HOLD: lambda: self._right_click_hold(values["element"], values["timeout_in_ms"]),
             self.Action.DOUBLE_CLICK_HOLD: lambda: self._double_click_hold(values["element"], values["timeout_in_ms"]),
+            self.Action.MIDDLE_CLICK_HOLD: lambda: self._middle_click_hold(values["element"], values["timeout_in_ms"]),
             self.Action.MOVE_TO: lambda: self._move_to(values["element"]),
             self.Action.DRAG_AND_DROP: lambda: self._drag_and_drop(values["element"], values["second_element"])
         }
@@ -252,6 +273,23 @@ class Mouse(ModuleInterface):
         FlaUI.Core.Input.Mouse.Down()
         time.sleep(float(timeout_in_ms) / 1000)
         FlaUI.Core.Input.Mouse.Up()
+
+    @staticmethod
+    def _middle_click(element: Any):
+        try:
+            return FlaUIMouse.Click(element.GetClickablePoint(), MouseButton.Middle)
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+
+    @staticmethod
+    def _middle_click_hold(element: Any, timeout_in_ms: int):
+        try:
+            FlaUI.Core.Input.Mouse.Position = element.GetClickablePoint()
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+        FlaUI.Core.Input.Mouse.Down(FlaUI.Core.Input.MouseButton.Middle)
+        time.sleep(float(timeout_in_ms) / 1000)
+        FlaUI.Core.Input.Mouse.Up(FlaUI.Core.Input.MouseButton.Middle)
 
     @staticmethod
     def _right_click(element: Any):
