@@ -1,5 +1,6 @@
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module import Mouse
+from FlaUILibrary.flaui.module.element import Element
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -41,6 +42,66 @@ class MouseKeywords:
                       msg)
 
     @keyword
+    def scroll_up(self, identifier, amount, if_focus=True, msg=None):
+        """
+        Scroll mouse wheel up to element by an XPath.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | amount     | string | Scroll amount                 |
+        | if_focus   | bool   | Whether to focus element before scroll |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Scroll Up  <XPATH>  10 |
+
+        """
+        module = self._container.create_or_get_module()
+        if if_focus:
+            module.action(Element.Action.FOCUS_ELEMENT,
+                        Element.create_value_container(xpath=identifier, msg=msg),
+                        msg)
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.SCROLL_UP,
+                      Mouse.create_value_container(element=element, scroll_amount=amount),
+                      msg)
+
+    @keyword
+    def scroll_down(self, identifier, amount, if_focus=True, msg=None):
+        """
+        Scroll mouse wheel down to element by an XPath.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        If element could not be found by xpath an error message will be thrown.
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | amount     | string | Scroll amount                 |
+        | if_focus   | bool   | Whether to focus element before scroll |
+        | msg        | string | Custom error message          |
+
+        Examples:
+        | Scroll Down  <XPATH>  1 |
+
+        """
+        module = self._container.create_or_get_module()
+        if if_focus:
+            module.action(Element.Action.FOCUS_ELEMENT,
+                        Element.create_value_container(xpath=identifier, msg=msg),
+                        msg)
+        element = module.get_element(identifier, msg=msg)
+        module.action(Mouse.Action.SCROLL_DOWN,
+                      Mouse.create_value_container(element=element, scroll_amount=amount),
+                      msg)
+
+    @keyword
     def click_hold(self, identifier, timeout_in_ms=1000, msg=None):
         """
         Left click and hold to element by XPath and release after timeout.
@@ -68,7 +129,7 @@ class MouseKeywords:
     @keyword
     def middle_click(self, identifier, msg=None):
         """
-        Left click to element by an XPath.
+        Middle click to element by an XPath.
 
         XPaths syntax is explained in `XPath locator`.
 

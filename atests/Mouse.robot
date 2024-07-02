@@ -30,6 +30,8 @@ ${READY_TO_TAKE_OFF_TEXT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Automatio
 ${TOGGLE_BUTTON}                ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ToggleButton']
 ${XPATH_COMBO_BOX}              ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='NonEditableCombo']
 ${XPATH_COMBO_BOX_ITEM}         ${XPATH_COMBO_BOX}/ListItem[@Name='Item 3']/Text[@Name='Item 3']
+${XPATH_EDITABLE_COMBO_BOX}     ${MAIN_WINDOW_SIMPLE_CONTROLS}/ComboBox[@AutomationId='EditableCombo']
+${XPATH_EDITABLE_COMBO_TEXT}    ${XPATH_EDITABLE_COMBO_BOX}/Edit[@AutomationId='PART_EditableTextBox']
 ${XPATH_TREE_PARENT}            ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/Text[@Name='Lvl1 a']
 ${XPATH_TREE_CHILD}             ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Tree']/Tree[@AutomationId='treeView1']/TreeItem[@Name='Lvl1 a']/TreeItem[@Name='Lvl2 a']/Text[@Name='Lvl2 a']
 
@@ -82,6 +84,18 @@ Middle Click And Hold
     ${status1}    Run Keyword And Return Status    Name Contains Text    4,    ${HOLD_BUTTON}    # DE number
     ${status2}    Run Keyword And Return Status    Name Contains Text    4.    ${HOLD_BUTTON}    # US Number
     Should Be True    not ${status1} or not ${status2}    Right Click And Hold not work
+
+Scroll UP
+    Select Combobox Item By Index    ${XPATH_EDITABLE_COMBO_BOX}    1
+    Scroll Up    ${XPATH_EDITABLE_COMBO_BOX}    10
+    ${TEXT}    Get Text From Textbox    ${XPATH_EDITABLE_COMBO_TEXT}
+    Should Be Equal    ${TEXT}    Item 1
+
+Scroll Down
+    Select Combobox Item By Index    ${XPATH_EDITABLE_COMBO_BOX}    1
+    Scroll Down    ${XPATH_EDITABLE_COMBO_BOX}    10
+    ${TEXT}    Get Text From Textbox    ${XPATH_EDITABLE_COMBO_TEXT}
+    Should Be Equal    ${TEXT}    Item 3
 
 Move To
     Move To    ${RIGHT_CLICK_BUTTON}

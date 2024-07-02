@@ -60,12 +60,14 @@ class Mouse(ModuleInterface):
         MIDDLE_CLICK_HOLD = "DOUBLE_CLICK_HOLD"
         MOVE_TO = "MOVE_TO"
         DRAG_AND_DROP = "DRAG_AND_DROP"
+        SCROLL_UP = "SCROLL_UP"
+        SCROLL_DOWN = "SCROLL_DOWN"
 
     @staticmethod
     def create_value_container(element=None, second_element=None, timeout_in_ms=None, max_repeat=None,
                                click_element_xpath=None, goal_element_xpath=None,
                                focus_element_xpath_before=None, focus_element_xpath_after=None,
-                               ignore_if=None):
+                               ignore_if=None, scroll_amount=None):
         # pylint: disable=C0301
         """
         Helper to create container object.
@@ -80,6 +82,7 @@ class Mouse(ModuleInterface):
             focus_element_xpath_before: Focus element before clicking in Click Open/ Click Close
             focus_element_xpath_after: Focus element after clicking in Click Open/ Click Close
             ignore_if: The execution will be ignored if the clicking element exist in Click Open / does not exist in Click Close
+            scroll_amount: The amount of scrolles to be made by mouse
         """
         # pylint: enable=C0301
         return Mouse.Container(element=element, second_element=second_element, timeout_in_ms=timeout_in_ms,
@@ -87,7 +90,7 @@ class Mouse(ModuleInterface):
                                click_element_xpath=click_element_xpath, goal_element_xpath=goal_element_xpath,
                                focus_element_xpath_before=focus_element_xpath_before,
                                focus_element_xpath_after=focus_element_xpath_after,
-                               ignore_if=ignore_if)
+                               ignore_if=ignore_if, scroll_amount=scroll_amount)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -160,7 +163,9 @@ class Mouse(ModuleInterface):
             self.Action.DOUBLE_CLICK_HOLD: lambda: self._double_click_hold(values["element"], values["timeout_in_ms"]),
             self.Action.MIDDLE_CLICK_HOLD: lambda: self._middle_click_hold(values["element"], values["timeout_in_ms"]),
             self.Action.MOVE_TO: lambda: self._move_to(values["element"]),
-            self.Action.DRAG_AND_DROP: lambda: self._drag_and_drop(values["element"], values["second_element"])
+            self.Action.DRAG_AND_DROP: lambda: self._drag_and_drop(values["element"], values["second_element"]),
+            self.Action.SCROLL_UP: lambda: self._scroll(values["element"], values['scroll_amount']),
+            self.Action.SCROLL_DOWN: lambda: self._scroll(values["element"], -1*float(values['scroll_amount']))
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -273,6 +278,14 @@ class Mouse(ModuleInterface):
         FlaUI.Core.Input.Mouse.Down()
         time.sleep(float(timeout_in_ms) / 1000)
         FlaUI.Core.Input.Mouse.Up()
+
+    @staticmethod
+    def _scroll(element: Any, scroll_amount: float):
+        try:
+            FlaUI.Core.Input.Mouse.Position = element.GetClickablePoint()
+        except NoClickablePointException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
+        FlaUI.Core.Input.Mouse.Scroll(float(scroll_amount))
 
     @staticmethod
     def _middle_click(element: Any):
