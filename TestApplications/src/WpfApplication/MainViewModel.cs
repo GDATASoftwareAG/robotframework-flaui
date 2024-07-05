@@ -8,14 +8,6 @@ namespace WpfApplication
     {
         public ObservableCollection<DataGridItem> DataGridItems { get; }
 
-        public ICommand InvokeButtonCommand { get; }
-
-        public string InvokeButtonText
-        {
-            get => GetProperty<string>();
-            set => SetProperty(value);
-        }
-
         public MainViewModel()
         {
             DataGridItems = new ObservableCollection<DataGridItem>
@@ -24,8 +16,6 @@ namespace WpfApplication
                 new DataGridItem { Name = "Doe", Number = 24, IsChecked = true },
             };
 
-            InvokeButtonText = "Invoke me!";
-            InvokeButtonCommand = new RelayCommand(o => InvokeButtonText = "Invoked!");
         }
     }
 }

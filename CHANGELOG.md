@@ -11,6 +11,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - [#177](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/177) New Keywords
   - Get Grid Columns Count
+- [#173](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/173) New Keywords
+  - Middle Click
+  - Middle Click Hold
+  - Middle Click Open
+  - Middle Click Close
+  - Scroll Up
+  - Scroll Down
 
 ### Bugfix
 

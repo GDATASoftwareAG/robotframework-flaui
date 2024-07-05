@@ -148,5 +148,27 @@ namespace WpfApplication
             DisabledButton.IsEnabled = true;
             EnableButton.IsEnabled = false;
         }
+
+        private void invokeButt_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
+            {
+                invokeButt.Content = "Middle button clicked";
+            }
+            else if (e.ChangedButton == MouseButton.Right)
+            {
+                invokeButt.Content = "Right button clicked";
+            }
+            else if (e.ChangedButton == MouseButton.Left)
+            {
+                invokeButt.Content = "Invoked!";
+            }
+            else
+            {
+                invokeButt.Content = "invoke me!";
+            }
+            e.Handled = true;
+        }
+
     }
 }
