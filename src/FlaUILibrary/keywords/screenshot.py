@@ -33,6 +33,8 @@ class ScreenshotKeywords:
 
         Example:
         | Take Screenshot |
+        | Take Screenshot   <XPATH> |
+        | Take Screenshot   <XPATH>    "Your custom error message" |
         """
         image_var = None
         if identifier:
