@@ -51,7 +51,7 @@ class Screenshot(ModuleInterface):
         self._name = ""
         self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
         self._filename = "test_{}_{}_{}_{}.jpg"
-        self._mode = ScreenshotMode.FILE
+        self._mode = self.ScreenshotMode.FILE
 
     def set_name(self, name):
         """
@@ -65,9 +65,9 @@ class Screenshot(ModuleInterface):
     
     def set_mode(self, mode: str):
         if log_mode.upper() == 'FILE':
-            self._mode = ScreenshotMode.FILE
+            self._mode = self.ScreenshotMode.FILE
         elif log_mode.upper() == 'BASE64':
-            self._mode = ScreenshotMode.BASE64
+            self._mode = self.ScreenshotMode.BASE64
         else:
             return lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)()
 
