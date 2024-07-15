@@ -155,7 +155,7 @@ class Screenshot(ModuleInterface):
 
         return filepath
 
-    def _capture_base64(self, element):
+    def _capture_base64(self, element=None):
         image = None
 
         try:
