@@ -2,70 +2,52 @@ from robot.utils import is_truthy
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
 from FlaUILibrary.robotframework import robotlog
-
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 class ScreenshotKeywords:
     """
     Interface implementation from Robotframework usage for screenshot keywords.
     """
 
-    def __init__(self, screenshots: Screenshot):
+    def __init__(self, screenshots: Screenshot, container: AutomationInterfaceContainer):
         """Creates screenshot keywords module to handle image capturing.
 
-        ``screenshots`` Screenshots module for image capturing.
+        ``screenshots`` Screenshots module for image capturing
+        ``container`` User automation container to handle element interaction
         """
         self._screenshots = screenshots
+        self._container = container
 
     @keyword
-    def take_screenshot(self, base64 = False):
-        """ Takes a screenshot of the whole desktop. Returns path of screenshot created if ``base64`` is False (default).
-        Otherwise returns base64 encoded string of screenshot image.
+    def set_screenshot_log_mode(self, log_mode: str):
+        self._screenshots.set_mode(log_mode)
+
+    @keyword
+    def take_screenshot(self, identifier=None, msg=None):
+        """ Takes a screenshot of the whole desktop. Returns screenshot depending on log mode (File -> filepath, Base64 -> encoded string).
 
         Arguments:
         | Argument      | Type   | Description          |
-        | base64        | string | True or False        |
+        | identifier    | string | XPath identifier from element |
+        | msg           | string | Custom error message          |
 
         Example:
         | Take Screenshot |
         """
         image_var = None
-
-        if is_truthy(base64):
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_BASE64,
-                                                            Screenshot.create_value_container())
-            if image_var:
-                robotlog.log_screenshot_base64(image_var)
+        if identifier:
+            module = self._container.create_or_get_module()
+            element = module.get_element(identifier, None, msg)
+            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT,
+                                                    Screenshot.create_value_container(element))
         else:
             image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                                        Screenshot.create_value_container())
-            if image_var:
-                robotlog.log_screenshot(image_var)
+                                                    Screenshot.create_value_container())
 
-        return image_var
-
-    @keyword
-    def take_screenshot_from_element(self, element, base64 = False):
-        """ Takes a screenshot of the identified application window. Returns path of screenshot created.
-        
-        Arguments:
-        | Argument      | Type   | Description          |
-        | element       | string | XPath identifier from element |
-        | base64        | string | True or False        |
-
-        Example:
-        | Take Screenshot From Element   <XPATH>|
-        """
-        image_var = None
-
-        if is_truthy(base64):
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT_BASE64,
-                                                            Screenshot.create_value_container(xpath=element))
-            if image_var:
+        if image_var:
+            if self._screenshots._mode == Screenshot.ScreenshotMode.BASE64:
                 robotlog.log_screenshot_base64(image_var)
-        else:
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT,
-                                                        Screenshot.create_value_container(xpath=element))
-            if image_var:
+            else:
                 robotlog.log_screenshot(image_var)
 
         return image_var
