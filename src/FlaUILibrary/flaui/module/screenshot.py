@@ -8,8 +8,6 @@ from System import Exception as CSharpException  # pylint: disable=import-error
 from System import Convert as CSharpConvert  # pylint: disable=import-error
 from System.IO import MemoryStream  # pylint: disable=import-error
 from System.Drawing.Imaging import ImageFormat  # pylint: disable=import-error
-from FlaUILibrary.flaui.util.automationelement import AutomationElement
-from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.robotframework import robotlog
