@@ -35,7 +35,7 @@ class ScreenshotKeywords:
 
     @keyword
     def take_screenshot(self, identifier=None, msg=None):
-        """ Takes a screenshot of the whole desktop. Returns screenshot depending on log mode.
+        """ Takes a screenshot of the whole desktop or the element, from the optionally provided identifier. Returns screenshot depending on log mode.
         Screenshot mode File -> returns filepath
         Screenshot mode Base64 -> returns encoded base64 string of image
 
