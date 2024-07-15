@@ -2,7 +2,7 @@ import os
 import platform
 import time
 from enum import Enum
-from typing import Any, Union
+from typing import Any, Optional
 from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import Convert as CSharpConvert  # pylint: disable=import-error
@@ -28,7 +28,7 @@ class Screenshot(ModuleInterface):
         Value container from screenshot module.
         """
         keywords: list
-        xpath: Union[str, AutomationElement]
+        element: Optional[Any]
 
     class Action(Enum):
         """
@@ -36,10 +36,12 @@ class Screenshot(ModuleInterface):
         """
         CAPTURE = "CAPTURE"
         CAPTURE_ELEMENT = "CAPTURE_ELEMENT"
-        CAPTURE_BASE64 = "CAPTURE_BASE64"
-        CAPTURE_ELEMENT_BASE64 = "CAPTURE_ELEMENT_BASE64"
 
-    def __init__(self, directory, is_enabled, automation: Any):
+    class ScreenshotMode(Enum):
+        FILE = "File",
+        BASE64 = "Base64"
+
+    def __init__(self, directory, is_enabled):
         """
         Creates screenshot module to capture desktop or element images by an error.
 
@@ -51,7 +53,7 @@ class Screenshot(ModuleInterface):
         self._name = ""
         self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
         self._filename = "test_{}_{}_{}_{}.jpg"
-        self._automation = automation
+        self._mode = ScreenshotMode.FILE
 
     def set_name(self, name):
         """
@@ -62,9 +64,17 @@ class Screenshot(ModuleInterface):
             name (str): Filename to set.
         """
         self._name = self._clean_invalid_windows_syntax(name.replace(" ", "_").lower())
+    
+    def set_mode(self, mode: str):
+        if log_mode.upper() == 'FILE':
+            self._mode = ScreenshotMode.FILE
+        elif log_mode.upper() == 'BASE64':
+            self._mode = ScreenshotMode.BASE64
+        else:
+            return lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)()
 
     @staticmethod
-    def create_value_container(keywords=None, xpath=None):
+    def create_value_container(keywords=None, element=None):
         """
         Helper to create container object.
 
@@ -74,20 +84,27 @@ class Screenshot(ModuleInterface):
         if keywords is None:
             keywords = []
 
-        return Screenshot.Container(keywords=keywords, xpath=Converter.cast_to_xpath_string(xpath))
+        return Screenshot.Container(keywords=keywords, element=element)
 
     def execute_action(self, action: Action, values: ValueContainer):
         # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.CAPTURE: lambda: self._capture(),
-            self.Action.CAPTURE_ELEMENT: lambda: self._capture(xpath=values.xpath),
-            self.Action.CAPTURE_BASE64: lambda: self._capture_base64(),
-            self.Action.CAPTURE_ELEMENT_BASE64: lambda: self._capture_base64(xpath=values.xpath),
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture(xpath=values.element)
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     def _capture(self, xpath=None):
+        """
+        Capture image depending on mode
+        """
+        if self._mode == ScreenshotMode.FILE:
+            self._capture_file(xpath)
+        elif self._mode == ScreenshotMode.BASE64:
+            self._capture_base64(xpath)
+
+    def _capture_file(self, element=None):
         """
         Capture image from desktop.
         """
@@ -105,8 +122,8 @@ class Screenshot(ModuleInterface):
                 os.makedirs(directory)
 
             try:
-                if xpath:
-                    image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(xpath))
+                if element:
+                    image = Capture.Element(element)
                 else:
                     image = Capture.Screen()
                 image.ToFile(filepath)
@@ -125,12 +142,12 @@ class Screenshot(ModuleInterface):
 
         return filepath
 
-    def _capture_base64(self, xpath=None):
+    def _capture_base64(self, element):
         image = None
 
         try:
-            if xpath:
-                image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(xpath))
+            if element:
+                image = Capture.Element(element)
             else:
                 image = Capture.Screen()
             stream = MemoryStream()
@@ -142,7 +159,7 @@ class Screenshot(ModuleInterface):
             robotlog.log_screenshot_base64(base64)
 
         except CSharpException:
-            robotlog.log("Error to save image " + xpath)
+            robotlog.log("Error to save as base64 encoded string: " + element)
 
         finally:
             self.img_counter += 1
