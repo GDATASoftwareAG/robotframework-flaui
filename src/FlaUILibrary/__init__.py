@@ -127,7 +127,8 @@ class FlaUILibrary(DynamicCore):
 
         self.container = AutomationInterfaceContainer(timeout, uia)
 
-        self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
+        self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True', 
+                                    automation = self.container.create_or_get_module())
 
         self.keyword_modules = {
             FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.container),

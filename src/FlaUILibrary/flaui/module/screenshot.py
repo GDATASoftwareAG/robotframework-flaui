@@ -2,11 +2,12 @@ import os
 import platform
 import time
 from enum import Enum
+from typing import Any, Union
 from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import Convert as CSharpConvert  # pylint: disable=import-error
 from System.IO import MemoryStream  # pylint: disable=import-error
-from System.Drawing.Imaging import ImageFormat
+from System.Drawing.Imaging import ImageFormat  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.automationelement import AutomationElement
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
@@ -38,7 +39,7 @@ class Screenshot(ModuleInterface):
         CAPTURE_BASE64 = "CAPTURE_BASE64"
         CAPTURE_ELEMENT_BASE64 = "CAPTURE_ELEMENT_BASE64"
 
-    def __init__(self, automation: Any, directory, is_enabled):
+    def __init__(self, directory, is_enabled, automation: Any):
         """
         Creates screenshot module to capture desktop or element images by an error.
 
@@ -78,10 +79,10 @@ class Screenshot(ModuleInterface):
     def execute_action(self, action: Action, values: ValueContainer):
         # pylint: disable=unnecessary-lambda
         switcher = {
-            self.Action.CAPTURE: lambda: self._capture()
-            self.Action.CAPTURE_ELEMENT: lambda: self._capture_element(xpath=values.xpath)
-            self.Action.CAPTURE_BASE64: lambda: self._capture_base64()
-            self.Action.CAPTURE_ELEMENT_BASE64: lambda: self._capture_base64(xpath=values.xpath)
+            self.Action.CAPTURE: lambda: self._capture(),
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture(xpath=values.xpath),
+            self.Action.CAPTURE_BASE64: lambda: self._capture_base64(),
+            self.Action.CAPTURE_ELEMENT_BASE64: lambda: self._capture_base64(xpath=values.xpath),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -104,8 +105,8 @@ class Screenshot(ModuleInterface):
                 os.makedirs(directory)
 
             try:
-                if identifier:
-                    image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(identifier))
+                if xpath:
+                    image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(xpath))
                 else:
                     image = Capture.Screen()
                 image.ToFile(filepath)
@@ -123,13 +124,13 @@ class Screenshot(ModuleInterface):
                 image.Dispose()
 
         return filepath
-    
+
     def _capture_base64(self, xpath=None):
         image = None
 
         try:
-            if identifier:
-                image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(identifier))
+            if xpath:
+                image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(xpath))
             else:
                 image = Capture.Screen()
             stream = MemoryStream()

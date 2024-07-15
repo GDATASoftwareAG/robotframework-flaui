@@ -9,10 +9,6 @@ class ScreenshotKeywords:
     Interface implementation from Robotframework usage for screenshot keywords.
     """
 
-    class ScreenshotType(Enum):
-        FILE = "FILE"
-        BASE64 = "BASE64"
-
     def __init__(self, screenshots: Screenshot):
         """Creates screenshot keywords module to handle image capturing.
 
@@ -40,7 +36,7 @@ class ScreenshotKeywords:
             if image_var:
                 robotlog.log_screenshot_base64(image_var)
         else:
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE if,
+            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
                                                         Screenshot.create_value_container())
             if image_var:
                 robotlog.log_screenshot(image_var)
@@ -62,15 +58,15 @@ class ScreenshotKeywords:
         image_var = None
 
         if is_truthy(base64):
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_BASE64,
+            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT_BASE64,
                                                             Screenshot.create_value_container(xpath=element))
             if image_var:
                 robotlog.log_screenshot_base64(image_var)
         else:
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE if,
+            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT,
                                                         Screenshot.create_value_container(xpath=element))
             if image_var:
-                robotlog.log_screenshot_base64(image_var)
+                robotlog.log_screenshot(image_var)
 
         return image_var
 
