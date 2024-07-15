@@ -74,6 +74,16 @@ No Screenshots Should Created For No Library Keywords
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
 
+Take Screenshot As Base64
+    Set Screenshot Log Mode    Base64
+    Take Screenshot
+
+Take Screenshot Of Window
+    Take Screenshot    ${MAIN_WINDOW}
+
+Take Screenshot Of Window As Base64
+    Set Screenshot Log Mode    Base64
+    Take Screenshot    ${MAIN_WINDOW}
 
 *** Keywords ***
 Get Expected Filename
