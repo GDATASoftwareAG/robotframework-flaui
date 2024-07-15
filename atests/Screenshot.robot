@@ -8,6 +8,7 @@ Library             String
 Library             OperatingSystem
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True
+Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
 
@@ -76,14 +77,27 @@ No Screenshots Should Created For No Library Keywords
 
 Take Screenshot As Base64
     Set Screenshot Log Mode    Base64
-    Take Screenshot
+    ${base64}   Take Screenshot
+    Should Not Be Empty     ${base64}   Returned base64 image is empty
 
 Take Screenshot Of Window
+    [Setup]    Start Application
+    ${PID}    Attach Application By Name    ${TEST_APP}
+    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
+    ${FILENAME}    Get Expected Filename    Take Screenshot Of Window
+    File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
+    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Set Screenshot Directory
+    [Teardown]    Stop Application    ${PID}
 
 Take Screenshot Of Window As Base64
+    [Setup]    Start Application
+    ${PID}    Attach Application By Name    ${TEST_APP}
     Set Screenshot Log Mode    Base64
-    Take Screenshot    ${MAIN_WINDOW}
+    ${base64}    Take Screenshot    ${MAIN_WINDOW}
+    Should Not Be Empty     ${base64}   Returned base64 image is empty
+    [Teardown]    Stop Application    ${PID}
 
 
 *** Keywords ***
