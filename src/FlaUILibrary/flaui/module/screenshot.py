@@ -4,9 +4,15 @@ import time
 from enum import Enum
 from FlaUI.Core.Capturing import Capture  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
+from System import Convert as CSharpConvert  # pylint: disable=import-error
+from System.IO import MemoryStream  # pylint: disable=import-error
+from System.Drawing.Imaging import ImageFormat
+from FlaUILibrary.flaui.util.automationelement import AutomationElement
+from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.robotframework import robotlog
+
 
 
 # pylint: disable=too-many-instance-attributes
@@ -21,14 +27,18 @@ class Screenshot(ModuleInterface):
         Value container from screenshot module.
         """
         keywords: list
+        xpath: Union[str, AutomationElement]
 
     class Action(Enum):
         """
         Supported actions for execute action implementation.
         """
         CAPTURE = "CAPTURE"
+        CAPTURE_ELEMENT = "CAPTURE_ELEMENT"
+        CAPTURE_BASE64 = "CAPTURE_BASE64"
+        CAPTURE_ELEMENT_BASE64 = "CAPTURE_ELEMENT_BASE64"
 
-    def __init__(self, directory, is_enabled):
+    def __init__(self, automation: Any, directory, is_enabled):
         """
         Creates screenshot module to capture desktop or element images by an error.
 
@@ -40,6 +50,7 @@ class Screenshot(ModuleInterface):
         self._name = ""
         self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
         self._filename = "test_{}_{}_{}_{}.jpg"
+        self._automation = automation
 
     def set_name(self, name):
         """
@@ -52,7 +63,7 @@ class Screenshot(ModuleInterface):
         self._name = self._clean_invalid_windows_syntax(name.replace(" ", "_").lower())
 
     @staticmethod
-    def create_value_container(keywords=None):
+    def create_value_container(keywords=None, xpath=None):
         """
         Helper to create container object.
 
@@ -62,17 +73,20 @@ class Screenshot(ModuleInterface):
         if keywords is None:
             keywords = []
 
-        return Screenshot.Container(keywords=keywords)
+        return Screenshot.Container(keywords=keywords, xpath=Converter.cast_to_xpath_string(xpath))
 
     def execute_action(self, action: Action, values: ValueContainer):
         # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.CAPTURE: lambda: self._capture()
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture_element(xpath=values.xpath)
+            self.Action.CAPTURE_BASE64: lambda: self._capture_base64()
+            self.Action.CAPTURE_ELEMENT_BASE64: lambda: self._capture_base64(xpath=values.xpath)
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
-    def _capture(self):
+    def _capture(self, xpath=None):
         """
         Capture image from desktop.
         """
@@ -90,7 +104,10 @@ class Screenshot(ModuleInterface):
                 os.makedirs(directory)
 
             try:
-                image = Capture.Screen()
+                if identifier:
+                    image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(identifier))
+                else:
+                    image = Capture.Screen()
                 image.ToFile(filepath)
 
                 # Log screenshot from temp or persist mode
@@ -106,6 +123,33 @@ class Screenshot(ModuleInterface):
                 image.Dispose()
 
         return filepath
+    
+    def _capture_base64(self, xpath=None):
+        image = None
+
+        try:
+            if identifier:
+                image = Capture.Element(self._automation.GetDesktop().FindFirstByXPath(identifier))
+            else:
+                image = Capture.Screen()
+            stream = MemoryStream()
+            image.Bitmap.Save(stream, ImageFormat.Png)
+            base64 = CSharpConvert.ToBase64String(stream.GetBuffer())
+            stream.Close()
+
+            # Log screenshot from temp or persist mode
+            robotlog.log_screenshot_base64(base64)
+
+        except CSharpException:
+            robotlog.log("Error to save image " + xpath)
+
+        finally:
+            self.img_counter += 1
+            if image is not None:
+                # C# --> class CaptureImage : IDisposable
+                image.Dispose()
+
+        return base64
 
     def _get_path(self):
         """
