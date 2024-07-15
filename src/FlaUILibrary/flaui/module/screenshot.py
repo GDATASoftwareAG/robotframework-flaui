@@ -103,19 +103,19 @@ class Screenshot(ModuleInterface):
         # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.CAPTURE: lambda: self._capture(),
-            self.Action.CAPTURE_ELEMENT: lambda: self._capture(xpath=values.element)
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture(element=values.element)
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
-    def _capture(self, xpath=None):
+    def _capture(self, element=None):
         """
         Capture image depending on mode
         """
         if self._mode == self.ScreenshotMode.FILE:
-            self._capture_file(xpath)
+            self._capture_file(element)
         elif self._mode == self.ScreenshotMode.BASE64:
-            self._capture_base64(xpath)
+            self._capture_base64(element)
 
     def _capture_file(self, element=None):
         """
