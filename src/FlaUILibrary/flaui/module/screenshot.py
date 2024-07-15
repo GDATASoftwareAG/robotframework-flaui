@@ -36,7 +36,10 @@ class Screenshot(ModuleInterface):
         CAPTURE_ELEMENT = "CAPTURE_ELEMENT"
 
     class ScreenshotMode(Enum):
-        FILE = "File",
+        """
+        Supported modes for screenshots.
+        """
+        FILE = "File"
         BASE64 = "Base64"
 
     def __init__(self, directory, is_enabled):
@@ -62,14 +65,26 @@ class Screenshot(ModuleInterface):
             name (str): Filename to set.
         """
         self._name = self._clean_invalid_windows_syntax(name.replace(" ", "_").lower())
-    
+
     def set_mode(self, mode: str):
-        if log_mode.upper() == 'FILE':
+        """
+        Set screenshot logging mode. Available modes: File, Base64
+
+        Args:
+            mode (str): Screenshot mode to set.
+        """
+        if mode.upper() == 'FILE':
             self._mode = self.ScreenshotMode.FILE
-        elif log_mode.upper() == 'BASE64':
+        elif mode.upper() == 'BASE64':
             self._mode = self.ScreenshotMode.BASE64
         else:
-            return lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)()
+            FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)
+
+    def get_mode(self):
+        """
+        Return the configured screenshot logging mode.
+        """
+        return self._mode
 
     @staticmethod
     def create_value_container(keywords=None, element=None):
@@ -97,9 +112,9 @@ class Screenshot(ModuleInterface):
         """
         Capture image depending on mode
         """
-        if self._mode == ScreenshotMode.FILE:
+        if self._mode == self.ScreenshotMode.FILE:
             self._capture_file(xpath)
-        elif self._mode == ScreenshotMode.BASE64:
+        elif self._mode == self.ScreenshotMode.BASE64:
             self._capture_base64(xpath)
 
     def _capture_file(self, element=None):

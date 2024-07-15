@@ -20,11 +20,24 @@ class ScreenshotKeywords:
 
     @keyword
     def set_screenshot_log_mode(self, log_mode: str):
+        """Sets the logging mode of the screenshot module. Default is 'File'.
+        Mode 'File' logs screenshots as files in the screenshot directory.
+        Mode 'Base64' logs screenshots as base64 encoded strings embedded in the test report.
+
+        Arguments:
+        | Argument      | Type   | Description          |
+        | log_mode      | string | File | Base64        |
+
+        Example:
+        | Set Screenshot Log Mode    Base64 |
+        """
         self._screenshots.set_mode(log_mode)
 
     @keyword
     def take_screenshot(self, identifier=None, msg=None):
-        """ Takes a screenshot of the whole desktop. Returns screenshot depending on log mode (File -> filepath, Base64 -> encoded string).
+        """ Takes a screenshot of the whole desktop. Returns screenshot depending on log mode.
+        Screenshot mode File -> returns filepath
+        Screenshot mode Base64 -> returns encoded base64 string of image
 
         Arguments:
         | Argument      | Type   | Description          |
@@ -47,7 +60,7 @@ class ScreenshotKeywords:
                                                     Screenshot.create_value_container())
 
         if image_var:
-            if self._screenshots._mode == Screenshot.ScreenshotMode.BASE64:
+            if self._screenshots.get_mode() == Screenshot.ScreenshotMode.BASE64:
                 robotlog.log_screenshot_base64(image_var)
             else:
                 robotlog.log_screenshot(image_var)

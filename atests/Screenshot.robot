@@ -85,6 +85,7 @@ Take Screenshot Of Window As Base64
     Set Screenshot Log Mode    Base64
     Take Screenshot    ${MAIN_WINDOW}
 
+
 *** Keywords ***
 Get Expected Filename
     [Arguments]    ${TEST_FILENAME}
