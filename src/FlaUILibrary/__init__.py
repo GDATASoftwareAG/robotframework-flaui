@@ -127,8 +127,7 @@ class FlaUILibrary(DynamicCore):
 
         self.container = AutomationInterfaceContainer(timeout, uia)
 
-        self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True', 
-                                    automation = self.container.create_or_get_module())
+        self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
 
         self.keyword_modules = {
             FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.container),
@@ -139,7 +138,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.GRID: GridKeywords(self.container),
             FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.container),
             FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.container),
-            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots),
+            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots, self.container),
             FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.container),
             FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.container),
             FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.container),
