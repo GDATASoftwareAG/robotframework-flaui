@@ -52,7 +52,7 @@ class ScreenshotKeywords:
         image_var = None
         if identifier:
             module = self._container.create_or_get_module()
-            element = module.get_element(identifier, None, msg)
+            element = module.get_element(identifier, msg=msg)
             image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT,
                                                     Screenshot.create_value_container(element))
         else:
