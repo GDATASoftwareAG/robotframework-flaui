@@ -103,7 +103,7 @@ class Screenshot(ModuleInterface):
         # pylint: disable=unnecessary-lambda
         switcher = {
             self.Action.CAPTURE: lambda: self._capture(),
-            self.Action.CAPTURE_ELEMENT: lambda: self._capture(element=values.element)
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture(element=values['element'])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
