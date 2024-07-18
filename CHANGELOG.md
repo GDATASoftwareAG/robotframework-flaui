@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Bugfix
+
+- [#195](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/195) click open bugfix
+  - click open will not fail if the click button disappears after click
+
 ## [Release][3.2.0] [3.2.0][3.1.0-3.2.0] - 2024-07-05
 
 ### Added
