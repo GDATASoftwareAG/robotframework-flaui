@@ -257,6 +257,56 @@ class ElementKeywords:
                                  msg)
 
     @keyword
+    def element_should_be_offscreen(self, identifier, msg=None):
+        """
+        Checks if element is offscreen.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is not offscreen      |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Example:
+        | Element Should Be Offscreen  <XPATH> |
+
+        """
+        module = self._container.create_or_get_module()
+        module.action(Element.Action.ELEMENT_SHOULD_BE_OFFSCREEN,
+                      Element.create_value_container(xpath=identifier, msg=msg),
+                      msg)
+
+    @keyword
+    def element_should_not_be_offscreen(self, identifier, msg=None):
+        """
+        Checks if element is not offscreen.
+
+        XPaths syntax is explained in `XPath locator`.
+
+        Possible FlaUI-Errors:
+        | Element could not be found by xpath |
+        | Element <XPATH> is offscreen      |
+
+        Arguments:
+        | Argument   | Type   | Description                   |
+        | identifier | string | XPath identifier from element |
+        | msg        | string | Custom error message          |
+
+        Example:
+        | Element Should Not Be Offscreen  <XPATH> |
+
+        """
+        module = self._container.create_or_get_module()
+        module.action(Element.Action.ELEMENT_SHOULD_NOT_BE_OFFSCREEN,
+                      Element.create_value_container(xpath=identifier, msg=msg),
+                      msg)
+
+    @keyword
     def element_should_be_enabled(self, identifier, msg=None):
         """
         Checks if element is enabled.
