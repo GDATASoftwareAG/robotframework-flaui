@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- [#197](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/197) New Keywords
+  - Element Should Be Offscreen
+  - Element Should Not Be Offscreen
+
 ### Bugfix
 
 - [#195](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/195) click open bugfix

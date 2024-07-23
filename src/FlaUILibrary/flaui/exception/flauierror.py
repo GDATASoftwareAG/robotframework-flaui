@@ -19,6 +19,7 @@ class FlaUiError(AttributeError):
     ElementExists = "Element '{}' exists"
     ElementNotExists = "Element '{}' does not exist"
     ElementIsOffscreen = "Element '{}' is offscreen"
+    ElementNotOffscreen = "Element '{}' is not offscreen"
     ElementVisible = "Element '{}' is visible"
     ElementNotVisible = "Element '{}' is not visible"
     ElementNotEnabled = "Element '{}' is not enabled"

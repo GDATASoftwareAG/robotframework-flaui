@@ -21,6 +21,7 @@ ${XPATH_ELEMENT}                ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@Name='Test 
 ${XPATH_ENABLE_ELEMENT}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
 ${XPATH_DISABLED_ELEMENT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='DisabledButton']
 ${XPATH_OFFSCREEN_ELEMENT}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
+${XPATH_SCROLL_DATAGRID}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane[@ClassName='ScrollViewer']/Group[@Name='Large List with Scroll']/DataGrid[@AutomationId='LargeListView']
 
 ${XPATH_MFC_APP_MENU_FILE}      ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='File']
 
@@ -309,4 +310,27 @@ Wait Until Element Exist Timeout Reached After One Second
 Wait Until Element Exist Timeout Is Reached By Wrong Number
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    "I'm not a number"
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW}    "I'm not a number"
+    Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
+Element Should Be Offscreen
+    [Setup]    Open Complex Tab
+    Element Should Be Offscreen    ${XPATH_SCROLL_DATAGRID}/DataItem[4]
+
+Element Should Be Offscreen Error
+    [Setup]    Open Complex Tab
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_OFFSCREEN}    ${XPATH_SCROLL_DATAGRID}/Header
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Element Should Be Offscreen    ${XPATH_SCROLL_DATAGRID}/Header
+    Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
+Element Should Not Be Offscreen
+    [Setup]    Open Complex Tab
+    Element Should Not Be Offscreen    ${XPATH_SCROLL_DATAGRID}/Header
+
+Element Should Not Be Offscreen Error
+    [Setup]    Open Complex Tab
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}    ${XPATH_SCROLL_DATAGRID}/DataItem[4]
+    ${ERR_MSG}    Run Keyword And Expect Error
+    ...    *
+    ...    Element Should Not Be Offscreen
+    ...    ${XPATH_SCROLL_DATAGRID}/DataItem[4]
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
