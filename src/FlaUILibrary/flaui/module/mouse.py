@@ -190,6 +190,7 @@ class Mouse(ModuleInterface):
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
                 self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+            _open_element_found = False
             _click_element_found = False
             for _ in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
@@ -198,10 +199,13 @@ class Mouse(ModuleInterface):
                 if click_element:
                     _click_element_found = True
                     click_type(click_element)
+
+                if _click_element_found:
                     container = Element.create_value_container(xpath=open_element_xpath)
                     open_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                     if open_element:
+                        _open_element_found = True
                         if focus_element_xpath_after_open:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_open)
                             self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
@@ -209,7 +213,7 @@ class Mouse(ModuleInterface):
 
                 time.sleep(float(timeout_between_repeats) / 1000)
 
-            if not _click_element_found:
+            if not _click_element_found and not _open_element_found:
                 raise FlaUiError(FlaUiError.ElementNotExists.format(click_element_xpath))
             raise FlaUiError(FlaUiError.ElementNotOpened.format(open_element_xpath, click_element_xpath))
         except NoClickablePointException:
@@ -245,10 +249,11 @@ class Mouse(ModuleInterface):
                     _click_element_found = True
                     click_type(click_element)
 
+                if _click_element_found:
                     container = Element.create_value_container(xpath=close_element_xpath)
-                    open_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
+                    close_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
-                    if not open_element:
+                    if not close_element and _click_element_found:
                         if focus_element_xpath_after_close:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_close)
                             self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)

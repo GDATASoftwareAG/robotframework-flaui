@@ -11,6 +11,19 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - [#192](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/192) New Screenshot Logging behaviour using Base64 encoded images
 - [#193](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/193) Changed Screenshot keyword behaviour (Optional XPATH for element-based screenshot)
 
+## [Release][3.3.0] [3.3.0][3.2.0-3.3.0] - 2024-08-03
+
+### Added
+
+- [#197](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/197) New Keywords
+  - Element Should Be Offscreen
+  - Element Should Not Be Offscreen
+
+### Bugfix
+
+- [#195](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/195) click open bugfix
+  - click open will not fail if the click button disappears after click
+
 ## [Release][3.2.0] [3.2.0][3.1.0-3.2.0] - 2024-07-05
 
 ### Added
@@ -657,7 +670,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.2.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.3.0...main
+
+[3.3.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.3.0
+
+[3.2.0-3.3.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.2.0...3.3.0
 
 [3.2.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.2.0
 

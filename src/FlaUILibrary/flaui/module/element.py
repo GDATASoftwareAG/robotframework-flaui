@@ -44,6 +44,8 @@ class Element(ModuleInterface):
         ELEMENT_SHOULD_NOT_EXIST = "ELEMENT_SHOULD_NOT_EXIST"
         ELEMENT_SHOULD_BE_ENABLED = "ELEMENT_SHOULD_BE_ENABLED"
         ELEMENT_SHOULD_BE_DISABLED = "ELEMENT_SHOULD_BE_DISABLED"
+        ELEMENT_SHOULD_BE_OFFSCREEN = "ELEMENT_SHOULD_BE_OFFSCREEN"
+        ELEMENT_SHOULD_NOT_BE_OFFSCREEN = "ELEMENT_SHOULD_NOT_BE_OFFSCREEN"
         WAIT_UNTIL_ELEMENT_IS_OFFSCREEN = "WAIT_UNTIL_ELEMENT_IS_OFFSCREEN"
         WAIT_UNTIL_ELEMENT_IS_ENABLED = "WAIT_UNTIL_ELEMENT_IS_ENABLED"
         WAIT_UNTIL_ELEMENT_EXIST = "WAIT_UNTIL_ELEMENT_EXIST"
@@ -110,6 +112,10 @@ class Element(ModuleInterface):
                 lambda: self._element_should_be_enabled(values["xpath"]),
             self.Action.ELEMENT_SHOULD_BE_DISABLED:
                 lambda: self._element_should_be_disabled(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_BE_OFFSCREEN:
+                lambda: self._element_should_be_offscreen(values["xpath"]),
+            self.Action.ELEMENT_SHOULD_NOT_BE_OFFSCREEN:
+                lambda: self._element_should_not_be_offscreen(values["xpath"]),
             self.Action.ELEMENT_SHOULD_EXIST:
                 lambda: self._element_should_exist(values["xpath"], values["use_exception"]),
             self.Action.ELEMENT_SHOULD_NOT_EXIST:
@@ -336,6 +342,38 @@ class Element(ModuleInterface):
 
         if enabled:
             raise FlaUiError(FlaUiError.ElementNotDisabled.format(xpath))
+
+    def _element_should_be_offscreen(self, xpath: str):
+        """
+        Checks if the element with the given xpath is offscreen
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found from xpath.
+            FlaUiError: If node by xpath is not offscreen.
+        """
+        offscreen = self._element_is_offscreen(xpath)
+
+        if not offscreen:
+            raise FlaUiError(FlaUiError.ElementNotOffscreen.format(xpath))
+
+    def _element_should_not_be_offscreen(self, xpath: str):
+        """
+        Checks if the element with the given xpath not offscreen
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found from xpath.
+            FlaUiError: If node by xpath is offscreen.
+        """
+        offscreen = self._element_is_offscreen(xpath)
+
+        if offscreen:
+            raise FlaUiError(FlaUiError.ElementIsOffscreen.format(xpath))
 
     def _wait_until_element_is_offscreen(self, xpath: str, retries: int):
         """Waits until element is offscreen or timeout occurred.

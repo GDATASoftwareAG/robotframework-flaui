@@ -17,6 +17,7 @@ ${EXP_ERR_MSG_ELEMENT_NOT_FOCUSABLE}            FlaUiError: Element '{0}' is not
 ${EXP_ERR_MSG_ELEMENT_EXISTS}                   FlaUiError: Element '{0}' exists
 ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}          FlaUiError: Element '{0}' does not exist
 ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}                FlaUiError: Element '{0}' is offscreen
+${EXP_ERR_MSG_ELEMENT_NOT_OFFSCREEN}            FlaUiError: Element '{0}' is not offscreen
 ${EXP_ERR_MSG_ELEMENT_VISIBLE}                  FlaUiError: Element '{0}' is visible
 ${EXP_ERR_MSG_ELEMENT_NOT_VISIBLE}              FlaUiError: Element '{0}' is not visible
 ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}              FlaUiError: Element '{0}' is not enabled
