@@ -78,7 +78,7 @@ No Screenshots Should Created For No Library Keywords
 Take Screenshot As Base64
     Set Screenshot Log Mode    Base64
     ${base64}   Take Screenshot
-    Should Be True    ${base64}
+    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
 
 Take Screenshot Of Window
@@ -97,7 +97,7 @@ Take Screenshot Of Window As Base64
     ${PID}    Attach Application By Name    ${TEST_APP}
     Set Screenshot Log Mode    Base64
     ${base64}    Take Screenshot    ${MAIN_WINDOW}
-    Should Be True    ${base64}
+    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
     [Teardown]    Stop Application    ${PID}
 
