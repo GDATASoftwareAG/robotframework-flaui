@@ -113,9 +113,9 @@ class Screenshot(ModuleInterface):
         Capture image depending on mode
         """
         if self._mode == self.ScreenshotMode.FILE:
-            self._capture_file(element)
+            return self._capture_file(element)
         elif self._mode == self.ScreenshotMode.BASE64:
-            self._capture_base64(element)
+            return self._capture_base64(element)
 
     def _capture_file(self, element=None):
         """
