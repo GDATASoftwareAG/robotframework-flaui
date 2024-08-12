@@ -59,12 +59,6 @@ class ScreenshotKeywords:
             image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
                                                     Screenshot.create_value_container())
 
-        if image_var:
-            if self._screenshots.get_mode() == Screenshot.ScreenshotMode.BASE64:
-                robotlog.log_screenshot_base64(image_var)
-            else:
-                robotlog.log_screenshot(image_var)
-
         return image_var
 
     @keyword
