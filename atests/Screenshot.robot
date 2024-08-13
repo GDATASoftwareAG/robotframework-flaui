@@ -85,7 +85,7 @@ Take Screenshot Of Window
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
-    ${FILENAME}    Get Expected Filename    Take Screenshot Of Window
+    ${FILENAME}    Get Expected Filename    ${TEST_NAME}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
