@@ -91,7 +91,8 @@ Take Screenshot As Base64
     ${base64}   Take Screenshot
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
-    Set Screenshot Log Mode    File # Reset
+    # Reset
+    [Teardown]    Set Screenshot Log Mode    File
 
 Take Screenshot Of Window As Base64
     [Setup]    Start Application
@@ -100,7 +101,8 @@ Take Screenshot Of Window As Base64
     ${base64}    Take Screenshot    ${MAIN_WINDOW}
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
-    Set Screenshot Log Mode    File # Reset
+    # Reset
+    Set Screenshot Log Mode    File
     [Teardown]    Stop Application    ${PID}
 
 
