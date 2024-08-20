@@ -75,12 +75,6 @@ No Screenshots Should Created For No Library Keywords
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Set Screenshot Directory
 
-Take Screenshot As Base64
-    Set Screenshot Log Mode    Base64
-    ${base64}   Take Screenshot
-    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
-    Should Not Be Empty     ${base64}   Returned base64 image is empty
-
 Take Screenshot Of Window
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
@@ -92,6 +86,13 @@ Take Screenshot Of Window
     Set Screenshot Directory
     [Teardown]    Stop Application    ${PID}
 
+Take Screenshot As Base64
+    Set Screenshot Log Mode    Base64
+    ${base64}   Take Screenshot
+    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
+    Should Not Be Empty     ${base64}   Returned base64 image is empty
+    Set Screenshot Log Mode    File # Reset
+
 Take Screenshot Of Window As Base64
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
@@ -99,6 +100,7 @@ Take Screenshot Of Window As Base64
     ${base64}    Take Screenshot    ${MAIN_WINDOW}
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
+    Set Screenshot Log Mode    File # Reset
     [Teardown]    Stop Application    ${PID}
 
 
