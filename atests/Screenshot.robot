@@ -83,7 +83,7 @@ Take Screenshot Of Window
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    [Teardown]    Reset Screenshot Environment To Default
+    [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 Take Screenshot As Base64
     Set Screenshot Log Mode    Base64
@@ -99,7 +99,7 @@ Take Screenshot Of Window As Base64
     ${base64}    Take Screenshot    ${MAIN_WINDOW}
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty     ${base64}   Returned base64 image is empty
-    [Teardown]    Reset Screenshot Environment To Default
+    [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 
 *** Keywords ***
@@ -121,7 +121,8 @@ Get Expected Filename
 
 Reset Screenshot Environment To Default
     [Documentation]    Reset screenshot environment to default and initial settings.
+    [Arguments]    ${pid}=${None}
     Set Screenshot Log Mode    File
     Take Screenshots On Failure    True
     Set Screenshot Directory
-    Run Keyword And Ignore Error    Stop Application    ${PID}
+    Run Keyword And Ignore Error    Stop Application    ${pid}
