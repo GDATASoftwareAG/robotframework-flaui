@@ -37,3 +37,15 @@ def log_screenshot(filepath: str):
         ),
         html=True,
     )
+
+def log_screenshot_base64(image: str):
+    """
+    Append testing log by a screenshot in base64 format.
+
+    ``image`` Image as string in base64 encoding. 
+    """
+    logger.info(
+        '</td></tr><tr><td colspan="3">' +
+        f'<img src="data:image/png;base64,{image}" width="800px"/>',
+        html=True
+    )

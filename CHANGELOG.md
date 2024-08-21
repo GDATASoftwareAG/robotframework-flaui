@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- [#192](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/192) New Screenshot Logging behaviour using Base64 encoded images
+- [#193](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/193) Changed Screenshot keyword behaviour (Optional XPATH for element-based screenshot)
+
 ## [Release][3.3.0] [3.3.0][3.2.0-3.3.0] - 2024-08-03
 
 ### Added

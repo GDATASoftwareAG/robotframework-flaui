@@ -138,7 +138,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.GRID: GridKeywords(self.container),
             FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.container),
             FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.container),
-            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots),
+            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots, self.container),
             FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.container),
             FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.container),
             FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.container),

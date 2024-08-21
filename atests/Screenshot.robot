@@ -8,6 +8,7 @@ Library             String
 Library             OperatingSystem
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True
+Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
 
@@ -24,7 +25,7 @@ Take No Screenshot If Module Is Disabled
     Take Screenshots On Failure    False
     Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Take Screenshots On Failure    True
+    [Teardown]    Reset Screenshot Environment To Default
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
     FOR    ${_}    IN RANGE    1    3
@@ -33,6 +34,7 @@ Take Screenshot If XPath Not Found Multiple Times Default Folder
         Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
         Wait Until Created    ${OUTPUT DIR}/${FILENAME}    1s
     END
+    [Teardown]    Reset Screenshot Environment To Default
 
 Take Screenshot If XPath Not Found Multiple Times By Specific Folder
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
@@ -42,7 +44,7 @@ Take Screenshot If XPath Not Found Multiple Times By Specific Folder
         Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
         Wait Until Created    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}    1s
     END
-    Set Screenshot Directory
+    [Teardown]    Reset Screenshot Environment To Default
 
 Take Manual Screenshot By Keyword
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
@@ -54,8 +56,7 @@ Take Manual Screenshot By Keyword
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Set Screenshot Directory
-    Take Screenshots On Failure    True
+    [Teardown]    Reset Screenshot Environment To Default
 
 Test Case 1234: Something to Test
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
@@ -63,7 +64,7 @@ Test Case 1234: Something to Test
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Set Screenshot Directory
+    [Teardown]    Reset Screenshot Environment To Default
 
 No Screenshots Should Created For No Library Keywords
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
@@ -72,7 +73,33 @@ No Screenshots Should Created For No Library Keywords
     Run Keyword And Ignore Error    Fail    You Should Not Pass
     Run Keyword And Ignore Error    Wait Until Keyword Succeeds    5x    10ms    Fail    You Should Not Pass
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Set Screenshot Directory
+    [Teardown]    Reset Screenshot Environment To Default
+
+Take Screenshot Of Window
+    [Setup]    Start Application
+    ${PID}    Attach Application By Name    ${TEST_APP}
+    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
+    ${FILENAME}    Get Expected Filename    ${TEST_NAME}
+    File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Take Screenshot    ${MAIN_WINDOW}
+    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    [Teardown]    Reset Screenshot Environment To Default    ${PID}
+
+Take Screenshot As Base64
+    Set Screenshot Log Mode    Base64
+    ${base64}    Take Screenshot
+    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
+    Should Not Be Empty    ${base64}    Returned base64 image is empty
+    [Teardown]    Reset Screenshot Environment To Default
+
+Take Screenshot Of Window As Base64
+    [Setup]    Start Application
+    ${PID}    Attach Application By Name    ${TEST_APP}
+    Set Screenshot Log Mode    Base64
+    ${base64}    Take Screenshot    ${MAIN_WINDOW}
+    Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
+    Should Not Be Empty    ${base64}    Returned base64 image is empty
+    [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 
 *** Keywords ***
@@ -91,3 +118,11 @@ Get Expected Filename
     ${FILENAME}    Catenate    SEPARATOR=.    ${FILENAME}    jpg
 
     RETURN    ${FILENAME}
+
+Reset Screenshot Environment To Default
+    [Documentation]    Reset screenshot environment to default and initial settings.
+    [Arguments]    ${pid}=${None}
+    Set Screenshot Log Mode    File
+    Take Screenshots On Failure    True
+    Set Screenshot Directory
+    Run Keyword And Ignore Error    Stop Application    ${pid}
