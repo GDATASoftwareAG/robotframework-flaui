@@ -81,19 +81,6 @@ artifacts:
 - path: keywords/keywords.xml
   name: keywords.xml
 deploy_script:
-  - ps: |
-      if($env:APPVEYOR_REPO_TAG -eq 'true') {
-        Write-Output ("Deploying " + $env:APPVEYOR_REPO_TAG_NAME + " to PyPI...")
-
-        python -m twine upload --skip-existing dist/*.whl
-
-        python -m twine upload --skip-existing dist/*.tar.gz
-
-      } else {
-        Write-Output "No tag for deployment"
-      }
+- ps: .\deploy.ps1
 on_finish:
-- ps: >-
-    $wc = New-Object 'System.Net.WebClient'
-
-    $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\result\xunit.xml))
+- ps: .\testreport.ps1
