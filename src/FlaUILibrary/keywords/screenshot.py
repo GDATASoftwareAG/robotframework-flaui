@@ -17,6 +17,15 @@ class ScreenshotKeywords:
         """
         self._screenshots = screenshots
         self._container = container
+    
+    @keyword
+    def get_screenshot_log_mode(self):
+        """Returns the current logging mode of the screenshot module. Default is 'File'.
+
+        Example:
+        | ${log_mode} = | Get Screenshot Log Mode |
+        """
+        return self._screenshots.get_mode()
 
     @keyword
     def set_screenshot_log_mode(self, log_mode: str):
