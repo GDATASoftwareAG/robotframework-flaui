@@ -87,9 +87,9 @@ Take Screenshot Of Window
 
 Take Screenshot As Base64
     Set Screenshot Log Mode    Base64
-    ${base64}   Take Screenshot
+    ${base64}    Take Screenshot
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
-    Should Not Be Empty     ${base64}   Returned base64 image is empty
+    Should Not Be Empty    ${base64}    Returned base64 image is empty
     [Teardown]    Reset Screenshot Environment To Default
 
 Take Screenshot Of Window As Base64
@@ -98,7 +98,7 @@ Take Screenshot Of Window As Base64
     Set Screenshot Log Mode    Base64
     ${base64}    Take Screenshot    ${MAIN_WINDOW}
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
-    Should Not Be Empty     ${base64}   Returned base64 image is empty
+    Should Not Be Empty    ${base64}    Returned base64 image is empty
     [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 
