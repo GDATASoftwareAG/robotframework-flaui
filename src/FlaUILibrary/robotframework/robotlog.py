@@ -45,9 +45,7 @@ def log_screenshot_base64(image: str):
     ``image`` Image as string in base64 encoding. 
     """
     logger.info(
-        '</td></tr><tr><td colspan="3">'
-        '<img src=\"data:image/png;base64,{src}\" width="800px"/>'.format(
-            src=image
-        ),
+        '</td></tr><tr><td colspan="3">' +
+        f'<img src="data:image/png;base64,{image}" width="800px"/>',
         html=True
     )

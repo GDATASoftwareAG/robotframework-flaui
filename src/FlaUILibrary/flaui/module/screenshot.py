@@ -114,8 +114,10 @@ class Screenshot(ModuleInterface):
         """
         if self._mode == self.ScreenshotMode.FILE:
             return self._capture_file(element)
-        elif self._mode == self.ScreenshotMode.BASE64:
+        if self._mode == self.ScreenshotMode.BASE64:
             return self._capture_base64(element)
+        return FlaUiError.raise_fla_ui_error("Invalid screenshot mode selected. Available modes: "
+                                             + '\n'.join([str(mode) for mode in self.ScreenshotMode]))
 
     def _capture_file(self, element=None):
         """
