@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][3.4.0] [3.4.0][3.3.0-3.4.0] - 2024-08-22
+
 ### Added
 - [#192](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/192) New Screenshot Logging behaviour using Base64 encoded images
 - [#193](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/193) Changed Screenshot keyword behaviour (Optional XPATH for element-based screenshot)
@@ -670,7 +672,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.3.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.4.0...main
+
+[3.4.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.4.0
+
+[3.3.0-3.4.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.3.0...3.4.0
 
 [3.3.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.3.0
 
