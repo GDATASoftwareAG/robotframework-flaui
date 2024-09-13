@@ -178,3 +178,17 @@ Right Click Close
     Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
     Element Should Not Exist    ${XPATH_COMBO_BOX_ITEM}
     Right Click Close    ${POPUP_TOGGLE_BUTTON}    ${XPATH_COMBO_BOX_ITEM}
+
+Click Hold Open
+    Click Hold Open
+    ...    ${HOLD_BUTTON}
+    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+    ...    3100
+    Element Should Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+
+Click Hold Close
+    Click Hold Close
+    ...    ${HOLD_BUTTON}
+    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+    ...    1000
+    Element Should Not Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]

@@ -6,6 +6,14 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+### Added
+- [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) New Keywords 
+  - Click Hold Open
+  - Click Hold Close
+  
+### Bugfix
+- [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) Bad Naming changed
+  - Argument naming in all Click Hold keywords updated from timeout_in_ms to hold_time
 
 ## [Release][3.4.0] [3.4.0][3.3.0-3.4.0] - 2024-08-22
 
