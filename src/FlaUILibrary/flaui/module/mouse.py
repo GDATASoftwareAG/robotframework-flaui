@@ -67,8 +67,8 @@ class Mouse(ModuleInterface):
         LEFT_CLICK_HOLD_CLOSE= "LEFT_CLICK_HOLD_CLOSE"
 
     @staticmethod
-    def create_value_container(element=None, second_element=None, timeout_in_ms=None, hold_time_in_ms=None, max_repeat=None,
-                               click_element_xpath=None, goal_element_xpath=None,
+    def create_value_container(element=None, second_element=None, timeout_in_ms=None, hold_time_in_ms=None,
+                               max_repeat=None, click_element_xpath=None, goal_element_xpath=None,
                                focus_element_xpath_before=None, focus_element_xpath_after=None,
                                ignore_if=None, scroll_amount=None):
         # pylint: disable=C0301
@@ -134,7 +134,8 @@ class Mouse(ModuleInterface):
                                                                     values["focus_element_xpath_after"],
                                                                     values["max_repeat"], values["timeout_in_ms"],
                                                                     values["ignore_if"]),
-            self.Action.LEFT_CLICK_HOLD_OPEN: lambda: self._click_open(Mouse._click_hold_relay(values["hold_time_in_ms"]), 
+            self.Action.LEFT_CLICK_HOLD_OPEN: lambda: self._click_open(
+                                                                    Mouse._click_hold_relay(values["hold_time_in_ms"]),
                                                                     values["click_element_xpath"],
                                                                     values["goal_element_xpath"],
                                                                     values["focus_element_xpath_before"],
@@ -167,20 +168,23 @@ class Mouse(ModuleInterface):
                                                                       values["focus_element_xpath_after"],
                                                                       values["max_repeat"], values["timeout_in_ms"],
                                                                       values["ignore_if"]),
-            self.Action.LEFT_CLICK_HOLD_CLOSE: lambda: self._click_close(Mouse._click_hold_relay(values["hold_time_in_ms"]), 
-                                                                      values["click_element_xpath"],
-                                                                      values["goal_element_xpath"],
-                                                                      values["focus_element_xpath_before"],
-                                                                      values["focus_element_xpath_after"],
-                                                                      values["max_repeat"], values["timeout_in_ms"],
-                                                                      values["ignore_if"]),
+            self.Action.LEFT_CLICK_HOLD_CLOSE: lambda: self._click_close(
+                                                                    Mouse._click_hold_relay(values["hold_time_in_ms"]),
+                                                                    values["click_element_xpath"],
+                                                                    values["goal_element_xpath"],
+                                                                    values["focus_element_xpath_before"],
+                                                                    values["focus_element_xpath_after"],
+                                                                    values["max_repeat"], values["timeout_in_ms"],
+                                                                    values["ignore_if"]),
             self.Action.RIGHT_CLICK: lambda: self._right_click(values["element"]),
             self.Action.MIDDLE_CLICK: lambda: self._middle_click(values["element"]),
             self.Action.DOUBLE_CLICK: lambda: self._double_click(values["element"]),
             self.Action.LEFT_CLICK_HOLD: lambda: self._click_hold(values["element"], values["hold_time_in_ms"]),
             self.Action.RIGHT_CLICK_HOLD: lambda: self._right_click_hold(values["element"], values["hold_time_in_ms"]),
-            self.Action.DOUBLE_CLICK_HOLD: lambda: self._double_click_hold(values["element"], values["hold_time_in_ms"]),
-            self.Action.MIDDLE_CLICK_HOLD: lambda: self._middle_click_hold(values["element"], values["hold_time_in_ms"]),
+            self.Action.DOUBLE_CLICK_HOLD: lambda: self._double_click_hold(values["element"],
+                                                                           values["hold_time_in_ms"]),
+            self.Action.MIDDLE_CLICK_HOLD: lambda: self._middle_click_hold(values["element"],
+                                                                           values["hold_time_in_ms"]),
             self.Action.MOVE_TO: lambda: self._move_to(values["element"]),
             self.Action.DRAG_AND_DROP: lambda: self._drag_and_drop(values["element"], values["second_element"]),
             self.Action.SCROLL_UP: lambda: self._scroll(values["element"], values['scroll_amount']),
@@ -304,9 +308,9 @@ class Mouse(ModuleInterface):
         FlaUI.Core.Input.Mouse.Up()
 
     @staticmethod
-    def _click_hold_relay(time):
+    def _click_hold_relay(holdtime):
         def _f(element):
-            Mouse._click_hold(element, time)
+            Mouse._click_hold(element, holdtime)
         return _f
 
     @staticmethod
