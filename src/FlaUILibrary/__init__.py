@@ -20,7 +20,8 @@ from FlaUILibrary.keywords import (ApplicationKeywords,
                                    TabKeywords,
                                    PropertyKeywords,
                                    ToggleButtonKeywords,
-                                   UiaKeywords)
+                                   UiaKeywords,
+                                   ButtonKeywords)
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
 from FlaUILibrary.flaui.module import Screenshot
@@ -99,6 +100,7 @@ class FlaUILibrary(DynamicCore):
         PROPERTY = "PROPERTY"
         TOGGLEBUTTON = "TOGGLEBUTTON"
         AUTOMATION_INTERFACE = "AUTOMATION_INTERFACE"
+        BUTTON = "Button"
 
     def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
         """
@@ -148,6 +150,7 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.container),
             FlaUILibrary.KeywordModules.TOGGLEBUTTON: ToggleButtonKeywords(self.container),
             FlaUILibrary.KeywordModules.AUTOMATION_INTERFACE: UiaKeywords(self.container),
+            FlaUILibrary.KeywordModules.BUTTON: ButtonKeywords(self.container),
         }
 
         # Robot init

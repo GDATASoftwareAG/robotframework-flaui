@@ -10,6 +10,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) New Keywords 
   - Click Hold Open
   - Click Hold Close
+- [#204](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/204) New Keyword
+  - Invoke Button
   
 ### Bugfix
 - [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) Bad Naming changed

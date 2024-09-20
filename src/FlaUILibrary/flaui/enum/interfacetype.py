@@ -16,3 +16,4 @@ class InterfaceType(Enum):
     TAB = 8
     TREE = 9
     TOGGLEBUTTON = 10
+    BUTTON = 11

@@ -6,7 +6,7 @@ from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.module import (Application, Combobox, Debug, Grid, Tree, Mouse, Keyboard, Textbox, Tab,
-                                       Element, Window, Checkbox, Selector, Property, ToggleButton)
+                                       Element, Window, Checkbox, Selector, Property, ToggleButton, Button)
 
 
 class UIA(WindowsAutomationInterface, ABC):
@@ -54,7 +54,7 @@ class UIA(WindowsAutomationInterface, ABC):
         """
         modules = [Application(), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
                    Grid(), Mouse(automation), Textbox(), Tree(), Checkbox(), Tab(), Window(), Combobox(),
-                   Property(), ToggleButton()]
+                   Property(), ToggleButton(), Button()]
 
         for module in modules:
             for value in module.Action:
@@ -108,6 +108,8 @@ class UIA(WindowsAutomationInterface, ABC):
                                  "type": "Tree"},
             InterfaceType.TOGGLEBUTTON: {"cast": lambda: AutomationElementExtensions.AsToggleButton(element),
                                          "type": "ToggleButton"},
+            InterfaceType.BUTTON: {"cast": lambda: AutomationElementExtensions.AsButton(element),
+                                         "type": "Button"},
         }
 
         dic = switcher.get(ui_type, {"cast": lambda: InterfaceType.INVALID, "type": "Unknown"})
