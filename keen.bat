@@ -72,9 +72,13 @@ EXIT /B %ERRORLEVEL%
     if %result%==0 set /A result = %ERRORLEVEL%
     call python -m robot.rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia2\screenshots .\result\screenshots\
+    call xcopy .\result\uia2\screenshots\default .\result\screenshots\default\
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia3\screenshots .\result\screenshots\
+    call xcopy .\result\uia3\screenshots\default .\result\screenshots\default\
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call xcopy .\result\uia2\screenshots\alias .\result\screenshots\alias\
+    if %result%==0 set /A result = %ERRORLEVEL%
+    call xcopy .\result\uia3\screenshots\alias .\result\screenshots\alias\
     if %result%==0 set /A result = %ERRORLEVEL%
     call python parsly.py
     if %result%==0 set /A result = %ERRORLEVEL%

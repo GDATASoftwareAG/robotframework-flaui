@@ -102,7 +102,11 @@ class FlaUILibrary(DynamicCore):
         AUTOMATION_INTERFACE = "AUTOMATION_INTERFACE"
         BUTTON = "Button"
 
-    def __init__(self, uia='UIA3', screenshot_on_failure='True', screenshot_dir=None, timeout=1000):
+    def __init__(self, uia='UIA3',
+                 screenshot_on_failure='True',
+                 screenshot_dir=None,
+                 timeout=1000,
+                 alias="FlaUILibrary"):
         """
         FlaUiLibrary can be imported by following optional arguments:
 
@@ -110,12 +114,14 @@ class FlaUILibrary(DynamicCore):
         ``screenshot_on_failure`` indicator to disable or enable screenshot feature.
         ``screenshot_dir`` is the directory where screenshots are saved.
         ``timeout`` maximum amount of waiting time in ms for an element find action. Default value is 1000ms.
+        ``alias`` alias library name from import.
 
         If the given directory does not already exist, it will be created when the first screenshot is taken.
         If the argument is not given, the default location for screenshots is the output directory of the Robot run,
         i.e. the directory where output and log files are generated.
         """
         # FlaUI init
+        self._alias = alias
         self.builtin = BuiltIn()
 
         try:
@@ -165,7 +171,7 @@ class FlaUILibrary(DynamicCore):
     def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
         if attrs['status'] == 'FAIL' \
                 and self.screenshots.is_enabled \
-                and attrs['libname'] == "FlaUILibrary":
+                and attrs['libname'] == self._alias:
 
             self.screenshots.execute_action(Screenshot.Action.CAPTURE,
                                             Screenshot.create_value_container())
