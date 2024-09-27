@@ -12,6 +12,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - Click Hold Close
 - [#204](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/204) New Keyword
   - Invoke Button
+- [#206](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/206) New alias property include to fix alias usage.
+    ```
+    Library  FlaUILibrary  uia=UIA3  screenshot_on_failure=True  alias=FLA  AS  FLA
+    ```
   
 ### Bugfix
 - [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) Bad Naming changed

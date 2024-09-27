@@ -14,7 +14,7 @@ Resource            util/XPath.resource
 
 
 *** Variables ***
-${SCREENSHOT_FOLDER}    screenshots
+${SCREENSHOT_FOLDER}    screenshots/default
 
 
 *** Test Cases ***
