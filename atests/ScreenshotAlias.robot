@@ -7,7 +7,7 @@ Library             Process
 Library             String
 Library             OperatingSystem
 Library             StringFormat
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    alias=FLA    AS    FLA
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    AS    FLA
 Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
