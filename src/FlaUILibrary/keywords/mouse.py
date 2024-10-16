@@ -558,7 +558,7 @@ class MouseKeywords:
                     focus_element_identifier_before_click: str = None,
                     focus_element_identifier_after_close: str = None,
                     max_repeat: int = 5,
-                    timeout_between_repeates: int = 1,
+                    timeout_between_repeates: int = 1000,
                     ignore_if_already_close: bool = True,
                     msg=None):
         # pylint: disable=C0301
@@ -607,7 +607,7 @@ class MouseKeywords:
                            focus_element_identifier_before_click: str = None,
                            focus_element_identifier_after_close: str = None,
                            max_repeat: int = 5,
-                           timeout_between_repeates: int = 1,
+                           timeout_between_repeates: int = 1000,
                            ignore_if_already_close: bool = True,
                            msg=None):
         # pylint: disable=C0301
@@ -656,7 +656,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1,
+                          timeout_between_repeates: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -705,7 +705,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1,
+                          timeout_between_repeates: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -755,7 +755,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1,
+                          timeout_between_repeates: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
