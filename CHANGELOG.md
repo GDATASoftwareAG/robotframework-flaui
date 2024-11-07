@@ -20,6 +20,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 ### Bugfix
 - [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) Bad Naming changed
   - Argument naming in all Click Hold keywords updated from timeout_in_ms to hold_time
+- [#211](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/211) Click Close TypoFix
+  - the default timeout of click close changed from 1ms to 1000ms
 
 ## [Release][3.4.0] [3.4.0][3.3.0-3.4.0] - 2024-08-22
 
