@@ -6,6 +6,9 @@ to [Semantic Versioning][].
 This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
+
+## [Release][3.5.0] [3.5.0][3.4.0-3.5.0] - 2024-11-08
+
 ### Added
 - [#202](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/202) New Keywords 
   - Click Hold Open
@@ -688,7 +691,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.4.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.5.0...main
+
+[3.5.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.5.0
+
+[3.4.0-3.5.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.4.0...3.5.0
 
 [3.4.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.4.0
 
