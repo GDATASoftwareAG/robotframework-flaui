@@ -1,30 +1,31 @@
-from robot.utils import is_truthy
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.screenshot import Screenshot
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
+
 
 class ScreenshotKeywords:
     """
     Interface implementation from Robotframework usage for screenshot keywords.
     """
 
-    def __init__(self, screenshots: Screenshot, container: AutomationInterfaceContainer):
+    def __init__(self, container: AutomationInterfaceContainer, directory: str, is_enabled: bool):
         """Creates screenshot keywords module to handle image capturing.
 
-        ``screenshots`` Screenshots module for image capturing
         ``container`` User automation container to handle element interaction
         """
-        self._screenshots = screenshots
         self._container = container
+        self.set_screenshot_directory(directory)
+        self.take_screenshots_on_failure(is_enabled)
 
     @keyword
     def get_screenshot_log_mode(self):
         """Returns the current logging mode of the screenshot module. Default is 'File'.
 
         Example:
-        | ${log_mode} = | Get Screenshot Log Mode |
+        | ${log_mode}  Get Screenshot Log Mode |
         """
-        return self._screenshots.get_mode()
+        module = self._container.create_or_get_module()
+        return module.action(Screenshot.Action.GET_MODE, Screenshot.create_value_container())
 
     @keyword
     def set_screenshot_log_mode(self, log_mode: str):
@@ -39,7 +40,8 @@ class ScreenshotKeywords:
         Example:
         | Set Screenshot Log Mode    Base64 |
         """
-        self._screenshots.set_mode(log_mode)
+        module = self._container.create_or_get_module()
+        module.action(Screenshot.Action.SET_MODE, Screenshot.create_value_container(mode=log_mode))
 
     @keyword
     def take_screenshot(self, identifier=None, msg=None):
@@ -58,17 +60,15 @@ class ScreenshotKeywords:
         | Take Screenshot   <XPATH> |
         | Take Screenshot   <XPATH>    "Your custom error message" |
         """
-        image_var = None
+        module = self._container.create_or_get_module()
         if identifier:
-            module = self._container.create_or_get_module()
             element = module.get_element(identifier, msg=msg)
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE_ELEMENT,
-                                                    Screenshot.create_value_container(element=element))
+            image = module.action(Screenshot.Action.CAPTURE_ELEMENT,
+                                  Screenshot.create_value_container(element=element))
         else:
-            image_var = self._screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                                    Screenshot.create_value_container())
+            image = module.action(Screenshot.Action.FORCE_CAPTURE, Screenshot.create_value_container())
 
-        return image_var
+        return image
 
     @keyword
     def take_screenshots_on_failure(self, enabled):
@@ -83,10 +83,8 @@ class ScreenshotKeywords:
         Example:
         | Take Screenshots On Failure  ${FALSE/TRUE} |
         """
-        if is_truthy(enabled):
-            self._screenshots.is_enabled = True
-        else:
-            self._screenshots.is_enabled = False
+        module = self._container.create_or_get_module()
+        module.action(Screenshot.Action.SET_ENABLED_TO, Screenshot.create_value_container(enabled=enabled))
 
     @keyword
     def set_screenshot_directory(self, directory=None):
@@ -100,4 +98,5 @@ class ScreenshotKeywords:
         Example:
         | Set Screenshot Directory  <STRING_PATH> |
         """
-        self._screenshots.directory = directory
+        module = self._container.create_or_get_module()
+        module.action(Screenshot.Action.SET_DIRECTORY, Screenshot.create_value_container(directory=directory))

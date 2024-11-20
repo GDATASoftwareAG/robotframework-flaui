@@ -105,8 +105,7 @@ class FlaUILibrary(DynamicCore):
     def __init__(self, uia='UIA3',
                  screenshot_on_failure='True',
                  screenshot_dir=None,
-                 timeout=1000,
-                 alias="FlaUILibrary"):
+                 timeout=1000):
         """
         FlaUiLibrary can be imported by following optional arguments:
 
@@ -121,7 +120,6 @@ class FlaUILibrary(DynamicCore):
         i.e. the directory where output and log files are generated.
         """
         # FlaUI init
-        self._alias = alias
         self.builtin = BuiltIn()
 
         try:
@@ -135,8 +133,6 @@ class FlaUILibrary(DynamicCore):
 
         self.container = AutomationInterfaceContainer(timeout, uia)
 
-        self.screenshots = Screenshot(screenshot_dir, screenshot_on_failure == 'True')
-
         self.keyword_modules = {
             FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.container),
             FlaUILibrary.KeywordModules.CHECKBOX: CheckBoxKeywords(self.container),
@@ -146,7 +142,9 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.GRID: GridKeywords(self.container),
             FlaUILibrary.KeywordModules.MOUSE: MouseKeywords(self.container),
             FlaUILibrary.KeywordModules.KEYBOARD: KeyboardKeywords(self.container),
-            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.screenshots, self.container),
+            FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.container,
+                                                                       screenshot_dir,
+                                                                       screenshot_on_failure == 'True'),
             FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.container),
             FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.container),
             FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.container),
@@ -165,13 +163,5 @@ class FlaUILibrary(DynamicCore):
         DynamicCore.__init__(self, self.libraries)
 
     def _start_test(self, name, attrs):  # pylint: disable=unused-argument
-        self.screenshots.set_name(name)
-        self.screenshots.img_counter = 1
-
-    def _end_keyword(self, name, attrs):  # pylint: disable=unused-argument
-        if attrs['status'] == 'FAIL' \
-                and self.screenshots.is_enabled \
-                and attrs['libname'] == self._alias:
-
-            self.screenshots.execute_action(Screenshot.Action.CAPTURE,
-                                            Screenshot.create_value_container())
+        self.container.create_or_get_module().action(Screenshot.Action.SET_NAME,
+                                                     Screenshot.create_value_container(name=name))

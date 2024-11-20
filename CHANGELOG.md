@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Removed
+- [#216](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/216) Removed alias property in robotframework-flaui settings.
+
 ## [Release][3.5.0] [3.5.0][3.4.0-3.5.0] - 2024-11-08
 
 ### Added

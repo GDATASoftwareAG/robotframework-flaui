@@ -7,7 +7,7 @@ Library             Process
 Library             String
 Library             OperatingSystem
 Library             StringFormat
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    alias=FLA    AS    FLA
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    AS    FLA
 Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
@@ -22,7 +22,7 @@ Take No Screenshot If Module Is Disabled
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}
     Remove File    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
-    Take Screenshots On Failure    False
+    Take Screenshots On Failure    ${False}
     Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default
@@ -50,7 +50,7 @@ Take Manual Screenshot By Keyword
     Set Screenshot Directory    ${SCREENSHOT_FOLDER}
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}
     Remove File    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
-    Take Screenshots On Failure    False
+    Take Screenshots On Failure    ${False}
     ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
@@ -115,7 +115,6 @@ Get Expected Filename
     ${FILENAME}    Catenate    SEPARATOR=_    ${HOSTNAME}    ${FILENAME}
     ${FILENAME}    Catenate    SEPARATOR=_    test    ${FILENAME}
     ${FILENAME}    Catenate    SEPARATOR=_    ${FILENAME}    [0-9]*
-    ${FILENAME}    Catenate    SEPARATOR=_    ${FILENAME}    [0-9]*
     ${FILENAME}    Catenate    SEPARATOR=.    ${FILENAME}    jpg
 
     RETURN    ${FILENAME}
@@ -124,6 +123,6 @@ Reset Screenshot Environment To Default
     [Documentation]    Reset screenshot environment to default and initial settings.
     [Arguments]    ${pid}=${None}
     Set Screenshot Log Mode    File
-    Take Screenshots On Failure    True
+    Take Screenshots On Failure    ${True}
     Set Screenshot Directory
     Run Keyword And Ignore Error    Stop Application    ${pid}

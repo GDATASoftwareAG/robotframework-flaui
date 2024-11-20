@@ -24,7 +24,7 @@ class AutomationInterfaceContainer:
 
     def set_identifier(self, identifier: str):
         """
-        Sets UIA2 or UIA3 identifer to use.
+        Sets UIA2 or UIA3 identifier to use.
 
         Args:
             identifier (String): UIA2 or UIA3

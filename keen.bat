@@ -64,7 +64,7 @@ EXIT /B %ERRORLEVEL%
     if %result%==0 set /A result = %ERRORLEVEL%
     call:pylint
     if %result%==0 set /A result = %ERRORLEVEL%
-    call:tidy
+    python -m robotidy atests --check
     if %result%==0 set /A result = %ERRORLEVEL%
     call:test_uia2
     if %result%==0 set /A result = %ERRORLEVEL%
@@ -72,13 +72,13 @@ EXIT /B %ERRORLEVEL%
     if %result%==0 set /A result = %ERRORLEVEL%
     call python -m robot.rebot --name ATests --outputdir result -x rebot_xunit.xml result/uia2/output.xml result/uia3/output.xml
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia2\screenshots\default .\result\screenshots\default\
+    call xcopy .\result\uia2\screenshots .\result\screenshots /E /I
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia3\screenshots\default .\result\screenshots\default\
+    call xcopy .\result\uia3\screenshots .\result\screenshots /E /I
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia2\screenshots\alias .\result\screenshots\alias\
+    call xcopy .\result\uia2\*.jpg .\result /S /Y
     if %result%==0 set /A result = %ERRORLEVEL%
-    call xcopy .\result\uia3\screenshots\alias .\result\screenshots\alias\
+    call xcopy .\result\uia3\*.jpg .\result /S /Y
     if %result%==0 set /A result = %ERRORLEVEL%
     call python parsly.py
     if %result%==0 set /A result = %ERRORLEVEL%

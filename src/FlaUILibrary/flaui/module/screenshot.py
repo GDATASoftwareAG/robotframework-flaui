@@ -13,7 +13,6 @@ from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
 from FlaUILibrary.robotframework import robotlog
 
 
-
 # pylint: disable=too-many-instance-attributes
 class Screenshot(ModuleInterface):
     """
@@ -25,15 +24,25 @@ class Screenshot(ModuleInterface):
         """
         Value container from screenshot module.
         """
-        keywords: list
         element: Optional[Any]
+        enabled: Optional[bool]
+        mode: Optional[str]
+        directory: Optional[str]
+        name: Optional[str]
 
     class Action(Enum):
         """
         Supported actions for execute action implementation.
         """
         CAPTURE = "CAPTURE"
+        FORCE_CAPTURE = "FORCE_CAPTURE"
         CAPTURE_ELEMENT = "CAPTURE_ELEMENT"
+        IS_ENABLED = "IS_ENABLED"
+        SET_ENABLED_TO = "SET_ENABLED_TO"
+        SET_MODE = "SET_MODE"
+        GET_MODE = "GET_MODE"
+        SET_DIRECTORY = "SET_DIRECTORY"
+        SET_NAME = "SET_NAME"
 
     class ScreenshotMode(Enum):
         """
@@ -42,31 +51,71 @@ class Screenshot(ModuleInterface):
         FILE = "File"
         BASE64 = "Base64"
 
-    def __init__(self, directory, is_enabled):
+    def __init__(self):
         """
         Creates screenshot module to capture desktop or element images by an error.
-
-        ``directory`` Directory to store captured images. If not set log path will be used from robot by default.
         """
-        self.img_counter = 1
-        self.is_enabled = is_enabled
-        self.directory = directory
-        self._name = ""
+        self._img_counter = 1
+        self._is_enabled = True
+        self._directory = None
         self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
-        self._filename = "test_{}_{}_{}_{}.jpg"
+        self._filename = "test_{}_{}_{}.jpg"
+        self._name = ""
         self._mode = self.ScreenshotMode.FILE
 
-    def set_name(self, name):
+    @staticmethod
+    def create_value_container(element=None,
+                               enabled=None,
+                               mode=None,
+                               directory=None,
+                               name=None):
         """
-        Set screenshot filename as lower text.
-        Removes all invalid windows syntax and replace all empty characters into '_'
+        Helper to create container object.
 
         Args:
-            name (str): Filename to set.
+            element (Object): UIA2 or UIA3 element to screenshot
+            enabled (bool): True to enable screenshot, False to disable screenshot.
+            mode (string): Mode to capture screenshot for Base64 or Image capturing.
+            directory (string): Directory to capture screenshot.
+            name (string): Additional name of screenshot. Will be used to capture test name.
+        """
+        return Screenshot.Container(element=element, enabled=enabled, mode=mode, directory=directory, name=name)
+
+    def execute_action(self, action: Action, values: ValueContainer):
+        # pylint: disable=unnecessary-lambda
+        switcher = {
+            self.Action.FORCE_CAPTURE: lambda: self._capture(element=values['element']),
+            self.Action.CAPTURE: lambda: self._capture() if self._is_enabled else None,
+            self.Action.CAPTURE_ELEMENT: lambda: self._capture(element=values['element'] if self._is_enabled else None),
+            self.Action.IS_ENABLED: lambda: self._is_enabled,
+            self.Action.SET_ENABLED_TO: lambda: self._set_enabled_to(values['enabled']),
+            self.Action.SET_MODE: lambda: self._set_mode(values['mode']),
+            self.Action.GET_MODE: lambda: self._get_mode(),
+            self.Action.SET_DIRECTORY: lambda: self._set_directory(values['directory']),
+            self.Action.SET_NAME: lambda: self._set_name(values['name'])
+        }
+
+        return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+
+    def _set_name(self, name: str) -> None:
+        """
+        Set name from snapshot file to include. Will remove all whitespaces into underscores.
+
+        Args:
+            name (str): Additional name to include to screenshot.
         """
         self._name = self._clean_invalid_windows_syntax(name.replace(" ", "_").lower())
 
-    def set_mode(self, mode: str):
+    def _set_directory(self, directory: str) -> None:
+        """
+        Set additional relative directory path to store snapshots.
+
+        Args:
+            directory (str): Relative path from directory.
+        """
+        self._directory = directory
+
+    def _set_mode(self, mode: str):
         """
         Set screenshot logging mode. Available modes: File, Base64
 
@@ -80,77 +129,76 @@ class Screenshot(ModuleInterface):
         else:
             FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)
 
-    def get_mode(self):
+    def _get_mode(self):
         """
         Return the configured screenshot logging mode.
         """
         return self._mode
 
-    @staticmethod
-    def create_value_container(keywords=None, element=None):
+    def _set_enabled_to(self, enabled: bool):
         """
-        Helper to create container object.
+        Enable or disable screenshot module.
 
         Args:
-            keywords (list): List from all blacklisted or whitelisted keywords.
+            enabled (bool): True to enable screenshot, False to disable screenshot.
         """
-        if keywords is None:
-            keywords = []
-
-        return Screenshot.Container(keywords=keywords, element=element)
-
-    def execute_action(self, action: Action, values: ValueContainer):
-        # pylint: disable=unnecessary-lambda
-        switcher = {
-            self.Action.CAPTURE: lambda: self._capture(),
-            self.Action.CAPTURE_ELEMENT: lambda: self._capture(element=values['element'])
-        }
-
-        return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+        self._is_enabled = enabled
 
     def _capture(self, element=None):
         """
-        Capture image depending on mode
+        Capture desktop or element image as screenshot.
+
+        If mode is File -> Filepath will be returned.
+        If mode is Base64 -> Base64 string will be returned.
+
+        Args:
+            element (Object): UIA2 or UIA3 element to screenshot.
+
+        Raises:
+            FlaUiError: If mode is not supported.
         """
         if self._mode == self.ScreenshotMode.FILE:
             return self._capture_file(element)
         if self._mode == self.ScreenshotMode.BASE64:
             return self._capture_base64(element)
-        return FlaUiError.raise_fla_ui_error("Invalid screenshot mode selected. Available modes: "
-                                             + '\n'.join([str(mode) for mode in self.ScreenshotMode]))
+
+        raise FlaUiError("Invalid screenshot mode selected. Available modes: "
+                         + '\n'.join([str(mode) for mode in self.ScreenshotMode]))
 
     def _capture_file(self, element=None):
         """
-        Capture image from desktop.
+        Capture image from desktop or element as screenshot in file.
+
+        Args:
+            element (Object): UIA2 or UIA3 element to screenshot.
+
+        Raises:
+            FlaUiError: If image could not be saved.
         """
         image = None
 
+        directory = self._get_path()
+        filepath = os.path.join(directory, self._filename.format(self._hostname,
+                                                                 self._name,
+                                                                 self._get_current_time_in_ms()))
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         try:
-            filepath = os.path.join(self._get_path(), self._filename.format(self._hostname,
-                                                                            self._name,
-                                                                            self._get_current_time_in_ms(),
-                                                                            self.img_counter))
+            if element:
+                image = Capture.Element(element)
+            else:
+                image = Capture.Screen()
 
-            directory = os.path.dirname(filepath)
+            image.ToFile(filepath)
 
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-
-            try:
-                if element:
-                    image = Capture.Element(element)
-                else:
-                    image = Capture.Screen()
-                image.ToFile(filepath)
-
-                # Log screenshot from temp or persist mode
-                robotlog.log_screenshot(filepath)
-
-            except CSharpException:
-                robotlog.log("Error to save image " + filepath)
-
+            # Log screenshot from temp or persist mode
+            robotlog.log_screenshot(filepath)
+        except CSharpException as exc:
+            raise FlaUiError("Error to save image " + filepath) from exc
         finally:
-            self.img_counter += 1
+            self._img_counter += 1
             if image is not None:
                 # C# --> class CaptureImage : IDisposable
                 image.Dispose()
@@ -158,6 +206,15 @@ class Screenshot(ModuleInterface):
         return filepath
 
     def _capture_base64(self, element=None):
+        """
+        Capture image from desktop or element as screenshot as base64.
+
+        Args:
+            element (Object): UIA2 or UIA3 element to screenshot.
+
+        Raises:
+            FlaUiError: If image could not be created as base64.
+        """
         image = None
 
         try:
@@ -165,6 +222,7 @@ class Screenshot(ModuleInterface):
                 image = Capture.Element(element)
             else:
                 image = Capture.Screen()
+
             stream = MemoryStream()
             image.Bitmap.Save(stream, ImageFormat.Png)
             base64 = CSharpConvert.ToBase64String(stream.GetBuffer())
@@ -172,26 +230,22 @@ class Screenshot(ModuleInterface):
 
             # Log screenshot from temp or persist mode
             robotlog.log_screenshot_base64(base64)
-
-        except CSharpException:
-            robotlog.log("Error to save as base64 encoded string: " + element)
-
+            return base64
+        except CSharpException as exc:
+            raise FlaUiError("Error to save as base64 encoded string: " + element) from exc
         finally:
-            self.img_counter += 1
+            self._img_counter += 1
             if image is not None:
                 # C# --> class CaptureImage : IDisposable
                 image.Dispose()
-
-        return base64
 
     def _get_path(self):
         """
         Get directory path for logging.
         """
         output_dir = robotlog.get_log_directory().replace("/", os.sep)
-
-        if self.directory is not None:
-            return os.path.join(output_dir, self.directory).replace("/", os.sep)
+        if self._directory:
+            return os.path.join(output_dir, self._directory).replace("/", os.sep)
 
         return output_dir
 
