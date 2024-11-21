@@ -2,6 +2,7 @@ from abc import ABC
 from typing import Any
 from enum import Enum
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
+from FlaUILibrary import Screenshot
 from FlaUILibrary.flaui.enum import InterfaceType
 from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
 from FlaUILibrary.flaui.exception import FlaUiError
@@ -43,6 +44,10 @@ class UIA(WindowsAutomationInterface, ABC):
             raise FlaUiError(FlaUiError.ActionNotSupported)
 
         except FlaUiError as error:
+
+            self._actions[Screenshot.Action.CAPTURE].execute_action(Screenshot.Action.CAPTURE,
+                                                                    Screenshot.create_value_container())
+
             raise FlaUiError(msg) if msg is not None else error
 
     def register_action(self, automation: Any):
@@ -54,7 +59,7 @@ class UIA(WindowsAutomationInterface, ABC):
         """
         modules = [Application(), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
                    Grid(), Mouse(automation), Textbox(), Tree(), Checkbox(), Tab(), Window(), Combobox(),
-                   Property(), ToggleButton(), Button()]
+                   Property(), ToggleButton(), Button(), Screenshot()]
 
         for module in modules:
             for value in module.Action:
