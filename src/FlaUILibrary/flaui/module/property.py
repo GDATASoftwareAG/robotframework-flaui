@@ -40,7 +40,11 @@ class Property(ModuleInterface):
         IS_TEXT_PATTERN_SUPPORTED = "IS_TEXT_PATTERN_SUPPORTED"
         IS_TOGGLE_PATTERN_SUPPORTED = "IS_TOGGLE_PATTERN_SUPPORTED"
         IS_VALUE_PATTERN_SUPPORTED = "IS_VALUE_PATTERN_SUPPORTED"
+        IS_RANGEVALUE_PATTERN_SUPPORTED = "IS_RANGEVALUE_PATTERN_SUPPORTED"
         VALUE = "VALUE"
+        RANGEVALUE = "RANGEVALUE"
+        RANGEMINIMUM = "RANGEMINIMUM"
+        RANGEMAXIMUM = "RANGEMAXIMUM"
         IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED = "IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED"
         EXPAND_COLLAPSE_STATE = "EXPAND_COLLAPSE_STATE"
         IS_SELECTION_ITEM_PATTERN_SUPPORTED = "IS_SELECTION_ITEM_PATTERN_SUPPORTED"
@@ -83,7 +87,11 @@ class Property(ModuleInterface):
             self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
             self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
             self.Action.IS_VALUE_PATTERN_SUPPORTED: lambda: self._is_value_pattern_supported(values["element"]),
+            self.Action.IS_RANGEVALUE_PATTERN_SUPPORTED: lambda: self._is_rangevalue_pattern_supported(values["element"]),
             self.Action.VALUE: lambda: self._get_value_from_value_pattern(values["element"]),
+            self.Action.RANGEVALUE: lambda: self._get_value_from_rangevalue_pattern(values["element"]),
+            self.Action.RANGEMINIMUM: lambda: self._get_minimum_from_rangevalue_pattern(values["element"]),
+            self.Action.RANGEMAXIMUM: lambda: self._get_maximum_from_rangevalue_pattern(values["element"]),
             self.Action.IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED: lambda: self._is_expand_collapse_pattern_supported(
                 values["element"]),
             self.Action.EXPAND_COLLAPSE_STATE: lambda: self._get_expand_collapse_pattern_state(values["element"]),
@@ -236,6 +244,10 @@ class Property(ModuleInterface):
         return Property._prop_to_bool(element.Patterns.Value.IsSupported)
 
     @staticmethod
+    def _is_rangevalue_pattern_supported(element: Any) -> bool:
+        return Property._prop_to_bool(element.Patterns.RangeValue.IsSupported)
+
+    @staticmethod
     def _is_expand_collapse_pattern_supported(element: Any) -> bool:
         return Property._prop_to_bool(element.Patterns.ExpandCollapse.IsSupported)
 
@@ -287,6 +299,30 @@ class Property(ModuleInterface):
     def _get_value_from_value_pattern(element: Any) -> str:
         pattern = Property._get_value_pattern_from_element(element)
         return str(pattern.Value)
+
+    @staticmethod
+    def _get_rangevalue_pattern_from_element(element) -> Any:
+        if Property._is_rangevalue_pattern_supported(element):
+            pattern = element.Patterns.RangeValue.Pattern
+            if pattern is not None:
+                return pattern
+
+        raise FlaUiError(FlaUiError.PatternNotSupported.format("RangeValue"))
+
+    @staticmethod
+    def _get_value_from_rangevalue_pattern(element: Any) -> str:
+        pattern = Property._get_rangevalue_pattern_from_element(element)
+        return str(pattern.Value)
+    
+    @staticmethod
+    def _get_minimum_from_rangevalue_pattern(element: Any) -> str:
+        pattern = Property._get_rangevalue_pattern_from_element(element)
+        return str(pattern.Minimum)
+    
+    @staticmethod
+    def _get_maximum_from_rangevalue_pattern(element: Any) -> str:
+        pattern = Property._get_rangevalue_pattern_from_element(element)
+        return str(pattern.Maximum)
 
     @staticmethod
     def _get_selection_item_pattern_from_element(element) -> Any:
