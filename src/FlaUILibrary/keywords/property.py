@@ -45,7 +45,11 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | IS_TEXT_PATTERN_SUPPORTED | Bool | True or False |
         | IS_TOGGLE_PATTERN_SUPPORTED | Bool | True or False |
         | IS_VALUE_PATTERN_SUPPORTED | Bool | True or False |
+        | IS_RANGEVALUE_PATTERN_SUPPORTED | Bool | True or False |
         | VALUE | String | The Value Property of Element |
+        | RANGEVALUE | String | The RangeValue Value Property of Element |
+        | RANGEMINIMUM | String | The RangeValue Minimum Property of Element |
+        | RANGEMAXIMUM | String | The RangeValue Maximum Property of Element |
         | IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED | Bool | True or False |
         | EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |   
         | IS_SELECTION_ITEM_PATTERN_SUPPORTED | Bool | True or False |    
