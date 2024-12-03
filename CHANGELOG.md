@@ -7,6 +7,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- [#220](https://github.com/GDATASoftwareAG/robotframework-flaui/pull/220) Extended Keyword to support RangeValue Pattern
+  - Get Property From Element    ${XPATH}    RANGEVALUE
+  - Get Property From Element    ${XPATH}    RANGEMINIMUM
+  - Get Property From Element    ${XPATH}    RANGEMAXIMUM
+  - Added testcases for RangeValue Pattern which check ProgressBar properties
+
 ### Removed
 - [#216](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/216) Removed alias property in robotframework-flaui settings.
 
