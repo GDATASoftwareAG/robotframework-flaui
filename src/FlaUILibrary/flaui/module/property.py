@@ -87,7 +87,8 @@ class Property(ModuleInterface):
             self.Action.IS_TEXT_PATTERN_SUPPORTED: lambda: self._is_text_pattern_supported(values["element"]),
             self.Action.IS_TOGGLE_PATTERN_SUPPORTED: lambda: self._is_toggle_pattern_supported(values["element"]),
             self.Action.IS_VALUE_PATTERN_SUPPORTED: lambda: self._is_value_pattern_supported(values["element"]),
-            self.Action.IS_RANGEVALUE_PATTERN_SUPPORTED: lambda: self._is_rangevalue_pattern_supported(values["element"]),
+            self.Action.IS_RANGEVALUE_PATTERN_SUPPORTED: \
+                lambda: self._is_rangevalue_pattern_supported(values["element"]),
             self.Action.VALUE: lambda: self._get_value_from_value_pattern(values["element"]),
             self.Action.RANGEVALUE: lambda: self._get_value_from_rangevalue_pattern(values["element"]),
             self.Action.RANGEMINIMUM: lambda: self._get_minimum_from_rangevalue_pattern(values["element"]),
@@ -313,12 +314,12 @@ class Property(ModuleInterface):
     def _get_value_from_rangevalue_pattern(element: Any) -> str:
         pattern = Property._get_rangevalue_pattern_from_element(element)
         return str(pattern.Value)
-    
+
     @staticmethod
     def _get_minimum_from_rangevalue_pattern(element: Any) -> str:
         pattern = Property._get_rangevalue_pattern_from_element(element)
         return str(pattern.Minimum)
-    
+
     @staticmethod
     def _get_maximum_from_rangevalue_pattern(element: Any) -> str:
         pattern = Property._get_rangevalue_pattern_from_element(element)
