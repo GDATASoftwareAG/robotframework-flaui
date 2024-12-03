@@ -25,6 +25,7 @@ ${XPATH_TREE}                   ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group/Tree[
 ${XPATH_TAB}                    ${MAIN_WINDOW}/Tab
 ${XPATH_RADIO_BUTTON_ONE}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton1']
 ${XPATH_RADIO_BUTTON_TWO}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/RadioButton[@AutomationId='RadioButton2']
+${XPATH_PROGRESSBAR}            ${MAIN_WINDOW_SIMPLE_CONTROLS}/ProgressBar[@AutomationId='ProgressBar']
 ${XPATH_GRID_VIEW}              ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
 
 
@@ -302,6 +303,18 @@ Value Pattern Value From Element
     Select Combobox Item By Index    ${EDITABLE_COMBOX}    2
     ${value}    Get Property From Element    ${EDITABLE_COMBOX_EDIT}    VALUE
     Should Be Equal As Strings    ${value}    Item 3
+
+RangeValue Pattern Value From Element
+    ${value}    Get Property From Element    ${XPATH_PROGRESSBAR}    RANGEVALUE
+    Should Be Equal    ${value}    50
+
+RangeValue Pattern Minimum From Element
+    ${value}    Get Property From Element    ${XPATH_PROGRESSBAR}    RANGEMINIMUM
+    Should Be Equal    ${value}    0
+
+RangeValue Pattern Maximum From Element
+    ${value}    Get Property From Element    ${XPATH_PROGRESSBAR}    RANGEMAXIMUM
+    Should Be Equal    ${value}    100
 
 Is Expand Collapse Pattern Supported
     ${result}    Get Property From Element    ${XPATH_COMBO_BOX}    IS_EXPAND_COLLAPSE_PATTERN_SUPPORTED
