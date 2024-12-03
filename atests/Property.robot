@@ -304,6 +304,12 @@ Value Pattern Value From Element
     ${value}    Get Property From Element    ${EDITABLE_COMBOX_EDIT}    VALUE
     Should Be Equal As Strings    ${value}    Item 3
 
+Is RangeValue Pattern Supported From Element
+    ${result}    Get Property From Element    ${XPATH_PROGRESSBAR}    IS_RANGEVALUE_PATTERN_SUPPORTED
+    Should Be True    ${result}
+    ${result}    Get Property From Element    ${TEXT_ELEMENT}    IS_RANGEVALUE_PATTERN_SUPPORTED
+    Should Be Equal    ${result}    ${False}
+
 RangeValue Pattern Value From Element
     ${value}    Get Property From Element    ${XPATH_PROGRESSBAR}    RANGEVALUE
     Should Be Equal    ${value}    50
