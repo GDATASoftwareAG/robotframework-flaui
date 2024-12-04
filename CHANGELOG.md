@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][3.6.0] [3.6.0][3.5.0-3.6.0] - 2024-12-04
+
 ### Added
 - [#220](https://github.com/GDATASoftwareAG/robotframework-flaui/pull/220) Extended Keyword to support RangeValue Pattern
   - Get Property From Element    ${XPATH}    RANGEVALUE
@@ -701,7 +703,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.5.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.6.0...main
+
+[3.6.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.6.0
+
+[3.5.0-3.6.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.5.0...3.6.0
 
 [3.5.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.5.0
 
