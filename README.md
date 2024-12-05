@@ -30,6 +30,7 @@
 [python_310]: https://img.shields.io/badge/Python-3.10-blue
 [python_311]: https://img.shields.io/badge/Python-3.11-blue
 [python_312]: https://img.shields.io/badge/Python-3.12-blue
+[python_313]: https://img.shields.io/badge/Python-3.13-red
 
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
@@ -44,6 +45,7 @@
 | Python Builds (x64)      | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64] ![][py312x64]         |
 | Tests                    | [![][tests]][tests_url]                                                     |
 | Python                   | ![][python_38] ![][python_39] ![][python_310] ![][python_311] ![python_312] |
+| Not Supported            | ![python_313]                                                               |
 | Robotframework           | ![][rf3] ![][rf4] ![][rf5] ![][rf6] ![][rf7]                                |
 | PyPi                     | [![][pypi]][pypi_url]                                                       |
 
