@@ -10,50 +10,61 @@ environment:
       PYTHON_VERSION: 3.8
       PYTHON_ARCH: 32
 
-    - job_name: Python 3.9 x86
-      PYTHON: "C:\\Python39"
-      PYTHON_VERSION: 3.9
-      PYTHON_ARCH: 32
-
-    - job_name: Python 3.10 x86
-      PYTHON: "C:\\Python310"
-      PYTHON_VERSION: 3.10
-      PYTHON_ARCH: 32
-
-    - job_name: Python 3.11 x86
-      PYTHON: "C:\\Python311"
-      PYTHON_VERSION: 3.11
-      PYTHON_ARCH: 32
-      
-    - job_name: Python 3.12 x86
-      PYTHON: "C:\\Python312"
-      PYTHON_VERSION: 3.12
-      PYTHON_ARCH: 32      
-
     - job_name: Python 3.8 x64
       PYTHON: "C:\\Python38-x64"
       PYTHON_VERSION: 3.8
       PYTHON_ARCH: 64
+
+    - job_name: Python 3.9 x86
+      PYTHON: "C:\\Python39"
+      PYTHON_VERSION: 3.9
+      PYTHON_ARCH: 32
 
     - job_name: Python 3.9 x64
       PYTHON: "C:\\Python39-x64"
       PYTHON_VERSION: 3.9
       PYTHON_ARCH: 64
 
+    - job_name: Python 3.10 x86
+      PYTHON: "C:\\Python310"
+      PYTHON_VERSION: 3.10
+      PYTHON_ARCH: 32
+
     - job_name: Python 3.10 x64
       PYTHON: "C:\\Python310-x64"
       PYTHON_VERSION: 3.10
-      PYTHON_ARCH: 64
+      PYTHON_ARCH: 64      
+
+    - job_name: Python 3.11 x86
+      PYTHON: "C:\\Python311"
+      PYTHON_VERSION: 3.11
+      PYTHON_ARCH: 32
 
     - job_name: Python 3.11 x64
       PYTHON: "C:\\Python311-x64"
       PYTHON_VERSION: 3.11
       PYTHON_ARCH: 64
-      
+
+    - job_name: Python 3.12 x86
+      PYTHON: "C:\\Python312"
+      PYTHON_VERSION: 3.12
+      PYTHON_ARCH: 32      
+
     - job_name: Python 3.12 x64
       PYTHON: "C:\\Python312-x64"
       PYTHON_VERSION: 3.12
-      PYTHON_ARCH: 64      
+      PYTHON_ARCH: 64
+
+    - job_name: Python 3.13 x86
+      PYTHON: "C:\\Python313"
+      PYTHON_VERSION: 3.12
+      PYTHON_ARCH: 32      
+
+    - job_name: Python 3.13 x64
+      PYTHON: "C:\\Python313-x64"
+      PYTHON_VERSION: 3.13
+      PYTHON_ARCH: 64     
+   
 init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%
 install:
