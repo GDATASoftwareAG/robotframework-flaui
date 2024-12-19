@@ -57,7 +57,7 @@ environment:
 
     - job_name: Python 3.13 x86
       PYTHON: "C:\\Python313"
-      PYTHON_VERSION: 3.12
+      PYTHON_VERSION: 3.13
       PYTHON_ARCH: 32      
 
     - job_name: Python 3.13 x64
