@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- [#225](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/225) Include screenshot_mode as parameter in library init.
+
 ### Bugfix
 - [#224](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/224) Is Element Offscreen
 

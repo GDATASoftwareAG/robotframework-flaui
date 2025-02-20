@@ -117,7 +117,7 @@ class Screenshot(ModuleInterface):
 
     def _set_mode(self, mode: str):
         """
-        Set screenshot logging mode. Available modes: File, Base64
+        Set screenshot logging mode. Available modes: FILE, BASE64
 
         Args:
             mode (str): Screenshot mode to set.
