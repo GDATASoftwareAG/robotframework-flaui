@@ -178,11 +178,11 @@ Find All Elements If Xpath Is Wrong
 
 Is Element Offscreen
     ${IS_OFFSCREEN}    Is Element Offscreen    ${XPATH_ELEMENT}
-    Should Be True    ${IS_OFFSCREEN}
+    Should Be Equal    ${IS_OFFSCREEN}    ${False}
 
 Is Element Not Offscreen
     ${IS_OFFSCREEN}    Is Element Offscreen    ${XPATH_OFFSCREEN_ELEMENT}
-    Should Be Equal    ${IS_OFFSCREEN}    ${False}
+    Should Be True    ${IS_OFFSCREEN}
 
 Wait Until Element Is Offscreen
     ${PID}    Start Application    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}

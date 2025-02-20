@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Bugfix
+- [#224](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/224) Is Element Offscreen
+
 ## [Release][3.6.1] [3.6.1][3.6.0-3.6.1] - 2024-12-27
 
 ### Added
