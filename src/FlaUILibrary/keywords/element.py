@@ -252,9 +252,9 @@ class ElementKeywords:
 
         """
         module = self._container.create_or_get_module()
-        return not module.action(Element.Action.IS_ELEMENT_OFFSCREEN,
-                                 Element.create_value_container(xpath=identifier, msg=msg),
-                                 msg)
+        return module.action(Element.Action.IS_ELEMENT_OFFSCREEN,
+                             Element.create_value_container(xpath=identifier, msg=msg),
+                             msg)
 
     @keyword
     def element_should_be_offscreen(self, identifier, msg=None):
