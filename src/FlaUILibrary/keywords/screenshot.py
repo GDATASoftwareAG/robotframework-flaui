@@ -8,14 +8,22 @@ class ScreenshotKeywords:
     Interface implementation from Robotframework usage for screenshot keywords.
     """
 
-    def __init__(self, container: AutomationInterfaceContainer, directory: str, is_enabled: bool):
+    def __init__(self,
+                 container: AutomationInterfaceContainer,
+                 directory: str,
+                 is_enabled: bool,
+                 mode: str):
         """Creates screenshot keywords module to handle image capturing.
 
         ``container`` User automation container to handle element interaction
+        ``directory`` Screenshot directory to set.
+        ``is_enabled`` Flag to identify if feature is active or not.
+        ``mode`` Mode how to persists screenshots.
         """
         self._container = container
         self.set_screenshot_directory(directory)
         self.take_screenshots_on_failure(is_enabled)
+        self.set_screenshot_log_mode(mode)
 
     @keyword
     def get_screenshot_log_mode(self):
