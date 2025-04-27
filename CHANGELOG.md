@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][4.0.0] [4.0.0][3.7.0-4.0.0] - 2025-04-26
+
+### Updated
+
+- FlaUI upgrade to version 5.0.0 (https://github.com/FlaUI/FlaUI/releases/tag/v5.0.0)
+
 ## [Release][3.7.0] [3.7.0][3.6.1-3.7.0] - 2025-02-22
 
 ### Added
@@ -717,7 +723,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.7.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.0...main
+
+[4.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.0
+
+[3.7.0-4.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/3.7.0...4.0.0
 
 [3.7.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/3.7.0
 
