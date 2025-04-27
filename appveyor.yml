@@ -72,10 +72,8 @@ install:
     set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
     
     python --version
-
-    python -m pip install --upgrade pip
     
-    .\keen.bat dependency
+    .\keen.bat venv
 
 build: off
 test_script:

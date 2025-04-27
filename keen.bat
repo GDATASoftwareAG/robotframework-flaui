@@ -9,14 +9,9 @@ GOTO:MAIN
     rmdir  /s /q robotframework_flaui.egg-info
 EXIT /B 0
 
-:dependency
-    call python -m pip install --upgrade pip setuptools wheel
-    call python -m pip install -r requirements-dev.txt
-EXIT /B %ERRORLEVEL%
-
 :build
     call:cleanup
-    call:dependency
+    call:venv
     call python -m build
     call python libdoc.py
 EXIT /B %ERRORLEVEL%
@@ -82,6 +77,27 @@ EXIT /B %ERRORLEVEL%
     if %result%==0 set /A result = %ERRORLEVEL%
     call python parsly.py
     if %result%==0 set /A result = %ERRORLEVEL%
+EXIT /B %result%
+
+:venv
+    set /A result = 0
+    IF NOT EXIST .venv (
+        call python -m venv .venv
+        if %result%==0 set /A result = %ERRORLEVEL%
+        call .venv\Scripts\activate.bat
+        if %result%==0 set /A result = %ERRORLEVEL%
+        call python -m pip install --upgrade pip setuptools wheel
+        if %result%==0 set /A result = %ERRORLEVEL%
+        call python -m pip install -r requirements-dev.txt
+        if %result%==0 set /A result = %ERRORLEVEL%
+    ) ELSE (
+        call .venv\Scripts\activate.bat
+        if %result%==0 set /A result = %ERRORLEVEL%
+        call python -m pip install --upgrade pip setuptools wheel
+        if %result%==0 set /A result = %ERRORLEVEL%
+        call python -m pip install -r requirements-dev.txt
+        if %result%==0 set /A result = %ERRORLEVEL%
+    )
 EXIT /B %result%
 
 :MAIN
