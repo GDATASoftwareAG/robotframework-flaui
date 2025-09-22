@@ -29,6 +29,7 @@ class Screenshot(ModuleInterface):
         mode: Optional[str]
         directory: Optional[str]
         name: Optional[str]
+        suffix: Optional[str]
 
     class Action(Enum):
         """
@@ -43,6 +44,7 @@ class Screenshot(ModuleInterface):
         GET_MODE = "GET_MODE"
         SET_DIRECTORY = "SET_DIRECTORY"
         SET_NAME = "SET_NAME"
+        SET_FILE_SUFFIX = "SET_FILE_SUFFIX"
 
     class ScreenshotMode(Enum):
         """
@@ -59,7 +61,8 @@ class Screenshot(ModuleInterface):
         self._is_enabled = True
         self._directory = None
         self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
-        self._filename = "test_{}_{}_{}.jpg"
+        self._suffix = "jpg"
+        self._filename = "test_{}_{}_{}.{}"
         self._name = ""
         self._mode = self.ScreenshotMode.FILE
 
@@ -68,7 +71,8 @@ class Screenshot(ModuleInterface):
                                enabled=None,
                                mode=None,
                                directory=None,
-                               name=None):
+                               name=None,
+                               suffix=None):
         """
         Helper to create container object.
 
@@ -79,7 +83,7 @@ class Screenshot(ModuleInterface):
             directory (string): Directory to capture screenshot.
             name (string): Additional name of screenshot. Will be used to capture test name.
         """
-        return Screenshot.Container(element=element, enabled=enabled, mode=mode, directory=directory, name=name)
+        return Screenshot.Container(element=element, enabled=enabled, mode=mode, directory=directory, name=name, suffix=suffix)
 
     def execute_action(self, action: Action, values: ValueContainer):
         # pylint: disable=unnecessary-lambda
@@ -92,7 +96,8 @@ class Screenshot(ModuleInterface):
             self.Action.SET_MODE: lambda: self._set_mode(values['mode']),
             self.Action.GET_MODE: lambda: self._get_mode(),
             self.Action.SET_DIRECTORY: lambda: self._set_directory(values['directory']),
-            self.Action.SET_NAME: lambda: self._set_name(values['name'])
+            self.Action.SET_NAME: lambda: self._set_name(values['name']),
+            self.Action.SET_FILE_SUFFIX: lambda: self._set_file_suffix(values['suffix'])
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -114,6 +119,15 @@ class Screenshot(ModuleInterface):
             directory (str): Relative path from directory.
         """
         self._directory = directory
+
+    def _set_file_suffix(self, suffix: str) -> None:
+        """
+        Set file suffix to store screenshot as.
+
+        Args:
+            suffix (str): File suffix without leading '.'
+        """
+        self._suffix = suffix
 
     def _set_mode(self, mode: str):
         """
@@ -180,7 +194,8 @@ class Screenshot(ModuleInterface):
         directory = self._get_path()
         filepath = os.path.join(directory, self._filename.format(self._hostname,
                                                                  self._name,
-                                                                 self._get_current_time_in_ms()))
+                                                                 self._get_current_time_in_ms(),
+                                                                 self._suffix))
 
         if not os.path.exists(directory):
             os.makedirs(directory)
