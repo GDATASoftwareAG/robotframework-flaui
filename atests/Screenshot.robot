@@ -85,6 +85,17 @@ Take Screenshot Of Window
     File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
+Take Screenshot Of Window As Png
+    [Setup]    Start Application
+    ${PID}    Attach Application By Name    ${TEST_APP}
+    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
+    Set Screenshot File Suffix    png
+    ${FILENAME}    Get Expected Filename    ${TEST_NAME}    png
+    File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Take Screenshot    ${MAIN_WINDOW}
+    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    [Teardown]    Reset Screenshot Environment To Default    ${PID}
+
 Take Screenshot As Base64
     Set Screenshot Log Mode    Base64
     ${base64}    Take Screenshot
@@ -104,7 +115,7 @@ Take Screenshot Of Window As Base64
 
 *** Keywords ***
 Get Expected Filename
-    [Arguments]    ${TEST_FILENAME}
+    [Arguments]    ${TEST_FILENAME}    ${SUFFIX}=jpg
     ${FILENAME}    Convert To Lowercase    ${TEST_FILENAME}
     ${HOSTNAME}    Convert To Lowercase    %{COMPUTERNAME}
 
@@ -114,7 +125,7 @@ Get Expected Filename
     ${FILENAME}    Catenate    SEPARATOR=_    ${HOSTNAME}    ${FILENAME}
     ${FILENAME}    Catenate    SEPARATOR=_    test    ${FILENAME}
     ${FILENAME}    Catenate    SEPARATOR=_    ${FILENAME}    [0-9]*
-    ${FILENAME}    Catenate    SEPARATOR=.    ${FILENAME}    jpg
+    ${FILENAME}    Catenate    SEPARATOR=.    ${FILENAME}    ${SUFFIX}
 
     RETURN    ${FILENAME}
 

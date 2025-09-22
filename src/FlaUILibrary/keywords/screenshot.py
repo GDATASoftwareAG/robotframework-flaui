@@ -108,3 +108,18 @@ class ScreenshotKeywords:
         """
         module = self._container.create_or_get_module()
         module.action(Screenshot.Action.SET_DIRECTORY, Screenshot.create_value_container(directory=directory))
+
+    @keyword
+    def set_screenshot_file_suffix(self, suffix='jpg'):
+        """
+        Set file suffix for captured images. If no suffix is set default to jpg.
+
+        Arguments:
+        | Argument   | Type   | Description                                  |
+        | suffix     | string | File suffix to use - e.g. jpg, png |
+
+        Example:
+        | Set Screenshot File Suffix  <SUFFIX> |
+        """
+        module = self._container.create_or_get_module()
+        module.action(Screenshot.Action.SET_FILE_SUFFIX, Screenshot.create_value_container(suffix=suffix))
