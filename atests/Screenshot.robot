@@ -135,4 +135,5 @@ Reset Screenshot Environment To Default
     Set Screenshot Log Mode    File
     Take Screenshots On Failure    ${True}
     Set Screenshot Directory
+    Set Screenshot File Suffix
     Run Keyword And Ignore Error    Stop Application    ${pid}

@@ -12,18 +12,21 @@ class ScreenshotKeywords:
                  container: AutomationInterfaceContainer,
                  directory: str,
                  is_enabled: bool,
-                 mode: str):
+                 mode: str,
+                 suffix: str):
         """Creates screenshot keywords module to handle image capturing.
 
         ``container`` User automation container to handle element interaction
         ``directory`` Screenshot directory to set.
         ``is_enabled`` Flag to identify if feature is active or not.
         ``mode`` Mode how to persists screenshots.
+        ``suffix`` File type and suffix for writing.
         """
         self._container = container
         self.set_screenshot_directory(directory)
         self.take_screenshots_on_failure(is_enabled)
         self.set_screenshot_log_mode(mode)
+        self.set_screenshot_file_suffix(suffix)
 
     @keyword
     def get_screenshot_log_mode(self):
