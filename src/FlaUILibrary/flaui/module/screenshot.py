@@ -82,8 +82,14 @@ class Screenshot(ModuleInterface):
             mode (string): Mode to capture screenshot for Base64 or Image capturing.
             directory (string): Directory to capture screenshot.
             name (string): Additional name of screenshot. Will be used to capture test name.
+            suffix (string): Additional suffix of screenshot filetype.
         """
-        return Screenshot.Container(element=element, enabled=enabled, mode=mode, directory=directory, name=name, suffix=suffix)
+        return Screenshot.Container(element=element,
+                                    enabled=enabled,
+                                    mode=mode,
+                                    directory=directory,
+                                    name=name,
+                                    suffix=suffix)
 
     def execute_action(self, action: Action, values: ValueContainer):
         # pylint: disable=unnecessary-lambda

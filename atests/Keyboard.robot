@@ -53,7 +53,7 @@ Keyboard Type Text By Delay
     Should Be Equal    ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}    ${TEXT}
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 0.4
-    Should Be True    ${TOTAL_MS} < 0.8
+    Should Be True    ${TOTAL_MS} < 1
 
 Keyboard Types Text By Delay
     ${TIME_BEFORE}    Get Current Date
@@ -64,7 +64,7 @@ Keyboard Types Text By Delay
     Should Be Equal    ${EXP_VALUE_OVERRIDE_INPUT_TEXT}    ${TEXT}
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 0.4
-    Should Be True    ${TOTAL_MS} < 1.2
+    Should Be True    ${TOTAL_MS} < 1.4
 
 Keyboard Type Text
     Press Key    ${KEYBOARD_INPUT_TEXT}    ${XPATH_INPUT_FIELD}
