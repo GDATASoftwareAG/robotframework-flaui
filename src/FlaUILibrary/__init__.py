@@ -107,7 +107,8 @@ class FlaUILibrary(DynamicCore):
                  screenshot_on_failure='True',
                  screenshot_dir=None,
                  timeout=1000,
-                 screenshot_mode='FILE'):
+                 screenshot_mode='FILE',
+                 screenshot_suffix='jpg'):
         """
         FlaUiLibrary can be imported by following optional arguments:
 
@@ -116,6 +117,7 @@ class FlaUILibrary(DynamicCore):
         ``screenshot_dir`` is the directory where screenshots are saved.
         ``timeout`` maximum amount of waiting time in ms for an element find action. Default value is 1000ms.
         ``screenshot_mode`` screenshot mode how to persist screenshots as FILE or BASE64
+        ``screenshot_suffix`` screenshot file type and suffix for screenshots saved as FILE
 
         If the given directory does not already exist, it will be created when the first screenshot is taken.
         If the argument is not given, the default location for screenshots is the output directory of the Robot run,
@@ -148,7 +150,8 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.SCREENSHOT: ScreenshotKeywords(self.container,
                                                                        screenshot_dir,
                                                                        screenshot_on_failure == 'True',
-                                                                       screenshot_mode),
+                                                                       screenshot_mode,
+                                                                       screenshot_suffix),
             FlaUILibrary.KeywordModules.TEXTBOX: TextBoxKeywords(self.container),
             FlaUILibrary.KeywordModules.WINDOW: WindowKeywords(self.container),
             FlaUILibrary.KeywordModules.RADIOBUTTON: RadioButtonKeywords(self.container),
