@@ -118,7 +118,7 @@ class ScreenshotKeywords:
         Set file suffix for captured images. If no suffix is set default to jpg.
 
         Arguments:
-        | Argument   | Type   | Description                                  |
+        | Argument   | Type   | Description                         |
         | suffix     | string | File suffix to use - e.g. jpg, png |
 
         Example:
