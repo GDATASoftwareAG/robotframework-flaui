@@ -29,7 +29,6 @@ Take Screenshot Of Window As Png From Library Import
     [Teardown]    Run Keyword And Ignore Error    Stop Application    ${PID}
 
 
-
 *** Keywords ***
 Get Expected Filename
     [Arguments]    ${TEST_FILENAME}    ${SUFFIX}=jpg
