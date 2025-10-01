@@ -55,7 +55,7 @@ Take Manual Screenshot By Keyword
     Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default
 
 Test Case 1234: Something to Test
@@ -63,7 +63,7 @@ Test Case 1234: Something to Test
     ${FILENAME}    Get Expected Filename    Test Case 1234 Something to Test
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default
 
 No Screenshots Should Created For No Library Keywords
@@ -82,7 +82,7 @@ Take Screenshot Of Window
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 Take Screenshot Of Window As Png
@@ -93,7 +93,7 @@ Take Screenshot Of Window As Png
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}    png
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default    ${PID}
 
 Take Screenshot As Base64

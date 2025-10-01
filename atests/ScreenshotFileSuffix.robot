@@ -25,7 +25,7 @@ Take Screenshot Of Window As Png From Library Import
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}    png
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot    ${MAIN_WINDOW}
-    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Run Keyword And Ignore Error    Stop Application    ${PID}
 
 
