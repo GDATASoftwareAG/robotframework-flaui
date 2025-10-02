@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- []() New keyword to resize window
+  - Resize Window    ${xpath}  ${width}  ${height}
+
 ## [Release][4.0.1] [4.0.1][4.0.0-4.0.1] - 2025-10-02
 
 ### Added

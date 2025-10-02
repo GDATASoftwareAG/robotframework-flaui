@@ -16,12 +16,15 @@ class Window(ModuleInterface):
         Value container from window module.
         """
         element: Optional[Any]
+        width: Optional[int]
+        height: Optional[int]
 
     class Action(Enum):
         """
         Supported actions for execute action implementation.
         """
         CLOSE_WINDOW = "CLOSE_WINDOW"
+        RESIZE_WINDOW = "RESIZE_WINDOW"
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -30,21 +33,24 @@ class Window(ModuleInterface):
 
           *  Action.CLOSE_WINDOW
             * Values ["element"]
-            * Returns : None
+
+          *  Action.RESIZE_WINDOW
+            * Values ["element", "width", "height"]
 
         Raises:
             FlaUiError: If action is not supported.
-
-        Args:
-            action (Action): Action to use.
-            values (Object): See supported action definitions for value usage.
         """
 
         switcher = {
-            self.Action.CLOSE_WINDOW: lambda: self._close_window(values["element"])
+            self.Action.CLOSE_WINDOW: lambda: self._close_window(values["element"]),
+            self.Action.RESIZE_WINDOW: lambda: self._resize_window(
+                values["element"], values["width"], values["height"]
+            ),
         }
-
-        return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+        return switcher.get(
+            action,
+            lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported)
+        )()
 
     @staticmethod
     def _close_window(window: Any):
@@ -61,3 +67,22 @@ class Window(ModuleInterface):
             window.Close()
         except MethodNotSupportedException:
             raise FlaUiError(FlaUiError.WindowCloseNotSupported) from None
+
+    @staticmethod
+    def _resize_window(window: Any, width: int, height: int):
+        """
+        Resize the window using the UIAutomation Transform pattern.
+        """
+        if width <= 0 or height <= 0:
+            raise FlaUiError("Window resize failed: width/height must be > 0")
+
+        try:
+            transform = window.Patterns.Transform
+            if not getattr(transform, "IsSupported", False):
+                raise MethodNotSupportedException("Transform pattern not supported")
+
+            transform.Pattern.Resize(float(width), float(height))
+        except MethodNotSupportedException:
+            raise FlaUiError("Window resize is not supported by this element") from None
+        except Exception as e:
+            raise FlaUiError(f"Window resize failed: {e}") from None
