@@ -19,7 +19,7 @@ Close Window
 Resize Window
     Start Application
     ${_}    ${_}    ${width_before}    ${height_before}    Get Rectangle Bounding From Element    ${MAIN_WINDOW}
-    Resize Window    ${MAIN_WINDOW}  ${width_before+50}  ${height_before+50}
+    Resize Window    ${MAIN_WINDOW}    ${width_before+50}    ${height_before+50}
     ${_}    ${_}    ${width}    ${height}    Get Rectangle Bounding From Element    ${MAIN_WINDOW}
     Should Be Equal As Numbers    ${width}    ${width_before+50}
     Should Be Equal As Numbers    ${height}    ${height_before+50}
