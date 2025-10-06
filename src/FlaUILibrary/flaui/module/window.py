@@ -74,15 +74,13 @@ class Window(ModuleInterface):
         Resize the window using the UIAutomation Transform pattern.
         """
         if width <= 0 or height <= 0:
-            raise FlaUiError("Window resize failed: width/height must be > 0")
+            raise FlaUiError(FlaUiError.WindowResizeFailed.format("width/height must be > 0"))
+        
+        transform = window.Patterns.Transform
+        if not getattr(transform, "IsSupported", False):
+            raise FlaUiError(FlaUiError.WindowResizeNotSupported)
 
         try:
-            transform = window.Patterns.Transform
-            if not getattr(transform, "IsSupported", False):
-                raise MethodNotSupportedException("Transform pattern not supported")
-
             transform.Pattern.Resize(float(width), float(height))
-        except MethodNotSupportedException:
-            raise FlaUiError("Window resize is not supported by this element") from None
         except Exception as e:
-            raise FlaUiError(f"Window resize failed: {e}") from None
+            raise FlaUiError(FlaUiError.WindowResizeFailed.format(e)) from None
