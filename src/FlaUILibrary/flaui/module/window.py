@@ -75,7 +75,7 @@ class Window(ModuleInterface):
         """
         if width <= 0 or height <= 0:
             raise FlaUiError(FlaUiError.WindowResizeFailed.format("width/height must be > 0"))
-        
+
         transform = window.Patterns.Transform
         if not getattr(transform, "IsSupported", False):
             raise FlaUiError(FlaUiError.WindowResizeNotSupported)
