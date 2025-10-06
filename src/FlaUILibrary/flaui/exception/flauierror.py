@@ -30,6 +30,8 @@ class FlaUiError(AttributeError):
     ElementNotClosed = "Element '{}' could not be closed after clicking on '{}'"
     NoWindowWithNameFound = "No window with name '{}' found"
     WindowCloseNotSupported = "Close operation only supported for window elements"
+    WindowResizeNotSupported = "Window resize / transform operation not supported"
+    WindowResizeFailed = "Window resize failed: {}"
     WrongElementType = "'{}' could not be cast as '{}'"
     XPathNotFound = "Element from XPath '{}' could not be found"
     ControlDoesNotContainItem = "Control does not contain item '{}'"
