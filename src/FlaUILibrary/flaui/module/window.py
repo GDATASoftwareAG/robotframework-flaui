@@ -1,3 +1,4 @@
+import time
 from enum import Enum
 from typing import Optional, Any
 from FlaUI.Core.Exceptions import MethodNotSupportedException  # pylint: disable=import-error
@@ -84,3 +85,15 @@ class Window(ModuleInterface):
             transform.Pattern.Resize(float(width), float(height))
         except Exception as e:
             raise FlaUiError(FlaUiError.WindowResizeFailed.format(e)) from None
+
+        start = time.time()
+        timeout = 5 # seconds
+        while time.time() - start < timeout:
+            rect = window.BoundingRectangle
+            if abs(rect.Width - width) < 1 and abs(rect.Height - height) < 1:
+                return
+            time.sleep(0.1)
+
+        raise FlaUiError(FlaUiError.WindowResizeFailed.format(
+            f"Window did not reach target size within {timeout:.1f}s")
+        )
