@@ -2,7 +2,9 @@ version: 1.0.{build}
 branches:
   except:
   - '*documentation'
+
 image: Visual Studio 2019
+
 environment:
   matrix:
     - job_name: Python 3.8 x86
@@ -33,7 +35,7 @@ environment:
     - job_name: Python 3.10 x64
       PYTHON: "C:\\Python310-x64"
       PYTHON_VERSION: 3.10
-      PYTHON_ARCH: 64      
+      PYTHON_ARCH: 64
 
     - job_name: Python 3.11 x86
       PYTHON: "C:\\Python311"
@@ -48,7 +50,7 @@ environment:
     - job_name: Python 3.12 x86
       PYTHON: "C:\\Python312"
       PYTHON_VERSION: 3.12
-      PYTHON_ARCH: 32      
+      PYTHON_ARCH: 32
 
     - job_name: Python 3.12 x64
       PYTHON: "C:\\Python312-x64"
@@ -58,15 +60,16 @@ environment:
     - job_name: Python 3.13 x86
       PYTHON: "C:\\Python313"
       PYTHON_VERSION: 3.13
-      PYTHON_ARCH: 32      
+      PYTHON_ARCH: 32
 
     - job_name: Python 3.13 x64
       PYTHON: "C:\\Python313-x64"
       PYTHON_VERSION: 3.13
-      PYTHON_ARCH: 64     
-   
+      PYTHON_ARCH: 64
+
 init:
   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%
+
 install:
 - cmd: >-
     set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
@@ -76,8 +79,11 @@ install:
     .\keen.bat venv
 
 build: off
+
 test_script:
 - cmd: .\keen.bat test
+
+# Normal artifacts (for successful builds)
 artifacts:
 - path: result/
   name: results
@@ -89,7 +95,12 @@ artifacts:
   name: keywords.html
 - path: keywords/keywords.xml
   name: keywords.xml
+
 deploy_script:
 - ps: .\deploy.ps1
+
 on_finish:
 - ps: .\testreport.ps1
+
+on_failure:
+- ps: .\artifact.ps1
