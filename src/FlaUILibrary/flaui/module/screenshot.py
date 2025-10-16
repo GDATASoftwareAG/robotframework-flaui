@@ -1,5 +1,4 @@
 import os
-import platform
 import time
 from enum import Enum
 from typing import Any, Optional
@@ -60,7 +59,7 @@ class Screenshot(ModuleInterface):
         self._img_counter = 1
         self._is_enabled = True
         self._directory = None
-        self._hostname = self._clean_invalid_windows_syntax(platform.node().lower())
+        self._hostname = self._clean_invalid_windows_syntax(os.environ.get('COMPUTERNAME').lower())
         self._suffix = "jpg"
         self._filename = "test_{}_{}_{}.{}"
         self._name = ""
