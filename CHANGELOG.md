@@ -7,10 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][4.0.2] [4.0.2][4.0.1-4.0.2] - 2025-10-17
+
 ### Added
 
-- []() New keyword to resize window
-  - Resize Window    ${xpath}  ${width}  ${height}
+- New keyword
+  - Resize Window
 
 ## [Release][4.0.1] [4.0.1][4.0.0-4.0.1] - 2025-10-02
 
@@ -736,7 +738,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.2...main
+
+[4.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.2
+
+[4.0.1-4.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.1...4.0.2
 
 [4.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.1
 
