@@ -7,6 +7,13 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+- COMException handling implemented for get element method to avoid COMException raise to robotframework-flaui
+
+### Changed
+
+- Typo adjustments in parameter timeout_between_repeates to timeout_between_repeats for all mouse keywords
+
 ## [Release][4.0.2] [4.0.2][4.0.1-4.0.2] - 2025-10-17
 
 ### Added

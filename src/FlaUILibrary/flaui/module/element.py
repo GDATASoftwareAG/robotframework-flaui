@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Optional, Any, Union
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import InvalidOperationException # pylint: disable=import-error
+from System.Runtime.InteropServices import COMException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
 from FlaUI.Core.Exceptions import PropertyNotSupportedException # pylint: disable=import-error
 from FlaUI.Core.Exceptions import ElementNotAvailableException # pylint: disable=import-error
@@ -141,9 +142,6 @@ class Element(ModuleInterface):
 
         Args:
             xpath (string): XPath identifier from element.
-
-        Raises:
-            COMException: If node don't exist.
         """
         return self._get_element(xpath).Name
 
@@ -153,9 +151,6 @@ class Element(ModuleInterface):
 
         Args:
             xpath (string): XPath identifier from element.
-
-        Raises:
-            COMException: If node don't exist.
         """
         rect = self._get_element(xpath).BoundingRectangle
         return [Converter.cast_to_int(rect.X),
@@ -207,19 +202,15 @@ class Element(ModuleInterface):
         Raises:
             FlaUiError: If node could not be found by xpath.
         """
-        try:
+        component = self._get_element_by_xpath(xpath)
+        if not component and self._timeout > 0:
+            time.sleep(self._timeout / 1000)
             component = self._get_element_by_xpath(xpath)
-            if not component and self._timeout > 0:
-                time.sleep(self._timeout / 1000)
-                component = self._get_element_by_xpath(xpath)
 
-            if component:
-                return component
+        if component:
+            return component
 
-            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
-
-        except CSharpException:
-            raise FlaUiError(FlaUiError.XPathNotFound.format(xpath)) from None
+        raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
     def _get_element_by_xpath(self, xpath: str):
         """
@@ -231,6 +222,10 @@ class Element(ModuleInterface):
         try:
             return self._automation.GetDesktop().FindFirstByXPath(xpath)
         except ElementNotAvailableException:
+            return None
+        except COMException:
+            return None
+        except CSharpException:
             return None
 
     def _find_all_elements(self, xpath: str):

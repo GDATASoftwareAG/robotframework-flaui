@@ -329,7 +329,7 @@ class MouseKeywords:
                    focus_element_identifier_before_click: str = None,
                    focus_element_identifier_after_open: str = None,
                    max_repeat: int = 5,
-                   timeout_between_repeates: int = 1000,
+                   timeout_between_repeats: int = 1000,
                    ignore_if_already_open: bool = True,
                    msg=None):
         # pylint: disable=C0301
@@ -349,7 +349,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before clicking click_element |
         | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
         | msg | string | Custom error message |
 
@@ -365,7 +365,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_open,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_open),
                       msg)
 
@@ -375,7 +375,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_open: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1000,
+                          timeout_between_repeats: int = 1000,
                           ignore_if_already_open: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -395,7 +395,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before double clicking click_element |
         | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
         | msg | string | Custom error message |
 
@@ -410,7 +410,8 @@ class MouseKeywords:
                                                    goal_element_xpath=open_element_identifier,
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_open,
-                                                   max_repeat=max_repeat, timeout_in_ms=timeout_between_repeates,
+                                                   max_repeat=max_repeat,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_open), msg)
 
     @keyword
@@ -419,7 +420,7 @@ class MouseKeywords:
                          focus_element_identifier_before_click: str = None,
                          focus_element_identifier_after_open: str = None,
                          max_repeat: int = 5,
-                         timeout_between_repeates: int = 1000,
+                         timeout_between_repeats: int = 1000,
                          ignore_if_already_open: bool = True,
                          msg=None):
         # pylint: disable=C0301
@@ -439,7 +440,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before right clicking click_element |
         | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
         | msg | string | Custom error message |
 
@@ -455,7 +456,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_open,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_open), msg)
 
     @keyword
@@ -464,7 +465,7 @@ class MouseKeywords:
                          focus_element_identifier_before_click: str = None,
                          focus_element_identifier_after_open: str = None,
                          max_repeat: int = 5,
-                         timeout_between_repeates: int = 1000,
+                         timeout_between_repeats: int = 1000,
                          ignore_if_already_open: bool = True,
                          msg=None):
         # pylint: disable=C0301
@@ -484,7 +485,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before middle clicking click_element |
         | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
         | msg | string | Custom error message |
 
@@ -500,7 +501,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_open,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_open), msg)
 
     @keyword
@@ -510,7 +511,7 @@ class MouseKeywords:
                    focus_element_identifier_before_click: str = None,
                    focus_element_identifier_after_open: str = None,
                    max_repeat: int = 5,
-                   timeout_between_repeates: int = 1000,
+                   timeout_between_repeats: int = 1000,
                    ignore_if_already_open: bool = True,
                    msg=None):
         # pylint: disable=C0301
@@ -531,7 +532,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before clicking click_element |
         | focus_element_identifier_after_open | string | XPath identifier from element to be focused after openning open_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already open |
         | msg | string | Custom error message |
 
@@ -548,7 +549,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_open,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_open),
                       msg)
 
@@ -558,7 +559,7 @@ class MouseKeywords:
                     focus_element_identifier_before_click: str = None,
                     focus_element_identifier_after_close: str = None,
                     max_repeat: int = 5,
-                    timeout_between_repeates: int = 1000,
+                    timeout_between_repeats: int = 1000,
                     ignore_if_already_close: bool = True,
                     msg=None):
         # pylint: disable=C0301
@@ -578,7 +579,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before clicking click_element |
         | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
         | msg        | string | Custom error message          |
 
@@ -598,7 +599,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_close,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_close), msg)
 
     @keyword
@@ -607,7 +608,7 @@ class MouseKeywords:
                            focus_element_identifier_before_click: str = None,
                            focus_element_identifier_after_close: str = None,
                            max_repeat: int = 5,
-                           timeout_between_repeates: int = 1000,
+                           timeout_between_repeats: int = 1000,
                            ignore_if_already_close: bool = True,
                            msg=None):
         # pylint: disable=C0301
@@ -627,7 +628,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before double clicking click_element |
         | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
         | msg        | string | Custom error message          |
 
@@ -647,7 +648,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_close,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_close), msg)
 
     @keyword
@@ -656,7 +657,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1000,
+                          timeout_between_repeats: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -676,7 +677,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before right clicking click_element |
         | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
         | msg        | string | Custom error message          |
 
@@ -696,7 +697,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_close,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_close), msg)
 
     @keyword
@@ -705,7 +706,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1000,
+                          timeout_between_repeats: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -725,7 +726,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before middle clicking click_element |
         | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
         | msg        | string | Custom error message          |
 
@@ -745,7 +746,7 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_close,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_close), msg)
 
     @keyword
@@ -755,7 +756,7 @@ class MouseKeywords:
                           focus_element_identifier_before_click: str = None,
                           focus_element_identifier_after_close: str = None,
                           max_repeat: int = 5,
-                          timeout_between_repeates: int = 1000,
+                          timeout_between_repeats: int = 1000,
                           ignore_if_already_close: bool = True,
                           msg=None):
         # pylint: disable=C0301
@@ -776,7 +777,7 @@ class MouseKeywords:
         | focus_element_identifier_before_click | string | XPath identifier from element to be focused before middle clicking click_element |
         | focus_element_identifier_after_close | string | XPath identifier from element to be focused after openning close_element |
         | max_repeat | int | Maximum number of tries |
-        | timeout_between_repeates | int | wait time in milli seconds in between every try |
+        | timeout_between_repeats | int | wait time in milliseconds in between every try |
         | ignore_if_already_open | bool | the keyword will not be executed if excepted element is already closed |
         | msg        | string | Custom error message          |
 
@@ -797,5 +798,5 @@ class MouseKeywords:
                                                    focus_element_xpath_before=focus_element_identifier_before_click,
                                                    focus_element_xpath_after=focus_element_identifier_after_close,
                                                    max_repeat=max_repeat,
-                                                   timeout_in_ms=timeout_between_repeates,
+                                                   timeout_in_ms=timeout_between_repeats,
                                                    ignore_if=ignore_if_already_close), msg)
