@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][4.0.3] [4.0.3][4.0.2-4.0.3] - 2025-11-17
+
 ### Added
 - COMException handling implemented for get element method to avoid COMException raise to robotframework-flaui
 
@@ -746,6 +748,10 @@ General bugfixing from keywords and improvements from artifact building and test
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
 [unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.2...main
+
+[4.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.3
+
+[4.0.2-4.0.3]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.2...4.0.3
 
 [4.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.2
 
