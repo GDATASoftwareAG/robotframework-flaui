@@ -456,9 +456,45 @@ class ElementKeywords:
                       msg)
 
     @keyword
+    def find_one_element(self, identifier, msg=None):
+        """
+        Find one element from given xpath.
+        Runs immediately and without retrying later.
+        Returns an AutomationElement which contains properties to Xpath.
+        If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
+
+        | Example usage AutomationElement                                        |
+        | Xpath        --> /Window[1]/Tab/TabItem[1]                             |
+        | AutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"] |
+        | Name         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]       |
+        | ClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]          |
+
+        If any property is not set empty string value will be returned.
+
+        XPath syntax is explained in `XPath locator`.
+
+        Arguments:
+        | Argument   | Type   | Description                                                           |
+        | identifier | string | XPath identifier from element                                         |
+        | msg        | string | Custom error message                                                  |
+
+        Example:
+        | ${element}    Find One Element    <XPATH> |
+        | Click    ${element} |
+        | Wait Until Keyword Succeeds    10s    1ms    Find One Element    /xpath/text/update/successful |
+        | Click    /xpath/button/continue |
+        """
+        module = self._container.create_or_get_module()
+        return module.action(Element.Action.FIND_ONE_ELEMENT,
+                             Element.create_value_container(xpath=identifier),
+                             msg)
+
+    @keyword
     def find_all_elements(self, identifier, msg=None):
         """
-        Find all elements from given xpath, Returns an AutomationElement list which contains properties to Xpath.
+        Find all elements from given xpath.
+        Runs immediately and without retrying later.
+        Returns an AutomationElement list which contains properties to Xpath.
         If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
 
         | Example usage AutomationElement                                        |
