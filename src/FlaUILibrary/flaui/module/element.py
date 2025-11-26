@@ -192,7 +192,7 @@ class Element(ModuleInterface):
         if name not in element_name:
             raise FlaUiError(FlaUiError.ElementNameDoesNotContainsFromValue.format(element_name, name))
 
-    def _get_element(self, xpath: str, now_only=False):
+    def _get_element(self, xpath: str):
         """
         Try to get element.
 
@@ -203,11 +203,9 @@ class Element(ModuleInterface):
             FlaUiError: If node could not be found by xpath.
         """
         component = self._get_element_by_xpath(xpath)
-        
-        if not now_only:
-            if not component and self._timeout > 0:
-                time.sleep(self._timeout / 1000)
-                component = self._get_element_by_xpath(xpath)
+        if not component and self._timeout > 0:
+            time.sleep(self._timeout / 1000)
+            component = self._get_element_by_xpath(xpath)
 
         if component:
             return component
@@ -258,20 +256,19 @@ class Element(ModuleInterface):
         """
         return self._automation.GetDesktop().FindAllByXPath(xpath)
 
-    def _element_should_exist(self, xpath: str, use_exception: bool, now_only: bool = False):
+    def _element_should_exist(self, xpath: str, use_exception: bool):
         """
         Checks if element exists.
 
         Args:
             xpath (string): XPath identifier from element.
             use_exception (bool): Indicator if to throw an FlaUI error
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If element could not be found.
         """
         try:
-            if self._get_element(xpath, now_only=now_only):
+            if self._get_element(xpath):
                 return True
         except FlaUiError as ex:
             if use_exception:
@@ -279,20 +276,18 @@ class Element(ModuleInterface):
 
         return False
 
-    def _element_should_not_exist(self, xpath: str, use_exception: bool, now_only: bool = False):
+    def _element_should_not_exist(self, xpath: str, use_exception: bool):
         """
         Try to get element from xpath.
 
         Args:
             xpath (string): XPath identifier from element.
-            use_exception (bool): Indicator if to throw an FlaUI error
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If element could be found.
         """
         try:
-            component = self._get_element(xpath, now_only=now_only)
+            component = self._get_element(xpath)
         except FlaUiError:
             return True
 
@@ -301,82 +296,77 @@ class Element(ModuleInterface):
 
         return False
 
-    def _element_is_offscreen(self, xpath: str, now_only: bool = False):
+    def _element_is_offscreen(self, xpath: str):
         """
         Checks if the element with the given xpath is offscreen (true), otherwise false
 
         Args:
             xpath (string): XPath identifier from element.
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If node could not be found from xpath.
         """
-        return self._get_element(xpath, now_only=now_only).IsOffscreen
+        return self._get_element(xpath).IsOffscreen
 
-    def _element_should_be_enabled(self, xpath: str, now_only: bool = False):
+    def _element_should_be_enabled(self, xpath: str):
         """
         Checks if the element with the given xpath is enabled
 
         Args:
             xpath (string): XPath identifier from element.
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is not enabled.
         """
-        enabled = self._get_element(xpath, now_only=now_only).IsEnabled
+        enabled = self._get_element(xpath).IsEnabled
         if not enabled:
             raise FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
 
-    def _element_should_be_disabled(self, xpath: str, now_only: bool = False):
+    def _element_should_be_disabled(self, xpath: str):
         """
         Checks if the element with the given xpath is disabled
 
         Args:
             xpath (string): XPath identifier from element.
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is enabled.
         """
-        enabled = self._get_element(xpath, now_only=now_only).IsEnabled
+        enabled = self._get_element(xpath).IsEnabled
 
         if enabled:
             raise FlaUiError(FlaUiError.ElementNotDisabled.format(xpath))
 
-    def _element_should_be_offscreen(self, xpath: str, now_only: bool = False):
+    def _element_should_be_offscreen(self, xpath: str):
         """
         Checks if the element with the given xpath is offscreen
 
         Args:
             xpath (string): XPath identifier from element.
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is not offscreen.
         """
-        offscreen = self._element_is_offscreen(xpath, now_only=now_only)
+        offscreen = self._element_is_offscreen(xpath)
 
         if not offscreen:
             raise FlaUiError(FlaUiError.ElementNotOffscreen.format(xpath))
 
-    def _element_should_not_be_offscreen(self, xpath: str, now_only: bool = False):
+    def _element_should_not_be_offscreen(self, xpath: str):
         """
         Checks if the element with the given xpath not offscreen
 
         Args:
             xpath (string): XPath identifier from element.
-            now_only (bool): Find element right now or retry after timeout
 
         Raises:
             FlaUiError: If node could not be found from xpath.
             FlaUiError: If node by xpath is offscreen.
         """
-        offscreen = self._element_is_offscreen(xpath, now_only=now_only)
+        offscreen = self._element_is_offscreen(xpath)
 
         if offscreen:
             raise FlaUiError(FlaUiError.ElementIsOffscreen.format(xpath))
