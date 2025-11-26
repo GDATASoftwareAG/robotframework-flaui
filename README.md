@@ -180,7 +180,7 @@ Following arguments are supported:
   * robocop - Static code analysis for robotframework code
   * tidy - Formatter for robotframework code
   
-### Releasing a new version
+### Releasing a new version - Frequent tasks
 
 - add or update keywords in folders
   - `src/FlaUILibrary/flaui/module`
@@ -188,6 +188,8 @@ Following arguments are supported:
 - add or update tests in folder `atests`
 - update version in `src/FlaUILibrary/version.py`
 - update `CHANGELOG.md`
+  - add a release near the top
+  - add the links at the bottom in section `### Added`
 
 ## Acknowledgements
 
