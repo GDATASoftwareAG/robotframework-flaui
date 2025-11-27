@@ -4,7 +4,6 @@ Documentation       Test suite for element keywords.
 ...
 
 Library             Process
-Library             String
 Library             Collections
 Library             DateTime
 Library             StringFormat
@@ -180,7 +179,7 @@ Find All Elements If Xpath Is Wrong
 Find One Element
     ${element}   Find One Element    ${XPATH_ENABLE_ELEMENT}
 
-    ${window_xpath}    Fetch From Left    ${element.Xpath}    /Tab
+    ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
 
     Should Be Equal    ${element.AutomationId}   ${window_xpath}/Tab/TabItem[1]/Button[@AutomationId="EnableButton"]
     Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Button[@ClassName="Button"]
@@ -190,7 +189,7 @@ Find One Element
 Find One Element Not Supported Exception Should Return Empty String
     ${element}   Find One Element    ${XPATH_ELEMENT}
 
-    ${window_xpath}    Fetch From Left    ${element.Xpath}    /Tab
+    ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
 
     Should Be Empty    ${element.AutomationId}
     Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Text[@ClassName="Text"]
