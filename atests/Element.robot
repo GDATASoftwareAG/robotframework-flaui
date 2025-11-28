@@ -176,6 +176,38 @@ Find All Elements If Xpath Is Wrong
     ${elements}    Find All Elements    /NOT_A_XPATH
     Length Should Be    ${elements}    0
 
+Find One Element
+    ${element}    Find One Element    ${XPATH_ENABLE_ELEMENT}
+
+    ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
+
+    Should Be Equal    ${element.AutomationId}    ${window_xpath}/Tab/TabItem[1]/Button[@AutomationId="EnableButton"]
+    Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Button[@ClassName="Button"]
+    Should Be Equal    ${element.Name}    ${window_xpath}/Tab/TabItem[1]/Button[@Name="Enable Button"]
+    Should Be Equal    ${element.Xpath}    ${window_xpath}/Tab/TabItem[1]/Button[6]
+
+Find One Element Not Supported Exception Should Return Empty String
+    ${element}    Find One Element    ${XPATH_ELEMENT}
+
+    ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
+
+    Should Be Empty    ${element.AutomationId}
+    Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Text[@ClassName="Text"]
+    Should Be Equal    ${element.Name}    ${window_xpath}/Tab/TabItem[1]/Text[@Name="Test Label"]
+    Should Be Equal    ${element.Xpath}    ${window_xpath}/Tab/TabItem[1]/Text[2]
+
+Find One Element Xpath Usage Can Be Used To Any Keyword
+    ${element}    Find One Element    ${XPATH_ENABLE_ELEMENT}
+    Element Should Exist    ${element}
+
+Find One Element If Xpath Is Wrong
+    TRY
+        Find One Element    /NOT_A_XPATH
+        Fail    'Find One Element' was supposed to fail because the xpath does NOT exist
+    EXCEPT    FlaUiError: Element from XPath '/NOT_A_XPATH' could not be found
+        Log    'Find One Element' failed as expected
+    END
+
 Is Element Offscreen
     ${IS_OFFSCREEN}    Is Element Offscreen    ${XPATH_ELEMENT}
     Should Be Equal    ${IS_OFFSCREEN}    ${False}

@@ -37,6 +37,7 @@ class Element(ModuleInterface):
         GET_ELEMENT_BY_XPATH = "GET_ELEMENT_BY_XPATH"
         GET_ELEMENT_RECTANGLE_BOUNDING = "GET_ELEMENT_RECTANGLE_BOUNDING"
         FOCUS_ELEMENT = "FOCUS_ELEMENT"
+        FIND_ONE_ELEMENT = "FIND_ONE_ELEMENT"
         FIND_ALL_ELEMENTS = "FIND_ALL_ELEMENTS"
         IS_ELEMENT_ENABLED = "IS_ELEMENT_ENABLED"
         IS_ELEMENT_OFFSCREEN = "IS_ELEMENT_OFFSCREEN"
@@ -126,6 +127,8 @@ class Element(ModuleInterface):
                 lambda: self._wait_until_element_is_offscreen(values["xpath"], values["retries"]),
             self.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED:
                 lambda: self._wait_until_element_is_enabled(values["xpath"], values["retries"]),
+            self.Action.FIND_ONE_ELEMENT:
+                lambda: self._find_one_element(values["xpath"]),
             self.Action.FIND_ALL_ELEMENTS:
                 lambda: self._find_all_elements(values["xpath"]),
             self.Action.WAIT_UNTIL_ELEMENT_EXIST:
@@ -227,6 +230,28 @@ class Element(ModuleInterface):
             return None
         except CSharpException:
             return None
+
+    def _find_one_element(self, xpath: str):
+        """
+        Try to find one element from xpath by desktop.
+
+        Args:
+            xpath (string): XPath identifier from element.
+
+        Raises:
+            FlaUiError: If node could not be found by xpath.
+        """
+        element = self._get_element_by_xpath(xpath)
+
+        if element:
+            return AutomationElement(
+                self._try_get_automation_id_property(element),
+                self._try_get_name_property(element),
+                self._try_get_classname_property(element),
+                FlaUIDebug.GetXPathToElement(element)
+            )
+
+        raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
     def _find_all_elements(self, xpath: str):
         """

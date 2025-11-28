@@ -142,6 +142,16 @@ Two test projects were used for the UI automation:
 * FlaUI WPF Test App 'Standard application that contains all common UI elements'
 * Notifier Test App 'Application which closes automatically after a time'
 
+### Testing locally TLDR
+
+```powershell
+python -m venv .venv
+.venv/Scripts/pip install -r requirements-dev.txt
+
+cd ./atests
+../.venv/Scripts/robot -v UIA:UIA3 -d ../result -P ../src -t "Element Should Be Offscreen" Element.robot
+```
+
 ### Building and testing locally
 
 Use the provided 'Commander Keen' file:
@@ -169,6 +179,17 @@ Following arguments are supported:
   * pylint - Static code analysis for python code
   * robocop - Static code analysis for robotframework code
   * tidy - Formatter for robotframework code
+  
+### Releasing a new version - Frequent tasks
+
+- add or update keywords in folders
+  - `src/FlaUILibrary/flaui/module`
+  - `src/FlaUILibrary/keywords`
+- add or update tests in folder `atests`
+- update version in `src/FlaUILibrary/version.py`
+- update `CHANGELOG.md`
+  - add a release near the top
+  - add the links at the bottom in section `### Added`
 
 ## Acknowledgements
 
