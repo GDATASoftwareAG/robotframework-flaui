@@ -54,7 +54,7 @@ class Element(ModuleInterface):
         WAIT_UNTIL_ELEMENT_EXIST = "WAIT_UNTIL_ELEMENT_EXIST"
         WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST = "WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST"
 
-    def __init__(self, automation: Any, timeout: int = 1000):
+    def __init__(self, automation: Any):
         """
         Element module wrapper for FlaUI usage.
 
@@ -64,7 +64,6 @@ class Element(ModuleInterface):
         """
         self._element = None
         self._automation = automation
-        self._timeout = timeout
 
     @staticmethod
     def create_value_container(name=None, xpath=None, retries=None, use_exception=None, msg=None):
@@ -205,9 +204,11 @@ class Element(ModuleInterface):
         Raises:
             FlaUiError: If node could not be found by xpath.
         """
+        timeout = self._automation.get_timeout()
+
         component = self._get_element_by_xpath(xpath)
-        if not component and self._timeout > 0:
-            time.sleep(self._timeout / 1000)
+        if not component and timeout > 0:
+            time.sleep(timeout / 1000)
             component = self._get_element_by_xpath(xpath)
 
         if component:
@@ -408,13 +409,9 @@ class Element(ModuleInterface):
         """
 
         timer = 0
-        old_timeout = self._timeout
-        self._set_timeout(0)
-
         while timer < retries:
             try:
                 if self._element_is_offscreen(xpath):
-                    self._set_timeout(old_timeout)
                     return
             except FlaUiError:
                 return
@@ -422,7 +419,6 @@ class Element(ModuleInterface):
             time.sleep(1)
             timer += 1
 
-        self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementIsOffscreen.format(xpath))
 
     def _wait_until_element_exist(self, xpath: str, retries: int):
@@ -437,14 +433,9 @@ class Element(ModuleInterface):
         """
 
         timer = 0
-        old_timeout = self._timeout
-        self._set_timeout(0)
-
         while timer < retries:
-
             try:
                 self._get_element(xpath)
-                self._set_timeout(old_timeout)
                 return
             except FlaUiError:
                 pass
@@ -452,7 +443,6 @@ class Element(ModuleInterface):
             time.sleep(1)
             timer += 1
 
-        self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementNotExists.format(xpath))
 
     def _wait_until_element_does_not_exist(self, xpath: str, retries: int):
@@ -468,21 +458,16 @@ class Element(ModuleInterface):
         """
 
         timer = 0
-        old_timeout = self._timeout
-        self._set_timeout(0)
 
         while timer < retries:
-
             try:
                 self._get_element(xpath)
             except FlaUiError:
-                self._set_timeout(old_timeout)
                 return
 
             time.sleep(1)
             timer += 1
 
-        self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementExists.format(xpath))
 
     def _wait_until_element_is_enabled(self, xpath: str, retries: int):
@@ -498,14 +483,10 @@ class Element(ModuleInterface):
         """
 
         timer = 0
-        old_timeout = self._timeout
-        self._set_timeout(0)
 
         while timer < retries:
-
             try:
                 self._element_should_be_enabled(xpath)
-                self._set_timeout(old_timeout)
                 return
             except FlaUiError:
                 pass
@@ -513,28 +494,19 @@ class Element(ModuleInterface):
             time.sleep(1)
             timer += 1
 
-        self._set_timeout(old_timeout)
         raise FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
-
-    def _set_timeout(self, timeout: int):
-        """Set timeout in seconds.
-
-        Args:
-            timeout (Number): Timeout value in seconds
-        """
-        self._timeout = timeout
 
     def _focus_element(self,xpath):
         """Triggers focus action in given element.
 
         Args:
-            element (Element): The element to be focused
             xpath (String): XPath of element to be focused
         
         Raises:
             FlaUiError: If the given element is not focusable.
         """
         element = self._get_element(xpath)
+
         try:
             element.Focus()
         except InvalidOperationException:

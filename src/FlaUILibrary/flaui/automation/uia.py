@@ -15,13 +15,14 @@ class UIA(WindowsAutomationInterface, ABC):
     Generic window automation module for a centralized communication handling between robot keywords.
     """
 
-    def __init__(self, timeout=1000):
+    def __init__(self, timeout: int = 1000):
         """
         Creates default UIA window automation module.
         ``timeout`` is the default waiting value to repeat element find action. Default value is 1000ms.
         """
         self._actions = {}
-        self._timeout = timeout
+        self._timeout = 1000
+        self.set_timeout(timeout)
 
     def action(self, action: Enum, values: ValueContainer = None, msg: str = None):
         """
@@ -57,7 +58,7 @@ class UIA(WindowsAutomationInterface, ABC):
         Args:
             automation (Object)       : Windows user automation object.
         """
-        modules = [Application(), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
+        modules = [Application(), Debug(), Element(automation), Keyboard(), Selector(),
                    Grid(), Mouse(automation), Textbox(), Tree(), Checkbox(), Tab(), Window(), Combobox(),
                    Property(), ToggleButton(), Button(), Screenshot()]
 
@@ -82,6 +83,24 @@ class UIA(WindowsAutomationInterface, ABC):
             return element
 
         return self.cast_element_to_type(element, ui_type)
+
+    def set_timeout(self, timeout: int = 1000):
+        """
+        Sets timeout waiting behavior in milliseconds. Default value is 1000ms.
+
+        If timeout is 0 or negative timeout will be set as 0
+        """
+        if timeout is None or timeout <= 0:
+            self._timeout = 0
+            return
+
+        self._timeout = timeout
+
+    def get_timeout(self):
+        """
+        Get timeout value.
+        """
+        return self._timeout
 
     @staticmethod
     def cast_element_to_type(element: Any, ui_type: InterfaceType):

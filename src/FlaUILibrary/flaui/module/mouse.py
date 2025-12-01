@@ -24,7 +24,6 @@ class Mouse(ModuleInterface):
             automation (Object): UIA3/UIA2 automation object from FlaUI.
         """
         self._automation = automation
-        self._element_module = Element(self._automation, timeout=0)
 
     class Container(ValueContainer):
         """
@@ -89,13 +88,17 @@ class Mouse(ModuleInterface):
             scroll_amount: The amount of scrolles to be made by mouse
         """
         # pylint: enable=C0301
-        return Mouse.Container(element=element, second_element=second_element, timeout_in_ms=timeout_in_ms,
+        return Mouse.Container(element=element,
+                               second_element=second_element,
+                               timeout_in_ms=timeout_in_ms,
                                max_repeat=max_repeat,
                                hold_time_in_ms=hold_time_in_ms,
-                               click_element_xpath=click_element_xpath, goal_element_xpath=goal_element_xpath,
+                               click_element_xpath=click_element_xpath,
+                               goal_element_xpath=goal_element_xpath,
                                focus_element_xpath_before=focus_element_xpath_before,
                                focus_element_xpath_after=focus_element_xpath_after,
-                               ignore_if=ignore_if, scroll_amount=scroll_amount)
+                               ignore_if=ignore_if,
+                               scroll_amount=scroll_amount)
 
     def execute_action(self, action: Action, values: Container):
         """If action is not supported an ActionNotSupported error will be raised.
@@ -207,17 +210,17 @@ class Mouse(ModuleInterface):
         try:
             if ignore_if_already_open:
                 container = Element.create_value_container(xpath=open_element_xpath)
-                if self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container):
+                if self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container):
                     return True
 
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
-                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+                self._automation.execute_action(Element.Action.FOCUS_ELEMENT, container)
             _open_element_found = False
             _click_element_found = False
             for _ in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
-                click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
+                click_element = self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                 if click_element:
                     _click_element_found = True
@@ -225,13 +228,13 @@ class Mouse(ModuleInterface):
 
                 if _click_element_found:
                     container = Element.create_value_container(xpath=open_element_xpath)
-                    open_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
+                    open_element = self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                     if open_element:
                         _open_element_found = True
                         if focus_element_xpath_after_open:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_open)
-                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+                            self._automation.execute_action(Element.Action.FOCUS_ELEMENT, container)
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
@@ -256,17 +259,17 @@ class Mouse(ModuleInterface):
         try:
             if ignore_if_already_close:
                 container = Element.create_value_container(xpath=close_element_xpath)
-                if not self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container):
+                if not self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container):
                     return True
 
             if focus_element_xpath_before_click:
                 container = Element.create_value_container(xpath=focus_element_xpath_before_click)
-                self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+                self._automation.execute_action(Element.Action.FOCUS_ELEMENT, container)
 
             _click_element_found = False
             for _ in range(max_repeat):
                 container = Element.create_value_container(xpath=click_element_xpath)
-                click_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
+                click_element = self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                 if click_element:
                     _click_element_found = True
@@ -274,12 +277,12 @@ class Mouse(ModuleInterface):
 
                 if _click_element_found:
                     container = Element.create_value_container(xpath=close_element_xpath)
-                    close_element = self._element_module.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
+                    close_element = self._automation.execute_action(Element.Action.GET_ELEMENT_BY_XPATH, container)
 
                     if not close_element and _click_element_found:
                         if focus_element_xpath_after_close:
                             container = Element.create_value_container(xpath=focus_element_xpath_after_close)
-                            self._element_module.execute_action(Element.Action.FOCUS_ELEMENT, container)
+                            self._automation.execute_action(Element.Action.FOCUS_ELEMENT, container)
                         return True
 
                 time.sleep(float(timeout_between_repeats) / 1000)
