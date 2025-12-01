@@ -2,8 +2,8 @@
 Documentation       Test suite for grid ui keyword usage.
 ...
 
-Library             Process
 Library             Collections
+Library             Process
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Resource            util/Common.resource

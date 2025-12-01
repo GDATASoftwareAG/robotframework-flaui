@@ -19,7 +19,7 @@ class ScreenshotKeywords:
         ``container`` User automation container to handle element interaction
         ``directory`` Screenshot directory to set.
         ``is_enabled`` Flag to identify if feature is active or not.
-        ``mode`` Mode how to persists screenshots.
+        ``mode`` Mode how to persist screenshots.
         ``suffix`` File type and suffix for writing.
         """
         self._container = container

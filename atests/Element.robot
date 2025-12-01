@@ -3,9 +3,9 @@ Documentation       Test suite for element keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             Process
 Library             Collections
 Library             DateTime
+Library             Process
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Resource            util/Common.resource

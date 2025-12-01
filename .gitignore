@@ -1,5 +1,7 @@
 # Custom keen.bat for development
 keen.dev.bat
+robocop.toml
+.robocop
 
 # Python environment
 .venv
@@ -239,3 +241,4 @@ pylint.xml
 !src/**
 !docs/**
 __pycache__
+robotframework_flaui.egg-info

@@ -3,9 +3,9 @@ Documentation       Test suite for screenshot keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
+Library             OperatingSystem
 Library             Process
 Library             String
-Library             OperatingSystem
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    screenshot_suffix=png
 Resource            util/Common.resource
