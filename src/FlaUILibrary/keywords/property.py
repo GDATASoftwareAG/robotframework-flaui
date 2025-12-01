@@ -54,6 +54,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | EXPAND_COLLAPSE_STATE | String | Collapsed or Expanded |   
         | IS_SELECTION_ITEM_PATTERN_SUPPORTED | Bool | True or False |    
         | IS_SELECTED | Bool | True or False |
+        | HELP_TEXT | String | The Help Text Property of Element |
         
         Possible FlaUI-Errors:
         | Element could not be found by xpath        |
