@@ -50,6 +50,7 @@ class Property(ModuleInterface):
         IS_SELECTION_ITEM_PATTERN_SUPPORTED = "IS_SELECTION_ITEM_PATTERN_SUPPORTED"
         IS_SELECTED = "IS_SELECTED"
         STAGE_FOR_COMBOBOX_SELECTIONITEM = "STAGE_FOR_COMBOBOX_SELECTIONITEM"
+        HELP_TEXT = "HELP_TEXT"
 
     @staticmethod
     def create_value_container(element: Any = None, uia: str = None) -> Container:
@@ -101,6 +102,7 @@ class Property(ModuleInterface):
             self.Action.IS_SELECTED: lambda: self._is_selected(values["element"]),
             self.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM: lambda: self._stage_for_combobox_selectionitem(
                 values["element"]),
+            self.Action.HELP_TEXT: lambda: self._get_help_text(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -346,3 +348,13 @@ class Property(ModuleInterface):
             element.Collapse()
         if state == "Collapsed":
             element.Expand()
+    
+    @staticmethod
+    def _get_help_text(element: Any) -> str:
+        try:
+            help_text = element.Properties.HelpText.Value
+            if help_text is not None:
+                return str(help_text)
+            return ""
+        except Exception:
+            raise FlaUiError(FlaUiError.PropertyNotSupported)
