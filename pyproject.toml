@@ -1,3 +1,36 @@
+[project]
+name= "robotframework-flaui"
+description = "Windows GUI testing library for Robot Framework"
+readme = "README.md"
+authors = [{ name = "G DATA CyberDefense AG", email = "opensource@gdata.de" }]
+urls = { Homepage = "https://github.com/GDATASoftwareAG/robotframework-flaui" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Testing",
+    "Framework :: Robot Framework",
+    "Framework :: Robot Framework :: Library"
+]
+dynamic = ["version", "dependencies", "license"]
+
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+FlaUILibrary = ["bin/*.dll"]
+
+[tool.setuptools]
+include-package-data = true

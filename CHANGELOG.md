@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- Code changes from setup.py to pyproject.toml to avoid deprecated usage
+
 ## [Release][4.0.4] [4.0.4][4.0.3-4.0.4] - 2025-11-25
 
 ### Added

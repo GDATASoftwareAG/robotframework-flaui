@@ -3,8 +3,8 @@ Documentation       Test suite for list box keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robot
 ...
 
-Library             Process
 Library             Collections
+Library             Process
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Resource            util/Common.resource

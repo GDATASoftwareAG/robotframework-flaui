@@ -2,11 +2,14 @@
 max-line-length=120
 
 [MASTER]
+init-hook='import sys; sys.path.append("src")'
+
 disable=
     C0114, # missing-module-docstring
     R0903, # too-few-public-methods
     R0904, # too-many-public-methods
     R0913, # too-many-arguments
+    R0917, # too-many-positional-arguments
 
 # Specify a score threshold under which the program will exit with error.
 fail-under=10
