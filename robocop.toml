@@ -1,0 +1,20 @@
+[tool.robocop]
+include = [
+    "atests",
+]
+
+[tool.robocop.lint]
+ignore = [
+    "LEN03",
+    "LEN04",
+    "LEN06",
+    "LEN08",
+    "LEN27",
+    "LEN28",
+    "LEN32",
+    "DOC01",
+    "DOC02",
+    "DOC04",
+    "DEPR05",
+    "VAR04",
+]

@@ -1,7 +1,5 @@
 # Custom keen.bat for development
 keen.dev.bat
-robocop.toml
-.robocop
 
 # Python environment
 .venv
