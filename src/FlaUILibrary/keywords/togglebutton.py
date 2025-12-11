@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import ToggleButton
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.tooglebutton import ToggleButton
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -38,7 +38,7 @@ class ToggleButtonKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.TOGGLEBUTTON, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.TOGGLEBUTTON, msg=msg)
         return module.action(ToggleButton.Action.TOGGLE,
                              ToggleButton.create_value_container(element=element),
                              msg)

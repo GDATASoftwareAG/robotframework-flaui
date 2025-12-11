@@ -1,6 +1,7 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import (Combobox, Selector)
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.combobox import Combobox
+from FlaUILibrary.flaui.module.selector import Selector
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -32,7 +33,7 @@ class ComboBoxKeywords:
         | ${data}  Get All Names From Combobox  <XPATH> <MSG>                   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         return module.action(Selector.Action.GET_ALL_NAMES,
                              Selector.create_value_container(element=element, msg=msg),
                              msg)
@@ -52,7 +53,7 @@ class ComboBoxKeywords:
         | ${data}  Get All Texts From Combobox  <XPATH> <MSG>                   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         return module.action(Selector.Action.GET_ALL_TEXTS,
                              Selector.create_value_container(element=element, msg=msg),
                              msg)
@@ -76,7 +77,7 @@ class ComboBoxKeywords:
         | ${data}  Get All Selected Texts From Combobox  <XPath>   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         return module.action(Selector.Action.GET_ALL_TEXTS_FROM_SELECTION,
                              Selector.create_value_container(element=element, msg=msg),
                              msg)
@@ -100,7 +101,7 @@ class ComboBoxKeywords:
         | ${data}  Get All Selected Names From Combobox  <XPath>   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         return module.action(Selector.Action.GET_ALL_NAMES_FROM_SELECTION,
                              Selector.create_value_container(element=element, msg=msg),
                              msg)
@@ -126,7 +127,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         module.action(Selector.Action.SELECT_ITEM_BY_INDEX,
                       Selector.create_value_container(element=element, index=index, msg=msg),
                       msg)
@@ -155,7 +156,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         module.action(Selector.Action.SELECT_ITEM_BY_NAME,
                       Selector.create_value_container(element=element, name=name, msg=msg),
                       msg)
@@ -183,7 +184,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         module.action(Selector.Action.SHOULD_CONTAIN,
                       Selector.create_value_container(element=element, name=name, msg=msg),
                       msg)
@@ -208,7 +209,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         return module.action(Selector.Action.GET_ITEMS_COUNT,
                              Selector.create_value_container(element=element, msg=msg),
                              msg=msg)
@@ -232,7 +233,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         module.action(Combobox.Action.COLLAPSE_COMBOBOX,
                       Selector.create_value_container(element=element),
                       msg)
@@ -256,7 +257,7 @@ class ComboBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.COMBOBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.COMBOBOX, msg=msg)
         module.action(Combobox.Action.EXPAND_COMBOBOX,
                       Selector.create_value_container(element=element),
                       msg)

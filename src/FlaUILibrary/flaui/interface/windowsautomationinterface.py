@@ -22,12 +22,14 @@ class WindowsAutomationInterface(ABC):
         raise NotImplementedError('Subclass must override action method')
 
     @abstractmethod
-    def register_action(self, automation: Any):
+    def register_action(self, automation: Any, retry_timeout_in_milliseconds: int):
         """
         Register all supported core actions.
 
         Args:
             automation (Object)       : Windows user automation object.
+            retry_timeout_in_milliseconds (Number):
+              Timeout in milliseconds for automatic retry if element could not be found.
         """
         raise NotImplementedError('Subclass must override action method')
 

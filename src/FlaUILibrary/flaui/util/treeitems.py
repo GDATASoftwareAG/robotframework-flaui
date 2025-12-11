@@ -1,7 +1,7 @@
 from typing import Any
 from System import InvalidOperationException  # pylint: disable=import-error
 from FlaUI.Core.Definitions import ExpandCollapseState  # pylint: disable=import-error
-from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.enum.treeitemaction import TreeItemAction
 from FlaUILibrary.flaui.util.treeitemsparser import TreeItemsParser
 

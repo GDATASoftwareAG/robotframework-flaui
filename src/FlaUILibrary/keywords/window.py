@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Window
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.window import Window
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -32,9 +32,9 @@ class WindowKeywords:
         | Close Window  <XPATH_TO_APPLICATION_WINDOW> |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.WINDOW, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.WINDOW, msg=msg)
         module.action(Window.Action.CLOSE_WINDOW,
-                      Window.Container(element=element),
+                      Window.create_value_container(element=element),
                       msg)
 
     @keyword
@@ -54,7 +54,7 @@ class WindowKeywords:
         | Resize Window  <XPATH_TO_APP_WINDOW>  1024  768     |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.WINDOW, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.WINDOW, msg=msg)
         module.action(Window.Action.RESIZE_WINDOW,
-                      Window.Container(element=element, width=width, height=height),
+                      Window.create_value_container(element=element, width=width, height=height),
                       msg)

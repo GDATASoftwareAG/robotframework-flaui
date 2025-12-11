@@ -1,8 +1,8 @@
 import re
 from typing import Any, Union
 from System import TimeSpan  # pylint: disable=import-error
-from FlaUILibrary.flaui.exception import FlaUiError
 from FlaUILibrary.flaui.util.automationelement import AutomationElement
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 
 
 class Converter:

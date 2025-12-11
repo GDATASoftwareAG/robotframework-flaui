@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import Mouse
+from FlaUILibrary.flaui.module.mouse import Mouse
 from FlaUILibrary.flaui.module.element import Element
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
@@ -36,7 +36,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.LEFT_CLICK,
                       Mouse.create_value_container(element=element),
                       msg)
@@ -66,7 +66,7 @@ class MouseKeywords:
             module.action(Element.Action.FOCUS_ELEMENT,
                         Element.create_value_container(xpath=identifier, msg=msg),
                         msg)
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.SCROLL_UP,
                       Mouse.create_value_container(element=element, scroll_amount=amount),
                       msg)
@@ -96,9 +96,9 @@ class MouseKeywords:
             module.action(Element.Action.FOCUS_ELEMENT,
                         Element.create_value_container(xpath=identifier, msg=msg),
                         msg)
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.SCROLL_DOWN,
-                      Mouse.create_value_container(element=element, scroll_amount=amount),
+                      Mouse.create_value_container(element=element, scroll_amount=-1*float(amount)),
                       msg)
 
     @keyword
@@ -121,7 +121,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.LEFT_CLICK_HOLD,
                       Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
                       msg)
@@ -145,7 +145,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.MIDDLE_CLICK,
                       Mouse.create_value_container(element=element),
                       msg)
@@ -170,7 +170,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.MIDDLE_CLICK_HOLD,
                       Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
                       msg)
@@ -194,7 +194,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.DOUBLE_CLICK,
                       Mouse.create_value_container(element=element),
                       msg)
@@ -219,7 +219,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
                       Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
                       msg)
@@ -243,7 +243,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.RIGHT_CLICK,
                       Mouse.create_value_container(element=element),
                       msg)
@@ -268,7 +268,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.RIGHT_CLICK_HOLD,
                       Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
                       msg)
@@ -292,7 +292,7 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Mouse.Action.MOVE_TO,
                       Mouse.create_value_container(element=element),
                       msg)
@@ -317,8 +317,8 @@ class MouseKeywords:
 
         """
         module = self._container.create_or_get_module()
-        start_element = module.get_element(start_identifier, msg=msg)
-        end_element = module.get_element(end_identifier, msg=msg)
+        start_element = module.get_element(identifier=start_identifier, msg=msg)
+        end_element = module.get_element(identifier=end_identifier, msg=msg)
         module.action(Mouse.Action.DRAG_AND_DROP,
                       Mouse.create_value_container(element=start_element, second_element=end_element),
                       msg)

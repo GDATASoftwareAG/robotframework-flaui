@@ -1,7 +1,7 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import Property
-from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.enum import InterfaceType
+from FlaUILibrary.flaui.module.property import Property
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 from FlaUILibrary.flaui.util.converter import Converter
 
@@ -90,12 +90,14 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
             # need expand parent ComboBox before to get ComboBox SelectionItem element
             combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
             if combobox_xpath:
-                combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+                combobox_element = module.get_element(identifier=combobox_xpath,
+                                                      ui_type=InterfaceType.COMBOBOX,
+                                                      msg=msg)
                 module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
                             Property.create_value_container(element=combobox_element, uia=module.identifier()),
                             msg)
 
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         property_value = module.action(action_value,
                             Property.create_value_container(element=element, uia=module.identifier()),
                             msg)
@@ -103,7 +105,9 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         if action_value is Property.Action.IS_SELECTED:
             combobox_xpath = Converter.get_combobox_xpath_from_combobox_selectionitem_xpath(identifier)
             if combobox_xpath:
-                combobox_element = module.get_element(combobox_xpath, InterfaceType.COMBOBOX, msg)
+                combobox_element = module.get_element(identifier=combobox_xpath,
+                                                      ui_type=InterfaceType.COMBOBOX,
+                                                      msg=msg)
                 module.action(Property.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM,
                             Property.create_value_container(element=combobox_element, uia=module.identifier()),
                             msg)
@@ -132,7 +136,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.BACKGROUND_COLOR,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -160,7 +164,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         color = module.action(Property.Action.BACKGROUND_COLOR,
                               Property.create_value_container(element=element, uia=module.identifier()),
                               msg)
@@ -190,7 +194,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.FOREGROUND_COLOR,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -218,7 +222,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         color = module.action(Property.Action.FOREGROUND_COLOR,
                               Property.create_value_container(element=element, uia=module.identifier()),
                               msg)
@@ -247,7 +251,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.FONT_SIZE,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -275,7 +279,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         size = module.action(Property.Action.FONT_SIZE,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -304,7 +308,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.FONT_NAME,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -332,7 +336,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         name = module.action(Property.Action.FONT_NAME,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -361,7 +365,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.FONT_WEIGHT,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -389,7 +393,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         weight = module.action(Property.Action.FONT_WEIGHT,
                                Property.create_value_container(element=element, uia=module.identifier()),
                                msg)
@@ -419,7 +423,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.CULTURE,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -448,7 +452,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         element_culture = module.action(Property.Action.CULTURE,
                                         Property.create_value_container(element=element,
                                                                         uia=module.identifier()),
@@ -478,7 +482,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.IS_HIDDEN,
                              Property.create_value_container(element=element, uia=module.identifier()),
                              msg)
@@ -504,7 +508,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return not module.action(Property.Action.IS_HIDDEN,
                                  Property.create_value_container(element=element, uia=module.identifier()),
                                  msg)
@@ -530,7 +534,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.WINDOW_VISUAL_STATE,
                              Property.create_value_container(element=element),
                              msg)
@@ -558,7 +562,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         visual_state = module.action(Property.Action.WINDOW_VISUAL_STATE,
                                      Property.create_value_container(element=element),
                                      msg)
@@ -600,7 +604,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.WINDOW_INTERACTION_STATE,
                              Property.create_value_container(element=element),
                              msg)
@@ -643,7 +647,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         """
         # pylint: enable=line-too-long
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         interaction_state = module.action(Property.Action.WINDOW_INTERACTION_STATE,
                                           Property.create_value_container(element=element),
                                           msg)
@@ -672,7 +676,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.TOGGLE_STATE,
                              Property.create_value_container(element=element),
                              msg)
@@ -700,7 +704,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
 
         toggle_state = module.action(Property.Action.TOGGLE_STATE,
                                      Property.create_value_container(element=element),
@@ -731,9 +735,10 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Property.Action.MAXIMIZE_WINDOW,
-                      Property.create_value_container(element=element),
+                      Property.create_value_container(element=element,
+                                                      visual_state=Property.WindowVisualState.MAXIMIZED),
                       msg)
 
     @keyword
@@ -758,9 +763,10 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Property.Action.MINIMIZE_WINDOW,
-                      Property.create_value_container(element=element),
+                      Property.create_value_container(element=element,
+                                                      visual_state=Property.WindowVisualState.MINIMIZED),
                       msg)
 
     @keyword
@@ -785,9 +791,10 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         module.action(Property.Action.NORMALIZE_WINDOW,
-                      Property.create_value_container(element=element),
+                      Property.create_value_container(element=element,
+                                                      visual_state=Property.WindowVisualState.NORMAL),
                       msg)
 
     @keyword
@@ -811,7 +818,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.CAN_WINDOW_MAXIMIZE,
                              Property.create_value_container(element=element),
                              msg)
@@ -837,7 +844,7 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Property.Action.CAN_WINDOW_MINIMIZE,
                              Property.create_value_container(element=element),
                              msg)

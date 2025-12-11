@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Textbox
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.textbox import Textbox
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -39,7 +39,7 @@ class TextBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.TEXTBOX, msg=msg)
         return module.action(Textbox.Action.GET_TEXT_FROM_TEXTBOX,
                              Textbox.create_value_container(element=element),
                              msg=msg)
@@ -64,7 +64,7 @@ class TextBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.TEXTBOX, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.TEXTBOX, msg=msg)
         module.action(Textbox.Action.SET_TEXT_TO_TEXTBOX,
                       Textbox.create_value_container(element=element, value=value),
                       msg)

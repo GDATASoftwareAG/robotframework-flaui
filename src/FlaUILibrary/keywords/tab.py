@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Tab
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.tab import Tab
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -39,7 +39,7 @@ class TabKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.TAB, msg=msg)
         return module.action(Tab.Action.GET_TAB_ITEMS_NAMES,
                              Tab.create_value_container(element=element),
                              msg)
@@ -64,7 +64,7 @@ class TabKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.TAB, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.TAB, msg=msg)
         return module.action(Tab.Action.SELECT_TAB_ITEM_BY_NAME,
                              Tab.create_value_container(element=element, name=name),
                              msg)
