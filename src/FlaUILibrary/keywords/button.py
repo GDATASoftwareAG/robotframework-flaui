@@ -1,7 +1,7 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
-from FlaUILibrary.flaui.module import Button
+from FlaUILibrary.flaui.module.button import Button
 
 
 class ButtonKeywords:
@@ -40,7 +40,7 @@ class ButtonKeywords:
        
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.BUTTON, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.BUTTON, msg=msg)
         module.action(Button.Action.INVOKE_BUTTON,
                       Button.create_value_container(xpath=identifier, element=element),
                       msg)

@@ -239,3 +239,4 @@ pylint.xml
 !src/**
 !docs/**
 __pycache__
+robotframework_flaui.egg-info

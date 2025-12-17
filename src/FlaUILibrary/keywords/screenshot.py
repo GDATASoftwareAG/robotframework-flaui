@@ -19,7 +19,7 @@ class ScreenshotKeywords:
         ``container`` User automation container to handle element interaction
         ``directory`` Screenshot directory to set.
         ``is_enabled`` Flag to identify if feature is active or not.
-        ``mode`` Mode how to persists screenshots.
+        ``mode`` Mode how to persist screenshots.
         ``suffix`` File type and suffix for writing.
         """
         self._container = container
@@ -73,11 +73,12 @@ class ScreenshotKeywords:
         """
         module = self._container.create_or_get_module()
         if identifier:
-            element = module.get_element(identifier, msg=msg)
-            image = module.action(Screenshot.Action.CAPTURE_ELEMENT,
-                                  Screenshot.create_value_container(element=element))
+            element = module.get_element(identifier=identifier, msg=msg)
+            image = module.action(Screenshot.Action.FORCE_CAPTURE,
+                                  Screenshot.create_value_container(element=element, force=True))
         else:
-            image = module.action(Screenshot.Action.FORCE_CAPTURE, Screenshot.create_value_container())
+            image = module.action(Screenshot.Action.FORCE_CAPTURE,
+                                  Screenshot.create_value_container(force=True))
 
         return image
 

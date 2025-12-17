@@ -1,7 +1,8 @@
 from enum import Enum
 from typing import Optional, Any
-from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
+from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class Debug(ModuleInterface):
@@ -21,10 +22,10 @@ class Debug(ModuleInterface):
         """
         Supported actions for execute action implementation.
         """
-        GET_CHILDS_FROM_ELEMENT = "GET_CHILDS_FROM_ELEMENT"
+        GET_CHILDS_FROM_ELEMENT = "DEBUG_GET_CHILDS_FROM_ELEMENT"
 
     @staticmethod
-    def create_value_container(element=None):
+    def create_value_container(element=None) -> Container:
         """
         Helper to create container object.
 
@@ -33,15 +34,9 @@ class Debug(ModuleInterface):
         """
         return Debug.Container(element=element)
 
-    def execute_action(self, action: Action, values: Container = None):
+    def execute_action(self, action: Action, values: Container = None) -> Any:
         """
         If action is not supported an ActionNotSupported error will be raised.
-
-        Supported action usages are:
-
-            * Action.PRINT_ALL_CHILDS
-              * Values ["element"]
-              * Returns : None
 
         Raises:
             FlaUiError: If action is not supported.
@@ -52,17 +47,31 @@ class Debug(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_CHILDS_FROM_ELEMENT: lambda: Debug._get_childs_from_element(values["element"])
+            self.Action.GET_CHILDS_FROM_ELEMENT:
+                lambda: Debug._get_childs_from_element(values)
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_childs_from_element(element: Any):
+    def _get_childs_from_element(container: Container) -> str:
         """
-        Return trace information about element and all childs.
-        """
+        Return a trace string for the given element and its direct children.
 
+        The returned string starts with the element's string representation
+        followed by one line per direct child prefixed with \"------> \".
+
+        Args:
+            container (Debug.Container): Container holding:
+                - container['element']: Automation element to inspect.
+
+        Returns:
+            str: Multi-line trace with the element and its direct children.
+
+        Raises:
+            FlaUiError: If the required element is missing or not usable.
+        """
+        element = container["element"]
         element_string = element.ToString() + "\n"
 
         for children in element.FindAllChildren():

@@ -5,14 +5,17 @@ from FlaUILibrary.flaui.automation.uia import UIA
 class UIA3(UIA):
     """UIA3 window automation module for a centralized communication handling between robot keywords and Flaui. """
 
-    def __init__(self, timeout=1000):
+    def __init__(self, retry_timeout_in_milliseconds: int):
         """
         Creates UIA3 window automation module.
-        ``timeout`` is the default waiting value to repeat element find action. Default value is 1000ms.
+
+        Args:
+            retry_timeout_in_milliseconds (Number):
+              Timeout in milliseconds for automatic retry if element could not be found.
         """
-        super().__init__(timeout)
+        super().__init__()
         self._uia3 = UIA3Automation()
-        super().register_action(self._uia3)  # pylint: disable=maybe-no-member
+        super().register_action(self._uia3, retry_timeout_in_milliseconds)  # pylint: disable=maybe-no-member
 
     def __del__(self):
         """

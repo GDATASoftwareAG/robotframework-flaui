@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Checkbox
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.checkbox import Checkbox
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -37,7 +37,7 @@ class CheckBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.CHECKBOX, msg=msg)
         module.action(Checkbox.Action.SET_CHECKBOX_BUTTON_STATE,
                       Checkbox.create_value_container(element=element, state=value),
                       msg)
@@ -65,7 +65,7 @@ class CheckBoxKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.CHECKBOX, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.CHECKBOX, msg=msg)
         return module.action(Checkbox.Action.GET_CHECKBOX_BUTTON_STATE,
                              Checkbox.create_value_container(element=element),
                              msg)

@@ -3,29 +3,29 @@ from enum import Enum
 from robot.libraries.BuiltIn import BuiltIn
 from robotlibcore import DynamicCore
 from FlaUILibrary import version, pythonnetwrapper
-from FlaUILibrary.keywords import (ApplicationKeywords,
-                                   CheckBoxKeywords,
-                                   ComboBoxKeywords,
-                                   DebugKeywords,
-                                   ElementKeywords,
-                                   MouseKeywords,
-                                   KeyboardKeywords,
-                                   ScreenshotKeywords,
-                                   TextBoxKeywords,
-                                   WindowKeywords,
-                                   GridKeywords,
-                                   RadioButtonKeywords,
-                                   ListBoxKeywords,
-                                   TreeKeywords,
-                                   TabKeywords,
-                                   PropertyKeywords,
-                                   ToggleButtonKeywords,
-                                   UiaKeywords,
-                                   ButtonKeywords)
+from FlaUILibrary.keywords.application import ApplicationKeywords
+from FlaUILibrary.keywords.checkbox import CheckBoxKeywords
+from FlaUILibrary.keywords.combobox import ComboBoxKeywords
+from FlaUILibrary.keywords.debug import DebugKeywords
+from FlaUILibrary.keywords.element import ElementKeywords
+from FlaUILibrary.keywords.mouse import MouseKeywords
+from FlaUILibrary.keywords.keyboard import KeyboardKeywords
+from FlaUILibrary.keywords.screenshot import ScreenshotKeywords
+from FlaUILibrary.keywords.textbox import TextBoxKeywords
+from FlaUILibrary.keywords.window import WindowKeywords
+from FlaUILibrary.keywords.grid import GridKeywords
+from FlaUILibrary.keywords.radiobutton import RadioButtonKeywords
+from FlaUILibrary.keywords.listbox import ListBoxKeywords
+from FlaUILibrary.keywords.tree import TreeKeywords
+from FlaUILibrary.keywords.tab import TabKeywords
+from FlaUILibrary.keywords.property import PropertyKeywords
+from FlaUILibrary.keywords.togglebutton import ToggleButtonKeywords
+from FlaUILibrary.keywords.uia import UiaKeywords
+from FlaUILibrary.keywords.button import ButtonKeywords
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
-from FlaUILibrary.flaui.module import Screenshot
-from FlaUILibrary.flaui.util import AutomationInterfaceContainer
+from FlaUILibrary.flaui.module.screenshot import Screenshot
+from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
 # pylint: enable=invalid-name
@@ -136,7 +136,7 @@ class FlaUILibrary(DynamicCore):
         if uia not in ("UIA2", "UIA3"):
             uia = "UIA3"
 
-        self.container = AutomationInterfaceContainer(timeout, uia)
+        self.container = AutomationInterfaceContainer(uia, timeout)
 
         self.keyword_modules = {
             FlaUILibrary.KeywordModules.APPLICATION: ApplicationKeywords(self.container),

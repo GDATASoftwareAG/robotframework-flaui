@@ -2,26 +2,38 @@ from abc import ABC
 from typing import Any
 from enum import Enum
 from FlaUI.Core.AutomationElements import AutomationElementExtensions  # pylint: disable=import-error
-from FlaUILibrary import Screenshot
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.interface import (WindowsAutomationInterface, ValueContainer)
-from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.module import (Application, Combobox, Debug, Grid, Tree, Mouse, Keyboard, Textbox, Tab,
-                                       Element, Window, Checkbox, Selector, Property, ToggleButton, Button)
-
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
+from FlaUILibrary.flaui.interface.windowsautomationinterface import WindowsAutomationInterface
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
+from FlaUILibrary.flaui.module.application import Application
+from FlaUILibrary.flaui.module.button import Button
+from FlaUILibrary.flaui.module.combobox import Combobox
+from FlaUILibrary.flaui.module.checkbox import Checkbox
+from FlaUILibrary.flaui.module.debug import Debug
+from FlaUILibrary.flaui.module.element import Element
+from FlaUILibrary.flaui.module.grid import Grid
+from FlaUILibrary.flaui.module.screenshot import Screenshot
+from FlaUILibrary.flaui.module.tree import Tree
+from FlaUILibrary.flaui.module.mouse import Mouse
+from FlaUILibrary.flaui.module.keyboard import Keyboard
+from FlaUILibrary.flaui.module.selector import Selector
+from FlaUILibrary.flaui.module.property import Property
+from FlaUILibrary.flaui.module.textbox import Textbox
+from FlaUILibrary.flaui.module.tooglebutton import ToggleButton
+from FlaUILibrary.flaui.module.tab import Tab
+from FlaUILibrary.flaui.module.window import Window
 
 class UIA(WindowsAutomationInterface, ABC):
     """
     Generic window automation module for a centralized communication handling between robot keywords.
     """
 
-    def __init__(self, timeout=1000):
+    def __init__(self):
         """
         Creates default UIA window automation module.
-        ``timeout`` is the default waiting value to repeat element find action. Default value is 1000ms.
         """
         self._actions = {}
-        self._timeout = timeout
 
     def action(self, action: Enum, values: ValueContainer = None, msg: str = None):
         """
@@ -44,35 +56,55 @@ class UIA(WindowsAutomationInterface, ABC):
             raise FlaUiError(FlaUiError.ActionNotSupported)
 
         except FlaUiError as error:
-
             self._actions[Screenshot.Action.CAPTURE].execute_action(Screenshot.Action.CAPTURE,
                                                                     Screenshot.create_value_container())
 
             raise FlaUiError(msg) if msg is not None else error
 
-    def register_action(self, automation: Any):
+    def register_action(self, automation: Any, retry_timeout_in_milliseconds: int):
         """
         Register all supported core actions.
 
         Args:
-            automation (Object)       : Windows user automation object.
+            automation (Object)             : Windows user automation object from uia2 or uia3 interface.
+            retry_timeout_in_milliseconds (Number):
+              Timeout in milliseconds for automatic retry if element could not be found.
         """
-        modules = [Application(), Debug(), Element(automation, self._timeout), Keyboard(), Selector(),
-                   Grid(), Mouse(automation), Textbox(), Tree(), Checkbox(), Tab(), Window(), Combobox(),
-                   Property(), ToggleButton(), Button(), Screenshot()]
+        modules = [
+            Application(),
+            Debug(),
+            Element(automation=automation, retry_timeout_in_milliseconds=retry_timeout_in_milliseconds),
+            Keyboard(),
+            Selector(),
+            Grid(),
+            Mouse(uia=self),
+            Textbox(),
+            Tree(),
+            Checkbox(),
+            Tab(),
+            Window(),
+            Combobox(),
+            Property(),
+            ToggleButton(),
+            Button(),
+            Screenshot()
+        ]
 
         for module in modules:
             for value in module.Action:
                 self._actions[value] = module
 
-    def get_element(self, identifier: str, ui_type: InterfaceType = None, msg: str = None):
+    def get_element(self,
+                    identifier: str,
+                    ui_type:InterfaceType = None,
+                    msg: str = None):
         """
         Get element from identifier.
 
         Args:
-            identifier (String): XPath identifier to find element
-            ui_type (Enum)     : Object enum to cast element
-            msg (String)       : Custom error message
+            identifier (String)          : XPath identifier to find element
+            ui_type (Enum)               : Object enum to cast element
+            msg (String)                 : Custom error message
         """
         element = self.action(Element.Action.GET_ELEMENT,
                               Element.Container(xpath=identifier, retries=None, name=None),
@@ -93,31 +125,55 @@ class UIA(WindowsAutomationInterface, ABC):
         """
 
         switcher = {
-            InterfaceType.TEXTBOX: {"cast": lambda: AutomationElementExtensions.AsTextBox(element),
-                                    "type": "Textbox"},
-            InterfaceType.CHECKBOX: {"cast": lambda: AutomationElementExtensions.AsCheckBox(element),
-                                     "type": "Checkbox"},
-            InterfaceType.COMBOBOX: {"cast": lambda: AutomationElementExtensions.AsComboBox(element),
-                                     "type": "Combobox"},
-            InterfaceType.WINDOW: {"cast": lambda: AutomationElementExtensions.AsWindow(element),
-                                   "type": "Window"},
-            InterfaceType.LISTVIEW: {"cast": lambda: AutomationElementExtensions.AsGrid(element),
-                                     "type": "Grid"},
-            InterfaceType.RADIOBUTTON: {"cast": lambda: AutomationElementExtensions.AsRadioButton(element),
-                                        "type": "Radiobutton"},
-            InterfaceType.LISTBOX: {"cast": lambda: AutomationElementExtensions.AsListBox(element),
-                                    "type": "Listbox"},
-            InterfaceType.TAB: {"cast": lambda: AutomationElementExtensions.AsTab(element),
-                                "type": "Tab"},
-            InterfaceType.TREE: {"cast": lambda: AutomationElementExtensions.AsTree(element),
-                                 "type": "Tree"},
-            InterfaceType.TOGGLEBUTTON: {"cast": lambda: AutomationElementExtensions.AsToggleButton(element),
-                                         "type": "ToggleButton"},
-            InterfaceType.BUTTON: {"cast": lambda: AutomationElementExtensions.AsButton(element),
-                                         "type": "Button"},
+            InterfaceType.TEXTBOX: {
+                "cast": lambda: AutomationElementExtensions.AsTextBox(element),
+                "type": "Textbox"
+            },
+            InterfaceType.CHECKBOX: {
+                "cast": lambda: AutomationElementExtensions.AsCheckBox(element),
+                "type": "Checkbox"
+            },
+            InterfaceType.COMBOBOX: {
+                "cast": lambda: AutomationElementExtensions.AsComboBox(element),
+                "type": "Combobox"
+            },
+            InterfaceType.WINDOW: {
+                "cast": lambda: AutomationElementExtensions.AsWindow(element),
+                "type": "Window"
+            },
+            InterfaceType.LISTVIEW: {
+                "cast": lambda: AutomationElementExtensions.AsGrid(element),
+                "type": "Grid"
+            },
+            InterfaceType.RADIOBUTTON: {
+                "cast": lambda: AutomationElementExtensions.AsRadioButton(element),
+                "type": "Radiobutton"
+            },
+            InterfaceType.LISTBOX: {
+                "cast": lambda: AutomationElementExtensions.AsListBox(element),
+                "type": "Listbox"
+            },
+            InterfaceType.TAB: {
+                "cast": lambda: AutomationElementExtensions.AsTab(element),
+                "type": "Tab"
+            },
+            InterfaceType.TREE: {
+                "cast": lambda: AutomationElementExtensions.AsTree(element),
+                "type": "Tree"
+            },
+            InterfaceType.TOGGLEBUTTON: {
+                "cast": lambda: AutomationElementExtensions.AsToggleButton(element),
+                "type": "ToggleButton"
+            },
+            InterfaceType.BUTTON: {
+                "cast": lambda: AutomationElementExtensions.AsButton(element),
+                "type": "Button"
+            },
         }
 
-        dic = switcher.get(ui_type, {"cast": lambda: InterfaceType.INVALID, "type": "Unknown"})
+        dic = switcher.get(ui_type, {
+            "cast": lambda: InterfaceType.INVALID, "type": "Unknown"
+        })
 
         # FlaUI don't verify if element type is cast able to this type of element
         ui_object = dic["cast"]()

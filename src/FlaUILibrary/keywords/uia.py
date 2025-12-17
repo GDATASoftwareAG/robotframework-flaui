@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
