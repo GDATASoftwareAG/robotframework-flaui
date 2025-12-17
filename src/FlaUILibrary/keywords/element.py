@@ -357,6 +357,43 @@ class ElementKeywords:
                       msg)
 
     @keyword
+    def set_retry_timeout(self, retry_timeout, msg=None):
+        """
+        Sets the element retry timeout in seconds for all element related keywords.
+
+        Default is 1000 ms will be set if retry_timeout will be used with None
+
+        Arguments:
+        | Argument              | Type   | Description                             |
+        | element_retry_timeout | number | Element retry timeout in milliseconds.  |
+        | msg                   | string | Custom error message                    |
+
+        Example:
+        | Set Element Retry Timeout  5000  |
+        """
+        module = self._container.create_or_get_module()
+        module.action(Element.Action.SET_ELEMENT_RETRY_TIMEOUT,
+                      Element.create_value_container(retry_timeout_in_milliseconds=retry_timeout),
+                      msg)
+
+    @keyword
+    def reset_retry_timeout(self, msg=None):
+        """
+        Reset the element retry timeout to 1000 ms to all related keywords.
+
+        Arguments:
+        | Argument              | Type   | Description                             |
+        | msg                   | string | Custom error message                    |
+
+        Example:
+        | Reset Retry Timeout  |
+        """
+        module = self._container.create_or_get_module()
+        module.action(Element.Action.SET_ELEMENT_RETRY_TIMEOUT,
+                      Element.create_value_container(retry_timeout_in_milliseconds=1000),
+                      msg)
+
+    @keyword
     def wait_until_element_is_offscreen(self, identifier, retries=10, msg=None):
         """
         Waits until element is offscreen or timeout was reached. If timeout was reached an FlaUIError occurred.
