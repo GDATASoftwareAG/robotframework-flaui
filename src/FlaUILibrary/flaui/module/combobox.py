@@ -1,7 +1,8 @@
 from enum import Enum
 from typing import Optional, Any
-from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
+from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class Combobox(ModuleInterface):
@@ -18,12 +19,14 @@ class Combobox(ModuleInterface):
         element: Optional[Any]
 
     class Action(Enum):
-        """Supported actions for execute action implementation."""
-        COLLAPSE_COMBOBOX = "COLLAPSE_COMBOBOX"
-        EXPAND_COMBOBOX = "EXPAND_COMBOBOX"
+        """
+        Supported actions for execute action implementation.
+        """
+        COLLAPSE_COMBOBOX = "COMBOBOX_COLLAPSE"
+        EXPAND_COMBOBOX = "COMBOBOX_EXPAND"
 
     @staticmethod
-    def create_value_container(element=None):
+    def create_value_container(element=None) -> Container:
         """
         Helper to create container object.
 
@@ -35,19 +38,9 @@ class Combobox(ModuleInterface):
         """
         return Combobox.Container(element=None if not element else element)
 
-    def execute_action(self, action: Action, values: Container):
+    def execute_action(self, action: Action, values: Container) -> Any:
         """
         If action is not supported an ActionNotSupported error will be raised.
-
-        Supported action usages are:
-
-          *  Action.COLLAPSE
-            * Values ["element"] : Combobox element to collapse
-            * Returns : None
-
-          *  Action.EXPAND
-            * Values ["element"] : Combobox element to expand
-            * Returns : None
 
         Raises:
             FlaUiError: If action is not supported.
@@ -59,8 +52,38 @@ class Combobox(ModuleInterface):
 
         # pylint: disable=unnecessary-lambda
         switcher = {
-            self.Action.EXPAND_COMBOBOX: lambda: values["element"].Expand(),
-            self.Action.COLLAPSE_COMBOBOX: lambda: values["element"].Collapse(),
+            self.Action.EXPAND_COMBOBOX:
+                lambda: self._expand(values),
+            self.Action.COLLAPSE_COMBOBOX:
+                lambda: self._collapse(values),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
+
+    @staticmethod
+    def _expand(container: Container) -> None:
+        """
+        Expand the combobox control.
+
+        Args:
+            container (Combobox.Container): Container holding:
+                - container['element']: The combobox control instance to expand.
+
+        Raises:
+            FlaUiError: If the element is missing or the expand operation fails.
+        """
+        container["element"].Expand()
+
+    @staticmethod
+    def _collapse(container: Container) -> None:
+        """
+        Collapse the combobox control.
+
+        Args:
+            container (Combobox.Container): Container holding:
+                - container['element']: The combobox control instance to collapse.
+
+        Raises:
+            FlaUiError: If the element is missing or the collapse operation fails.
+        """
+        container["element"].Collapse()

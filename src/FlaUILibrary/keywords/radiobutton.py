@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Checkbox as Radio
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.checkbox import Checkbox as Radio
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -36,7 +36,7 @@ class RadioButtonKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.RADIOBUTTON, msg=msg)
         module.action(Radio.Action.SET_CHECKBOX_BUTTON_STATE,
                       self._create_value_container(element=element, state=True),
                       msg)
@@ -61,7 +61,7 @@ class RadioButtonKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.RADIOBUTTON, msg=msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.RADIOBUTTON, msg=msg)
         return module.action(Radio.Action.GET_CHECKBOX_BUTTON_STATE,
                              self._create_value_container(element=element),
                              msg)

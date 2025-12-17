@@ -1,6 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.enum import InterfaceType
-from FlaUILibrary.flaui.module import Grid
+from FlaUILibrary.flaui.enum.interfacetype import InterfaceType
+from FlaUILibrary.flaui.module.grid import Grid
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -43,7 +43,7 @@ class GridKeywords:
         | ${data}  Get All Data From Grid  <XPath>   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         return module.action(Grid.Action.GET_ALL_DATA, Grid.create_value_container(element=element),
                              msg)
 
@@ -73,7 +73,7 @@ class GridKeywords:
         | ${data}  Get Header From Grid  <XPath>   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         return module.action(Grid.Action.GET_HEADER, Grid.create_value_container(element=element),
                              msg)
 
@@ -99,7 +99,7 @@ class GridKeywords:
         | ${data}  Get Selected Grid Rows  <XPath>   |
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         return module.action(Grid.Action.GET_SELECTED_ROWS, Grid.create_value_container(element=element),
                              msg)
 
@@ -124,7 +124,7 @@ class GridKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         module.action(Grid.Action.SELECT_ROW_BY_INDEX,
                       Grid.create_value_container(element=element, index=index, multiselect=multiselect),
                       msg)
@@ -151,7 +151,7 @@ class GridKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         module.action(Grid.Action.SELECT_ROW_BY_NAME,
                       Grid.create_value_container(element=element, index=index, name=name, multiselect=multiselect),
                       msg)
@@ -176,7 +176,7 @@ class GridKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         return module.action(Grid.Action.GET_ROW_COUNT,
                              Grid.create_value_container(element=element, msg=msg),
                              msg)
@@ -201,7 +201,7 @@ class GridKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, InterfaceType.LISTVIEW, msg)
+        element = module.get_element(identifier=identifier, ui_type=InterfaceType.LISTVIEW, msg=msg)
         return module.action(Grid.Action.GET_COLUMN_COUNT,
                              Grid.create_value_container(element=element, msg=msg),
                              msg)

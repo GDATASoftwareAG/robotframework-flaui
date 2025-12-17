@@ -1,5 +1,6 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import (Keyboard, Element)
+from FlaUILibrary.flaui.module.element import Element
+from FlaUILibrary.flaui.module.keyboard import Keyboard
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -107,7 +108,7 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEY_COMBINATION,
-                      Keyboard.create_value_container(shortcut=key_combination,
+                      Keyboard.create_value_container(key_combination=key_combination,
                                                       delay_in_ms=delay_in_ms,
                                                       press_only=press_only,
                                                       release_only=release_only),
@@ -160,7 +161,7 @@ class KeyboardKeywords:
                           msg)
 
         module.action(Keyboard.Action.KEYS_COMBINATIONS,
-                      Keyboard.create_value_container(shortcuts=keys_combinations,
+                      Keyboard.create_value_container(key_combinations=keys_combinations,
                                                       delay_in_ms=delay_in_ms,
                                                       press_only=press_only,
                                                       release_only=release_only),

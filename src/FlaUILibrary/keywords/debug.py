@@ -1,5 +1,5 @@
 from robotlibcore import keyword
-from FlaUILibrary.flaui.module import Debug
+from FlaUILibrary.flaui.module.debug import Debug
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
 
 
@@ -45,7 +45,7 @@ class DebugKeywords:
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier, msg=msg)
+        element = module.get_element(identifier=identifier, msg=msg)
         return module.action(Debug.Action.GET_CHILDS_FROM_ELEMENT, Debug.create_value_container(element=element))
 
     @keyword

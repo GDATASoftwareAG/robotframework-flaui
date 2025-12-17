@@ -1,5 +1,5 @@
 from typing import Any
-from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 
 
 class TreeItemsParser:

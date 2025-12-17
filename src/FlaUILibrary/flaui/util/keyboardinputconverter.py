@@ -2,7 +2,7 @@ from re import split, match, search
 from enum import Enum
 from typing import Any
 from FlaUI.Core.WindowsAPI import VirtualKeyShort  # pylint: disable=import-error
-from FlaUILibrary.flaui.exception import FlaUiError
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 
 
 class KeyboardInputConverter:

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
+from typing import Any
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
@@ -10,7 +11,7 @@ class ModuleInterface(ABC):
     """
 
     @abstractmethod
-    def execute_action(self, action: Enum, values: ValueContainer):
+    def execute_action(self, action: Enum, values: ValueContainer) -> Any:
         """
         Executes a defined action method.
 

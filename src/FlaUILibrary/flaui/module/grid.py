@@ -1,11 +1,12 @@
 from enum import Enum
-from typing import Optional, Any
+from typing import Optional, Any, List
 from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from System import NullReferenceException  # pylint: disable=import-error
 from System import InvalidOperationException  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
-from FlaUILibrary.flaui.exception import FlaUiError
-from FlaUILibrary.flaui.interface import (ModuleInterface, ValueContainer)
+from FlaUILibrary.flaui.exception.flauierror import FlaUiError
+from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
+from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 
 
 class Grid(ModuleInterface):
@@ -27,16 +28,20 @@ class Grid(ModuleInterface):
         """
         Supported actions for execute action implementation.
         """
-        SELECT_ROW_BY_INDEX = "SELECT_ROW_BY_INDEX"
-        GET_ROW_COUNT = "GET_ROW_COUNT"
-        SELECT_ROW_BY_NAME = "SELECT_ROW_BY_NAME"
-        GET_SELECTED_ROWS = "GET_SELECTED_ROWS"
-        GET_ALL_DATA = "GET_ALL_DATA"
-        GET_HEADER = "GET_HEADER"
-        GET_COLUMN_COUNT = "GET_COLUMN_COUNT"
+        SELECT_ROW_BY_INDEX = "GRID_SELECT_ROW_BY_INDEX"
+        GET_ROW_COUNT = "GRID_GET_ROW_COUNT"
+        SELECT_ROW_BY_NAME = "GRID_SELECT_ROW_BY_NAME"
+        GET_SELECTED_ROWS = "GRID_GET_SELECTED_ROWS"
+        GET_ALL_DATA = "GRID_GET_ALL_DATA"
+        GET_HEADER = "GRID_GET_HEADER"
+        GET_COLUMN_COUNT = "GRID_GET_COLUMN_COUNT"
 
     @staticmethod
-    def create_value_container(element=None, index=None, name=None, multiselect=None, msg=None):
+    def create_value_container(element=None,
+                               index=None,
+                               name=None,
+                               multiselect=None,
+                               msg=None) -> Container:
         """
         Helper to create container object.
 
@@ -55,7 +60,7 @@ class Grid(ModuleInterface):
                               multiselect=Converter.cast_to_bool(multiselect),
                               name=Converter.cast_to_string(name))
 
-    def execute_action(self, action: Action, values: Container):
+    def execute_action(self, action: Action, values: Container) -> Any:
         """
         If action is not supported an ActionNotSupported error will be raised.
 
@@ -69,35 +74,67 @@ class Grid(ModuleInterface):
         """
 
         switcher = {
-            self.Action.GET_ROW_COUNT: lambda: values["element"].RowCount,
-            self.Action.GET_COLUMN_COUNT: lambda: values["element"].ColumnCount,
-            self.Action.SELECT_ROW_BY_INDEX: lambda: self._select_row_by_index(values["element"],
-                                                                               values["index"],
-                                                                               values["multiselect"]),
-            self.Action.SELECT_ROW_BY_NAME: lambda: self._select_row_by_name(values["element"],
-                                                                             values["index"],
-                                                                             values["name"],
-                                                                             values["multiselect"]),
-            self.Action.GET_SELECTED_ROWS: lambda: self._get_selected_rows(values["element"]),
-            self.Action.GET_ALL_DATA: lambda: self._get_all_data(values["element"]),
-            self.Action.GET_HEADER: lambda: self._get_header(values["element"]),
+            self.Action.GET_ROW_COUNT:
+                lambda: self._get_row_count(values),
+            self.Action.GET_COLUMN_COUNT:
+                lambda: self._get_column_count(values),
+            self.Action.SELECT_ROW_BY_INDEX:
+                lambda: self._select_row_by_index(values),
+            self.Action.SELECT_ROW_BY_NAME:
+                lambda: self._select_row_by_name(values),
+            self.Action.GET_SELECTED_ROWS:
+                lambda: self._get_selected_rows(values),
+            self.Action.GET_ALL_DATA:
+                lambda: self._get_all_data(values),
+            self.Action.GET_HEADER:
+                lambda: self._get_header(values),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
 
     @staticmethod
-    def _get_all_data(control: Any):
-        # pylint: disable=C0301
+    def _get_row_count(container: Container) -> int:
         """
-        Try to get all rows as string.
+        Return the number of rows available in the grid control.
 
         Args:
-            control (Object): List view to select items.
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
 
         Returns:
-            String array of header and columns as texts [[header1, header2, ...], [row1column1, row1column2, ...], [row2column1, row2column2, ...] ...] 
+            int: Number of rows reported by the control.
         """
-        # pylint: enable=C0301
+        return int(container["element"].RowCount)
+
+    @staticmethod
+    def _get_column_count(container: Container) -> int:
+        """
+        Return the number of columns available in the grid control.
+
+        Args:
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
+
+        Returns:
+            int: Number of columns reported by the control.
+        """
+        return int(container["element"].ColumnCount)
+
+    @staticmethod
+    def _get_all_data(container: Container) -> List[List[str]]:
+        """
+        Return all header and row cell values from the grid as nested lists.
+
+        Args:
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
+
+        Returns:
+            List[List[str]]: First element is the header row (column texts),
+                             following elements are row cell value lists.
+                             Empty lists or placeholder rows are excluded.
+        """
+        control = container["element"]
         values = []
         data = []
 
@@ -118,16 +155,18 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _get_header(control: Any):
+    def _get_header(container: Container) -> List[str]:
         """
-        Try to get all selected rows as string.
+        Return the header column texts from the grid.
 
         Args:
-            control (Object): List view to select items.
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
 
         Returns:
-            String array of header columns as texts [header1, header2, ...]
+            List[str]: Header column texts in order.
         """
+        control = container["element"]
         data = []
 
         for column in control.Header.Columns:
@@ -136,17 +175,19 @@ class Grid(ModuleInterface):
         return data
 
     @staticmethod
-    def _get_selected_rows(control: Any):
+    def _get_selected_rows(container: Container) -> str:
         """
-        Try to get all selected rows as string.
+        Return a textual representation of all currently selected rows.
 
         Args:
-            control (Object): List view to select items.
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
 
         Returns:
-            String from all selected items separated as pipe for example | Value_1 | Value_2 |
+            str: Multi-line string where each selected row is represented as
+                 \"| cell1 | cell2 | ... |\" followed by a newline.
         """
-
+        control = container["element"]
         values = ""
 
         for row in control.SelectedItems:
@@ -158,19 +199,25 @@ class Grid(ModuleInterface):
         return values
 
     @staticmethod
-    def _select_row_by_index(control: Any, index: int, multiselect:bool):
+    def _select_row_by_index(container: Container) -> None:
         """
-        Try to select element from given index.
+        Select a row by its numeric index, supporting optional multiselect.
 
         Args:
-            control (Object): List view to select items.
-            index   (Number): Index number to select.
-            multiselect   (bool): Multiselect or single select.
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
+                - container['index']: Integer row index to select.
+                - container['multiselect']: Boolean; if True, AddToSelection is used.
 
         Raises:
-            FlaUiError: By an array out of bound exception
-            FlaUiError: If value is not a number.
+            FlaUiError: If the index is out of range (array out of bounds).
+            FlaUiError: If the control is single-select but multiselect was requested.
+            FlaUiError: If the provided index value cannot be interpreted as a number.
         """
+        control = container["element"]
+        index = container["index"]
+        multiselect = container["multiselect"]
+
         try:
             if control.RowCount > 0:
                 if multiselect:
@@ -188,20 +235,26 @@ class Grid(ModuleInterface):
             raise FlaUiError(FlaUiError.ArrayOutOfBoundException.format(index)) from None
 
     @staticmethod
-    def _select_row_by_name(control: Any, index: int, name: str, multiselect:bool):
+    def _select_row_by_name(container: Container) -> None:
         """
-        Try to select element from given name from given column index
+        Select a row by providing a column index and expected cell text for that column.
 
         Args:
-            control (Object): List view to select items.
-            index   (Number): Index number to select.
-            name    (String): Expected row name.
-            multiselect   (bool): Multiselect or single select.
+            container (Grid.Container): Container holding:
+                - container['element']: Grid/ListView control instance.
+                - container['index']: Integer column index to compare.
+                - container['name']: Expected cell text in the specified column.
+                - container['multiselect']: Boolean; if True, AddToSelection is used.
+
         Raises:
-            FlaUiError: By an array out of bound exception
-            FlaUiError: If value is not a number.
-            FlaUIError: If Name Could not be found in the given Index.
+            FlaUiError: If the specified index/column is out of range or the item is not found.
+            FlaUiError: If the control is single-select but multiselect was requested.
         """
+        control = container["element"]
+        index = container["index"]
+        name = container["name"]
+        multiselect = container["multiselect"]
+
         try:
             if control.RowCount > 0:
                 if multiselect:
