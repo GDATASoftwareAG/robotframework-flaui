@@ -22,7 +22,6 @@ ${XPATH_ENABLE_ELEMENT}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Automatio
 ${XPATH_DISABLED_ELEMENT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='DisabledButton']
 ${XPATH_OFFSCREEN_ELEMENT}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 ${XPATH_SCROLL_DATAGRID}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane[@ClassName='ScrollViewer']/Group[@Name='Large List with Scroll']/DataGrid[@AutomationId='LargeListView']
-
 ${XPATH_MFC_APP_MENU_FILE}      ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='File']
 
 
@@ -366,3 +365,29 @@ Element Should Not Be Offscreen Error
     ...    Element Should Not Be Offscreen
     ...    ${XPATH_SCROLL_DATAGRID}/DataItem[4]
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
+Set Retry Timeout Should Be One Second
+    ${TIME_BEFORE}    Get Current Date
+    Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}     Get Current Date
+    ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 1
+    Should Be True    ${TOTAL_MS} < 2
+
+Set Retry Timeout Should Be Three Second
+    Set Retry Timeout    3000
+    ${TIME_BEFORE}    Get Current Date
+    Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}     Get Current Date
+    ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 3
+    Should Be True    ${TOTAL_MS} < 4
+
+Reset Retry Timeout Should Be One Second
+    Reset Retry Timeout
+    ${TIME_BEFORE}    Get Current Date
+    Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}     Get Current Date
+    ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 1
+    Should Be True    ${TOTAL_MS} < 2

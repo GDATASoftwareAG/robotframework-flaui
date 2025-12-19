@@ -620,8 +620,14 @@ class Element(ModuleInterface):
 
         Notes:
             - Negative or zero values will result in a timeout of 0.
+            - None will force the default timeout of 1000 ms.
         """
-        self._retry_timeout_in_milliseconds = max(container["retry_timeout_in_milliseconds"], 0)
+        value = container.get("retry_timeout_in_milliseconds")
+
+        if value is None:
+            value = 1000
+
+        self._retry_timeout_in_milliseconds = max(value, 0)
 
     @staticmethod
     def _try_get_automation_id_property(element: Any) -> str:

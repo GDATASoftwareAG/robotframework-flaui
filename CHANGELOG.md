@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- Ney keyword
+  - Set Retry Timeout
+  - Reset Retry Timeout
+
 ### Changed
 
 - Code changes from setup.py to pyproject.toml to avoid deprecated usage
