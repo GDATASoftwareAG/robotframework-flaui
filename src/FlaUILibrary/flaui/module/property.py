@@ -64,6 +64,7 @@ class Property(ModuleInterface):
         IS_SELECTION_ITEM_PATTERN_SUPPORTED = "PROPERTY_IS_SELECTION_ITEM_PATTERN_SUPPORTED"
         IS_SELECTED = "PROPERTY_IS_SELECTED"
         STAGE_FOR_COMBOBOX_SELECTIONITEM = "PROPERTY_STAGE_FOR_COMBOBOX_SELECTIONITEM"
+        HELP_TEXT = "PROPERTY_HELP_TEXT"
 
     @staticmethod
     def create_value_container(element: Any = None,
@@ -154,6 +155,8 @@ class Property(ModuleInterface):
                 lambda: self._is_selected(values),
             self.Action.STAGE_FOR_COMBOBOX_SELECTIONITEM:
                 lambda: self._stage_for_combobox_selectionitem(values),
+            self.Action.HELP_TEXT:
+                lambda: self._get_help_text(values),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -808,6 +811,32 @@ class Property(ModuleInterface):
             element.Collapse()
         if state == "Collapsed":
             element.Expand()
+
+    @staticmethod
+    def _get_help_text(container: Container) -> str:
+        """
+        Return the HelpText property of the given element.
+
+        Args:
+            container (Container): Container holding:
+                - container['element']: Element with a `Properties.HelpText` property.
+
+        Returns:
+            str: The element's help text as a string. Returns an empty string when
+                 the property exists but is `None`.
+
+        Raises:
+            FlaUiError: Raised with `FlaUiError.PropertyNotSupported` when the
+                        help text cannot be retrieved or the property is unsupported.
+        """
+        try:
+            element = container["element"]
+            help_text = element.Properties.HelpText.Value
+            if help_text is not None:
+                return str(help_text)
+            return ""
+        except Exception:
+            raise FlaUiError(FlaUiError.PropertyNotSupported) from None
 
     @staticmethod
     def _int_to_rgba(argb_int: int) -> Tuple[int, int, int, int]:
