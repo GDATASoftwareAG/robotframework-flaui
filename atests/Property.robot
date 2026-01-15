@@ -403,3 +403,12 @@ Is Selected From Combobox ListItem Element
     Should Be True    ${state}
     ${state}    Get Property From Element    ${EDITABLE_COMBOX}/ListItem[2]    IS_SELECTED
     Should Not Be True    ${state}
+
+Get Help Text
+    ${expected_help_text}    Convert To String    FlaUI WPF Test App
+    ${help_text}    Get Property From Element    ${WINDOW_ELEMENT}     HELP_TEXT
+    Should Be Equal As Strings    ${help_text}    ${expected_help_text}
+
+Get Help Text Is Empty If Not Set
+    ${help_text}    Get Property From Element    ${TEXT_ELEMENT}     HELP_TEXT
+    Should Be Empty    ${help_text}

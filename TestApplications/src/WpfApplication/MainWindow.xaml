@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WpfApplication"
         mc:Ignorable="d"
         Title="FlaUI WPF Test App"
+        AutomationProperties.HelpText="FlaUI WPF Test App"
         Height="560" Width="629.303"
         ResizeMode="CanResize">
     <Window.Resources>

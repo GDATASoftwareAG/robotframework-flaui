@@ -13,6 +13,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
   - Set Retry Timeout
   - Reset Retry Timeout
 
+- Keyword Get Property From Element extended with new operations
+  - HELP_TEXT
+
 ### Changed
 
 - Code changes from setup.py to pyproject.toml to avoid deprecated usage
