@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][4.0.5] [4.0.5][4.0.4-4.0.5] - 2026-01-16
+
 ### Added
 
 - Ney keyword
@@ -775,7 +777,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.2...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.5...main
+
+[4.0.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.5
+
+[4.0.4-4.0.5]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.0.3...4.0.4
 
 [4.0.4]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.0.4
 
