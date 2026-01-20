@@ -230,3 +230,5 @@ pylint.xml
 __pycache__
 _site
 Gemfile.lock
+.venv
+src/robotframework_flaui.egg-info
