@@ -1,7 +1,7 @@
-robotframework-stringformat==0.1.8
-robotframework-tidy==4.18.0
-yattag==1.16.1
-wheel==0.45.1
+robotframework-stringformat>=0.1.8
+robotframework-tidy>=4.18.0
+yattag>=1.16.1
+wheel>=0.45.1
 build>=1.2.2
 pylint>=3.2.7
 twine>=6.1.0
