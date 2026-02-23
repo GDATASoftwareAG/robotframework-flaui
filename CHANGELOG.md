@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+- Experimental Python 3.14 support
+  - pythonnet has to be set in requirements.txt with 3.1 prerelease version to use
+
 ## [Release][4.0.5] [4.0.5][4.0.4-4.0.5] - 2026-01-16
 
 ### Added
