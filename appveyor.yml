@@ -76,12 +76,12 @@ install:
     
     python --version
     
-    .\keen.bat venv
+    python keen.py venv
 
 build: off
 
 test_script:
-- cmd: .\keen.bat test
+- cmd: python keen.py test
 
 # Normal artifacts (for successful builds)
 artifacts:

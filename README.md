@@ -157,7 +157,7 @@ cd ./atests
 Use the provided 'Commander Keen' file:
 
 ```
-.\keen.bat test
+python .\keen.py test
 ```
 
 The script automatically builds the:
@@ -167,7 +167,7 @@ The script automatically builds the:
 
 Following arguments are supported:
 ```
-.\keen.bat <argument>
+python .\keen.py <argument>
 ```
   * cleanup - Removes all build folders
   * dependency - Install all python dependencies
