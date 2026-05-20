@@ -50,6 +50,8 @@ class FlaUiError(AttributeError):
     PatternNotSupported = "Supports '{}' Pattern only, method cannot be used with invalid Pattern"
     InvalidSeparator = "Try to set invalid separator"
     GridIsSingleSelect = "The Grid only supports single select. Change the muliselect argument to false"
+    RelativePathsOnlyAllowed = "Only relative paths are allowed"
+    NotSupportedFileSuffix = "Not supported file suffix"
 
     @staticmethod
     def raise_fla_ui_error(message):

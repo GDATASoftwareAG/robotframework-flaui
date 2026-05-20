@@ -7,6 +7,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+- Avoid path Traversal in robotframework-flaui Set Screenshot Directory keyword which only allows a subfolder in the output directory to be set as screenshot directory
+- Set Screenshot File Suffix is restricted only to allow png, jpg or jpeg file formats
+
 ## [Release][4.1.0] [4.1.0][4.0.5-4.1.0] - 2026-03-17
 
 - Experimental Python 3.14 support
