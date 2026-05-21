@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][4.1.1] [4.1.1][4.1.0-4.1.1] - 2026-05-21
+
 - Avoid path Traversal in robotframework-flaui Set Screenshot Directory keyword which only allows a subfolder in the output directory to be set as screenshot directory
 - Set Screenshot File Suffix is restricted only to allow png, jpg or jpeg file formats
 
@@ -784,7 +786,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.1.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.1.1...main
+
+[4.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.1.1
+
+[4.1.0-4.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.1.0...4.1.1
 
 [4.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.1.0
 
