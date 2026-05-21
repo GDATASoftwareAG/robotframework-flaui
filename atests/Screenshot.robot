@@ -18,6 +18,48 @@ ${SCREENSHOT_FOLDER}    screenshots/default
 
 
 *** Test Cases ***
+Set Screenshot Directory Rejects Invalid Paths
+    [Template]    Set Screenshot Directory Should Fail
+    # Absolute paths
+    /tmp/screenshots
+    C:\\temp\\screenshots
+    # Parent traversal
+    ../screenshots
+    ..\\screenshots
+    folder/../secret
+    folder\\..\\secret
+    # UNC paths (Windows network shares)
+    \\\\server\\share\\screenshots
+    # Windows extended path prefix
+    \\?\\C:\\screenshots
+    # Mixed traversal
+    screenshots/../../etc
+    screenshots\\..\\..\\windows
+
+Set File Suffix Accepts Valid Values
+    [Template]    Set File Suffix Should Succeed
+    png
+    jpg
+    jpeg
+    PNG
+    JpG
+    JPEG
+    ${None}
+
+Set File Suffix Rejects Invalid Values
+    [Template]    Set File Suffix Should Fail
+    txt
+    exe
+    png.exe
+    .jpg
+    jpg.
+    gif
+    bmp
+    pdf
+    ;jpg
+    jpg/png
+    ../png
+
 Take No Screenshot If Module Is Disabled
     ${FILENAME}    Get Expected Filename    ${TEST_NAME}
     Remove File    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
@@ -28,6 +70,7 @@ Take No Screenshot If Module Is Disabled
     [Teardown]    Reset Screenshot Environment To Default
 
 Take Screenshot If XPath Not Found Multiple Times Default Folder
+    Set Screenshot Directory    ${None}
     FOR    ${_}    IN RANGE    1    3
         ${FILENAME}    Get Expected Filename    ${TEST_NAME}
         ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
@@ -137,3 +180,21 @@ Reset Screenshot Environment To Default
     Set Screenshot Directory
     Set Screenshot File Suffix
     Run Keyword And Ignore Error    Stop Application    ${pid}
+
+Set Screenshot Directory Should Fail
+    [Arguments]    ${INVALID_PATH}
+    Set Screenshot Directory    ${None}
+    Log    Testing with invalid path: ${INVALID_PATH}
+    Run Keyword And Expect Error
+    ...    FlaUiError: Only relative paths are allowed
+    ...    Set Screenshot Directory    ${INVALID_PATH}
+
+Set File Suffix Should Succeed
+    [Arguments]    ${SUFFIX}
+    Set Screenshot File Suffix    ${SUFFIX}
+
+Set File Suffix Should Fail
+    [Arguments]    ${SUFFIX}
+    Run Keyword And Expect Error
+    ...    FlaUiError: Not supported file suffix
+    ...    Set Screenshot File Suffix    ${SUFFIX}

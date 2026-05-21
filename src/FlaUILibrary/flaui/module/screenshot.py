@@ -167,18 +167,60 @@ class Screenshot(ModuleInterface):
             container (Screenshot.Container): Container holding:
                 - container['directory']: Relative directory path (string).
         """
-        directory = container['directory']
-        self._directory = directory
+        dir_path = container['directory']
+
+        if dir_path is None:
+            # Back to default None
+            self._directory = None
+            return
+
+        # Reject parent traversal
+        if ".." in dir_path.split("/") or ".." in dir_path.split("\\"):
+            FlaUiError.raise_fla_ui_error(FlaUiError.RelativePathsOnlyAllowed)
+
+        # Reject posix path or windows path beginning with backslash
+        # Python 3.13 replaced path syntax like /tmp/cool to \tmp\cool but we want
+        # to reject such paths as absolute paths
+        if (
+                dir_path.startswith("/") or dir_path.startswith("/\\")
+        ):
+            FlaUiError.raise_fla_ui_error(FlaUiError.RelativePathsOnlyAllowed)
+
+        normalized_dir_path = os.path.normpath(dir_path)
+
+        # Reject absolute paths, UNC paths, long-path prefix
+        if (
+                os.path.isabs(normalized_dir_path)
+                or normalized_dir_path.startswith('..')
+                or normalized_dir_path.startswith('\\\\')
+                or normalized_dir_path.startswith('\\?\\')
+        ):
+            FlaUiError.raise_fla_ui_error(FlaUiError.RelativePathsOnlyAllowed)
+
+        self._directory = normalized_dir_path
 
     def _set_file_suffix(self, container: Container) -> None:
         """
         Set the file suffix (extension) to use for screenshot files.
 
-        Args:
-            container (Screenshot.Container): Container holding:
-                - container['suffix']: File suffix without a leading dot (e.g., 'png' or 'jpg').
+        Allowed values: png, jpg, jpeg
         """
-        suffix = container['suffix']
+        suffix = container.get('suffix')
+
+        if not suffix:
+            # Back to default is jpg
+            self._suffix = ".jpg"
+            return
+
+        suffix = suffix.lower().strip()
+
+        allowed_suffixes = {"png", "jpg", "jpeg"}
+
+        if suffix not in allowed_suffixes:
+            FlaUiError.raise_fla_ui_error(
+                FlaUiError.NotSupportedFileSuffix
+            )
+
         self._suffix = suffix
 
     def _set_mode(self, container: Container) -> None:
@@ -363,9 +405,10 @@ class Screenshot(ModuleInterface):
         Returns:
             str: Absolute path to the directory where screenshots are written.
         """
-        output_dir = robotlog.get_log_directory().replace("/", os.sep)
+        output_dir = robotlog.get_log_directory()
+
         if self._directory:
-            return str(os.path.join(output_dir, self._directory).replace("/", os.sep))
+            return str(os.path.join(output_dir, self._directory))
 
         return output_dir
 
