@@ -36,7 +36,7 @@
 [python_311]: https://img.shields.io/badge/Python-3.11-blue
 [python_312]: https://img.shields.io/badge/Python-3.12-blue
 [python_313]: https://img.shields.io/badge/Python-3.13-blue
-[python_314]: https://img.shields.io/badge/Python-3.14-orange
+[python_314]: https://img.shields.io/badge/Python-3.14-blue
 
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
@@ -47,8 +47,8 @@
 |                     |                                                                                                         |
 |---------------------|---------------------------------------------------------------------------------------------------------|
 | License             | ![][license]                                                                                            |
-| Python Builds (x86) | ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86] ![][py312x86] ![][py313x86]                       |
-| Python Builds (x64) | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64] ![][py312x64] ![][py313x64]                       |
+| Python Builds (x86) | ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86] ![][py312x86] ![][py313x86] ![][py314x86]         |
+| Python Builds (x64) | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64] ![][py312x64] ![][py313x64] ![][py314x64]         |
 | Tests               | [![][tests]][tests_url]                                                                                 |
 | Python              | ![][python_38] ![][python_39] ![][python_310] ![][python_311] ![python_312] ![python_313] ![python_314] |
 | Robotframework      | ![][rf3] ![][rf4] ![][rf5] ![][rf6] ![][rf7]                                                            |

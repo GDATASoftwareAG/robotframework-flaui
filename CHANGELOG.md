@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+- Python 3.14 support
+
 ## [Release][4.1.1] [4.1.1][4.1.0-4.1.1] - 2026-05-21
 
 - Avoid path Traversal in robotframework-flaui Set Screenshot Directory keyword which only allows a subfolder in the output directory to be set as screenshot directory
