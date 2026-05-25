@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.0.0] [5.0.0][4.1.1-5.0.0] - 2026-05-25
+
 - Python 3.14 support
 
 ## [Release][4.1.1] [4.1.1][4.1.0-4.1.1] - 2026-05-21
@@ -788,7 +790,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.1.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.0...main
+
+[5.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.0
+
+[4.1.1-5.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/4.1.1...5.0.0
 
 [4.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/4.1.1
 
