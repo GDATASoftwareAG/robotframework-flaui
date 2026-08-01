@@ -29,7 +29,6 @@
 [pypi]: https://img.shields.io/pypi/v/robotframework-flaui?style=flat-square
 [pypi_url]: https://pypi.org/pypi/robotframework-flaui
 
-[python_37]: https://img.shields.io/badge/Python-3.7-blue
 [python_38]: https://img.shields.io/badge/Python-3.8-blue
 [python_39]: https://img.shields.io/badge/Python-3.9-blue
 [python_310]: https://img.shields.io/badge/Python-3.10-blue
@@ -130,13 +129,12 @@ Examples of use can be found in the atests folder.
 ### Preconditions
 
 * Install [Python](https://www.python.org/downloads), if not already installed. 
-* Only Python 3 is supported.
-* Install Robotframework and Python.Net
+* Python 3 is supported.
 
-#### Dependency installation by Keen.bat
+#### Dependency installation by Builddrone
 
 ```
-.\keen.bat dependency
+python -m pip install -r buildsystem.txt
 ```
 
 ### Test-Applications
@@ -158,31 +156,28 @@ cd ./atests
 
 ### Building and testing locally
 
-Use the provided 'Commander Keen' file:
+Use the `builddrone` tasks defined in `blueprint.json`:
 
 ```
-python .\keen.py test
+python -m builddrone <task>
 ```
 
-The script automatically builds the:
-  * Library as a wheel file stored in the Dist folder
-  * Test documentation located in the Docs folder
-  * Automatically installs and runs the robot tests of the library and saves the test results in the Result folder
+Following tasks are supported:
 
-Following arguments are supported:
+* `build` - Create the package (`dist`) and keyword documentation (`keywords`)
+* `cleanup` - Remove generated folders and local virtual environments
+* `robocop` - Run Robot Framework lint checks via `robocop_lint.py`
+* `pylint` - Run pylint for the Python sources in `src`
+* `test` - Run UIA2 and UIA3 acceptance tests and merge results into `result`
+
+Example full local CI run:
+
+```powershell
+python -m builddrone build
+python -m builddrone robocop
+python -m builddrone pylint
+python -m builddrone test
 ```
-python .\keen.py <argument>
-```
-  * cleanup - Removes all build folders
-  * dependency - Install all python dependencies
-  * build - Build wheel file
-  * install - Install wheel file
-  * test - Test robotframework-flaui (UIA2 and UIA3)
-  * test_uia2 - Test UIA2 interface usage
-  * test_uia3 - Test UIA3 interface usage
-  * pylint - Static code analysis for python code
-  * robocop - Static code analysis for robotframework code
-  * tidy - Formatter for robotframework code
   
 ### Releasing a new version - Frequent tasks
 

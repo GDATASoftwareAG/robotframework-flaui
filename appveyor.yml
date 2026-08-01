@@ -86,12 +86,18 @@ install:
     
     python --version
     
-    python keen.py venv
+    python -m pip install -r buildsystem.txt
 
 build: off
 
-test_script:
-- cmd: python keen.py test
+test_script: >-
+    python -m builddrone build
+  
+    python -m builddrone robocop
+
+    python -m builddrone pylint
+
+    python -m builddrone test
 
 # Normal artifacts (for successful builds)
 artifacts:

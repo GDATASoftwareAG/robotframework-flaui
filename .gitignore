@@ -240,3 +240,5 @@ pylint.xml
 !docs/**
 __pycache__
 robotframework_flaui.egg-info
+.build.venv
+.testing.venv

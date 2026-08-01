@@ -1,9 +1,9 @@
 *** Variables ***
 ${EXP_WINDOW_TITLE}     FlaUI WPF Test App
 ${WRONG_PID}            99989
-${TEST_APP}             apps\\WpfApplication
-${TEST_APP_NOTIFIER}    apps\\Notifier
-${TEST_APP_MFC}         apps\\MFCApplication
+${TEST_APP}             atests\\apps\\WpfApplication
+${TEST_APP_NOTIFIER}    atests\\apps\\Notifier
+${TEST_APP_MFC}         atests\\apps\\MFCApplication
 
 
 *** Keywords ***
