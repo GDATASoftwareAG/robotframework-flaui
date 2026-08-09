@@ -77,5 +77,5 @@ class Parsly(ContentHandler):
 
 
 parsly = Parsly()
-parse('./result/rebot_xunit.xml', parsly)
-save_xml(parsly.testsuite, parsly.testcase_stack, './result/xunit.xml')
+parse('./result/rebot.xml', parsly)
+save_xml(parsly.testsuite, parsly.testcase_stack, './result/junit.xml')

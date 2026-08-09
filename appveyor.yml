@@ -113,10 +113,15 @@ artifacts:
   name: keywords.xml
 
 deploy_script:
-- ps: .\deploy.ps1
+- ps: |
+      if ($env:APPVEYOR_REPO_TAG -eq 'true') {
+        python -m builddrone pypi
+      } else {
+        Write-Output "No tag for deployment"
+      }
 
 on_finish:
-- ps: .\testreport.ps1
+- ps: python -m builddrone appveyor_upload_tests
 
 on_failure:
-- ps: .\artifact.ps1
+- ps: python -m builddrone appveyor_upload_failure_artifacts
