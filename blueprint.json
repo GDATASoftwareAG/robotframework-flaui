@@ -1,181 +1,240 @@
 {
-    "build": [
-        {
-            "module": "python.venv",
-            "args": {
-                "source": ".build.venv"
-            }
-        },
-        {
-            "module": "python.install",
-            "args": {
-                "requirements": "requirements-dev.txt"
-            }
-        },
-        {
-            "module": "python.build",
-            "args": {}
-        },
-        {
-            "module": "python.run",
-            "args": {
-                "source": "libdoc.py"
-            }
-        }
-    ],
-    "cleanup": [
-        {
-            "module": "filesystem.cleanup",
-            "args": {
-                "folders": [
-                    ".robocop_cache",
-                    ".testing.venv",
-                    ".build.venv",
-                    "dist",
-                    "keywords",
-                    "result",
-                    "build",
-                    "src/robotframework_flaui.egg-info"
-                ]
-            }
-        }
-    ],
-    "robocop": [
-        {
-            "module": "python.venv",
-            "args": {
-                "source": ".testing.venv"
-            }
-        },
-        {
-            "module": "python.install",
-            "args": {
-                "requirements": "requirements-dev.txt"
-            }
-        },
-        {
-            "module": "python.run",
-            "args": {
-                "source": "robocop_lint.py"
-            }
-        }
-    ],
-    "pylint": [
-        {
-            "module": "python.venv",
-            "args": {
-                "source": ".testing.venv"
-            }
-        },
-        {
-            "module": "python.install",
-            "args": {
-                "requirements": "requirements-dev.txt"
-            }
-        },
-        {
-            "module": "python.pylint",
-            "args": {
-                "paths": ["src"]
-            }
-        }
-    ],
-    "test": [
-        {
-            "module": "filesystem.cleanup",
-            "args": {
-                "folders": [
-                    "result"
-                ]
-            }
-        },
-        {
-            "module": "python.venv",
-            "args": {
-                "source": ".testing.venv"
-            }
-        },
-        {
-            "module": "python.install",
-            "args": {
-                "requirements": "requirements-dev.txt"
-            }
-        },
-        {
-            "module": "python.install",
-            "args": {
-                "source": "."
-            }
-        },
-        {
-            "module": "robotframework.test",
-            "args": {
-                "arguments": [
-                    {"--name": "UIA2"},
-                    {"--variable": "UIA:UIA2"},
-                    {"--outputdir": "result/uia2"},
-                    "atests"
-                ]
-            }
-        },
-        {
-            "module": "robotframework.test",
-            "args": {
-                "arguments": [
-                    {"--name": "UIA3"},
-                    {"--variable": "UIA:UIA3"},
-                    {"--outputdir": "result/uia3"},
-                    "atests"
-                ]
-            }
-        },
-        {
-            "module": "robotframework.rebot",
-            "args": {
-                "arguments": [
-                    {"--outputdir": "result"},
-                    {"--name": "ATests"},
-                    {"-x": "rebot_xunit.xml"},
-                    "result/uia2/output.xml",
-                    "result/uia3/output.xml"
-                ]
-            }
-        },
-        {
-            "module": "filesystem.copy",
-            "args": {
-                "source": "result/uia2/screenshots",
-                "destination": "result/screenshots"
-            }
-        },
-        {
-            "module": "filesystem.copy",
-            "args": {
-                "source": "result/uia3/screenshots",
-                "destination": "result/screenshots"
-            }
-        },
-        {
-            "module": "filesystem.copy",
-            "args": {
-                "source": "result/uia2",
-                "files": "*.jpg",
-                "destination": "result"
-            }
-        },
-        {
-            "module": "filesystem.copy",
-            "args": {
-                "source": "result/uia3/screenshots",
-                "files": "*.jpg",
-                "destination": "result/screenshots"
-            }
-        },
-        {
-            "module": "python.run",
-            "args": {
-                "source": "parsly.py"
-            }
-        }
-    ]
+  "build": [
+    {
+      "module": "python.venv",
+      "args": {
+        "source": ".build.venv"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "requirements": "requirements-dev.txt"
+      }
+    },
+    {
+      "module": "python.build",
+      "args": {}
+    },
+    {
+      "module": "python.run",
+      "args": {
+        "source": "libdoc.py"
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "module": "filesystem.cleanup",
+      "args": {
+        "folders": [
+          ".robocop_cache",
+          ".testing.venv",
+          ".build.venv",
+          "dist",
+          "keywords",
+          "result",
+          "build",
+          "src/robotframework_flaui.egg-info"
+        ]
+      }
+    }
+  ],
+  "robocop": [
+    {
+      "module": "python.venv",
+      "args": {
+        "source": ".testing.venv"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "requirements": "requirements-dev.txt"
+      }
+    },
+    {
+      "module": "python.run",
+      "args": {
+        "source": "robocop_lint.py"
+      }
+    }
+  ],
+  "pylint": [
+    {
+      "module": "python.venv",
+      "args": {
+        "source": ".testing.venv"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "requirements": "requirements-dev.txt"
+      }
+    },
+    {
+      "module": "python.pylint",
+      "args": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  ],
+  "test": [
+    {
+      "module": "filesystem.cleanup",
+      "args": {
+        "folders": [
+          "result"
+        ]
+      }
+    },
+    {
+      "module": "python.venv",
+      "args": {
+        "source": ".testing.venv"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "requirements": "requirements-dev.txt"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "source": "."
+      }
+    },
+    {
+      "module": "robotframework.test",
+      "args": {
+        "arguments": [
+          {
+            "--name": "UIA2"
+          },
+          {
+            "--variable": "UIA:UIA2"
+          },
+          {
+            "--outputdir": "result/uia2"
+          },
+          "atests"
+        ]
+      }
+    },
+    {
+      "module": "robotframework.test",
+      "args": {
+        "arguments": [
+          {
+            "--name": "UIA3"
+          },
+          {
+            "--variable": "UIA:UIA3"
+          },
+          {
+            "--outputdir": "result/uia3"
+          },
+          "atests"
+        ]
+      }
+    },
+    {
+      "module": "robotframework.rebot",
+      "args": {
+        "arguments": [
+          {
+            "--outputdir": "result"
+          },
+          {
+            "--name": "ATests"
+          },
+          {
+            "-x": "rebot.xml"
+          },
+          "result/uia2/output.xml",
+          "result/uia3/output.xml"
+        ]
+      }
+    },
+    {
+      "module": "filesystem.copy",
+      "args": {
+        "source": "result/uia2/screenshots",
+        "destination": "result/screenshots"
+      }
+    },
+    {
+      "module": "filesystem.copy",
+      "args": {
+        "source": "result/uia3/screenshots",
+        "destination": "result/screenshots"
+      }
+    },
+    {
+      "module": "filesystem.copy",
+      "args": {
+        "source": "result/uia2",
+        "files": "*.jpg",
+        "destination": "result"
+      }
+    },
+    {
+      "module": "filesystem.copy",
+      "args": {
+        "source": "result/uia3/screenshots",
+        "files": "*.jpg",
+        "destination": "result/screenshots"
+      }
+    },
+    {
+      "module": "python.run",
+      "args": {
+        "source": "parsly.py"
+      }
+    }
+  ],
+  "appveyor_upload_tests": [
+    {
+      "module": "appveyor.upload.tests",
+      "args": {
+        "sources": [
+          {"file": "result/junit.xml", "type": "junit"}
+        ],
+        "repeat": 5,
+        "timeout": 10
+      }
+    }
+  ],
+  "appveyor_upload_failure_artifacts": [
+    {
+      "module": "archiver",
+      "args": {
+        "filename": "results.zip",
+        "folders": ["result"]
+      }
+    },
+    {
+      "module": "appveyor.upload.artifact",
+      "args": {
+        "files": ["results.zip"]
+      }
+    }
+  ],
+  "pypi": [
+    {
+      "module": "twine.upload",
+      "args": {
+        "files": [
+          "dist/*.whl",
+          "dist/*.tar.gz"
+        ],
+        "skip_existing": true
+      }
+    }
+  ]
 }
