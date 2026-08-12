@@ -1,5 +1,5 @@
 robotframework>=3.2.2
 typing-extensions>=3.10.0.0
 robotframework-pythonlibcore>=3.0.0
-pythonnet>=3.0.0
+pythonnet==3.2.0rc1
 execnet>=2.1.2
