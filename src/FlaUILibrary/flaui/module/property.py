@@ -4,6 +4,8 @@ from typing import Optional, Any, Tuple
 from FlaUI.UIA2.Identifiers import TextAttributes as AttributesUia2  # pylint: disable=import-error
 from FlaUI.UIA3.Identifiers import TextAttributes as AttributesUia3  # pylint: disable=import-error
 from FlaUI.Core.Definitions import WindowVisualState as NetWidowVisualState  # pylint: disable=import-error
+from FlaUILibrary.flaui.util.converter import Converter
+from FlaUILibrary.flaui.util.legacy_iaccessible import LegacyIAccessibleProperties
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
@@ -13,6 +15,7 @@ class Property(ModuleInterface):
     """
     Property module wrapper for FlaUI usage to get property values from elements
     """
+
     class WindowVisualState(Enum):
         """
         Window visual state mapping
@@ -65,6 +68,18 @@ class Property(ModuleInterface):
         IS_SELECTED = "PROPERTY_IS_SELECTED"
         STAGE_FOR_COMBOBOX_SELECTIONITEM = "PROPERTY_STAGE_FOR_COMBOBOX_SELECTIONITEM"
         HELP_TEXT = "PROPERTY_HELP_TEXT"
+        IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED = "PROPERTY_IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED"
+        LEGACY_IACCESSIBLE_STATE = "PROPERTY_LEGACY_IACCESSIBLE_STATE"
+        LEGACY_IACCESSIBLE_ROLE = "PROPERTY_LEGACY_IACCESSIBLE_ROLE"
+        LEGACY_IACCESSIBLE_NAME = "PROPERTY_LEGACY_IACCESSIBLE_NAME"
+        LEGACY_IACCESSIBLE_VALUE = "PROPERTY_LEGACY_IACCESSIBLE_VALUE"
+        LEGACY_IACCESSIBLE_DEFAULT_ACTION = "PROPERTY_LEGACY_IACCESSIBLE_DEFAULT_ACTION"
+        LEGACY_IACCESSIBLE_DESCRIPTION = "PROPERTY_LEGACY_IACCESSIBLE_DESCRIPTION"
+        LEGACY_IACCESSIBLE_HELP = "PROPERTY_LEGACY_IACCESSIBLE_HELP"
+        LEGACY_IACCESSIBLE_KEYBOARD_SHORTCUT = "PROPERTY_LEGACY_IACCESSIBLE_KEYBOARD_SHORTCUT"
+        LEGACY_IACCESSIBLE_CHILD_ID = "PROPERTY_LEGACY_IACCESSIBLE_CHILD_ID"
+        LEGACY_IACCESSIBLE_IS_EXPANDED = "PROPERTY_LEGACY_IACCESSIBLE_IS_EXPANDED"
+        LEGACY_IACCESSIBLE_IS_COLLAPSED = "PROPERTY_LEGACY_IACCESSIBLE_IS_COLLAPSED"
 
     @staticmethod
     def create_value_container(element: Any = None,
@@ -157,6 +172,30 @@ class Property(ModuleInterface):
                 lambda: self._stage_for_combobox_selectionitem(values),
             self.Action.HELP_TEXT:
                 lambda: self._get_help_text(values),
+            self.Action.IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED:
+                lambda: LegacyIAccessibleProperties.is_supported(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_STATE:
+                lambda: LegacyIAccessibleProperties.get_state(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_ROLE:
+                lambda: LegacyIAccessibleProperties.get_role(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_NAME:
+                lambda: LegacyIAccessibleProperties.get_name(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_VALUE:
+                lambda: LegacyIAccessibleProperties.get_value(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_DEFAULT_ACTION:
+                lambda: LegacyIAccessibleProperties.get_default_action(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_DESCRIPTION:
+                lambda: LegacyIAccessibleProperties.get_description(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_HELP:
+                lambda: LegacyIAccessibleProperties.get_help(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_KEYBOARD_SHORTCUT:
+                lambda: LegacyIAccessibleProperties.get_keyboard_shortcut(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_CHILD_ID:
+                lambda: LegacyIAccessibleProperties.get_child_id(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_IS_EXPANDED:
+                lambda: LegacyIAccessibleProperties.is_expanded(values["element"]),
+            self.Action.LEGACY_IACCESSIBLE_IS_COLLAPSED:
+                lambda: LegacyIAccessibleProperties.is_collapsed(values["element"]),
         }
 
         return switcher.get(action, lambda: FlaUiError.raise_fla_ui_error(FlaUiError.ActionNotSupported))()
@@ -316,9 +355,9 @@ class Property(ModuleInterface):
         uia = container["uia"]
         pattern = Property._get_text_pattern_from_element(container)
         if uia == "UIA2":
-            return Property._prop_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia2.IsHidden))
+            return Converter.cast_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia2.IsHidden))
 
-        return Property._prop_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia3.IsHidden))
+        return Converter.cast_to_bool(pattern.DocumentRange.GetAttributeValue(AttributesUia3.IsHidden))
 
     @staticmethod
     def _get_toggle_state(container: Container) -> str:
@@ -432,7 +471,7 @@ class Property(ModuleInterface):
             bool: True if the window can be minimized.
         """
         pattern = Property._get_window_pattern_from_element(container)
-        return Property._prop_to_bool(pattern.CanMinimize)
+        return Converter.cast_to_bool(pattern.CanMinimize)
 
     @staticmethod
     def _can_window_maximize(container: Container) -> bool:
@@ -447,7 +486,7 @@ class Property(ModuleInterface):
             bool: True if the window can be maximized.
         """
         pattern = Property._get_window_pattern_from_element(container)
-        return Property._prop_to_bool(pattern.CanMaximize)
+        return Converter.cast_to_bool(pattern.CanMaximize)
 
     @staticmethod
     def _set_window_visual_state(container: Container) -> None:
@@ -482,7 +521,7 @@ class Property(ModuleInterface):
         if Property._is_value_pattern_supported(container):
             pattern = element.Patterns.Value.Pattern
             if pattern is not None:
-                return Property._prop_to_bool(pattern.IsReadOnly)
+                return Converter.cast_to_bool(pattern.IsReadOnly)
 
         raise FlaUiError(FlaUiError.PropertyNotSupported)
 
@@ -499,7 +538,7 @@ class Property(ModuleInterface):
             bool: True if Window pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.Window.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.Window.IsSupported)
 
     @staticmethod
     def _is_text_pattern_supported(container: Container) -> bool:
@@ -514,7 +553,7 @@ class Property(ModuleInterface):
             bool: True if Text pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.Text.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.Text.IsSupported)
 
     @staticmethod
     def _is_toggle_pattern_supported(container: Container) -> bool:
@@ -529,7 +568,7 @@ class Property(ModuleInterface):
             bool: True if Toggle pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.Toggle.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.Toggle.IsSupported)
 
     @staticmethod
     def _is_value_pattern_supported(container: Container) -> bool:
@@ -544,7 +583,7 @@ class Property(ModuleInterface):
             bool: True if Value pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.Value.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.Value.IsSupported)
 
     @staticmethod
     def _is_rangevalue_pattern_supported(container: Container) -> bool:
@@ -559,7 +598,7 @@ class Property(ModuleInterface):
             bool: True if RangeValue pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.RangeValue.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.RangeValue.IsSupported)
 
     @staticmethod
     def _is_expand_collapse_pattern_supported(container: Container) -> bool:
@@ -574,7 +613,7 @@ class Property(ModuleInterface):
             bool: True if ExpandCollapse pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.ExpandCollapse.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.ExpandCollapse.IsSupported)
 
     @staticmethod
     def _is_selection_item_pattern_supported(container: Container) -> bool:
@@ -589,7 +628,7 @@ class Property(ModuleInterface):
             bool: True if SelectionItem pattern is supported, False otherwise.
         """
         element = container["element"]
-        return Property._prop_to_bool(element.Patterns.SelectionItem.IsSupported)
+        return Converter.cast_to_bool(element.Patterns.SelectionItem.IsSupported)
 
     @staticmethod
     def _get_expand_collapse_pattern_from_element(container: Container) -> Any:
@@ -791,7 +830,7 @@ class Property(ModuleInterface):
             FlaUiError: If the SelectionItem pattern is not supported.
         """
         pattern = Property._get_selection_item_pattern_from_element(container)
-        return Property._prop_to_bool(pattern.IsSelected)
+        return Converter.cast_to_bool(pattern.IsSelected)
 
     @staticmethod
     def _stage_for_combobox_selectionitem(container: Container) -> None:
@@ -854,23 +893,3 @@ class Property(ModuleInterface):
         red = (argb_int >> 16) & 255
         alpha = (argb_int >> 24) & 255
         return red, green, blue, alpha
-
-    @staticmethod
-    def _prop_to_bool(prop: Any) -> bool:
-        """
-        Convert a provided automation property value to a Python boolean.
-
-        Args:
-            prop (Any): Value returned from a FlaUI property. May be a native
-                Python bool or a FlaUI AutomationProperty wrapper with a
-                Valueattribute.
-
-        Returns:
-            bool: Converted boolean value.
-        """
-
-        if isinstance(prop, bool):
-            return bool(prop)
-
-        # Should be from type FlaUI.Core.AutomationProperty[Boolean]
-        return bool(prop.Value)

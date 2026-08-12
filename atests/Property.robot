@@ -412,3 +412,52 @@ Get Help Text
 Get Help Text Is Empty If Not Set
     ${help_text}    Get Property From Element    ${TEXT_ELEMENT}     HELP_TEXT
     Should Be Empty    ${help_text}
+
+Is Legacy IAccessible Pattern Supported
+    [Setup]    Open Complex Tab
+    Wait Until Element Is Enabled    ${XPATH_TREE}/TreeItem[1]
+    ${UIA}    Get Variable Value    ${UIA}
+    ${result}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED
+    IF    '${UIA}' == 'UIA2'
+        Should Not Be True    ${result}
+    ELSE
+        Should Be True    ${result}
+    END
+
+Legacy IAccessible State From TreeItem Element
+    [Setup]    Open Complex Tab
+    Wait Until Element Is Enabled    ${XPATH_TREE}/TreeItem[1]
+    ${UIA}    Get Variable Value    ${UIA}
+    IF    '${UIA}' == 'UIA2'
+        ${EXP_ERR_MSG}    Format String    ${EXP_PATTERN_NOT_SUPPORTED}    LegacyIAccessible
+        ${ERR_MSG}    Run Keyword And Expect Error    *    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_STATE
+        Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+    ELSE
+        Collapse All TreeItems    ${XPATH_TREE}
+        ${state}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_STATE
+        Should Contain    ${state}    COLLAPSED
+        ${collapsed}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_IS_COLLAPSED
+        Should Be True    ${collapsed}
+        ${expanded}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_IS_EXPANDED
+        Should Not Be True    ${expanded}
+        Expand TreeItem    ${XPATH_TREE}    I:0
+        ${state}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_STATE
+        Should Contain    ${state}    EXPANDED
+        ${expanded}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_IS_EXPANDED
+        Should Be True    ${expanded}
+        ${collapsed}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_IS_COLLAPSED
+        Should Not Be True    ${collapsed}
+    END
+
+Legacy IAccessible Name From TreeItem Element
+    [Setup]    Open Complex Tab
+    Wait Until Element Is Enabled    ${XPATH_TREE}/TreeItem[1]
+    ${UIA}    Get Variable Value    ${UIA}
+    IF    '${UIA}' == 'UIA2'
+        ${EXP_ERR_MSG}    Format String    ${EXP_PATTERN_NOT_SUPPORTED}    LegacyIAccessible
+        ${ERR_MSG}    Run Keyword And Expect Error    *    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_NAME
+        Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+    ELSE
+        ${name}    Get Property From Element    ${XPATH_TREE}/TreeItem[1]    LEGACY_IACCESSIBLE_NAME
+        Should Be Equal As Strings    ${name}    Lvl1 a
+    END

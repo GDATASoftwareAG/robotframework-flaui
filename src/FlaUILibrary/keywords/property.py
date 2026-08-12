@@ -55,6 +55,20 @@ class PropertyKeywords:  # pylint: disable=too-many-public-methods
         | IS_SELECTION_ITEM_PATTERN_SUPPORTED | Bool | True or False |    
         | IS_SELECTED | Bool | True or False |
         | HELP_TEXT | String | The Help Text Property of Element |
+        | IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED | Bool | True or False (UIA3 only) |
+        | LEGACY_IACCESSIBLE_STATE | String | LegacyIAccessible state flags (for example expanded or collapsed, UIA3 only) |
+        | LEGACY_IACCESSIBLE_ROLE | String | LegacyIAccessible role (UIA3 only) |
+        | LEGACY_IACCESSIBLE_NAME | String | LegacyIAccessible name (UIA3 only) |
+        | LEGACY_IACCESSIBLE_VALUE | String | LegacyIAccessible value (UIA3 only) |
+        | LEGACY_IACCESSIBLE_DEFAULT_ACTION | String | LegacyIAccessible default action (UIA3 only) |
+        | LEGACY_IACCESSIBLE_DESCRIPTION | String | LegacyIAccessible description (UIA3 only) |
+        | LEGACY_IACCESSIBLE_HELP | String | LegacyIAccessible help text (UIA3 only) |
+        | LEGACY_IACCESSIBLE_KEYBOARD_SHORTCUT | String | LegacyIAccessible keyboard shortcut (UIA3 only) |
+        | LEGACY_IACCESSIBLE_CHILD_ID | String | LegacyIAccessible child id (UIA3 only) |
+        | LEGACY_IACCESSIBLE_IS_EXPANDED | Bool | True when LegacyIAccessible state includes expanded (UIA3 only) |
+        | LEGACY_IACCESSIBLE_IS_COLLAPSED | Bool | True when LegacyIAccessible state includes collapsed (UIA3 only) |
+        
+        LegacyIAccessible pattern operations are only supported by UIA3.
         
         Possible FlaUI-Errors:
         | Element could not be found by xpath        |

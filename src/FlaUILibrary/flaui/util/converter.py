@@ -13,11 +13,12 @@ class Converter:
     @staticmethod
     def cast_to_timespan(value: int):
         """
-        Helper to cast value to timespan. If value is null, None will be returned.
+        Helper to cast value to timespan. If the value is null, None will be returned.
 
         Args:
             value (int): Value to convert as timespan
         """
+        value = Converter._unwrap_property(value)
         if value is None:
             return None
 
@@ -26,16 +27,17 @@ class Converter:
     @staticmethod
     def cast_to_int(value: Any, error_msg=None):
         """
-        Helper to cast value as number.
+        Helper to cast value as a number.
 
         Raises:
             FlaUiError: If creation from convert failed by invalid values.
 
         Args:
             value (Object): Value to convert
-            error_msg (String) : Custom error message
+            error_msg (String): Custom error message
         """
         try:
+            value = Converter._unwrap_property(value)
             if value is None:
                 return None
 
@@ -50,11 +52,12 @@ class Converter:
     def cast_to_string(value: Any):
         """
         Helper to cast value as string.
-        If value is None empty string will be returned.
+        If the value is None, an empty string will be returned.
 
         Args:
             value (Object): Value to convert
         """
+        value = Converter._unwrap_property(value)
         if value is None:
             return ""
 
@@ -64,11 +67,12 @@ class Converter:
     def cast_to_xpath_string(value: Union[str, AutomationElement]):
         """
         Helper to cast value as xpath string.
-        If value is None empty string will be returned.
+        If the value is None, an empty string will be returned.
 
         Args:
             value (Object): Value to convert
         """
+        value = Converter._unwrap_property(value)
         if isinstance(value, AutomationElement):
             return Converter.cast_to_string(value.Xpath)
 
@@ -78,11 +82,12 @@ class Converter:
     def cast_to_bool(value: Any):
         """
         Helper to cast value as bool.
-        If value is None False will be returned.
+        If the value is None, False will be returned.
 
         Args:
             value (Object): Value to convert
         """
+        value = Converter._unwrap_property(value)
         if value is None:
             return False
 
@@ -103,3 +108,24 @@ class Converter:
             result = f"{xpath.split(s)[0]}{s}"[:-1] if s else ""
             return result
         return ""
+
+    @staticmethod
+    def _unwrap_property(value: Any) -> Any:
+        """
+        Helper to unwrap FlaUI AutomationProperty values.
+        If value is from the type AutomationProperty, Value will be returned otherwise value.
+
+        Args:
+            value (Object): Value or AutomationProperty to convert
+        """
+        if value is None:
+            return None
+
+        if isinstance(value, (bool, int, float, str)):
+            return value
+
+        # Should be from type FlaUI.Core.AutomationProperty[T]
+        if hasattr(value, "Value"):
+            return value.Value
+
+        return value
