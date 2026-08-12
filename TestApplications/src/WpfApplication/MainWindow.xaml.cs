@@ -170,5 +170,17 @@ namespace WpfApplication
             e.Handled = true;
         }
 
+        private void DragDropTarget_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DragDropTargetText.Text = "Item Dropped";
+            DragDropStatusText.Text = "Dropped";
+        }
+
+        private void ResetDragDrop_Click(object sender, RoutedEventArgs e)
+        {
+            DragDropTargetText.Text = "Drop Here";
+            DragDropStatusText.Text = "Ready";
+        }
+
     }
 }
