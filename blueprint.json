@@ -112,6 +112,7 @@
     {
       "module": "robotframework.test",
       "args": {
+        "continueOnFailure": true,
         "arguments": [
           {
             "--name": "UIA2"
@@ -129,6 +130,7 @@
     {
       "module": "robotframework.test",
       "args": {
+        "continueOnFailure": true,
         "arguments": [
           {
             "--name": "UIA3"
