@@ -105,7 +105,7 @@ Element Should Be Disabled Error
 Find All Elements
     ${index}    Set Variable    ${0}
     ${elements}    Find All Elements    ${MAIN_WINDOW_CONTROLS}
-    Length Should Be    ${elements}    3
+    Length Should Be    ${elements}    4
 
     FOR    ${element}    IN    @{elements}
         ${Xpath}    Set Variable    ${element.Xpath}
@@ -134,12 +134,19 @@ Find All Elements
             Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
         END
 
+        IF    ${index} == ${3}
+            Should Contain    ${Xpath}    /Tab/TabItem[4]
+            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="DragAndDropControl"]
+            Should Contain    ${Name}    /Tab/TabItem[@Name="Drag And Drop"]
+            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+        END
+
         ${index}    Set Variable    ${index + 1}
     END
 
 Find All Elements Xpath Usage Can Be Used To Any Keyword
     ${elements}    Find All Elements    ${MAIN_WINDOW_CONTROLS}
-    Length Should Be    ${elements}    3
+    Length Should Be    ${elements}    4
 
     FOR    ${element}    IN    @{elements}
         Element Should Exist    ${element}

@@ -207,6 +207,50 @@
                     <Label Content="" Foreground="White" Background="Black" x:Name="lblKeyboardKeyUp"/>
                 </StackPanel>
             </TabItem>
+            <TabItem AutomationProperties.AutomationId="DragAndDropControl" Header="Drag And Drop">
+                <StackPanel Margin="8">
+                    <GroupBox Header="Stable Drag And Drop" AutomationProperties.AutomationId="DragDropGroup">
+                        <StackPanel Margin="4">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Border Width="120"
+                                        Height="80"
+                                        Background="LightBlue"
+                                        BorderBrush="DarkBlue"
+                                        BorderThickness="2">
+                                    <TextBlock AutomationProperties.AutomationId="DragSource"
+                                               AutomationProperties.Name="Drag Item"
+                                               Text="Drag Item"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" />
+                                </Border>
+                                <Border Width="120"
+                                        Height="80"
+                                        Margin="40,0,0,0"
+                                        Background="LightGray"
+                                        BorderBrush="DimGray"
+                                        BorderThickness="2"
+                                        PreviewMouseLeftButtonUp="DragDropTarget_PreviewMouseLeftButtonUp">
+                                    <TextBlock x:Name="DragDropTargetText"
+                                               AutomationProperties.AutomationId="DragDropTarget"
+                                               Text="Drop Here"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" />
+                                </Border>
+                            </StackPanel>
+                            <TextBlock x:Name="DragDropStatusText"
+                                       AutomationProperties.AutomationId="DragDropStatus"
+                                       Text="Ready"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,10,0,0" />
+                            <Button Content="Reset Drag And Drop"
+                                    AutomationProperties.AutomationId="ResetDragDrop"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,10,0,0"
+                                    Click="ResetDragDrop_Click" />
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

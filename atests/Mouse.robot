@@ -20,9 +20,10 @@ ${CLICK_BUTTON}                 ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Automatio
 ${HOLD_BUTTON}                  ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ClickAndHoldButton']
 ${RIGHT_CLICK_BUTTON}           ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='ContextMenu']
 ${DOUBLE_CLICK_BUTTON}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/CheckBox[@Name='3-Way Test Checkbox']
-${XPATH_GRID_VIEW}              ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
-${DRAG_FROM}                    ${XPATH_GRID_VIEW}/Header/HeaderItem[3]/Text
-${DRAG_TO}                      ${XPATH_GRID_VIEW}/Header/HeaderItem[1]/Text
+${XPATH_DRAG_SOURCE}            ${MAIN_WINDOW_DRAG_AND_DROP_CONTROLS}/Group[@AutomationId='DragDropGroup']/Text[@AutomationId='DragSource']
+${XPATH_DRAG_TARGET}            ${MAIN_WINDOW_DRAG_AND_DROP_CONTROLS}/Group[@AutomationId='DragDropGroup']/Text[@AutomationId='DragDropTarget']
+${XPATH_DRAG_STATUS}            ${MAIN_WINDOW_DRAG_AND_DROP_CONTROLS}/Group[@AutomationId='DragDropGroup']/Text[@AutomationId='DragDropStatus']
+${XPATH_RESET_DRAG_DROP}        ${MAIN_WINDOW_DRAG_AND_DROP_CONTROLS}/Group[@AutomationId='DragDropGroup']/Button[@AutomationId='ResetDragDrop']
 ${SOME_MENUITEM}                ${EXPECTED_CONTEXT_MENU}/MenuItem[@Name='Some MenuItem']/Text[@Name='Some MenuItem']
 ${POPUP_TOGGLE_BUTTON}          ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='PopupToggleButton2']
 ${ENABLE_BUTTON}                ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@AutomationId='EnableButton']
@@ -102,17 +103,8 @@ Move To
     Right Click    ${RIGHT_CLICK_BUTTON}
     Element Should Exist    ${EXPECTED_CONTEXT_MENU}
 
-Drag And Drop
-    Click    ${MAIN_WINDOW_COMPLEX_CONTROLS}
-    Select Grid Row By Index    ${XPATH_GRID_VIEW}    1
-    ${DATA}    Get Selected Grid Rows    ${XPATH_GRID_VIEW}
-    Should Contain    ${DATA}    : 2
-    Drag And Drop    ${DRAG_FROM}    ${DRAG_TO}
-    Select Grid Row By Index    ${XPATH_GRID_VIEW}    1
-    ${DATA}    Get Selected Grid Rows    ${XPATH_GRID_VIEW}
-    Should Contain    ${DATA}    : 1
-
 Double Click Open Double Click Close
+    [Setup]    Open Complex Tab
     Double Click Open    ${XPATH_TREE_PARENT}    ${XPATH_TREE_CHILD}
     Element Should Exist    ${XPATH_TREE_CHILD}
     Double Click Close    ${XPATH_TREE_PARENT}    ${XPATH_TREE_CHILD}
@@ -192,3 +184,18 @@ Click Hold Close
     ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
     ...    1000
     Element Should Not Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+
+Drag And Drop
+    Open Drag And Drop Tab
+    Name Should Be    Ready    ${XPATH_DRAG_STATUS}
+    Drag And Drop    ${XPATH_DRAG_SOURCE}    ${XPATH_DRAG_TARGET}
+    Name Should Be    Dropped    ${XPATH_DRAG_STATUS}
+    Name Should Be    Item Dropped    ${XPATH_DRAG_TARGET}
+
+Drag And Drop Can Be Reset
+    Open Drag And Drop Tab
+    Drag And Drop    ${XPATH_DRAG_SOURCE}    ${XPATH_DRAG_TARGET}
+    Name Should Be    Dropped    ${XPATH_DRAG_STATUS}
+    Click    ${XPATH_RESET_DRAG_DROP}
+    Name Should Be    Ready    ${XPATH_DRAG_STATUS}
+    Name Should Be    Drop Here    ${XPATH_DRAG_TARGET}
