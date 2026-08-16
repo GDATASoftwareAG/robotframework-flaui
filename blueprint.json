@@ -229,6 +229,18 @@
   ],
   "pypi": [
     {
+      "module": "python.venv",
+      "args": {
+        "source": ".build.venv"
+      }
+    },
+    {
+      "module": "python.install",
+      "args": {
+        "requirements": "requirements-dev.txt"
+      }
+    },
+    {
       "module": "twine.upload",
       "args": {
         "files": [
