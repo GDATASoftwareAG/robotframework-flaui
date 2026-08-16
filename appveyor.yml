@@ -86,7 +86,7 @@ install:
     
     python --version
     
-    python -m pip install -r buildsystem.txt
+    python -m pip install -r requirements-buildsystem.txt
 
 build: off
 

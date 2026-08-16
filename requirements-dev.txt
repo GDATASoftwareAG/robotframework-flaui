@@ -4,6 +4,5 @@ yattag>=1.16.1
 wheel>=0.45.1
 build>=1.2.2
 pylint>=3.2.7
-twine>=6.1.0
 robotframework-robocop>=5.0.4
 -r requirements.txt

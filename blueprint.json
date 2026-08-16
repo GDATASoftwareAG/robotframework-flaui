@@ -31,6 +31,7 @@
           ".robocop_cache",
           ".testing.venv",
           ".build.venv",
+          ".upload.venv",
           "dist",
           "keywords",
           "result",
@@ -231,13 +232,13 @@
     {
       "module": "python.venv",
       "args": {
-        "source": ".build.venv"
+        "source": ".upload.venv"
       }
     },
     {
       "module": "python.install",
       "args": {
-        "requirements": "requirements-dev.txt"
+        "requirements": "requirements-artifact-upload.txt"
       }
     },
     {
