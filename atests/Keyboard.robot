@@ -162,6 +162,65 @@ Keyboard Key Down Key Up
         Check Key Up Key Down    KEY=s'${KEY}'    EXPECTED_TEXT=${KEY}
     END
 
+Keyboard Type Text Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    Press Key    ${KEYBOARD_INPUT_TEXT}
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT}    ${TEXT}
+
+Keyboard Type Text Multiple Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    Press Keys    ${KEYBOARD_INPUT_TEXT_X2}
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT_SHORTCUT}    ${TEXT}
+
+Keyboard Type Text By Delay Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    ${TIME_BEFORE}    Get Current Date
+    Press Key    ${KEYBOARD_INPUT_TEXT}    delay_in_ms=200
+    Press Key    ${KEYBOARD_INPUT_TEXT}    delay_in_ms=200
+    ${TIME_AFTER}    Get Current Date
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT}${EXP_VALUE_INPUT_TEXT}    ${TEXT}
+    ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 0.4
+    Should Be True    ${TOTAL_MS} < 1
+
+Keyboard Types Text By Delay Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    ${TIME_BEFORE}    Get Current Date
+    Press Keys    ${KEYBOARD_INPUT_OVERRIDE_TEXT}    delay_in_ms=200
+    Press Keys    ${KEYBOARD_INPUT_OVERRIDE_TEXT}    delay_in_ms=200
+    ${TIME_AFTER}    Get Current Date
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_OVERRIDE_INPUT_TEXT}    ${TEXT}
+    ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 0.4
+    Should Be True    ${TOTAL_MS} < 1.4
+
+Keyboard Type Shortcut Copy And Paste Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    Press Key    ${KEYBOARD_INPUT_TEXT}
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT}    ${TEXT}
+    Press Key    ${KEYBOARD_INPUT_SELECTALL}
+    Press Key    ${KEYBOARD_INPUT_COPY}
+    Press Key    ${KEYBOARD_INPUT_PASTE}
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT}    ${TEXT}
+
+Keyboard Type Generic Key Combination Without XPath
+    Focus    ${XPATH_INPUT_FIELD}
+    Press Keys    ${KEYBOARD_INPUT_TEXT_SHORTCUT}
+    ${TEXT}    Get Text From Textbox    ${XPATH_INPUT_FIELD}
+    Should Be Equal    ${EXP_VALUE_INPUT_TEXT_SHORTCUT}    ${TEXT}
+
+Keyboard Key Down Key Up Without XPath
+    [Documentation]    Check if Key Down / Key Up Events work without an XPath
+    FOR    ${KEY}    IN    @{KEYBOARD_KEY_LIST}
+        Check Key Up Key Down    KEY=s'${KEY}'    EXPECTED_TEXT=${KEY}    IDENTIFIER=${NONE}
+    END
+
 
 *** Keywords ***
 Reset Textbox
@@ -172,11 +231,11 @@ Reset Textbox
 
 Check Key Up Key Down
     [Documentation]    Check if Key Down / Key Up Events are displayed correctly
-    [Arguments]    ${KEY}    ${EXPECTED_TEXT}
+    [Arguments]    ${KEY}    ${EXPECTED_TEXT}    ${IDENTIFIER}=${XPATH_INPUT_FIELD}
     Focus    ${XPATH_INPUT_FIELD}
 
     ${UP_TEXT_BEFORE_KEY_DOWN}    Get Name From Element    ${XPATH_LABEL_INPUT_UP}
-    Press Key    ${KEY}    ${XPATH_INPUT_FIELD}    press_only=${True}
+    Press Key    ${KEY}    ${IDENTIFIER}    press_only=${True}
     ${UP_TEXT_AFTER_KEY_DOWN}    Get Name From Element    ${XPATH_LABEL_INPUT_UP}
     ${DOWN_TEXT_AFTER_KEY_DOWN}    Get Name From Element    ${XPATH_LABEL_INPUT_DOWN}
     Should Be Equal As Strings    ${UP_TEXT_BEFORE_KEY_DOWN}    ${UP_TEXT_AFTER_KEY_DOWN}
@@ -186,7 +245,7 @@ Check Key Up Key Down
     ...    strip_spaces=True
     ...    ignore_case=True
 
-    Press Key    ${KEY}    ${XPATH_INPUT_FIELD}    release_only=${True}
+    Press Key    ${KEY}    ${IDENTIFIER}    release_only=${True}
     ${UP_TEXT_AFTER_KEY_UP}    Get Name From Element    ${XPATH_LABEL_INPUT_UP}
     Should Be Equal As Strings    ${UP_TEXT_AFTER_KEY_UP}    ${EXPECTED_TEXT}    strip_spaces=True    ignore_case=True
     ${DOWN_TEXT_AFTER_KEY_UP}    Get Name From Element    ${XPATH_LABEL_INPUT_DOWN}

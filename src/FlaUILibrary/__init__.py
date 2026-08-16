@@ -66,6 +66,32 @@ class FlaUILibrary(DynamicCore):
     For FlaUI there is an inspector tool [https://github.com/FlauTech/FlaUInspect | FlaUI Inspect] to verify an XPath
     from all visible UI components. Download the latest release and set UIA3 Mode and enable 'Show XPath' under mode.
 
+    == Position locator ==
+
+    Mouse keywords can be used with an element XPath, absolute screen coordinates, or both.
+    If an identifier is given, ``x`` and ``y`` are applied as offsets from the element's clickable point.
+    If no identifier is given, ``x`` and ``y`` are absolute screen coordinates.
+
+    Position identifier usage examples:
+    | Click  <XPATH> |
+    | Click  x=100  y=200 |
+    | Click  <XPATH>  x=10  y=20 |
+    | Move To  x=100  y=200 |
+    | Drag And Drop  start_x=10  start_y=20  end_x=100  end_y=200 |
+
+    == Keyboard input ==
+
+    Keyboard keywords can be used with or without an element XPath.
+    If an identifier is given, the element is focused before keys are sent.
+    If no identifier is given, keys are sent to the currently focused element.
+
+    Keyboard identifier usage examples:
+    | Press Key  t'Text'  <XPATH> |
+    | Press Key  t'Text' |
+    | Press Key  t'Text'  delay_in_ms=200 |
+    | Press Keys  ${KEYS}  <XPATH> |
+    | Press Keys  ${KEYS} |
+
     """
     ROBOT_LIBRARY_VERSION = version.VERSION
     ROBOT_LIBRARY_SCOPE = "Global"

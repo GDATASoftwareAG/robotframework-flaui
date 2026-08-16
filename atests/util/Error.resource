@@ -43,3 +43,5 @@ ${EXP_ACTION_NOT_SUPPORTED}                     FlaUiError: Action not supported
 ${EXP_PATTERN_NOT_SUPPORTED}                    FlaUiError: Supports '{0}' Pattern only, method cannot be used with invalid Pattern
 ${EXP_INVALID_PROPETY_ARGUMENT}                 FlaUiError: Set Property can not be executed by Get Property From Element
 ${EXP_GRID_ONLY_SINGLE_SELECT}                  FlaUiError: The Grid only supports single select. Change the muliselect argument to false
+${EXP_ERR_MSG_IDENTIFIER_OR_COORDINATES}        FlaUiError: An element identifier or x and y coordinates must be provided
+${EXP_ERR_MSG_BOTH_COORDINATES}                 FlaUiError: Both x and y coordinates must be provided

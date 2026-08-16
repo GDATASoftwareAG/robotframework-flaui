@@ -2,6 +2,7 @@ from robotlibcore import keyword
 from FlaUILibrary.flaui.module.element import Element
 from FlaUILibrary.flaui.module.keyboard import Keyboard
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
+from FlaUILibrary.keywords.util import KeywordUtil
 
 
 class KeyboardKeywords:
@@ -24,6 +25,9 @@ class KeyboardKeywords:
         Keyboard control to execute a user defined one shortcut or text.
         press_only and release_only supports key shortcut only, not text.
 
+        If identifier is set, the given element is focused before the keys are sent.
+        If identifier is omitted, keys are sent to the currently focused element.
+
         Arguments:
         | Argument         | Type                                  | Description                                |
         | keys_combination | List of Strings, which should         | Text to be typed by keyboard               |
@@ -34,7 +38,8 @@ class KeyboardKeywords:
         |                  |    - s'CTRL+A'                        |                                            |
         |                  |    - t'JJJ'                           |                                            |
         |                  |    - s'JJJ' will be executed as text  |                                            |
-        | identifier       | String *Optional                      | XPath identifier                           |
+        | identifier       | String *Optional                      | XPath identifier. Optional if keys should  |
+        |                  |                                       | be sent without focusing an element.       |
         | delay_in_ms      | Number *Optional                      | Delay to wait until keyword succeeds in ms |
         | msg              | String *Optional                      | Custom error message                       |
         | press_only       | Bool   *Optional                      | Send key press event only                  |
@@ -100,9 +105,11 @@ class KeyboardKeywords:
         | Press Key  s'CTRL+A'  ${XPATH_COMBO_BOX_INPUT}                |
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  |
         | Press Key  ${KEYBOARD_INPUT_CUT}    ${XPATH_COMBO_BOX_INPUT}  500  |
+        | Press Key  t'Text'                                            |
+        | Press Key  t'Text'    delay_in_ms=200                         |
         """
         module = self._container.create_or_get_module()
-        if identifier is not None:
+        if KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
                           Element.create_value_container(xpath=identifier, retries=None, name=None),
                           msg)
@@ -119,8 +126,8 @@ class KeyboardKeywords:
                    msg=None, press_only=False, release_only=False):
         """
         Keyboard control to execute a user defined sequence of shortcuts and text values.
-        If identifier set try to attach to given element if
-        operation was successfully old element will be reattached automatically.
+        If identifier is set, the given element is focused before the keys are sent.
+        If identifier is omitted, keys are sent to the currently focused element.
         press_only and release_only supports key shortcut only, not text.
 
         Arguments:
@@ -153,9 +160,11 @@ class KeyboardKeywords:
         | ***** Test Cases *****                                                     |
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}      |
         | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT} ${XPATH_COMBO_BOX_INPUT}  500 |
+        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT}                               |
+        | Press Keys ${KEYBOARD_INPUT_SELECT_CUT_TEXT}  delay_in_ms=500              |
         """
         module = self._container.create_or_get_module()
-        if identifier is not None:
+        if KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
                           Element.create_value_container(xpath=identifier, retries=None, name=None),
                           msg)

@@ -7,6 +7,16 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- [#199](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/199) Mouse keywords support element locators and x/y coordinates
+  - Click, Right Click, Double Click, Middle Click, Move To, Scroll Up/Down, Click Hold variants and Drag And Drop
+  - Absolute screen coordinates with `x` and `y`
+  - Optional x/y offsets from an element's clickable point
+- [#199](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/199) Keyboard keywords can send input without an XPath
+  - Press Key and Press Keys send keys globally when identifier is omitted
+  - Optional identifier still focuses the given element before input
+
 ## [Release][5.0.1] [5.0.1][5.0.0-5.0.1] - 2026-08-16
 
 ### Added
