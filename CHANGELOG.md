@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.0.1] [5.0.1][5.0.0-5.0.1] - 2026-08-16
+
 ### Added
 
 - Keyword Get Property From Element extended with LegacyIAccessible pattern operations
@@ -806,7 +808,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.1...main
+
+[5.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.1
+
+[5.0.0-5.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.0...5.0.1
 
 [5.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.0
 
