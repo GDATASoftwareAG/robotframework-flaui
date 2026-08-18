@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Fixed
+
+- [#214](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/214) Find All Elements and Find One Element fail if Name, AutomationId or ClassName contains backslashes
+
 ### Added
 
 - [#199](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/199) Mouse keywords support element locators and x/y coordinates
