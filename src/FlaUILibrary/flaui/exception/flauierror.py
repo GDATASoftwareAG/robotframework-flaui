@@ -52,6 +52,8 @@ class FlaUiError(AttributeError):
     GridIsSingleSelect = "The Grid only supports single select. Change the muliselect argument to false"
     RelativePathsOnlyAllowed = "Only relative paths are allowed"
     NotSupportedFileSuffix = "Not supported file suffix"
+    IdentifierOrCoordinatesRequired = "An element identifier or x and y coordinates must be provided"
+    BothCoordinatesRequired = "Both x and y coordinates must be provided"
 
     @staticmethod
     def raise_fla_ui_error(message):

@@ -5,6 +5,7 @@ Documentation       Test suite for mouse keywords.
 
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
+Library             util/rectangle.py
 Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
@@ -199,3 +200,36 @@ Drag And Drop Can Be Reset
     Click    ${XPATH_RESET_DRAG_DROP}
     Name Should Be    Ready    ${XPATH_DRAG_STATUS}
     Name Should Be    Drop Here    ${XPATH_DRAG_TARGET}
+
+Left Click By Position
+    [Setup]    Open Simple Tab
+    ${X}    ${Y}    Get Element Center    ${CLICK_BUTTON}
+    Click    x=${X}    y=${Y}
+    Name Should Be    Invoked!    ${CLICK_BUTTON}
+
+Left Click By Element Offset
+    [Setup]    Open Simple Tab
+    Click    ${CLICK_BUTTON}    x=0    y=0
+    Name Should Be    Invoked!    ${CLICK_BUTTON}
+
+Move To By Position
+    [Setup]    Open Simple Tab
+    ${X}    ${Y}    Get Element Center    ${RIGHT_CLICK_BUTTON}
+    Move To    x=${X}    y=${Y}
+    Right Click    x=${X}    y=${Y}
+    Element Should Exist    ${EXPECTED_CONTEXT_MENU}
+
+Drag And Drop By Position
+    Open Drag And Drop Tab
+    Click    ${XPATH_RESET_DRAG_DROP}
+    ${START_X}    ${START_Y}    Get Element Center    ${XPATH_DRAG_SOURCE}
+    ${END_X}    ${END_Y}    Get Element Center    ${XPATH_DRAG_TARGET}
+    Drag And Drop    start_x=${START_X}    start_y=${START_Y}    end_x=${END_X}    end_y=${END_Y}
+    Name Should Be    Dropped    ${XPATH_DRAG_STATUS}
+    Name Should Be    Item Dropped    ${XPATH_DRAG_TARGET}
+
+Click Without Identifier Or Position
+    Run Keyword And Expect Error    ${EXP_ERR_MSG_IDENTIFIER_OR_COORDINATES}    Click
+
+Click With Incomplete Position
+    Run Keyword And Expect Error    ${EXP_ERR_MSG_BOTH_COORDINATES}    Click    x=100

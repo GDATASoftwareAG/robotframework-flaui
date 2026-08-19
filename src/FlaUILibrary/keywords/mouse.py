@@ -2,6 +2,7 @@ from robotlibcore import keyword
 from FlaUILibrary.flaui.module.mouse import Mouse
 from FlaUILibrary.flaui.module.element import Element
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
+from FlaUILibrary.keywords.util import KeywordUtil
 
 
 class MouseKeywords:
@@ -18,309 +19,367 @@ class MouseKeywords:
         self._container = container
 
     @keyword
-    def click(self, identifier, msg=None):
+    def click(self, identifier=None, msg=None, x=None, y=None):
         """
-        Left click to element by an XPath.
+        Left click to element by an XPath or to an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Click  <XPATH> |
+        | Click  x=100  y=200 |
+        | Click  <XPATH>  x=10  y=20 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.LEFT_CLICK,
-                      Mouse.create_value_container(element=element),
+                      Mouse.create_value_container(element=element, x=x, y=y),
                       msg)
 
     @keyword
-    def scroll_up(self, identifier, amount, if_focus=True, msg=None):
+    def scroll_up(self, identifier=None, amount=None, if_focus=True, msg=None, x=None, y=None):
         """
-        Scroll mouse wheel up to element by an XPath.
+        Scroll mouse wheel up to element by an XPath or at an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | amount     | string | Scroll amount                 |
-        | if_focus   | bool   | Whether to focus element before scroll |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | amount     | string | Scroll amount                                                    |
+        | if_focus   | bool   | Whether to focus element before scroll                           |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Scroll Up  <XPATH>  10 |
+        | Scroll Up  amount=10  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        if if_focus:
+        if if_focus and KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
                         Element.create_value_container(xpath=identifier, msg=msg),
                         msg)
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.SCROLL_UP,
-                      Mouse.create_value_container(element=element, scroll_amount=amount),
+                      Mouse.create_value_container(element=element, scroll_amount=amount, x=x, y=y),
                       msg)
 
     @keyword
-    def scroll_down(self, identifier, amount, if_focus=True, msg=None):
+    def scroll_down(self, identifier=None, amount=None, if_focus=True, msg=None, x=None, y=None):
         """
-        Scroll mouse wheel down to element by an XPath.
+        Scroll mouse wheel down to element by an XPath or at an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | amount     | string | Scroll amount                 |
-        | if_focus   | bool   | Whether to focus element before scroll |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | amount     | string | Scroll amount                                                    |
+        | if_focus   | bool   | Whether to focus element before scroll                           |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Scroll Down  <XPATH>  1 |
+        | Scroll Down  amount=1  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        if if_focus:
+        if if_focus and KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
                         Element.create_value_container(xpath=identifier, msg=msg),
                         msg)
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.SCROLL_DOWN,
-                      Mouse.create_value_container(element=element, scroll_amount=-1*float(amount)),
+                      Mouse.create_value_container(element=element, scroll_amount=-1*float(amount), x=x, y=y),
                       msg)
 
     @keyword
-    def click_hold(self, identifier, hold_time=1000, msg=None):
+    def click_hold(self, identifier=None, hold_time=1000, msg=None, x=None, y=None):
         """
-        Left click and hold to element by XPath and release after timeout.
+        Left click and hold to element by XPath or at an absolute screen position and release after timeout.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument         | Type   | Description                   |
-        | identifier       | string | XPath identifier from element |
-        | hold_time        | int    | Holding time of click in ms   |
-        | msg              | string | Custom error message          |
+        | Argument         | Type   | Description                                                      |
+        | identifier       | string | XPath identifier from element. Optional if x and y are provided. |
+        | hold_time        | int    | Holding time of click in ms                                      |
+        | msg              | string | Custom error message                                             |
+        | x                | int    | Absolute screen X or X offset from element's clickable point     |
+        | y                | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Click Hold <XPATH>  5000 |
+        | Click Hold  hold_time=5000  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.LEFT_CLICK_HOLD,
-                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
+                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time), x=x, y=y),
                       msg)
 
     @keyword
-    def middle_click(self, identifier, msg=None):
+    def middle_click(self, identifier=None, msg=None, x=None, y=None):
         """
-        Middle click to element by an XPath.
+        Middle click to element by an XPath or to an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Middle Click  <XPATH> |
+        | Middle Click  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.MIDDLE_CLICK,
-                      Mouse.create_value_container(element=element),
+                      Mouse.create_value_container(element=element, x=x, y=y),
                       msg)
 
     @keyword
-    def middle_click_hold(self, identifier, hold_time=1000, msg=None):
+    def middle_click_hold(self, identifier=None, hold_time=1000, msg=None, x=None, y=None):
         """
-        Left click and hold to element by XPath and release after timeout.
+        Middle click and hold to element by XPath or at an absolute screen position and release after timeout.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument         | Type   | Description                   |
-        | identifier       | string | XPath identifier from element |
-        | hold_time        | int    | Holding time of click in ms   |
-        | msg              | string | Custom error message          |
+        | Argument         | Type   | Description                                                      |
+        | identifier       | string | XPath identifier from element. Optional if x and y are provided. |
+        | hold_time        | int    | Holding time of click in ms                                      |
+        | msg              | string | Custom error message                                             |
+        | x                | int    | Absolute screen X or X offset from element's clickable point     |
+        | y                | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Middle Click Hold <XPATH>  5000 |
+        | Middle Click Hold  hold_time=5000  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.MIDDLE_CLICK_HOLD,
-                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
+                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time), x=x, y=y),
                       msg)
 
     @keyword
-    def double_click(self, identifier, msg=None):
+    def double_click(self, identifier=None, msg=None, x=None, y=None):
         """
-        Double click to element.
+        Double click to element or to an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Double Click  <XPATH> |
+        | Double Click  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.DOUBLE_CLICK,
-                      Mouse.create_value_container(element=element),
+                      Mouse.create_value_container(element=element, x=x, y=y),
                       msg)
 
     @keyword
-    def double_click_hold(self, identifier, hold_time=1000, msg=None):
+    def double_click_hold(self, identifier=None, hold_time=1000, msg=None, x=None, y=None):
         """
-        Double click and hold to element by XPath and release after timeout.
+        Double click and hold to element by XPath or at an absolute screen position and release after timeout.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument         | Type   | Description                       |
-        | identifier       | string | XPath identifier from element     |
-        | hold_time        | int    | Holding time of click in ms       |
-        | msg              | string | Custom error message              |
+        | Argument         | Type   | Description                                                      |
+        | identifier       | string | XPath identifier from element. Optional if x and y are provided. |
+        | hold_time        | int    | Holding time of click in ms                                      |
+        | msg              | string | Custom error message                                             |
+        | x                | int    | Absolute screen X or X offset from element's clickable point     |
+        | y                | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Double Click Hold  <XPATH>  5000 |
+        | Double Click Hold  hold_time=5000  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.DOUBLE_CLICK_HOLD,
-                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
+                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time), x=x, y=y),
                       msg)
 
     @keyword
-    def right_click(self, identifier, msg=None):
+    def right_click(self, identifier=None, msg=None, x=None, y=None):
         """
-        Right click to element.
+        Right click to element or to an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Right Click  <XPATH> |
+        | Right Click  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.RIGHT_CLICK,
-                      Mouse.create_value_container(element=element),
+                      Mouse.create_value_container(element=element, x=x, y=y),
                       msg)
 
     @keyword
-    def right_click_hold(self, identifier, hold_time=1000, msg=None):
+    def right_click_hold(self, identifier=None, hold_time=1000, msg=None, x=None, y=None):
         """
-        Right click and hold to element by XPath and release after timeout.
+        Right click and hold to element by XPath or at an absolute screen position and release after timeout.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument      | Type   | Description                   |
-        | identifier    | string | XPath identifier from element |
-        | hold_time     | int    | Holding time of click in ms   |
-        | msg           | string | Custom error message          |
+        | Argument      | Type   | Description                                                      |
+        | identifier    | string | XPath identifier from element. Optional if x and y are provided. |
+        | hold_time     | int    | Holding time of click in ms                                      |
+        | msg           | string | Custom error message                                             |
+        | x             | int    | Absolute screen X or X offset from element's clickable point     |
+        | y             | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Right Click Hold  <XPATH>  5000 |
+        | Right Click Hold  hold_time=5000  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.RIGHT_CLICK_HOLD,
-                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time)),
+                      Mouse.create_value_container(element=element, hold_time_in_ms=int(hold_time), x=x, y=y),
                       msg)
 
     @keyword
-    def move_to(self, identifier, msg=None):
+    def move_to(self, identifier=None, msg=None, x=None, y=None):
         """
-        Move mouse cursor to given element.
+        Move mouse cursor to given element or to an absolute screen position.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description                   |
-        | identifier | string | XPath identifier from element |
-        | msg        | string | Custom error message          |
+        | Argument   | Type   | Description                                                      |
+        | identifier | string | XPath identifier from element. Optional if x and y are provided. |
+        | msg        | string | Custom error message                                             |
+        | x          | int    | Absolute screen X or X offset from element's clickable point     |
+        | y          | int    | Absolute screen Y or Y offset from element's clickable point     |
 
         Examples:
         | Move To  <XPATH> |
+        | Move To  x=100  y=200 |
 
         """
         module = self._container.create_or_get_module()
-        element = module.get_element(identifier=identifier, msg=msg)
+        element = KeywordUtil.get_optional_element(module, identifier, msg)
         module.action(Mouse.Action.MOVE_TO,
-                      Mouse.create_value_container(element=element),
+                      Mouse.create_value_container(element=element, x=x, y=y),
                       msg)
 
     @keyword
-    def drag_and_drop(self, start_identifier, end_identifier, msg=None):
+    def drag_and_drop(self, start_identifier=None, end_identifier=None, msg=None,
+                      start_x=None, start_y=None, end_x=None, end_y=None):
         """
         Clicks and hold the item with start_identifier and drops it at item with end_identifier.
+        Start and end can also be absolute screen positions.
 
         XPaths syntax is explained in `XPath locator`.
+        Position usage is explained in `Position locator`.
 
         If element could not be found by xpath an error message will be thrown.
 
         Arguments:
-        | Argument         | Type   | Description                                                        |
-        | start_identifier | string | XPath identifier of element which should be holded and draged from |
-        | end_identifier   | string | XPath identifier of element which should be holded and draged to   |
-        | msg              | string | Custom error message                                               |
+        | Argument         | Type   | Description                                                                 |
+        | start_identifier | string | XPath identifier of element which should be holded and draged from          |
+        | end_identifier   | string | XPath identifier of element which should be holded and draged to            |
+        | msg              | string | Custom error message                                                        |
+        | start_x          | int    | Absolute screen X or X offset from start element's clickable point          |
+        | start_y          | int    | Absolute screen Y or Y offset from start element's clickable point          |
+        | end_x            | int    | Absolute screen X or X offset from end element's clickable point            |
+        | end_y            | int    | Absolute screen Y or Y offset from end element's clickable point            |
 
         Examples:
         | Drag And Drop  <XPATH>  <XPATH> |
+        | Drag And Drop  start_x=10  start_y=20  end_x=100  end_y=200 |
 
         """
         module = self._container.create_or_get_module()
-        start_element = module.get_element(identifier=start_identifier, msg=msg)
-        end_element = module.get_element(identifier=end_identifier, msg=msg)
+        start_element = KeywordUtil.get_optional_element(module, start_identifier, msg)
+        end_element = KeywordUtil.get_optional_element(module, end_identifier, msg)
         module.action(Mouse.Action.DRAG_AND_DROP,
-                      Mouse.create_value_container(element=start_element, second_element=end_element),
+                      Mouse.create_value_container(element=start_element,
+                                                   second_element=end_element,
+                                                   x=start_x,
+                                                   y=start_y,
+                                                   second_x=end_x,
+                                                   second_y=end_y),
                       msg)
 
     @keyword
