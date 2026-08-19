@@ -1,9 +1,9 @@
 [project]
 name= "robotframework-flaui"
+dynamic = ["version", "dependencies", "license"]
 description = "Windows GUI testing library for Robot Framework"
 readme = "README.md"
 authors = [{ name = "G DATA CyberDefense AG", email = "opensource@gdata.de" }]
-urls = { Homepage = "https://github.com/GDATASoftwareAG/robotframework-flaui" }
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
@@ -18,7 +18,12 @@ classifiers = [
     "Framework :: Robot Framework",
     "Framework :: Robot Framework :: Library"
 ]
-dynamic = ["version", "dependencies", "license"]
+
+[project.urls]
+Homepage = "https://github.com/GDATASoftwareAG/robotframework-flaui"
+Documentation = "https://gdatasoftwareag.github.io/robotframework-flaui"
+Repository = "https://github.com/GDATASoftwareAG/robotframework-flaui"
+PyPI = "https://pypi.org/project/robotframework-flaui"
 
 [build-system]
 requires = ["setuptools>=65", "wheel"]
