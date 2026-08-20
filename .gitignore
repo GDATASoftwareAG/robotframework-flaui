@@ -238,6 +238,8 @@ pylint.xml
 
 !src/**
 !docs/**
+FlaUiNative/bin/
+FlaUiNative/obj/
 __pycache__
 robotframework_flaui.egg-info
 .build.venv

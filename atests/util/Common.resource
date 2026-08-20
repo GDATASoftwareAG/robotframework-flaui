@@ -52,6 +52,11 @@ Open Drag And Drop Tab
     ${TAB_ITEM_DRAG_AND_DROP}    Set Variable    Drag And Drop
     Select Tab Item By Name    ${XPATH_TAB}    ${TAB_ITEM_DRAG_AND_DROP}
 
+Open Data Grid Tab
+    ${XPATH_TAB}    Set Variable    ${MAIN_WINDOW}/Tab
+    ${TAB_ITEM_DATA_GRID}    Set Variable    Data Grid
+    Select Tab Item By Name    ${XPATH_TAB}    ${TAB_ITEM_DATA_GRID}
+
 Ready To Take Off
     [Arguments]    ${xpath}
     Click    ${xpath}

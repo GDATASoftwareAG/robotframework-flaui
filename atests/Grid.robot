@@ -18,6 +18,9 @@ Suite Teardown      Stop Application    ${MAIN_PID}
 *** Variables ***
 ${XPATH_GRID_VIEW}              ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='Grid']/DataGrid[@AutomationId='dataGridView']
 ${XPATH_SINGLE_GRID_VIEW}       ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane/Group[@Name='GridSingleSelect']/DataGrid[@AutomationId='dataGridViewSingle']
+${XPATH_LARGE_GRID_VIEW}        ${MAIN_WINDOW_DATA_GRID_CONTROLS}/Group[@Name='Large Grid with Scroll']/DataGrid[@AutomationId='largeDataGridView']
+${XPATH_LARGE_GRID_LAST_ROW}    ${XPATH_LARGE_GRID_VIEW}//DataItem[@Name='Row 79']
+${XPATH_LARGE_GRID_MISSING_ROW}    ${XPATH_LARGE_GRID_VIEW}//DataItem[@Name='Row 999']
 
 
 *** Test Cases ***
@@ -136,3 +139,24 @@ Select Multiple Grid Items
     ${DATA}    Get Selected Grid Rows    ${XPATH_GRID_VIEW}
     Should Contain    ${DATA}    | John | 12 |
     Should Contain    ${DATA}    | Doe | 24 |
+
+Scroll Virtualized Grid And Find Offscreen Row
+    [Documentation]    Reproduce #218: scrolling a virtualized WPF DataGrid and looking up a row
+    ...                that is not currently realized must not crash the process.
+    [Setup]    Open Data Grid Tab
+    Element Should Exist    ${XPATH_LARGE_GRID_VIEW}
+    ${TOTAL_ROWS}    Get Grid Rows Count    ${XPATH_LARGE_GRID_VIEW}
+    Should Be Equal As Integers    ${TOTAL_ROWS}    80
+    Set Retry Timeout    0
+    FOR    ${_}    IN RANGE    10
+        Scroll Down    ${XPATH_LARGE_GRID_VIEW}    1
+        Run Keyword And Ignore Error    Is Element Offscreen    ${XPATH_LARGE_GRID_LAST_ROW}
+        Run Keyword And Ignore Error    Is Element Offscreen    ${XPATH_LARGE_GRID_MISSING_ROW}
+    END
+    ${COUNT}    Get Grid Rows Count    ${XPATH_LARGE_GRID_VIEW}
+    Should Be Equal As Integers    ${COUNT}    80
+    Reset Retry Timeout
+    Select Grid Row By Index    ${XPATH_LARGE_GRID_VIEW}    79
+    ${DATA}    Get Selected Grid Rows    ${XPATH_LARGE_GRID_VIEW}
+    Should Contain    ${DATA}    Row 79
+    [Teardown]    Reset Retry Timeout

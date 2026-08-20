@@ -6,6 +6,7 @@ import FlaUI.Core.Input  # pylint: disable=import-error
 from FlaUI.Core.Input import Mouse as FlaUIMouse # pylint: disable=import-error
 from FlaUI.Core.Input import MouseButton # pylint: disable=import-error
 from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
+from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
@@ -195,7 +196,8 @@ class Mouse(ModuleInterface):
     def _resolve_point(container: Container,
                        element_key: str = "element",
                        x_key: str = "x",
-                       y_key: str = "y") -> Point:
+                       y_key: str = "y",
+                       fallback_to_center: bool = False) -> Point:
         """
         Resolve a mouse point from an element locator and/or x/y coordinates.
 
@@ -207,6 +209,7 @@ class Mouse(ModuleInterface):
             element_key (str): Container key for the element.
             x_key (str): Container key for the x coordinate.
             y_key (str): Container key for the y coordinate.
+            fallback_to_center (bool): Use the bounding rectangle center if GetClickablePoint fails.
 
         Returns:
             Point: Screen point to use for the mouse operation.
@@ -222,7 +225,13 @@ class Mouse(ModuleInterface):
             try:
                 point = Point.from_clickable_point(element.GetClickablePoint())
             except NoClickablePointException:
-                raise FlaUiError(FlaUiError.ElementNotClickable) from None
+                if not fallback_to_center:
+                    raise FlaUiError(FlaUiError.ElementNotClickable) from None
+                point = Mouse._point_from_bounding_rectangle(element)
+            except CSharpException:
+                if not fallback_to_center:
+                    raise
+                point = Mouse._point_from_bounding_rectangle(element)
 
             offset_x = x if x is not None else 0
             offset_y = y if y is not None else 0
@@ -234,6 +243,25 @@ class Mouse(ModuleInterface):
             raise FlaUiError(FlaUiError.IdentifierOrCoordinatesRequired)
 
         return Point(x, y)
+
+    @staticmethod
+    def _point_from_bounding_rectangle(element: Any) -> Point:
+        """
+        Return the center of the element's bounding rectangle.
+
+        Args:
+            element (Any): Automation element exposing BoundingRectangle.
+
+        Raises:
+            FlaUiError: If the bounding rectangle cannot be used as a click point.
+        """
+        try:
+            rect = element.BoundingRectangle
+            if rect.Width <= 0 or rect.Height <= 0:
+                raise FlaUiError(FlaUiError.ElementNotClickable) from None
+            return Point(int(rect.X + rect.Width / 2), int(rect.Y + rect.Height / 2))
+        except CSharpException:
+            raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
     def _move_to_point(point: Point) -> None:
@@ -436,10 +464,11 @@ class Mouse(ModuleInterface):
           - scroll_amount (float): amount to scroll (positive/negative)
         Behavior:
           - Move mouse to resolved point and call Mouse.Scroll(scroll_amount).
+          - If GetClickablePoint fails, the bounding rectangle center is used instead.
         Raises:
-          - FlaUiError(ElementNotClickable) if element has no clickable point.
+          - FlaUiError(ElementNotClickable) if element has no clickable point or bounding rectangle.
         """
-        point = Mouse._resolve_point(container)
+        point = Mouse._resolve_point(container, fallback_to_center=True)
         scroll_amount = container["scroll_amount"]
         Mouse._move_to_point(point)
         FlaUI.Core.Input.Mouse.Scroll(float(scroll_amount))

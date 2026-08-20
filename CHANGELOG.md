@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Fixed
+
+- [#218](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/218) AccessViolationException when scrolling a virtualized WPF DataGrid
+  - XPath lookups no longer crash the process when UI Automation tree walking hits recycled or unrealized rows
+  - Scroll Up/Down fall back to the element's bounding rectangle center if GetClickablePoint fails
+
 ## [Release][5.0.2] [5.0.2][5.0.1-5.0.2] - 2026-08-20
 
 ### Fixed

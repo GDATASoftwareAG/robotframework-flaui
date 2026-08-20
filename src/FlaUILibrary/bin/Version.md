@@ -5,11 +5,13 @@
 | Core    | 5.0     | .Net Framework 4.8 | System.CodeDom.dll                                 | MIT     | 
 | UIA3    | 5.0     | .Net Framework 4.8 | System.CodeDom.dll                                 | MIT     | 
 | UIA2    | 5.0     | .Net Framework 4.8 | Interop.UIAutomationClient.dll, System.CodeDom.dll | MIT     | 
+| Native  | 1.0     | .Net Framework 4.8 |                                                    | MIT     | 
 
 ## Changelog
 
 | Date       | To Revision                              | Description                                                                                                         |
 |------------|------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| 20.08.2026 |                                          | Add FlaUiNative.dll to catch AccessViolationException from XPath tree walking                                       |
 | 26.04.2025 | c5e7eb7af081e68534cb6b6890a38aa791ce4168 | Upgrade to FlaUI 5.0                                                                                                |
 | 25.09.2022 | 3a33e52f6e4793254633c2927a94c8b64463d170 | Upgrade to FlaUI 4.0                                                                                                |
 | 22.01.2021 | 5b0be578806bf411a38dc1cb05c8862a01963710 | UIA2 from FlaUI include from release 3.2.0                                                                          |

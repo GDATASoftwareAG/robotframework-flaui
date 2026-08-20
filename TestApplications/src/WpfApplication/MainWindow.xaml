@@ -257,6 +257,39 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
+            <TabItem AutomationProperties.AutomationId="DataGridControl" Header="Data Grid">
+                <GroupBox Header="Large Grid with Scroll" Margin="8">
+                    <DataGrid AutomationProperties.AutomationId="largeDataGridView"
+                              Height="400"
+                              Width="420"
+                              EnableRowVirtualization="True"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              CanUserAddRows="False"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding LargeDataGridItems}">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="80" />
+                            <DataGridTextColumn Header="Number" Binding="{Binding Number}" Width="80" />
+                            <DataGridTemplateColumn Header="Action" Width="180">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="{Binding Name}" Margin="0,0,8,0" />
+                                            <CheckBox Content="On" IsChecked="{Binding IsChecked}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

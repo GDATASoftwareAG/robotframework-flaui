@@ -9,3 +9,4 @@ ${MAIN_WINDOW_SIMPLE_CONTROLS}      ${MAIN_WINDOW}/Tab/TabItem[@Name='Simple Con
 ${MAIN_WINDOW_COMPLEX_CONTROLS}     ${MAIN_WINDOW}/Tab/TabItem[@Name='Complex Controls']
 ${MAIN_WINDOW_KEYBOARD_CONTROLS}    ${MAIN_WINDOW}/Tab/TabItem[@Name='Keyboard Controls']
 ${MAIN_WINDOW_DRAG_AND_DROP_CONTROLS}    ${MAIN_WINDOW}/Tab/TabItem[@Name='Drag And Drop']
+${MAIN_WINDOW_DATA_GRID_CONTROLS}    ${MAIN_WINDOW}/Tab/TabItem[@Name='Data Grid']
