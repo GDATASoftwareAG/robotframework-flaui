@@ -23,6 +23,8 @@ ${XPATH_DISABLED_ELEMENT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Automatio
 ${XPATH_OFFSCREEN_ELEMENT}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 ${XPATH_SCROLL_DATAGRID}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane[@ClassName='ScrollViewer']/Group[@Name='Large List with Scroll']/DataGrid[@AutomationId='LargeListView']
 ${XPATH_MFC_APP_MENU_FILE}      ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='File']
+${XPATH_BACKSLASH_NAME}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/*[@AutomationId='BackslashPathLabel']
+${XPATH_BACKSLASH_AUTOMATION_ID}    ${MAIN_WINDOW_SIMPLE_CONTROLS}/*[@Name='Backslash AutomationId Label']
 
 
 *** Test Cases ***
@@ -182,6 +184,18 @@ Find All Elements If Xpath Is Wrong
     ${elements}    Find All Elements    /NOT_A_XPATH
     Length Should Be    ${elements}    0
 
+Find All Elements With Backslash In Name
+    ${elements}    Find All Elements    ${XPATH_BACKSLASH_NAME}
+    Length Should Be    ${elements}    1
+    Should Contain    ${elements[0].Name}    [@Name="Adresse: C:\\Windows"]
+    Element Should Not Be Offscreen    ${elements[0]}
+
+Find All Elements With Backslash In AutomationId
+    ${elements}    Find All Elements    ${XPATH_BACKSLASH_AUTOMATION_ID}
+    Length Should Be    ${elements}    1
+    Should Contain    ${elements[0].AutomationId}    [@AutomationId="Table\\1;1"]
+    Element Should Not Be Offscreen    ${elements[0]}
+
 Find One Element
     ${element}    Find One Element    ${XPATH_ENABLE_ELEMENT}
 
@@ -213,6 +227,16 @@ Find One Element If Xpath Is Wrong
     EXCEPT    FlaUiError: Element from XPath '/NOT_A_XPATH' could not be found
         Log    'Find One Element' failed as expected
     END
+
+Find One Element With Backslash In Name
+    ${element}    Find One Element    ${XPATH_BACKSLASH_NAME}
+    Should Contain    ${element.Name}    [@Name="Adresse: C:\\Windows"]
+    Element Should Not Be Offscreen    ${element}
+
+Find One Element With Backslash In AutomationId
+    ${element}    Find One Element    ${XPATH_BACKSLASH_AUTOMATION_ID}
+    Should Contain    ${element.AutomationId}    [@AutomationId="Table\\1;1"]
+    Element Should Not Be Offscreen    ${element}
 
 Is Element Offscreen
     ${IS_OFFSCREEN}    Is Element Offscreen    ${XPATH_ELEMENT}

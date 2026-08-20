@@ -31,5 +31,6 @@ class AutomationElement:
     @staticmethod
     def _get_argument_in_xpath(xpath, argument) -> str:
         xpaths = xpath.split("/")
-        xpaths[-1] = re.sub(r"\[\d+]", argument, xpaths[-1])
+        # Callable repl avoids re.sub treating backslashes in argument as replacement escapes.
+        xpaths[-1] = re.sub(r"\[\d+]", lambda _: argument, xpaths[-1])
         return "/".join(xpaths)
