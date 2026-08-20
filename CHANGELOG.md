@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.0.2] [5.0.2][5.0.1-5.0.2] - 2026-08-20
+
 ### Fixed
 
 - [#214](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/214) Find All Elements and Find One Element fail if Name, AutomationId or ClassName contains backslashes
@@ -822,7 +824,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.2...main
+
+[5.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.2
+
+[5.0.1-5.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.1...5.0.2
 
 [5.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.1
 
