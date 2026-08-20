@@ -232,3 +232,5 @@ _site
 Gemfile.lock
 .venv
 src/robotframework_flaui.egg-info
+.testing.venv
+.build.venv
