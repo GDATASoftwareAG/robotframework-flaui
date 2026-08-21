@@ -257,24 +257,16 @@ python -m builddrone test
 
 AppVeyor (`appveyor.yml`) runs the same four stages on every branch except `documentation`. The `pypi` stage runs only when the build is triggered by a git tag.
 
-### Releasing a new version - Frequent tasks
+### Contributing
+
+Code changes are welcome via pull request. Release tagging, PyPI upload and keyword documentation publishing are not part of this workflow.
 
 - add or update keywords in folders
   - `src/FlaUILibrary/flaui/module`
   - `src/FlaUILibrary/keywords`
 - add or update tests in folder `atests`
-- update version in `src/FlaUILibrary/version.py`
-- update `CHANGELOG.md`
-  - add a release near the top
-  - add the links at the bottom
-- merge to `main`, create a lightweight semver tag without a `v` prefix (for example `5.0.2`) and push the tag
-  - AppVeyor builds the matrix and uploads the package to PyPI via `python -m builddrone pypi`
-- create the GitHub Release and attach wheels plus keyword HTML/XML
-- publish keyword docs on the `documentation` branch
-  - copy `keywords/keywords.html` to `docs/keywords/<VERSION>.html`
-  - copy `keywords/keywords.xml` to `docs/keywords/<VERSION>.xml`
-  - add a row for the new version in `docs/index.md`
-  - commit, for example `Update documentation <VERSION>`, and push `documentation`
+- update `CHANGELOG.md` under `[Unreleased]`
+- open a pull request against `main`
 
 ## Acknowledgements
 
