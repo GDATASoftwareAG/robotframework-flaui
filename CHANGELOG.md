@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- Update README.md for current Builddrone blueprint usage, requirement files, library import arguments and the release / documentation branch workflow
+
 ### Fixed
 
 - [#218](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/218) AccessViolationException when scrolling a virtualized WPF DataGrid
