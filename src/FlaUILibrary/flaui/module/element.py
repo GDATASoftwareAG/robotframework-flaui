@@ -3,10 +3,13 @@ from enum import Enum
 from typing import Optional, Any, Union, List
 from System import Exception as CSharpException  # pylint: disable=import-error
 from System import InvalidOperationException # pylint: disable=import-error
+from System import AccessViolationException  # pylint: disable=import-error
+from System.Reflection import TargetInvocationException  # pylint: disable=import-error
 from System.Runtime.InteropServices import COMException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
 from FlaUI.Core.Exceptions import PropertyNotSupportedException # pylint: disable=import-error
 from FlaUI.Core.Exceptions import ElementNotAvailableException # pylint: disable=import-error
+from FlaUILibrary.pythonnetwrapper import SafeXPath
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
@@ -57,6 +60,15 @@ class Element(ModuleInterface):
         WAIT_UNTIL_ELEMENT_IS_ENABLED = "ELEMENT_WAIT_UNTIL_IS_ENABLED"
         WAIT_UNTIL_ELEMENT_EXIST = "ELEMENT_WAIT_UNTIL_EXIST"
         WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST = "ELEMENT_WAIT_UNTIL_DOES_NOT_EXIST"
+
+    _XPATH_LOOKUP_EXCEPTIONS = (
+        ElementNotAvailableException,
+        COMException,
+        AccessViolationException,
+        TargetInvocationException,
+        InvalidOperationException,
+        CSharpException,
+    )
 
     def __init__(self, automation: Any, retry_timeout_in_milliseconds: int):
         """
@@ -273,6 +285,31 @@ class Element(ModuleInterface):
         xpath = container["xpath"]
         raise FlaUiError(FlaUiError.XPathNotFound.format(xpath))
 
+    def _invoke_xpath_lookup(self, xpath: str, find_all: bool) -> Any:
+        """
+        Invoke a FlaUI XPath lookup and retry if UI Automation tree walking fails.
+
+        Args:
+            xpath (str): XPath to search.
+            find_all (bool): True to find all matches, False to find the first match.
+
+        Returns:
+            AutomationElement | list | None: Found element(s), empty list, or None.
+        """
+        desktop = self._automation.GetDesktop()
+        for attempt in range(3):
+            try:
+                if find_all:
+                    elements = SafeXPath.FindAllByXPath(desktop, xpath)
+                    return elements if elements is not None else []
+                return SafeXPath.FindFirstByXPath(desktop, xpath)
+            except self._XPATH_LOOKUP_EXCEPTIONS:
+                if attempt == 2:
+                    return [] if find_all else None
+                time.sleep(0.1)
+                desktop = self._automation.GetDesktop()
+        return [] if find_all else None
+
     def _get_element_by_xpath(self, container: Container) -> Any:
         """
         Try to locate the first element by XPath using the automation desktop root.
@@ -286,15 +323,10 @@ class Element(ModuleInterface):
         Notes:
             - Catches automation exceptions (element not available, COM errors,
               general C# exceptions) and returns None on failure.
+            - AccessViolationException from UI Automation tree walking is handled by
+              SafeXPath so virtualized controls cannot crash the Python process.
         """
-        try:
-            return self._automation.GetDesktop().FindFirstByXPath(container["xpath"])
-        except ElementNotAvailableException:
-            return None
-        except COMException:
-            return None
-        except CSharpException:
-            return None
+        return self._invoke_xpath_lookup(container["xpath"], find_all=False)
 
     def _find_one_element(self, container: Container) -> AutomationElement:
         """
@@ -355,7 +387,7 @@ class Element(ModuleInterface):
         Returns:
             list[AutomationElement]: All matched elements (framework-specific collection).
         """
-        return self._automation.GetDesktop().FindAllByXPath(container["xpath"])
+        return self._invoke_xpath_lookup(container["xpath"], find_all=True)
 
     def _element_should_exist(self, container: Container) -> bool:
         """

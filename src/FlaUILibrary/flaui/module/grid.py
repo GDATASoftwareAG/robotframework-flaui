@@ -3,6 +3,7 @@ from typing import Optional, Any, List
 from System import ArgumentOutOfRangeException  # pylint: disable=import-error
 from System import NullReferenceException  # pylint: disable=import-error
 from System import InvalidOperationException  # pylint: disable=import-error
+from System import Exception as CSharpException  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
@@ -146,8 +147,9 @@ class Grid(ModuleInterface):
         for row in control.Rows:
             data = []
             for cell in row.Cells:
-                if "NewItemPlaceholder" not in cell.Value:
-                    data.append(cell.Value)
+                value = Grid._cell_value(cell)
+                if "NewItemPlaceholder" not in value:
+                    data.append(value)
 
             if data:
                 values.append(data)
@@ -193,10 +195,27 @@ class Grid(ModuleInterface):
         for row in control.SelectedItems:
             values += "| "
             for cell in row.Cells:
-                values += cell.Value + " | "
+                values += Grid._cell_value(cell) + " | "
             values += "\n"
 
         return values
+
+    @staticmethod
+    def _cell_value(cell: Any) -> str:
+        """
+        Return a cell's display value as text.
+
+        UIA2 DataGrid template cells can report None or raise when ValuePattern
+        is missing. Treat those as an empty string so grid keywords stay stable.
+        """
+        try:
+            value = cell.Value
+        except (AttributeError, InvalidOperationException, NullReferenceException, CSharpException):
+            return ""
+
+        if value is None:
+            return ""
+        return str(value)
 
     @staticmethod
     def _select_row_by_index(container: Container) -> None:
