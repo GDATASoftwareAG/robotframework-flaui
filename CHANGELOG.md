@@ -37,6 +37,7 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ### Added
 
+- Python 3.15 support
 - Keyword Get Property From Element extended with LegacyIAccessible pattern operations
   - IS_LEGACY_IACCESSIBLE_PATTERN_SUPPORTED
   - LEGACY_IACCESSIBLE_STATE
