@@ -20,7 +20,6 @@ from FlaUILibrary.keywords.tree import TreeKeywords
 from FlaUILibrary.keywords.tab import TabKeywords
 from FlaUILibrary.keywords.property import PropertyKeywords
 from FlaUILibrary.keywords.togglebutton import ToggleButtonKeywords
-from FlaUILibrary.keywords.uia import UiaKeywords
 from FlaUILibrary.keywords.button import ButtonKeywords
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.robotframework import robotlog
@@ -125,7 +124,6 @@ class FlaUILibrary(DynamicCore):
         TAB = "Tab"
         PROPERTY = "PROPERTY"
         TOGGLEBUTTON = "TOGGLEBUTTON"
-        AUTOMATION_INTERFACE = "AUTOMATION_INTERFACE"
         BUTTON = "Button"
 
     def __init__(self,
@@ -186,7 +184,6 @@ class FlaUILibrary(DynamicCore):
             FlaUILibrary.KeywordModules.TAB: TabKeywords(self.container),
             FlaUILibrary.KeywordModules.PROPERTY: PropertyKeywords(self.container),
             FlaUILibrary.KeywordModules.TOGGLEBUTTON: ToggleButtonKeywords(self.container),
-            FlaUILibrary.KeywordModules.AUTOMATION_INTERFACE: UiaKeywords(self.container),
             FlaUILibrary.KeywordModules.BUTTON: ButtonKeywords(self.container),
         }
 
