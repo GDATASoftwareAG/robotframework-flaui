@@ -8,6 +8,9 @@ def get_log_directory():
     """
     Get output directory from robot framework built in variables if not exists fallback to os path execution
     """
+    output_dir = os.environ.get("FLAUI_OUTPUT_DIR")
+    if output_dir:
+        return output_dir
     try:
         return BuiltIn().get_variable_value("${OUTPUT DIR}")
     except RobotNotRunningError:

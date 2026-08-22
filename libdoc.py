@@ -6,8 +6,14 @@ DIRECTORY_PATH = "./" + DIRECTORY + "/"
 HTML = "keywords.html"
 XML = "keywords.xml"
 
-if not os.path.exists(DIRECTORY):
-    os.mkdir(DIRECTORY)
 
-libdoc("./src/FlaUILibrary", DIRECTORY_PATH + HTML)
-libdoc("./src/FlaUILibrary", DIRECTORY_PATH + XML)
+def main():
+    if not os.path.exists(DIRECTORY):
+        os.mkdir(DIRECTORY)
+
+    libdoc("./src/FlaUILibrary", DIRECTORY_PATH + HTML)
+    libdoc("./src/FlaUILibrary", DIRECTORY_PATH + XML)
+
+
+if __name__ == "__main__":
+    main()

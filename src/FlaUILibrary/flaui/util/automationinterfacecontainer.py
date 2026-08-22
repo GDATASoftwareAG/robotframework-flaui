@@ -1,8 +1,7 @@
 from typing import Dict
-from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.windowsautomationinterface import WindowsAutomationInterface
-from FlaUILibrary.flaui.automation.uia2 import UIA2
-from FlaUILibrary.flaui.automation.uia3 import UIA3
+from FlaUILibrary.flaui.automation.uiaisolation import create_automation_module
+
 
 class AutomationInterfaceContainer:
     """
@@ -31,15 +30,6 @@ class AutomationInterfaceContainer:
 
         return self._modules[self._identifier]
 
-    def set_identifier(self, identifier: str):
-        """
-        Sets UIA2 or UIA3 identifier to use.
-
-        Args:
-            identifier (String): UIA2 or UIA3
-        """
-        self._identifier = identifier
-
     def get_identifier(self):
         """
         Gets current active user graphical interface module like UIA2 or UIA3.
@@ -50,11 +40,4 @@ class AutomationInterfaceContainer:
         """
         Creates user interface module if not already created otherwise initialized module.
         """
-
-        if self._identifier == "UIA2":
-            return UIA2(self._retry_timeout_in_milliseconds)
-
-        if self._identifier == "UIA3":
-            return UIA3(self._retry_timeout_in_milliseconds)
-
-        raise FlaUiError("Identifier not supported")
+        return create_automation_module(self._identifier, self._retry_timeout_in_milliseconds)

@@ -11,8 +11,28 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - Update README.md for current Builddrone blueprint usage, requirement files, library import arguments and the release / documentation branch workflow
 
+### Removed
+
+- Keyword `Switch UIA To`
+  - Switching UIA2 and UIA3 on one library instance cannot keep isolated automation trees
+  - Use two named library instances instead, see [#115](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/115)
+
 ### Fixed
 
+- [#115](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/115) UIA3 XPath lookups fail after UIA2 was used in the same process
+  - UIA2 and UIA3 each run in a dedicated helper process so their XPath trees stay isolated
+  - Helper processes are started with subprocess so Windows libdoc and other scripts do not need a `__main__` guard
+  - Import both interfaces as named libraries and call keywords on the instance you need:
+
+    ```robotframework
+    Library    FlaUILibrary    uia=UIA3    screenshot_on_failure=False    timeout=2000    AS    UIA3Lib
+    Library    FlaUILibrary    uia=UIA2    screenshot_on_failure=False    timeout=2000    AS    UIA2Lib
+    ```
+
+    ```robotframework
+    ${readonly}    UIA2Lib.Get Property From Element    ${UIA2_XPATH}    IS_READ_ONLY
+    UIA3Lib.Click    ${UIA3_XPATH}
+    ```
 - [#218](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/218) AccessViolationException when scrolling a virtualized WPF DataGrid
   - XPath lookups no longer crash the process when UI Automation tree walking hits recycled or unrealized rows
   - Scroll Up/Down fall back to the element's bounding rectangle center if GetClickablePoint fails

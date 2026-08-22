@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, Any, Tuple
 from FlaUI.UIA2.Identifiers import TextAttributes as AttributesUia2  # pylint: disable=import-error
@@ -18,13 +17,13 @@ class Property(ModuleInterface):
 
     class WindowVisualState(Enum):
         """
-        Window visual state mapping
+        Window visual state mapping. Values stay Python strings so they can cross
+        the helper-process boundary; convert to FlaUI enums only when applying.
         """
-        NORMAL = NetWidowVisualState.Normal
-        MINIMIZED = NetWidowVisualState.Minimized
-        MAXIMIZED = NetWidowVisualState.Maximized
+        NORMAL = "Normal"
+        MINIMIZED = "Minimized"
+        MAXIMIZED = "Maximized"
 
-    @dataclass
     class Container(ValueContainer):
         """
         Value container from property module.
@@ -498,7 +497,7 @@ class Property(ModuleInterface):
                 - container['visual_state']: Property.WindowVisualState enum instance.
                 - container['element']: Window element supporting Window pattern.
         """
-        state = container["visual_state"].value
+        state = getattr(NetWidowVisualState, container["visual_state"].value)
         pattern = Property._get_window_pattern_from_element(container)
         pattern.SetWindowVisualState(state)
 
