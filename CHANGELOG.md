@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.1.0] [5.1.0][5.0.2-5.1.0] - 2026-08-24
+
 ### Changed
 
 - Update README.md for current Builddrone blueprint usage, requirement files, library import arguments and the release / documentation branch workflow
@@ -853,7 +855,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.2...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.0...main
+
+[5.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.1.0
+
+[5.0.2-5.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.0.2...5.1.0
 
 [5.0.2]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.0.2
 
