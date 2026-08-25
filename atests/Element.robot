@@ -23,6 +23,8 @@ ${XPATH_DISABLED_ELEMENT}       ${MAIN_WINDOW_SIMPLE_CONTROLS}/Button[@Automatio
 ${XPATH_OFFSCREEN_ELEMENT}      ${MAIN_WINDOW_SIMPLE_CONTROLS}/Text[@AutomationId='OffscreenTextBlock']
 ${XPATH_SCROLL_DATAGRID}        ${MAIN_WINDOW_COMPLEX_CONTROLS}/Pane[@ClassName='ScrollViewer']/Group[@Name='Large List with Scroll']/DataGrid[@AutomationId='LargeListView']
 ${XPATH_MFC_APP_MENU_FILE}      ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='File']
+${XPATH_MFC_APP_MENU_HELP}      ${MAIN_WINDOW_MFC}/Pane[@AutomationId='59419']/Pane[@AutomationId='59398']/MenuItem[@Name='Help']
+${XPATH_MENU_FILE}              ${MAIN_WINDOW}/Menu/MenuItem[@Name='File']
 ${XPATH_BACKSLASH_NAME}         ${MAIN_WINDOW_SIMPLE_CONTROLS}/*[@AutomationId='BackslashPathLabel']
 ${XPATH_BACKSLASH_AUTOMATION_ID}    ${MAIN_WINDOW_SIMPLE_CONTROLS}/*[@Name='Backslash AutomationId Label']
 
@@ -35,6 +37,29 @@ Focus Error
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_FOCUSABLE}    ${XPATH_DISABLED_ELEMENT}
     ${ERR_MSG}    Run Keyword And Expect Error    *    Focus    ${XPATH_DISABLED_ELEMENT}
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
+Focus On Menu Item Does Not Open Menu
+    ${STATE}    Get Property From Element    ${XPATH_MENU_FILE}    EXPAND_COLLAPSE_STATE
+    Should Be Equal    ${STATE}    Collapsed
+    Focus    ${XPATH_MENU_FILE}
+    ${STATE_AFTER}    Get Property From Element    ${XPATH_MENU_FILE}    EXPAND_COLLAPSE_STATE
+    Should Be Equal    ${STATE_AFTER}    Collapsed
+
+Focus On Mfc Menu Item Does Not Raise
+    ${PID}    Start Application    ${TEST_APP_MFC}    ${MAIN_WINDOW_MFC}
+    Focus    ${XPATH_MFC_APP_MENU_FILE}
+    Element Should Exist    ${XPATH_MFC_APP_MENU_FILE}
+    [Teardown]    Stop Application    ${PID}    ${MAIN_WINDOW_MFC}
+
+Click Hold Opens Mfc Menu After Focus
+    ${PID}    Start Application    ${TEST_APP_MFC}    ${MAIN_WINDOW_MFC}
+    Focus    ${MAIN_WINDOW_MFC}
+    Element Should Exist    ${XPATH_MFC_APP_MENU_HELP}
+    Focus    ${XPATH_MFC_APP_MENU_HELP}
+    Element Should Not Be Offscreen    ${XPATH_MFC_APP_MENU_HELP}
+    Click Hold    ${XPATH_MFC_APP_MENU_HELP}    1000
+    Element Should Exist    ${MAIN_WINDOW_MFC}/Menu[@Name='Help']
+    [Teardown]    Stop Application    ${PID}    ${MAIN_WINDOW_MFC}
 
 Get Name From Element By XPath
     ${TEXT}    Get Name From Element    ${XPATH_ELEMENT}

@@ -118,11 +118,11 @@ Left Click Open
     # Hold Button is already there. It should not be any click action
     Click Open    ${TOGGLE_BUTTON}    ${HOLD_BUTTON}
     ${state}    Get Toggle State    ${TOGGLE_BUTTON}
-    Should Be True    '${state}'=='OFF'
+    Should Be True    '${state}' == 'OFF'
     # Hold Button is already there but it should click it at least for once because of ignore option
     Click Open    ${TOGGLE_BUTTON}    ${HOLD_BUTTON}    ignore_if_already_open=${False}
     ${state}    Get Toggle State    ${TOGGLE_BUTTON}
-    Should Be True    '${state}'=='ON'
+    Should Be True    '${state}' == 'ON'
 
 Middle Click Open
     Click    ${CLICK_BUTTON}
