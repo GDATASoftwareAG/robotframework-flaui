@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Added
+
+- Acceptance tests for dynamically changed AutomationId, Name and child elements, see [#79](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/79)
+
 ## [Release][5.1.0] [5.1.0][5.0.2-5.1.0] - 2026-08-24
 
 ### Changed

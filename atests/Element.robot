@@ -107,7 +107,7 @@ Element Should Be Disabled Error
 Find All Elements
     ${index}    Set Variable    ${0}
     ${elements}    Find All Elements    ${MAIN_WINDOW_CONTROLS}
-    Length Should Be    ${elements}    5
+    Length Should Be    ${elements}    6
 
     FOR    ${element}    IN    @{elements}
         ${Xpath}    Set Variable    ${element.Xpath}
@@ -150,12 +150,19 @@ Find All Elements
             Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
         END
 
+        IF    ${index} == ${5}
+            Should Contain    ${Xpath}    /Tab/TabItem[6]
+            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="DynamicPropertiesControl"]
+            Should Contain    ${Name}    /Tab/TabItem[@Name="Dynamic Properties"]
+            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+        END
+
         ${index}    Set Variable    ${index + 1}
     END
 
 Find All Elements Xpath Usage Can Be Used To Any Keyword
     ${elements}    Find All Elements    ${MAIN_WINDOW_CONTROLS}
-    Length Should Be    ${elements}    5
+    Length Should Be    ${elements}    6
 
     FOR    ${element}    IN    @{elements}
         Element Should Exist    ${element}

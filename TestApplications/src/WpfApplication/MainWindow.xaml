@@ -290,6 +290,36 @@
                     </DataGrid>
                 </GroupBox>
             </TabItem>
+            <TabItem AutomationProperties.AutomationId="DynamicPropertiesControl" Header="Dynamic Properties">
+                <GroupBox Header="Dynamic Automation" AutomationProperties.AutomationId="DynamicAutomationGroup">
+                    <StackPanel x:Name="DynamicChildrenHost">
+                        <Button Content="Change Automation Id"
+                                AutomationProperties.AutomationId="ChangeAutomationIdOrigin"
+                                Click="ChangeAutomationId_Click"/>
+                        <Button Content="Original Name"
+                                AutomationProperties.AutomationId="ChangeNameOrigin"
+                                Click="ChangeName_Click"/>
+                        <Button x:Name="DelayedIdButton"
+                                Content="Idle"
+                                AutomationProperties.AutomationId="DelayedIdButton"
+                                AutomationProperties.Name="Idle"/>
+                        <Button Content="Start Delayed Id Change"
+                                AutomationProperties.AutomationId="StartDelayedIdChange"
+                                Click="StartDelayedIdChange_Click"/>
+                        <Button Content="Add Child"
+                                AutomationProperties.AutomationId="AddDynamicChild"
+                                Click="AddDynamicChild_Click"/>
+                        <Button Content="Replace Child"
+                                AutomationProperties.AutomationId="ReplaceDynamicChild"
+                                Click="ReplaceDynamicChild_Click"/>
+                        <StackPanel x:Name="ReplaceHost"
+                                    AutomationProperties.AutomationId="ReplaceHost">
+                            <Button Content="Original Child"
+                                    AutomationProperties.AutomationId="ReplaceableChild"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

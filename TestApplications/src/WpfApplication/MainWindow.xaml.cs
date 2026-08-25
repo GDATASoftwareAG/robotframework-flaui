@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Automation;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System;
@@ -180,6 +181,56 @@ namespace WpfApplication
         {
             DragDropTargetText.Text = "Drop Here";
             DragDropStatusText.Text = "Ready";
+        }
+
+        private void ChangeAutomationId_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.SetValue(AutomationProperties.AutomationIdProperty, "ChangeAutomationIdUpdate");
+                button.Content = "Automation Id Changed";
+            }
+        }
+
+        private void ChangeName_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.SetValue(AutomationProperties.NameProperty, "Changed Name");
+                button.Content = "Changed Name";
+            }
+        }
+
+        private async void StartDelayedIdChange_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(500);
+            DelayedIdButton.SetValue(AutomationProperties.AutomationIdProperty, "DelayedIdButtonRinging");
+            DelayedIdButton.SetValue(AutomationProperties.NameProperty, "Ringing");
+            DelayedIdButton.Content = "Ringing";
+        }
+
+        private void AddDynamicChild_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var child in DynamicChildrenHost.Children)
+            {
+                if (child is Button existing &&
+                    AutomationProperties.GetAutomationId(existing) == "DynamicChildButton")
+                {
+                    return;
+                }
+            }
+
+            var button = new Button { Content = "Dynamic Child" };
+            button.SetValue(AutomationProperties.AutomationIdProperty, "DynamicChildButton");
+            DynamicChildrenHost.Children.Add(button);
+        }
+
+        private void ReplaceDynamicChild_Click(object sender, RoutedEventArgs e)
+        {
+            ReplaceHost.Children.Clear();
+            var child = new Button { Content = "Replaced Child" };
+            child.SetValue(AutomationProperties.AutomationIdProperty, "ReplacedChild");
+            ReplaceHost.Children.Add(child);
         }
 
     }
