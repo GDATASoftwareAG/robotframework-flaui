@@ -3,6 +3,7 @@ Documentation       Test suite for application keywords.
 ...                 XPath not found error handling for all keywords must be implemented under ErrorHandling.robo
 ...
 
+Library             Process
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=False
 Library             StringFormat
 Resource            util/Common.resource
@@ -46,6 +47,55 @@ Close Application By Name
     ${ERR_MSG}    Run Keyword And Expect Error    *    Attach Application By Name    ${TEST_APP}
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
     [Teardown]    Run Keyword And Ignore Error    Stop Application    ${PID}
+
+Close Application By Name Without Prior Attach
+    [Documentation]    Issue #253: process started outside FlaUI can be closed by name.
+    Start Process    ${TEST_APP}
+    Wait Until Keyword Succeeds    10x    200ms    Element Should Exist    ${MAIN_WINDOW}
+    Close Application By Name    ${TEST_APP}
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    [Teardown]    Run Keyword And Ignore Error    Terminate All Processes    kill=True
+
+Attach And Close Application By Name Using Path
+    [Documentation]    Issue #253: attach and close with the same path used to start the process.
+    Start Process    ${TEST_APP}
+    Wait Until Keyword Succeeds    10x    200ms    Element Should Exist    ${MAIN_WINDOW}
+    Attach Application By Name    ${TEST_APP}
+    Close Application By Name    ${TEST_APP}
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    [Teardown]    Run Keyword And Ignore Error    Terminate All Processes    kill=True
+
+Attach And Close Application By Name Using Exe Suffix
+    [Documentation]    Issue #253: attach and close with an .exe suffix from Task Manager.
+    Start Process    ${TEST_APP}
+    Wait Until Keyword Succeeds    10x    200ms    Element Should Exist    ${MAIN_WINDOW}
+    Attach Application By Name    WpfApplication.exe
+    Close Application By Name    WpfApplication.exe
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    [Teardown]    Run Keyword And Ignore Error    Terminate All Processes    kill=True
+
+Attach And Close Application By Name Using Different Case
+    [Documentation]    Issue #253: attach and close with different process name casing.
+    Start Process    ${TEST_APP}
+    Wait Until Keyword Succeeds    10x    200ms    Element Should Exist    ${MAIN_WINDOW}
+    Attach Application By Name    wpfapplication
+    Close Application By Name    WPFAPPLICATION
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    [Teardown]    Run Keyword And Ignore Error    Terminate All Processes    kill=True
+
+Attach And Close Two Separate Applications By Name
+    [Documentation]    Issue #253: attach and close two different executables by name.
+    Start Process    ${TEST_APP}
+    Start Process    ${TEST_APP_NOTIFIER}    Hello-World
+    Wait Until Keyword Succeeds    10x    200ms    Element Should Exist    ${MAIN_WINDOW}
+    Wait Until Keyword Succeeds    20x    100ms    Name Contains Text    Hello-World    ${MAIN_WINDOW_NOTIFIER}
+    Attach Application By Name    WpfApplication
+    Attach Application By Name    Notifier
+    Close Application By Name    Notifier
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW_NOTIFIER}
+    Close Application By Name    WpfApplication
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    [Teardown]    Run Keyword And Ignore Error    Terminate All Processes    kill=True
 
 Wait For Application While Busy By Name Without Timeout
     [Setup]    Start Application

@@ -1,4 +1,5 @@
 from enum import Enum
+import os
 from typing import Optional, Any
 import FlaUI.Core  # pylint: disable=import-error
 from System.ComponentModel import Win32Exception  # pylint: disable=import-error
@@ -213,17 +214,25 @@ class Application(ModuleInterface):
         """
         self._stop_application(self._get_attached_application_by_pid(container))
 
-    def _exit_application_by_name(self, container:Container) -> None:
+    def _exit_application_by_name(self, container: Container) -> None:
         """
-        Terminate an attached application identified by name and remove it from the registry.
+        Terminate an application identified by name and remove it from the registry.
+
+        If the process is not already attached, attach to it first so processes started
+        outside FlaUI can be closed by name.
 
         Args:
             container (Container): Must contain `name`.
 
         Raises:
-            FlaUiError: If no attached application with the given name exists or termination fails.
+            FlaUiError: If no running application with the given name exists or termination fails.
         """
-        self._stop_application(self._get_attached_application_by_name(container))
+        attached = self._find_attached_application_by_name(container["name"])
+        if attached is None:
+            pid = self._attach_application_by_name(container)
+            attached = self._get_attached_application_by_pid(
+                Application.create_value_container(pid=pid))
+        self._stop_application(attached)
 
     def _stop_application(self, app_container: ApplicationContainer) -> None:
         """
@@ -261,25 +270,44 @@ class Application(ModuleInterface):
 
         raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
 
-    def _get_attached_application_by_name(self, container: Container) -> ApplicationContainer:
+    def _find_attached_application_by_name(self, name: str) -> Optional[ApplicationContainer]:
         """
-        Return the stored ApplicationContainer for an attached application by name.
+        Return the stored ApplicationContainer whose process name matches ``name``.
+
+        Matching ignores path, ``.exe`` suffix and case so the same identifier can be
+        used for Attach Application By Name and Close Application By Name.
 
         Args:
-            container (Container): Must contain `name`.
+            name (str): Process name, executable name or path used to identify the application.
 
         Returns:
-            ApplicationContainer: The matched stored application container.
-
-        Raises:
-            FlaUiError: If no attached application with the given name exists.
+            ApplicationContainer: The matched stored application container, or None.
         """
-        name = container["name"]
+        normalized = Application._normalize_application_name(name)
+        if not normalized:
+            return None
+
         for application in self._applications:
-            if application.name == name:
+            if Application._normalize_application_name(application.name) == normalized:
                 return application
 
-        raise FlaUiError(FlaUiError.ApplicationNotAttached) from None
+        return None
+
+    @staticmethod
+    def _normalize_application_name(name: str) -> str:
+        """
+        Normalize a process name, executable name or path for comparison.
+
+        Args:
+            name (str): Process name, executable name or path.
+
+        Returns:
+            str: File name without path and ``.exe`` suffix, in case-insensitive form.
+        """
+        if not name:
+            return ""
+
+        return os.path.splitext(os.path.basename(str(name).strip()))[0].casefold()
 
     def _wait_while_main_handle_is_missing_by_pid(self, container: Container) -> bool:
         """

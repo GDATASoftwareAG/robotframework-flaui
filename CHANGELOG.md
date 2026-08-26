@@ -16,6 +16,9 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 - [#161](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/161) Unable to select menu items
   - Focus no longer enters menu mode for MenuItem controls
   - SetFocus on a menu item opened Win32 menus or raised a COM exception, which then closed the popup before Click
+- [#253](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/253) Close Application By Name fails with "Application is not attached"
+  - Close Application By Name attaches to a running process by name if it is not already attached
+  - Application names are matched without path, ``.exe`` suffix and case so Attach and Close identify the same process
 
 ## [Release][5.1.0] [5.1.0][5.0.2-5.1.0] - 2026-08-24
 

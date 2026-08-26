@@ -22,11 +22,12 @@ class ApplicationKeywords:
         Attach to a running application by name.
 
         If application with name not exists an error message will be thrown.
+        The name may be a process name, an executable name (with or without ``.exe``) or a path.
 
         Arguments:
-        | Argument   | Type   | Description            |
-        | name       | string | Process name to attach |
-        | msg        | string | Custom error message   |
+        | Argument   | Type   | Description                                       |
+        | name       | string | Process name, executable name or path to attach   |
+        | msg        | string | Custom error message                              |
 
         Example:
         | ${pid}  Attach Application By Name  <APPLICATION>                     |
@@ -87,17 +88,21 @@ class ApplicationKeywords:
     @keyword
     def close_application_by_name(self, name, msg=None):
         """
-        Closes the attached application by name.
+        Closes an application by process name.
 
-        If no application is attached an error message will be thrown.
+        If the application is not yet attached, it will be attached first.
+        The name is matched without a path or ``.exe`` suffix and without case, so the
+        same identifier can be used for Attach Application By Name and Close Application By Name.
+
+        If no running application with that name exists an error message will be thrown.
 
         Arguments:
-        | Argument   | Type   | Description          |
-        | name       | string | Process name to close|
-        | msg        | string | Custom error message |
+        | Argument   | Type   | Description                                       |
+        | name       | string | Process name, executable name or path to close    |
+        | msg        | string | Custom error message                              |
 
         Example:
-        | Close Application By Name  $[name}         |
+        | Close Application By Name  ${name}         |
 
         """
         self._container.create_or_get_module().action(Application.Action.CLOSE_APPLICATION_BY_NAME,
