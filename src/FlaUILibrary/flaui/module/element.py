@@ -7,6 +7,7 @@ from System import AccessViolationException  # pylint: disable=import-error
 from System.Reflection import TargetInvocationException  # pylint: disable=import-error
 from System.Runtime.InteropServices import COMException # pylint: disable=import-error
 from FlaUI.Core import Debug as FlaUIDebug  # pylint: disable=import-error
+from FlaUI.Core.Definitions import ControlType  # pylint: disable=import-error
 from FlaUI.Core.Exceptions import PropertyNotSupportedException # pylint: disable=import-error
 from FlaUI.Core.Exceptions import ElementNotAvailableException # pylint: disable=import-error
 from FlaUILibrary.pythonnetwrapper import SafeXPath
@@ -621,6 +622,9 @@ class Element(ModuleInterface):
         """
         Set keyboard focus on the identified element.
 
+        MenuItem controls are not focused. SetFocus on a menu item can open a Win32 menu or raise a COM exception,
+        which then dismisses the popup before a following click.
+
         Args:
             container (Container): Must contain `xpath`.
 
@@ -629,8 +633,10 @@ class Element(ModuleInterface):
         """
         try:
             element = self._get_element(container)
+            if element.ControlType == ControlType.MenuItem:
+                return
             element.Focus()
-        except InvalidOperationException:
+        except (InvalidOperationException, COMException, CSharpException):
             xpath = container["xpath"]
             raise FlaUiError(FlaUiError.ElementNotFocusable.format(xpath)) from None
 

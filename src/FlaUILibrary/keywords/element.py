@@ -86,10 +86,13 @@ class ElementKeywords:
         """
         Try to focus element by given xpath.
 
+        Menu items are located but not focused. Focusing a MenuItem can open or dismiss a popup menu.
+
         XPaths syntax is explained in `XPath locator`.
 
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
+        | Element is not focusable |
 
         Arguments:
         | Argument   | Type   | Description                   |

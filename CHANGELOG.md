@@ -11,6 +11,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - Acceptance tests for dynamically changed AutomationId, Name and child elements, see [#79](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/79)
 
+### Fixed
+
+- [#161](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/161) Unable to select menu items
+  - Focus no longer enters menu mode for MenuItem controls
+  - SetFocus on a menu item opened Win32 menus or raised a COM exception, which then closed the popup before Click
+
 ## [Release][5.1.0] [5.1.0][5.0.2-5.1.0] - 2026-08-24
 
 ### Changed
