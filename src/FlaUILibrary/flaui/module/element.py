@@ -12,6 +12,7 @@ from FlaUI.Core.Exceptions import PropertyNotSupportedException # pylint: disabl
 from FlaUI.Core.Exceptions import ElementNotAvailableException # pylint: disable=import-error
 from FlaUILibrary.pythonnetwrapper import SafeXPath
 from FlaUILibrary.flaui.util.converter import Converter
+from FlaUILibrary.flaui.util.waiter import Waiter
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
@@ -31,7 +32,9 @@ class Element(ModuleInterface):
         xpath: Union[str, AutomationElement]
         name: Optional[str]
         use_exception: Optional[bool]
-        retries: Optional[int]
+        retry_mode: Optional[str]
+        retry_value: Optional[float]
+        retry_interval: Optional[float]
         retry_timeout_in_milliseconds: Optional[int]
 
     class Action(Enum):
@@ -86,7 +89,8 @@ class Element(ModuleInterface):
     @staticmethod
     def create_value_container(name=None,
                                xpath=None,
-                               retries=None,
+                               retry="10x",
+                               retry_interval="1s",
                                use_exception=None,
                                retry_timeout_in_milliseconds=None,
                                msg=None) -> Container:
@@ -99,17 +103,22 @@ class Element(ModuleInterface):
         Args:
             name (String): Name from element
             xpath (String | AutomationElement): Searched element as xpath from string or AutomationElement
-            retries (Number): Retry counter to repeat calls as number
+            retry (Number | String): Wait Until Keyword Succeeds retry as count or timeout
+            retry_interval (Number | String): Time to wait after a failed attempt
             retry_timeout_in_milliseconds (Number): Timeout handler for element wait if not found.
             use_exception (Bool) : Indicator to ignore exception handling by Flaui
             msg (String): Optional error message
         """
+        retry_mode, retry_value = Converter.cast_to_retry(retry, default="10x", error_msg=msg)
         return Element.Container(name=Converter.cast_to_string(name),
                                  xpath=Converter.cast_to_xpath_string(xpath),
                                  use_exception=Converter.cast_to_bool(use_exception),
                                  retry_timeout_in_milliseconds=Converter.cast_to_int(
                                      retry_timeout_in_milliseconds, msg),
-                                 retries=Converter.cast_to_int(retries, msg))
+                                 retry_mode=retry_mode,
+                                 retry_value=retry_value,
+                                 retry_interval=Converter.cast_to_timestr_seconds(
+                                     retry_interval, default=1, error_msg=msg))
 
     def execute_action(self, action: Action, values: Container):
         """
@@ -511,112 +520,118 @@ class Element(ModuleInterface):
 
     def _wait_until_element_is_offscreen(self, container: Container) -> None:
         """
-        Poll until the element becomes offscreen or until the number of retries
-        in the container is exhausted.
+        Poll until the element becomes offscreen or until retry is exhausted.
 
         Args:
-            container (Container): Must contain `xpath` and `retries`.
+            container (Container): Must contain `xpath`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the element did not become offscreen within retries.
+            FlaUiError: If the element did not become offscreen.
         """
-        retries = container["retries"]
-        container["retry_timeout_in_milliseconds"] = 0
-        timer = 0
+        xpath = container["xpath"]
 
-        while timer < retries:
+        def predicate():
             try:
-                if self._element_is_offscreen(container):
-                    self._set_element_retry_timeout(container)
-                    return
+                return self._element_is_offscreen(container)
             except FlaUiError:
-                return
+                return True
 
-            time.sleep(1)
-            timer += 1
-
-        raise FlaUiError(FlaUiError.ElementIsOffscreen.format(container["xpath"]))
+        self._wait_until(
+            predicate,
+            container,
+            lambda: FlaUiError(FlaUiError.ElementVisible.format(xpath))
+        )
 
     def _wait_until_element_exist(self, container: Container) -> None:
         """
-        Poll until the element exists or until the number of retries in the
-        container is exhausted.
+        Poll until the element exists or until retry is exhausted.
 
         Args:
-            container (Container): Must contain `xpath` and `retries`.
+            container (Container): Must contain `xpath`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the element did not appear within retries.
+            FlaUiError: If the element did not appear.
         """
-        retries = container["retries"]
-        container["retry_timeout_in_milliseconds"] = 0
-        timer = 0
+        xpath = container["xpath"]
 
-        while timer < retries:
+        def predicate():
+            self._get_element(container)
+            return True
 
-            try:
-                self._get_element(container)
-                return
-            except FlaUiError:
-                pass
-
-            time.sleep(1)
-            timer += 1
-
-        raise FlaUiError(FlaUiError.ElementNotExists.format(container["xpath"]))
+        self._wait_until(
+            predicate,
+            container,
+            lambda: FlaUiError(FlaUiError.ElementNotExists.format(xpath))
+        )
 
     def _wait_until_element_does_not_exist(self, container: Container) -> None:
         """
-        Poll until the element no longer exists or until the number of retries
-        in the container is exhausted.
+        Poll until the element no longer exists or until retry is exhausted.
 
         Args:
-            container (Container): Must contain `xpath` and `retries`.
+            container (Container): Must contain `xpath`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the element still exists after retries.
+            FlaUiError: If the element still exists.
         """
-        retries = container["retries"]
-        container["retry_timeout_in_milliseconds"] = 0
-        timer = 0
+        xpath = container["xpath"]
 
-        while timer < retries:
+        def predicate():
             try:
                 self._get_element(container)
             except FlaUiError:
-                return
+                return True
+            return False
 
-            time.sleep(1)
-            timer += 1
-
-        raise FlaUiError(FlaUiError.ElementExists.format(container["xpath"]))
+        self._wait_until(
+            predicate,
+            container,
+            lambda: FlaUiError(FlaUiError.ElementExists.format(xpath))
+        )
 
     def _wait_until_element_is_enabled(self, container: Container) -> None:
         """
-        Poll until the element becomes enabled or until the number of retries
-        in the container is exhausted.
+        Poll until the element becomes enabled or until retry is exhausted.
 
         Args:
-            container (Container): Must contain `xpath` and `retries`.
+            container (Container): Must contain `xpath`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the element did not become enabled within retries.
+            FlaUiError: If the element did not become enabled.
         """
-        retries = container["retries"]
-        container["retry_timeout_in_milliseconds"] = 0
-        timer = 0
+        xpath = container["xpath"]
 
-        while timer < retries:
-            try:
-                self._element_should_be_enabled(container)
-                return
-            except FlaUiError:
-                pass
+        def predicate():
+            self._element_should_be_enabled(container)
+            return True
 
-            time.sleep(1)
-            timer += 1
+        self._wait_until(
+            predicate,
+            container,
+            lambda: FlaUiError(FlaUiError.ElementNotEnabled.format(xpath))
+        )
 
-        raise FlaUiError(FlaUiError.ElementNotEnabled.format(container["xpath"]))
+    def _wait_until(self, predicate, container: Container, error_factory) -> Any:
+        """
+        Run a wait predicate with the library find-element timeout disabled.
+
+        Args:
+            predicate: Condition to poll.
+            container (Container): Must contain `retry_mode`, `retry_value` and `retry_interval`.
+            error_factory: Factory for the FlaUiError when retry is exhausted.
+        """
+        original_retry_timeout = self._retry_timeout_in_milliseconds
+        try:
+            self._retry_timeout_in_milliseconds = 0
+            return Waiter.wait_until(
+                predicate,
+                container["retry_mode"],
+                container["retry_value"],
+                container["retry_interval"],
+                error_factory
+            )
+        finally:
+            self._retry_timeout_in_milliseconds = original_retry_timeout
 
     def _focus_element(self, container: Container) -> None:
         """

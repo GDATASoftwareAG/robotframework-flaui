@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.application import Application
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
@@ -159,104 +160,140 @@ class ApplicationKeywords:
                              msg)
 
     @keyword
-    def wait_for_application_while_busy_by_name(self, name, timeout=None, msg=None):
+    def wait_for_application_while_busy_by_name(self, name, retry="10x", retry_interval="1s", msg=None):
         """
-        Wait for application when in busy state until timeout is reached.
+        Wait for application when in busy state until retry is exhausted.
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
 
         Arguments:
-        | Argument    | Type   | Description                                        |
-        | name        | string | Name from application to wait                      |
-        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used |
-        | msg         | string | Custom error message                               |
+        | Argument       | Type          | Description                                         |
+        | name           | string        | Name from application to wait                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait For Application While Busy By Name  <NAME>  <TIMEOUT> |
+        | Wait For Application While Busy By Name  <NAME> |
+        | Wait For Application While Busy By Name  <NAME>  10x  1s |
+        | Wait For Application While Busy By Name  <NAME>  10x  200ms |
 
         Raise FlaUiError:
         | If application could not be found by name. |
-
-        Returns:
-        | True if the application is idle, false otherwise |
+        | If retry is exhausted. |
 
         """
         module = self._container.create_or_get_module()
-        return module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_NAME,
-                             Application.create_value_container(name=name, timeout=timeout, msg=msg),
-                             msg)
+        module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_NAME,
+                      Application.create_value_container(name=name,
+                                                         retry=retry,
+                                                         retry_interval=retry_interval,
+                                                         msg=msg),
+                      msg)
 
     @keyword
-    def wait_for_application_while_busy_by_pid(self, pid, timeout=None, msg=None):
+    def wait_for_application_while_busy_by_pid(self, pid, retry="10x", retry_interval="1s", msg=None):
         """
-        Wait for application when in busy state until timeout is reached.
+        Wait for application when in busy state until retry is exhausted.
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
 
         Arguments:
-        | Argument    | Type   | Description                                        |
-        | pid         | number | PID from application to wait                       |
-        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
-        | msg         | string | Custom error message                               |
+        | Argument       | Type          | Description                                         |
+        | pid            | number        | PID from application to wait                        |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait For Application While Busy By Pid  <PID>  <TIMEOUT> |
-
-        Raise FlaUiError:
-        | If application could not be found by name. |
-
-        Returns:
-        | True if the application is idle, false otherwise |
-
-        """
-        module = self._container.create_or_get_module()
-        return module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_PID,
-                             Application.create_value_container(pid=pid, timeout=timeout, msg=msg),
-                             msg)
-
-    @keyword
-    def wait_for_application_handle_by_pid(self, pid, timeout=None, msg=None):
-        """
-        Wait for application handle until timeout is reached.
-
-        Arguments:
-        | Argument    | Type   | Description                                        |
-        | pid         | number | PID from application to wait                       |
-        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used      |
-        | msg         | string | Custom error message                               |
-
-        Example:
-        | Wait For Application Handle By Pid  <PID>  <TIMEOUT> |
+        | Wait For Application While Busy By Pid  <PID> |
+        | Wait For Application While Busy By Pid  <PID>  10x  1s |
+        | Wait For Application While Busy By Pid  <PID>  10x  200ms |
 
         Raise FlaUiError:
         | If application could not be found by pid. |
-
-        Returns:
-        | True a main window handle was found, false otherwise |
+        | If retry is exhausted. |
 
         """
         module = self._container.create_or_get_module()
-        return module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_PID,
-                             Application.create_value_container(pid=pid, timeout=timeout, msg=msg),
-                             msg)
+        module.action(Application.Action.WAIT_WHILE_APPLICATION_IS_BUSY_BY_PID,
+                      Application.create_value_container(pid=pid,
+                                                         retry=retry,
+                                                         retry_interval=retry_interval,
+                                                         msg=msg),
+                      msg)
 
     @keyword
-    def wait_for_application_handle_by_name(self, name, timeout=None, msg=None):
+    def wait_for_application_handle_by_pid(self, pid, retry="10x", retry_interval="1s", msg=None):
         """
-        Wait for application handle until timeout is reached.
+        Wait for application handle until retry is exhausted.
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
 
         Arguments:
-        | Argument    | Type   | Description                                        |
-        | name        | string | Name from application to wait                      |
-        | timeout     | number | Timeout to wait in milliseconds. If timeout is not set INFINITY will be used       |
-        | msg         | string | Custom error message                               |
+        | Argument       | Type          | Description                                         |
+        | pid            | number        | PID from application to wait                        |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait For Application Handle By Name  <NAME>  <TIMEOUT> |
+        | Wait For Application Handle By Pid  <PID> |
+        | Wait For Application Handle By Pid  <PID>  10x  1s |
+        | Wait For Application Handle By Pid  <PID>  10x  200ms |
+
+        Raise FlaUiError:
+        | If application could not be found by pid. |
+        | If retry is exhausted. |
+
+        """
+        module = self._container.create_or_get_module()
+        module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_PID,
+                      Application.create_value_container(pid=pid,
+                                                         retry=retry,
+                                                         retry_interval=retry_interval,
+                                                         msg=msg),
+                      msg)
+
+    @keyword
+    def wait_for_application_handle_by_name(self, name, retry="10x", retry_interval="1s", msg=None):
+        """
+        Wait for application handle until retry is exhausted.
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
+
+        Arguments:
+        | Argument       | Type          | Description                                         |
+        | name           | string        | Name from application to wait                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
+
+        Example:
+        | Wait For Application Handle By Name  <NAME> |
+        | Wait For Application Handle By Name  <NAME>  10x  1s |
+        | Wait For Application Handle By Name  <NAME>  10x  200ms |
 
         Raise FlaUiError:
         | If application could not be found by name. |
-
-        Returns:
-        | True a main window handle was found, false otherwise |
+        | If retry is exhausted. |
         """
         module = self._container.create_or_get_module()
-        return module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_NAME,
-                             Application.create_value_container(name=name, timeout=timeout, msg=msg),
-                             msg)
+        module.action(Application.Action.WAIT_WHILE_APPLICATION_HANDLE_IS_MISSING_BY_NAME,
+                      Application.create_value_container(name=name,
+                                                         retry=retry,
+                                                         retry_interval=retry_interval,
+                                                         msg=msg),
+                      msg)

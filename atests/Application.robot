@@ -100,15 +100,13 @@ Attach And Close Two Separate Applications By Name
 Wait For Application While Busy By Name Without Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application While Busy By Name    WpfApplication
-    Should Be True    ${RESULT}
+    Wait For Application While Busy By Name    WpfApplication
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application While Busy By Name With Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application While Busy By Name    WpfApplication    1000
-    Should Be True    ${RESULT}
+    Wait For Application While Busy By Name    WpfApplication    10x    1s
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application While Busy By Name Except Error
@@ -122,15 +120,13 @@ Wait For Application While Busy By Name Except Error
 Wait For Application While Busy By PID Without Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application While Busy By PID    ${PID}
-    Should Be True    ${RESULT}
+    Wait For Application While Busy By PID    ${PID}
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application While Busy By PID With Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application While Busy By PID    ${PID}    1000
-    Should Be True    ${RESULT}
+    Wait For Application While Busy By PID    ${PID}    10x    200ms
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application While Busy By PID Except Error
@@ -144,15 +140,13 @@ Wait For Application While Busy By PID Except Error
 Wait For Application Handle By Name Without Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application Handle By Name    WpfApplication
-    Should Be True    ${RESULT}
+    Wait For Application Handle By Name    WpfApplication
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application Handle By Name With Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application Handle By Name    WpfApplication    1000
-    Should Be True    ${RESULT}
+    Wait For Application Handle By Name    WpfApplication    10x    1s
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application Handle By Name Except Error
@@ -166,15 +160,13 @@ Wait For Application Handle By Name Except Error
 Wait For Application Handle By PID Without Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application Handle By PID    ${PID}
-    Should Be True    ${RESULT}
+    Wait For Application Handle By PID    ${PID}
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application Handle By PID With Timeout
     [Setup]    Start Application
     ${PID}    Attach Application By Name    ${TEST_APP}
-    ${RESULT}    Wait For Application Handle By PID    ${PID}    1000
-    Should Be True    ${RESULT}
+    Wait For Application Handle By PID    ${PID}    10x    200ms
     [Teardown]    Stop Application    ${PID}
 
 Wait For Application Handle By PID Except Error

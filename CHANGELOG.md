@@ -7,6 +7,172 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- Wait keywords use the same retry API as BuiltIn.Wait Until Keyword Succeeds (`retry` and `retry_interval`)
+  - First extra argument `retry` is a count (`10x`, `5 times`) or a timeout (`10s`)
+  - Second extra argument `retry_interval` is the wait after a failed attempt (`1s`, `200ms`)
+  - `retries` argument is removed from element Wait keywords
+  - Bare numbers for `retry` are seconds, not retry counts
+  - Default wait is `10x` with a `1s` retry interval
+  - Application Wait keywords no longer wait infinitely when retry is omitted
+  - Exhausted retry raises FlaUiError
+  - Application Wait keywords no longer return True
+  - Wait Until Element Is Offscreen raises `Element is visible` when retry is exhausted
+  - Library import `timeout` and keywords Set Retry Timeout / Reset Retry Timeout are unchanged and still used for delayed find-element retries
+
+  #### Wait Until Element Exist
+
+  Before:
+
+  ```robotframework
+  Wait Until Element Exist    ${XPATH}
+  Wait Until Element Exist    ${XPATH}    10
+  Wait Until Element Exist    ${XPATH}    1
+  Wait Until Element Exist    ${XPATH}    10    Custom error
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait Until Element Exist    ${XPATH}
+  Wait Until Element Exist    ${XPATH}    10x
+  Wait Until Element Exist    ${XPATH}    2x    1s
+  Wait Until Element Exist    ${XPATH}    10x    200ms
+  Wait Until Element Exist    ${XPATH}    10x    1s    msg=Custom error
+  ```
+
+  #### Wait Until Element Does Not Exist
+
+  Before:
+
+  ```robotframework
+  Wait Until Element Does Not Exist    ${XPATH}
+  Wait Until Element Does Not Exist    ${XPATH}    10
+  Wait Until Element Does Not Exist    ${XPATH}    1
+  Wait Until Element Does Not Exist    ${XPATH}    10    Custom error
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait Until Element Does Not Exist    ${XPATH}
+  Wait Until Element Does Not Exist    ${XPATH}    10x
+  Wait Until Element Does Not Exist    ${XPATH}    2x    1s
+  Wait Until Element Does Not Exist    ${XPATH}    10x    200ms
+  Wait Until Element Does Not Exist    ${XPATH}    10x    1s    msg=Custom error
+  ```
+
+  #### Wait Until Element Is Enabled
+
+  Before:
+
+  ```robotframework
+  Wait Until Element Is Enabled    ${XPATH}
+  Wait Until Element Is Enabled    ${XPATH}    10
+  Wait Until Element Is Enabled    ${XPATH}    1
+  Wait Until Element Is Enabled    ${XPATH}    10    Custom error
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait Until Element Is Enabled    ${XPATH}
+  Wait Until Element Is Enabled    ${XPATH}    10x
+  Wait Until Element Is Enabled    ${XPATH}    2x    1s
+  Wait Until Element Is Enabled    ${XPATH}    10x    200ms
+  Wait Until Element Is Enabled    ${XPATH}    10x    1s    msg=Custom error
+  ```
+
+  #### Wait Until Element Is Offscreen
+
+  Before:
+
+  ```robotframework
+  Wait Until Element Is Offscreen    ${XPATH}
+  Wait Until Element Is Offscreen    ${XPATH}    10
+  Wait Until Element Is Offscreen    ${XPATH}    1
+  Wait Until Element Is Offscreen    ${XPATH}    10    Custom error
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait Until Element Is Offscreen    ${XPATH}
+  Wait Until Element Is Offscreen    ${XPATH}    10x
+  Wait Until Element Is Offscreen    ${XPATH}    2x    1s
+  Wait Until Element Is Offscreen    ${XPATH}    10x    200ms
+  Wait Until Element Is Offscreen    ${XPATH}    10x    1s    msg=Custom error
+  ```
+
+  #### Wait For Application Handle By Name
+
+  Before:
+
+  ```robotframework
+  Wait For Application Handle By Name    WpfApplication
+  Wait For Application Handle By Name    WpfApplication    1000
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait For Application Handle By Name    WpfApplication
+  Wait For Application Handle By Name    WpfApplication    10x    1s
+  Wait For Application Handle By Name    WpfApplication    10x    200ms
+  ```
+
+  #### Wait For Application Handle By Pid
+
+  Before:
+
+  ```robotframework
+  Wait For Application Handle By Pid    ${PID}
+  Wait For Application Handle By Pid    ${PID}    1000
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait For Application Handle By Pid    ${PID}
+  Wait For Application Handle By Pid    ${PID}    10x    1s
+  Wait For Application Handle By Pid    ${PID}    10x    200ms
+  ```
+
+  #### Wait For Application While Busy By Name
+
+  Before:
+
+  ```robotframework
+  Wait For Application While Busy By Name    WpfApplication
+  Wait For Application While Busy By Name    WpfApplication    1000
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait For Application While Busy By Name    WpfApplication
+  Wait For Application While Busy By Name    WpfApplication    10x    1s
+  Wait For Application While Busy By Name    WpfApplication    10x    200ms
+  ```
+
+  #### Wait For Application While Busy By Pid
+
+  Before:
+
+  ```robotframework
+  Wait For Application While Busy By Pid    ${PID}
+  Wait For Application While Busy By Pid    ${PID}    1000
+  ```
+
+  Afterwards:
+
+  ```robotframework
+  Wait For Application While Busy By Pid    ${PID}
+  Wait For Application While Busy By Pid    ${PID}    10x    1s
+  Wait For Application While Busy By Pid    ${PID}    10x    200ms
+  ```
+
 ## [Release][5.1.1] [5.1.1][5.1.0-5.1.1] - 2026-08-28
 
 ### Added
