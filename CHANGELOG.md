@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.1.1] [5.1.1][5.1.0-5.1.1] - 2026-08-28
+
 ### Added
 
 - Acceptance tests for dynamically changed AutomationId, Name and child elements, see [#79](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/79)
@@ -868,7 +870,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.1...main
+
+[5.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.1.1
+
+[5.1.0-5.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.0...5.1.1
 
 [5.1.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.1.0
 
