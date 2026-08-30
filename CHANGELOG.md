@@ -7,9 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.2.0] [5.2.0][5.1.1-5.2.0] - 2026-08-30
+
 ### Changed
 
-- Wait keywords use the same retry API as BuiltIn.Wait Until Keyword Succeeds (`retry` and `retry_interval`)
+- [#201](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/201) Wait keywords use the same retry API as BuiltIn.Wait Until Keyword Succeeds (`retry` and `retry_interval`)
   - First extra argument `retry` is a count (`10x`, `5 times`) or a timeout (`10s`)
   - Second extra argument `retry_interval` is the wait after a failed attempt (`1s`, `200ms`)
   - `retries` argument is removed from element Wait keywords
@@ -1036,7 +1038,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.2.0...main
+
+[5.2.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.2.0
+
+[5.1.1-5.2.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.1.1...5.2.0
 
 [5.1.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.1.1
 
