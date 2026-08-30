@@ -107,7 +107,7 @@ class UIA(WindowsAutomationInterface, ABC):
             msg (String)                 : Custom error message
         """
         element = self.action(Element.Action.GET_ELEMENT,
-                              Element.Container(xpath=identifier, retries=None, name=None),
+                              Element.create_value_container(xpath=identifier),
                               msg)
 
         if not ui_type:

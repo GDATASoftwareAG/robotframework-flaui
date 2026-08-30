@@ -111,7 +111,7 @@ class KeyboardKeywords:
         module = self._container.create_or_get_module()
         if KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
-                          Element.create_value_container(xpath=identifier, retries=None, name=None),
+                          Element.create_value_container(xpath=identifier),
                           msg)
 
         module.action(Keyboard.Action.KEY_COMBINATION,
@@ -166,7 +166,7 @@ class KeyboardKeywords:
         module = self._container.create_or_get_module()
         if KeywordUtil.has_identifier(identifier):
             module.action(Element.Action.FOCUS_ELEMENT,
-                          Element.create_value_container(xpath=identifier, retries=None, name=None),
+                          Element.create_value_container(xpath=identifier),
                           msg)
 
         module.action(Keyboard.Action.KEYS_COMBINATIONS,

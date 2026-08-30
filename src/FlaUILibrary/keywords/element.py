@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 from robotlibcore import keyword
 from FlaUILibrary.flaui.module.element import Element
 from FlaUILibrary.flaui.util.automationinterfacecontainer import AutomationInterfaceContainer
@@ -397,102 +398,150 @@ class ElementKeywords:
                       msg)
 
     @keyword
-    def wait_until_element_is_offscreen(self, identifier, retries=10, msg=None):
+    def wait_until_element_is_offscreen(self, identifier, retry="10x", retry_interval="1s", msg=None):
         """
-        Waits until element is offscreen or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element is offscreen or retry is exhausted.
 
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
         | Element <XPATH> is visible          |
 
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
+
         Arguments:
-        | Argument   | Type   | Description                                                           |
-        | identifier | string | XPath identifier from element                                         |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
-        | msg        | string | Custom error message                                                  |
+        | Argument       | Type          | Description                                         |
+        | identifier     | string        | XPath identifier from element                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Is Offscreen  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Is Offscreen  <XPATH> |
+        | Wait Until Element Is Offscreen  <XPATH>  10x |
+        | Wait Until Element Is Offscreen  <XPATH>  2x  1s |
+        | Wait Until Element Is Offscreen  <XPATH>  10x  200ms |
+        | Wait Until Element Is Offscreen  <XPATH>  10s  1s  msg=<MSG> |
         """
         module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_OFFSCREEN,
-                      Element.create_value_container(xpath=identifier, retries=retries),
+                      Element.create_value_container(xpath=identifier,
+                                                     retry=retry,
+                                                     retry_interval=retry_interval,
+                                                     msg=msg),
                       msg)
 
     @keyword
-    def wait_until_element_exist(self, identifier, retries=10, msg=None):
+    def wait_until_element_exist(self, identifier, retry="10x", retry_interval="1s", msg=None):
         """
-        Waits until element exist or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element exist or retry is exhausted.
 
         XPaths syntax is explained in `XPath locator`.
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
-        | Element <XPATH> is not enabled      |
+        | Element <XPATH> does not exist      |
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
 
         Arguments:
-        | Argument   | Type   | Description                                                            |
-        | identifier | string | XPath identifier from element                                          |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
-        | msg        | string | Custom error message                                                   |
+        | Argument       | Type          | Description                                         |
+        | identifier     | string        | XPath identifier from element                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait Until Element Exist  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Exist  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Exist  <XPATH> |
+        | Wait Until Element Exist  <XPATH>  10x |
+        | Wait Until Element Exist  <XPATH>  2x  1s |
+        | Wait Until Element Exist  <XPATH>  10x  200ms |
+        | Wait Until Element Exist  <XPATH>  10s  1s  msg=<MSG> |
         """
         module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_EXIST,
-                      Element.create_value_container(xpath=identifier, retries=retries),
+                      Element.create_value_container(xpath=identifier,
+                                                     retry=retry,
+                                                     retry_interval=retry_interval,
+                                                     msg=msg),
                       msg)
 
     @keyword
-    def wait_until_element_does_not_exist(self, identifier, retries=10, msg=None):
+    def wait_until_element_does_not_exist(self, identifier, retry="10x", retry_interval="1s", msg=None):
         """
-        Waits until element does not exist or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element does not exist or retry is exhausted.
 
         XPaths syntax is explained in `XPath locator`.
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
-        | Element <XPATH> is not enabled      |
+        | Element <XPATH> exists              |
+
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
 
         Arguments:
-        | Argument   | Type   | Description                                                            |
-        | identifier | string | XPath identifier from element                                          |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
-        | msg        | string | Custom error message                                                   |
+        | Argument       | Type          | Description                                         |
+        | identifier     | string        | XPath identifier from element                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Does Not Exist  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Does Not Exist  <XPATH> |
+        | Wait Until Element Does Not Exist  <XPATH>  10x |
+        | Wait Until Element Does Not Exist  <XPATH>  2x  1s |
+        | Wait Until Element Does Not Exist  <XPATH>  10x  200ms |
+        | Wait Until Element Does Not Exist  <XPATH>  10s  1s  msg=<MSG> |
         """
         module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_DOES_NOT_EXIST,
-                      Element.create_value_container(xpath=identifier, retries=retries),
+                      Element.create_value_container(xpath=identifier,
+                                                     retry=retry,
+                                                     retry_interval=retry_interval,
+                                                     msg=msg),
                       msg)
 
     @keyword
-    def wait_until_element_is_enabled(self, identifier, retries=10, msg=None):
+    def wait_until_element_is_enabled(self, identifier, retry="10x", retry_interval="1s", msg=None):
         """
-        Waits until element is enabled or timeout was reached. If timeout was reached an FlaUIError occurred.
+        Waits until element is enabled or retry is exhausted.
 
         XPaths syntax is explained in `XPath locator`.
         Possible FlaUI-Errors:
         | Element could not be found by xpath |
         | Element <XPATH> is not enabled      |
 
+        Retry and retry_interval follow BuiltIn.Wait Until Keyword Succeeds.
+        Retry can be a count (``10x``, ``5 times``) or a timeout (``10s``). A bare number is seconds.
+        Retry_interval is the time to wait after a failed attempt.
+        Exhausted retry raises FlaUiError.
+
         Arguments:
-        | Argument   | Type   | Description                                                           |
-        | identifier | string | XPath identifier from element                                         |
-        | retries    | number | Maximum amount of retries per seconds to wait. By default, 10 retries. |
-        | msg        | string | Custom error message                                                  |
+        | Argument       | Type          | Description                                         |
+        | identifier     | string        | XPath identifier from element                       |
+        | retry          | number/string | Retry count or timeout. Default is ``10x``.         |
+        | retry_interval | number/string | Wait after a failed attempt. Default is ``1s``.     |
+        | msg            | string        | Custom error message                                |
 
         Example:
-        | Wait Until Element Is Enabled  <XPATH>  <RETRIES=10> |
-        | Wait Until Element Is Enabled  <XPATH>  <RETRIES=10>  <MSG> |
+        | Wait Until Element Is Enabled  <XPATH> |
+        | Wait Until Element Is Enabled  <XPATH>  10x |
+        | Wait Until Element Is Enabled  <XPATH>  2x  1s |
+        | Wait Until Element Is Enabled  <XPATH>  10x  200ms |
+        | Wait Until Element Is Enabled  <XPATH>  10s  1s  msg=<MSG> |
         """
         module = self._container.create_or_get_module()
         module.action(Element.Action.WAIT_UNTIL_ELEMENT_IS_ENABLED,
-                      Element.create_value_container(xpath=identifier, retries=retries),
+                      Element.create_value_container(xpath=identifier,
+                                                     retry=retry,
+                                                     retry_interval=retry_interval,
+                                                     msg=msg),
                       msg)
 
     @keyword

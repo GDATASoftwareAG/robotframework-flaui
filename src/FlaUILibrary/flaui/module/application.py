@@ -1,9 +1,11 @@
+import time
 from enum import Enum
 import os
 from typing import Optional, Any
 import FlaUI.Core  # pylint: disable=import-error
 from System.ComponentModel import Win32Exception  # pylint: disable=import-error
 from FlaUILibrary.flaui.util.converter import Converter
+from FlaUILibrary.flaui.util.waiter import Waiter
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
@@ -22,7 +24,9 @@ class Application(ModuleInterface):
         name: Optional[str]
         pid: Optional[int]
         args: Optional[str]
-        timeout: Optional[int]
+        retry_mode: Optional[str]
+        retry_value: Optional[float]
+        retry_interval: Optional[float]
 
     class ApplicationContainer:
         """
@@ -67,7 +71,12 @@ class Application(ModuleInterface):
         self._applications = []
 
     @staticmethod
-    def create_value_container(name=None, pid=None, timeout=None, args=None, msg=None) -> Container:
+    def create_value_container(name=None,
+                               pid=None,
+                               retry="10x",
+                               retry_interval="1s",
+                               args=None,
+                               msg=None) -> Container:
         """
         Helper to create container object.
 
@@ -77,13 +86,18 @@ class Application(ModuleInterface):
         Args:
             name (String): Name from application
             pid (Number): PID number to attach to process
-            timeout (Number) : Timeout to wait for Handle or Application
+            retry (Number | String): Wait Until Keyword Succeeds retry as count or timeout
+            retry_interval (Number | String): Time to wait after a failed attempt
             args (String): Arguments to use by application
             msg (String): Optional error message
         """
+        retry_mode, retry_value = Converter.cast_to_retry(retry, default="10x", error_msg=msg)
         return Application.Container(name=Converter.cast_to_string(name),
                                      pid=Converter.cast_to_int(pid, msg),
-                                     timeout=Converter.cast_to_int(timeout, msg),
+                                     retry_mode=retry_mode,
+                                     retry_value=retry_value,
+                                     retry_interval=Converter.cast_to_timestr_seconds(
+                                         retry_interval, default=1, error_msg=msg),
                                      args=Converter.cast_to_string(args))
 
     def execute_action(self, action: Action, values: Container) -> Any:
@@ -309,73 +323,124 @@ class Application(ModuleInterface):
 
         return os.path.splitext(os.path.basename(str(name).strip()))[0].casefold()
 
-    def _wait_while_main_handle_is_missing_by_pid(self, container: Container) -> bool:
+    def _wait_while_main_handle_is_missing_by_pid(self, container: Container) -> None:
         """
         Wait until the main window handle for the application identified by pid is available.
 
         Args:
-            container (Container): Must contain `pid` and optional `timeout`.
-
-        Returns:
-            bool: True if a main window handle was found within the timeout, False otherwise.
+            container (Container): Must contain `pid`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the application cannot be found by pid.
+            FlaUiError: If the application cannot be found by pid or retry is exhausted.
         """
-        timeout = container["timeout"]
         application = self._flaui_attach_application_by_pid(container["pid"])
-        return application.WaitWhileMainHandleIsMissing(Converter.cast_to_timespan(timeout))
+        self._wait_for_application(
+            application.WaitWhileMainHandleIsMissing,
+            container,
+            lambda: FlaUiError(FlaUiError.ApplicationHandleIsMissing.format(container["pid"]))
+        )
 
-    def _wait_while_main_handle_is_missing_by_name(self, container: Container) -> bool:
+    def _wait_while_main_handle_is_missing_by_name(self, container: Container) -> None:
         """
         Wait until the main window handle for the application identified by name is available.
 
         Args:
-            container (Container): Must contain `name` and optional `timeout`.
-
-        Returns:
-            bool: True if a main window handle was found within the timeout, False otherwise.
+            container (Container): Must contain `name`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the application cannot be found by name.
+            FlaUiError: If the application cannot be found by name or retry is exhausted.
         """
-        timeout = container["timeout"]
         application = self._flaui_attach_application_by_name(container["name"])
-        return application.WaitWhileMainHandleIsMissing(Converter.cast_to_timespan(timeout))
+        self._wait_for_application(
+            application.WaitWhileMainHandleIsMissing,
+            container,
+            lambda: FlaUiError(FlaUiError.ApplicationHandleIsMissing.format(container["name"]))
+        )
 
-    def _wait_while_busy_by_pid(self, container: Container) -> bool:
+    def _wait_while_busy_by_pid(self, container: Container) -> None:
         """
         Wait until the application identified by pid is no longer busy.
 
         Args:
-            container (Container): Must contain `pid` and optional `timeout`.
-
-        Returns:
-            bool: True if the application became idle within the timeout, False otherwise.
+            container (Container): Must contain `pid`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the application cannot be found by pid.
+            FlaUiError: If the application cannot be found by pid or retry is exhausted.
         """
-        timeout = container["timeout"]
         application = self._flaui_attach_application_by_pid(container["pid"])
-        return application.WaitWhileBusy(Converter.cast_to_timespan(timeout))
+        self._wait_for_application(
+            application.WaitWhileBusy,
+            container,
+            lambda: FlaUiError(FlaUiError.ApplicationIsBusy.format(container["pid"]))
+        )
 
-    def _wait_while_busy_by_name(self, container: Container) -> bool:
+    def _wait_while_busy_by_name(self, container: Container) -> None:
         """
         Wait until the application identified by name is no longer busy.
 
         Args:
-            container (Container): Must contain `name` and optional `timeout`.
-
-        Returns:
-            bool: True if the application became idle within the timeout, False otherwise.
+            container (Container): Must contain `name`, `retry_mode`, `retry_value` and `retry_interval`.
 
         Raises:
-            FlaUiError: If the application cannot be found by name.
+            FlaUiError: If the application cannot be found by name or retry is exhausted.
         """
-        timeout = container["timeout"]
         application = self._flaui_attach_application_by_name(container["name"])
-        return application.WaitWhileBusy(Converter.cast_to_timespan(timeout))
+        self._wait_for_application(
+            application.WaitWhileBusy,
+            container,
+            lambda: FlaUiError(FlaUiError.ApplicationIsBusy.format(container["name"]))
+        )
+
+    @staticmethod
+    def _wait_for_application(wait_method, container: Container, error_factory) -> None:
+        """
+        Poll a FlaUI application wait method until it succeeds or retry is exhausted.
+
+        Attach errors are raised by the caller before this helper is used.
+        Each attempt waits up to ``retry_interval`` inside FlaUI, so the waiter does
+        not add an extra sleep.
+
+        Args:
+            wait_method: FlaUI WaitWhileBusy or WaitWhileMainHandleIsMissing.
+            container (Container): Must contain `retry_mode`, `retry_value` and `retry_interval`.
+            error_factory: Factory for the FlaUiError when retry is exhausted.
+
+        Raises:
+            FlaUiError: If retry is exhausted.
+        """
+        slice_ms = int(container["retry_interval"] * 1000)
+        retry_mode = container["retry_mode"]
+        retry_value = container["retry_value"]
+        deadline = time.monotonic() + retry_value if retry_mode == "timeout" else None
+
+        Waiter.wait_until(
+            lambda: Application._wait_application_slice(wait_method, slice_ms, deadline),
+            retry_mode,
+            retry_value,
+            0,
+            error_factory
+        )
+
+    @staticmethod
+    def _wait_application_slice(wait_method, slice_ms: int, deadline: Optional[float]) -> bool:
+        """
+        Run one FlaUI wait slice, capped by remaining timeout when a deadline is set.
+
+        Args:
+            wait_method: FlaUI WaitWhileBusy or WaitWhileMainHandleIsMissing.
+            slice_ms (int): Maximum wait duration for this attempt in milliseconds.
+            deadline (Optional[float]): Monotonic deadline for timeout mode, otherwise None.
+
+        Returns:
+            bool: True if the FlaUI wait succeeded, False if the deadline has passed.
+        """
+        wait_ms = slice_ms
+        if deadline is not None:
+            remaining_ms = int((deadline - time.monotonic()) * 1000)
+            if remaining_ms <= 0:
+                return False
+            wait_ms = min(slice_ms, remaining_ms)
+        return wait_method(Converter.cast_to_timespan(wait_ms))
 
     def _exists_pid(self, pid: int) -> bool:
         """
@@ -422,7 +487,7 @@ class Application(ModuleInterface):
             raise FlaUiError(FlaUiError.ApplicationNotFound.format(application)) from None
 
     @staticmethod
-    def _flaui_launch_application(application: str, arguments: Optional[str]= None) -> Any:
+    def _flaui_launch_application(application: str, arguments: Optional[str] = None) -> Any:
         """
         Launch an application via FlaUI, optionally with command-line arguments.
 

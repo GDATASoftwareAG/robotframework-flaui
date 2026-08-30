@@ -5,6 +5,8 @@ class FlaUiError(AttributeError):
     GenericError = "{}"
     ArrayOutOfBoundException = "Given index '{}' could not be found by element"
     ValueShouldBeANumber = "Given value '{}' should be number"
+    InvalidTimeString = "Invalid time string '{}'"
+    InvalidRetryValue = "Invalid retry value '{}'"
     ApplicationNotFound = "Application '{}' could not be found"
     ApplicationNotAttached = "Application is not attached"
     ApplicationPidNotFound = "Application with pid {} could not be found"
@@ -54,6 +56,8 @@ class FlaUiError(AttributeError):
     NotSupportedFileSuffix = "Not supported file suffix"
     IdentifierOrCoordinatesRequired = "An element identifier or x and y coordinates must be provided"
     BothCoordinatesRequired = "Both x and y coordinates must be provided"
+    ApplicationIsBusy = "Application '{}' is still busy"
+    ApplicationHandleIsMissing = "Application '{}' main handle is missing"
 
     @staticmethod
     def raise_fla_ui_error(message):

@@ -58,7 +58,7 @@ Element Should Be Found After Delayed Automation Id Change
     ${RINGING_EXISTS}    Element Should Exist    ${XPATH_DELAYED_ID_RINGING}    ${FALSE}
     Should Be Equal    ${RINGING_EXISTS}    ${FALSE}
     Invoke Button    ${XPATH_START_DELAYED}
-    Wait Until Element Exist    ${XPATH_DELAYED_ID_RINGING}    5
+    Wait Until Element Exist    ${XPATH_DELAYED_ID_RINGING}    5x    1s
     ${CHILDS}    Get Childs From Element    ${XPATH_DYNAMIC_GROUP}
     Log    ${CHILDS}
     Should Contain    ${CHILDS}    AutomationId:DelayedIdButtonRinging

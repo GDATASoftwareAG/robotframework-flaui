@@ -3,6 +3,8 @@ ${CUSTOM_ERR_MSG}                               You shall not pass
 ${EXP_GENERIC_ERR_MSG}                          FlaUiError: {0}
 ${EXP_CUSTOM_ERR_MSG}                           FlaUiError: You shall not pass
 ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}         FlaUiError: Given value '{0}' should be number
+${EXP_ERR_MSG_INVALID_TIME_STRING}              FlaUiError: Invalid time string '{0}'
+${EXP_ERR_MSG_INVALID_RETRY_VALUE}              FlaUiError: Invalid retry value '{0}'
 ${EXP_ERR_MSG_ARRAY_OUT_OF_BOUND}               FlaUiError: Given index '{0}' could not be found by element
 ${EXP_ERR_MSG_NO_ELEMENT_ATTACHED}              FlaUiError: No element attached
 ${EXP_ERR_MSG_XPATH_NOT_FOUND}                  FlaUiError: Element from XPath '{0}' could not be found

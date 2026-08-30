@@ -292,19 +292,19 @@ Wait Until Element Is Offscreen
     Element Should Not Exist    ${MAIN_WINDOW_NOTIFIER}
 
 Wait Until Element Is Offscreen Default Timeout Reached
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}    ${MAIN_WINDOW}
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_VISIBLE}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 10
+    Should Be True    ${TOTAL_MS} >= 9
     Should Be True    ${TOTAL_MS} < 11
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Offscreen Timeout Reached After One Second
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_OFFSCREEN}    ${MAIN_WINDOW}
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_VISIBLE}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}    1
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}    2x    1s
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 1
@@ -312,7 +312,7 @@ Wait Until Element Is Offscreen Timeout Reached After One Second
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Offscreen Wrong Argument
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    "I'm not a number"
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_INVALID_RETRY_VALUE}    "I'm not a number"
     ${ERR_MSG}    Run Keyword And Expect Error
     ...    *
     ...    Wait Until Element Is Offscreen
@@ -330,20 +330,20 @@ Wait Until Element Is Enabled Default Timeout Reached
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 10
+    Should Be True    ${TOTAL_MS} >= 9
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Enabled Timeout Reached After One Second
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}    ${XPATH_ENABLE_ELEMENT}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}    1
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}    2x    1s
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 1
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Enabled Timeout Wrong Number
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    "I'm not a number"
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_INVALID_RETRY_VALUE}    "I'm not a number"
     ${ERR_MSG}    Run Keyword And Expect Error
     ...    *
     ...    Wait Until Element Is Enabled
@@ -363,20 +363,20 @@ Wait Until Element Does Not Exists DeFault Timeout
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 10
+    Should Be True    ${TOTAL_MS} >= 9
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Does Not Exists Timeout Reached After One Second
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_EXISTS}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    1
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    2x    1s
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 1
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Does Not Exists Timeout Is Reached By Wrong Number
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    "I'm not a number"
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_INVALID_RETRY_VALUE}    "I'm not a number"
     ${ERR_MSG}    Run Keyword And Expect Error
     ...    *
     ...    Wait Until Element Does Not Exist
@@ -396,22 +396,42 @@ Wait Until Element Exist Default Timeout
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 10
+    Should Be True    ${TOTAL_MS} >= 9
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Exist Timeout Reached After One Second
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    1
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    1s
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
     Should Be True    ${TOTAL_MS} >= 1
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
+Wait Until Element Exist Timeout Reached After One Second By Milliseconds
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_BEFORE}    Get Current Date
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    5x    200ms
+    ${TIME_AFTER}    Get Current Date
+    ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 0.8
+    Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
 Wait Until Element Exist Timeout Is Reached By Wrong Number
-    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_VALUE_SHOULD_BE_A_NUMBER}    "I'm not a number"
+    ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_INVALID_RETRY_VALUE}    "I'm not a number"
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW}    "I'm not a number"
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
+
+Wait Until Element Retry Timeout Is Restored After Wait
+    Set Retry Timeout    3000
+    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    1s
+    ${TIME_BEFORE}    Get Current Date
+    Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
+    ${TIME_AFTER}    Get Current Date
+    ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
+    Should Be True    ${TOTAL_MS} >= 3
+    Should Be True    ${TOTAL_MS} < 4
+    [Teardown]    Reset Retry Timeout
 
 Element Should Be Offscreen
     [Setup]    Open Complex Tab
