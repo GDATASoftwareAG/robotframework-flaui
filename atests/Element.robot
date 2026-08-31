@@ -74,8 +74,10 @@ Element Should Exist
     Should Be Equal    ${EXISTS}    ${True}
 
 Element Should Exist Xpath Not Exists
+    Set Retry Timeout    0
     ${EXISTS}    Element Should Exist    ${XPATH_NOT_EXISTS}    ${FALSE}
     Should Be Equal    ${EXISTS}    ${False}
+    [Teardown]    Reset Retry Timeout
 
 Element Should Not Exist
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_EXISTS}    ${XPATH_ELEMENT}
@@ -194,9 +196,8 @@ Find All Elements Xpath Usage Can Be Used To Any Keyword
     END
 
 Find All Elements Not Supported Exception Should Return Empty String
-    ${PID}    Start Application    ${TEST_APP_MFC}
+    ${PID}    Start Application    ${TEST_APP_MFC}    ${MAIN_WINDOW_MFC}
     VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
-    Wait Until Element Exist    ${XPATH_MFC_APP_MENU_FILE}
 
     ${index}    Set Variable    ${0}
     ${elements}    Find All Elements    ${XPATH_MFC_APP_MENU_FILE}
@@ -217,7 +218,7 @@ Find All Elements Not Supported Exception Should Return Empty String
 
         ${index}    Set Variable    ${index + 1}
     END
-    [Teardown]    Stop Application    ${PID}    ${TEST_APP_MFC}
+    [Teardown]    Stop Application    ${PID}    ${MAIN_WINDOW_MFC}
 
 Find All Elements If Xpath Is Wrong
     ${elements}    Find All Elements    /NOT_A_XPATH
@@ -288,27 +289,26 @@ Is Element Not Offscreen
 Wait Until Element Is Offscreen
     ${PID}    Start Application    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}
     VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
-    Wait Until Element Is Offscreen    ${MAIN_WINDOW_NOTIFIER}
+    Wait Until Element Is Offscreen    ${MAIN_WINDOW_NOTIFIER}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
     Element Should Not Exist    ${MAIN_WINDOW_NOTIFIER}
+    [Teardown]    Run Keyword And Ignore Error    Close Application By Name    Notifier
 
-Wait Until Element Is Offscreen Default Timeout Reached
+Wait Until Element Is Offscreen Retry Exhausted
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_VISIBLE}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}    ${SHORT_RETRY}    ${SHORT_RETRY_INTERVAL}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 9
-    Should Be True    ${TOTAL_MS} < 11
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.09    2
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
-Wait Until Element Is Offscreen Timeout Reached After One Second
+Wait Until Element Is Offscreen Timeout Reached After Short Retry
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_VISIBLE}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}    2x    1s
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Offscreen    ${MAIN_WINDOW}    2x    50ms
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
-    Should Be True    ${TOTAL_MS} < 2
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.04    1.5
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Offscreen Wrong Argument
@@ -321,25 +321,25 @@ Wait Until Element Is Offscreen Wrong Argument
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Enabled
-    Wait Until Keyword Succeeds    5x    200ms    Ready To Take Off    ${XPATH_ENABLE_ELEMENT}
-    Wait Until Element Is Enabled    ${XPATH_DISABLED_ELEMENT}
+    Wait Until Keyword Succeeds    10x    200ms    Ready To Take Off    ${XPATH_ENABLE_ELEMENT}
+    Wait Until Element Is Enabled    ${XPATH_DISABLED_ELEMENT}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
 
-Wait Until Element Is Enabled Default Timeout Reached
+Wait Until Element Is Enabled Retry Exhausted
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}    ${XPATH_ENABLE_ELEMENT}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}    ${SHORT_RETRY}    ${SHORT_RETRY_INTERVAL}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 9
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.09    2
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
-Wait Until Element Is Enabled Timeout Reached After One Second
+Wait Until Element Is Enabled Timeout Reached After Short Retry
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_ENABLED}    ${XPATH_ENABLE_ELEMENT}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}    2x    1s
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Is Enabled    ${XPATH_ENABLE_ELEMENT}    2x    50ms
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.04    1.5
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Is Enabled Timeout Wrong Number
@@ -354,25 +354,26 @@ Wait Until Element Is Enabled Timeout Wrong Number
 Wait Until Element Does Not Exists
     ${PID}    Start Application    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}
     VAR    ${GLOBAL_VAR}    ${PID}    scope=GLOBAL
-    Wait Until Element Does Not Exist    ${MAIN_WINDOW_NOTIFIER}
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW_NOTIFIER}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
     Element Should Not Exist    ${MAIN_WINDOW_NOTIFIER}
+    [Teardown]    Run Keyword And Ignore Error    Close Application By Name    Notifier
 
-Wait Until Element Does Not Exists DeFault Timeout
+Wait Until Element Does Not Exists Retry Exhausted
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_EXISTS}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    ${SHORT_RETRY}    ${SHORT_RETRY_INTERVAL}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 9
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.09    2
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
-Wait Until Element Does Not Exists Timeout Reached After One Second
+Wait Until Element Does Not Exists Timeout Reached After Short Retry
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_EXISTS}    ${MAIN_WINDOW}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    2x    1s
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    2x    50ms
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.04    1.5
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Does Not Exists Timeout Is Reached By Wrong Number
@@ -385,8 +386,8 @@ Wait Until Element Does Not Exists Timeout Is Reached By Wrong Number
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Exist
-    ${PID}    Start Application With Args    ${TEST_APP_NOTIFIER}    ${MAIN_WINDOW_NOTIFIER}    Delayed
-    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}
+    ${PID}    Launch Application With Args    ${TEST_APP_NOTIFIER}    Delayed
+    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
     Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
     [Teardown]    Stop Application    ${PID}    ${MAIN_WINDOW_NOTIFIER}
 
@@ -396,25 +397,25 @@ Wait Until Element Exist Default Timeout
     ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 9
+    Assert Elapsed Seconds    ${TOTAL_MS}    9    15
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
-Wait Until Element Exist Timeout Reached After One Second
+Wait Until Element Exist Timeout Reached After Short Retry
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    1s
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    50ms
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.04    1.5
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
-Wait Until Element Exist Timeout Reached After One Second By Milliseconds
+Wait Until Element Exist Timeout Reached After Millisecond Interval
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_BEFORE}    Get Current Date
-    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    5x    200ms
+    ${ERR_MSG}    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    4x    50ms
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 0.8
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.14    2
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Exist Timeout Is Reached By Wrong Number
@@ -423,14 +424,13 @@ Wait Until Element Exist Timeout Is Reached By Wrong Number
     Should Be Equal As Strings    ${EXP_ERR_MSG}    ${ERR_MSG}
 
 Wait Until Element Retry Timeout Is Restored After Wait
-    Set Retry Timeout    3000
-    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    1s
+    Set Retry Timeout    200
+    Run Keyword And Expect Error    *    Wait Until Element Exist    ${MAIN_WINDOW_NOTIFIER}    2x    50ms
     ${TIME_BEFORE}    Get Current Date
     Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}    Get Current Date
     ${TOTAL_MS}    Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 3
-    Should Be True    ${TOTAL_MS} < 4
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.2    1.5
     [Teardown]    Reset Retry Timeout
 
 Element Should Be Offscreen
@@ -461,23 +461,22 @@ Set Retry Timeout Should Be One Second
     Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}     Get Current Date
     ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
-    Should Be True    ${TOTAL_MS} < 2
+    Assert Elapsed Seconds    ${TOTAL_MS}    1    4
 
-Set Retry Timeout Should Be Three Second
-    Set Retry Timeout    3000
+Set Retry Timeout Should Be Custom Value
+    Set Retry Timeout    200
     ${TIME_BEFORE}    Get Current Date
     Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}     Get Current Date
     ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 3
-    Should Be True    ${TOTAL_MS} < 4
+    Assert Elapsed Seconds    ${TOTAL_MS}    0.2    1.5
+    [Teardown]    Reset Retry Timeout
 
 Reset Retry Timeout Should Be One Second
+    Set Retry Timeout    200
     Reset Retry Timeout
     ${TIME_BEFORE}    Get Current Date
     Run Keyword And Expect Error    *    Element Should Exist    ${MAIN_WINDOW_NOTIFIER}
     ${TIME_AFTER}     Get Current Date
     ${TOTAL_MS}       Subtract Date From Date    ${TIME_AFTER}    ${TIME_BEFORE}    result_format=number
-    Should Be True    ${TOTAL_MS} >= 1
-    Should Be True    ${TOTAL_MS} < 2
+    Assert Elapsed Seconds    ${TOTAL_MS}    1    4

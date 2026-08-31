@@ -7,7 +7,7 @@ Library             OperatingSystem
 Library             Process
 Library             String
 Library             StringFormat
-Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    screenshot_mode=BASE64
+Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True    screenshot_mode=BASE64    timeout=0
 Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource

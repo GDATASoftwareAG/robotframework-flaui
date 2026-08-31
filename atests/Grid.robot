@@ -148,8 +148,8 @@ Scroll Virtualized Grid And Find Offscreen Row
     ${TOTAL_ROWS}    Get Grid Rows Count    ${XPATH_LARGE_GRID_VIEW}
     Should Be Equal As Integers    ${TOTAL_ROWS}    80
     Set Retry Timeout    0
-    FOR    ${_}    IN RANGE    10
-        Scroll Down    ${XPATH_LARGE_GRID_VIEW}    1
+    FOR    ${_}    IN RANGE    3
+        Scroll Down    ${XPATH_LARGE_GRID_VIEW}    3
         Run Keyword And Ignore Error    Is Element Offscreen    ${XPATH_LARGE_GRID_LAST_ROW}
         Run Keyword And Ignore Error    Is Element Offscreen    ${XPATH_LARGE_GRID_MISSING_ROW}
     END

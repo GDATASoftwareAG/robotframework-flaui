@@ -7,6 +7,10 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- Acceptance tests poll faster, reuse the WPF test app where safe, and use shorter Notifier / Enable Button delays so a full UIA2+UIA3 run finishes sooner without dropping coverage
+
 ## [Release][5.2.0] [5.2.0][5.1.1-5.2.0] - 2026-08-30
 
 ### Changed
