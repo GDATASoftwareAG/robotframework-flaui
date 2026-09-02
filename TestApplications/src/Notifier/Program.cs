@@ -17,12 +17,16 @@ namespace NotifierTest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (args.Length >= 1)
+            if (args.Length == 1)
             {
-                if (args.Length == 1 && args[0] == "Delayed")
+                if (args[0] == "Delayed")
                 {
-                    Thread.Sleep(300);
+                    Thread.Sleep(3000);
                 }
+                RunNotifierWithoutTimer(args);
+            }
+            if(args.Length >= 1)
+            {
                 RunNotifierWithoutTimer(args);
             }
             else

@@ -20,7 +20,7 @@ Uia3 Tree Stays After Using Uia2
     [Documentation]    UIA3 XPaths must still resolve after a UIA2 lookup in the same run.
     ${PID}    UIA3Lib.Launch Application    ${TEST_APP}
     Should Not Be Equal As Integers    ${PID}    0
-    UIA3Lib.Wait Until Element Exist    ${MAIN_WINDOW}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
+    UIA3Lib.Wait Until Element Exist    ${MAIN_WINDOW}
     UIA3Lib.Focus    ${MAIN_WINDOW}
     ${BEFORE}    UIA3Lib.Get Childs From Element    ${MAIN_WINDOW}
     Should Contain    ${BEFORE}    ${UIA3_TITLEBAR}
@@ -36,7 +36,7 @@ Uia3 Tree After Uia2 Was Used First
     [Documentation]    Using UIA2 first must not make UIA3 walk the UIA2 tree.
     ${PID}    UIA2Lib.Launch Application    ${TEST_APP}
     Should Not Be Equal As Integers    ${PID}    0
-    UIA2Lib.Wait Until Element Exist    ${MAIN_WINDOW}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
+    UIA2Lib.Wait Until Element Exist    ${MAIN_WINDOW}
     UIA2Lib.Focus    ${MAIN_WINDOW}
     ${UIA2_CHILDS}    UIA2Lib.Get Childs From Element    ${MAIN_WINDOW}
     Should Contain    ${UIA2_CHILDS}    ${UIA2_TITLEBAR}

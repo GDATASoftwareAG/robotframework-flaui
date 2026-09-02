@@ -4,13 +4,6 @@ ${WRONG_PID}            99989
 ${TEST_APP}             atests\\apps\\WpfApplication
 ${TEST_APP_NOTIFIER}    atests\\apps\\Notifier
 ${TEST_APP_MFC}         atests\\apps\\MFCApplication
-${FAST_RETRY}           20x
-${FAST_RETRY_INTERVAL}    100ms
-${APP_RETRY}            10s
-${APP_RETRY_INTERVAL}   200ms
-${SHORT_RETRY}          3x
-${SHORT_RETRY_INTERVAL}    50ms
-${MISSING_APPLICATION}    ApplicationDoesNotExist
 
 
 *** Keywords ***
@@ -18,29 +11,16 @@ Init Main Application
     ${PID}    Start Application
     VAR    ${MAIN_PID}    ${PID}    scope=GLOBAL
 
-Stop Main Application If Running
-    Run Keyword And Ignore Error    Close Application By Name    WpfApplication
-    Run Keyword And Ignore Error
-    ...    Wait Until Element Does Not Exist
-    ...    ${MAIN_WINDOW}
-    ...    ${APP_RETRY}
-    ...    ${APP_RETRY_INTERVAL}
-
-Restore Main Application
-    Stop Main Application If Running
-    ${PID}    Start Application
-    VAR    ${MAIN_PID}    ${PID}    scope=GLOBAL
-
 Stop Application
     [Arguments]    ${pid}=${INTERNAL_PID}    ${xpath}=${MAIN_WINDOW}
     Close Application    ${pid}
-    Wait Until Element Does Not Exist    ${xpath}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
+    Wait Until Element Does Not Exist    ${xpath}
 
 Start Application
     [Arguments]    ${application}=${TEST_APP}    ${xpath}=${MAIN_WINDOW}
     ${PID}    Launch Application    ${application}
     Should Not Be Equal As Integers    ${PID}    0
-    Wait Until Element Exist    ${xpath}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
+    Wait Until Element Exist    ${xpath}
     Focus    ${xpath}
     RETURN    ${PID}
 
@@ -48,14 +28,9 @@ Start Application With Args
     [Arguments]    ${application}=${TEST_APP}    ${xpath}=${MAIN_WINDOW}    ${arguments}=${EXP_WINDOW_TITLE}
     ${PID}    Launch Application With Args    ${application}    ${arguments}
     Should Not Be Equal As Integers    ${PID}    0
-    Wait Until Element Exist    ${xpath}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
+    Wait Until Element Exist    ${xpath}
     Focus    ${xpath}
     RETURN    ${PID}
-
-Assert Elapsed Seconds
-    [Arguments]    ${elapsed}    ${minimum}    ${maximum}
-    Should Be True    ${elapsed} >= ${minimum}    Elapsed ${elapsed}s is below ${minimum}s
-    Should Be True    ${elapsed} < ${maximum}    Elapsed ${elapsed}s is not below ${maximum}s
 
 Open Simple Tab
     ${XPATH_TAB}    Set Variable    ${MAIN_WINDOW}/Tab

@@ -15,7 +15,7 @@ namespace NotifierTest
 
             var aTimer = new Timer
             {
-                Interval = 500,
+                Interval = 8000,
                 Enabled = true,
             };
 
