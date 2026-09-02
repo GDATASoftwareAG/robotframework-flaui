@@ -14,7 +14,7 @@ Resource            util/XPath.resource
 Close Window
     Start Application
     Close Window    ${MAIN_WINDOW}
-    Wait Until Element Does Not Exist    ${MAIN_WINDOW}
+    Wait Until Element Does Not Exist    ${MAIN_WINDOW}    ${APP_RETRY}    ${APP_RETRY_INTERVAL}
 
 Resize Window
     Start Application

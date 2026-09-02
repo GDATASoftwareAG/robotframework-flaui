@@ -60,32 +60,24 @@ Right Click
     Element Should Exist    ${EXPECTED_CONTEXT_MENU}
 
 Left Click And Hold
-    Click Hold    ${HOLD_BUTTON}    2050
-    ${status1}    Run Keyword And Return Status    Name Contains Text    2,    ${HOLD_BUTTON}    # DE number
-    ${status2}    Run Keyword And Return Status    Name Contains Text    2.    ${HOLD_BUTTON}    # US Number
-    Should Be True    not ${status1} or not ${status2}    Click And Hold did not work
+    Click Hold    ${HOLD_BUTTON}    250
+    Hold Duration Should Be Between    0.2    1.0
 
 Double Click And Hold
-    Double Click Hold    ${HOLD_BUTTON}    3050
-    ${status1}    Run Keyword And Return Status    Name Contains Text    3,    ${HOLD_BUTTON}    # DE number
-    ${status2}    Run Keyword And Return Status    Name Contains Text    3.    ${HOLD_BUTTON}    # US Number
-    Should Be True    not ${status1} or not ${status2}    Double Click And Hold did not work
+    Double Click Hold    ${HOLD_BUTTON}    350
+    Hold Duration Should Be Between    0.3    1.2
 
 Right Click And Hold
     Right Click    ${CLICK_BUTTON}
     Name Should Be    Right button clicked    ${CLICK_BUTTON}
-    Right Click Hold    ${HOLD_BUTTON}    4050
-    ${status1}    Run Keyword And Return Status    Name Contains Text    4,    ${HOLD_BUTTON}    # DE number
-    ${status2}    Run Keyword And Return Status    Name Contains Text    4.    ${HOLD_BUTTON}    # US Number
-    Should Be True    not ${status1} or not ${status2}    Right Click And Hold not work
+    Right Click Hold    ${HOLD_BUTTON}    450
+    Hold Duration Should Be Between    0.4    1.5
 
 Middle Click And Hold
-    Middle Click Hold    ${CLICK_BUTTON}
+    Middle Click    ${CLICK_BUTTON}
     Name Should Be    Middle button clicked    ${CLICK_BUTTON}
-    Middle Click Hold    ${HOLD_BUTTON}    4050
-    ${status1}    Run Keyword And Return Status    Name Contains Text    4,    ${HOLD_BUTTON}    # DE number
-    ${status2}    Run Keyword And Return Status    Name Contains Text    4.    ${HOLD_BUTTON}    # US Number
-    Should Be True    not ${status1} or not ${status2}    Right Click And Hold not work
+    Middle Click Hold    ${HOLD_BUTTON}    450
+    Hold Duration Should Be Between    0.4    1.5
 
 Scroll UP
     Select Combobox Item By Index    ${XPATH_EDITABLE_COMBO_BOX}    1
@@ -134,11 +126,23 @@ Middle Click Close
 
 Left Click Open Error Cannot Open
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_OPENED}    ${XPATH_NOT_EXISTS}    ${CLICK_BUTTON}
-    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${CLICK_BUTTON}    ${XPATH_NOT_EXISTS}
+    Run Keyword And Expect Error
+    ...    EQUALS: ${EXP_ERR_MSG}
+    ...    Click Open
+    ...    ${CLICK_BUTTON}
+    ...    ${XPATH_NOT_EXISTS}
+    ...    max_repeat=1
+    ...    timeout_between_repeats=0
 
 Left Click Open Error Not Exist
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
-    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Open    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
+    Run Keyword And Expect Error
+    ...    EQUALS: ${EXP_ERR_MSG}
+    ...    Click Open
+    ...    ${XPATH_NOT_EXISTS}
+    ...    ${XPATH_NOT_EXISTS}
+    ...    max_repeat=1
+    ...    timeout_between_repeats=0
 
 Right Click Open
     Right Click Open    ${RIGHT_CLICK_BUTTON}    ${CONTEXT_MENUITEM1}
@@ -154,18 +158,26 @@ Left Click Close
 Left Click Close Error Cannot Close
     Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_NOT_CLOSED}    ${SOME_MENUITEM}    ${POPUP_TOGGLE_BUTTON}
-    Run Keyword And Expect Error    EQUALS: ${EXP_ERR_MSG}    Click Close    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
+    Run Keyword And Expect Error
+    ...    EQUALS: ${EXP_ERR_MSG}
+    ...    Click Close
+    ...    ${POPUP_TOGGLE_BUTTON}
+    ...    ${SOME_MENUITEM}
+    ...    max_repeat=1
+    ...    timeout_between_repeats=0
     Element Should Exist    ${SOME_MENUITEM}
 
 Left Click Close Error Not Exist
     ${EXP_ERR_MSG}    Format String    ${EXP_ERR_MSG_ELEMENT_DOES_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
-    Click Close    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}
+    Click Close    ${XPATH_NOT_EXISTS}    ${XPATH_NOT_EXISTS}    max_repeat=1    timeout_between_repeats=0
     Run Keyword And Expect Error
     ...    EQUALS: ${EXP_ERR_MSG}
     ...    Click Close
     ...    ${XPATH_NOT_EXISTS}
     ...    ${XPATH_NOT_EXISTS}
     ...    ignore_if_already_close=${False}
+    ...    max_repeat=1
+    ...    timeout_between_repeats=0
 
 Right Click Close
     Click Open    ${POPUP_TOGGLE_BUTTON}    ${SOME_MENUITEM}
@@ -175,16 +187,16 @@ Right Click Close
 Click Hold Open
     Click Hold Open
     ...    ${HOLD_BUTTON}
-    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
-    ...    3100
-    Element Should Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'1')]
+    ...    1200
+    Element Should Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'1')]
 
 Click Hold Close
     Click Hold Close
     ...    ${HOLD_BUTTON}
-    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
-    ...    1000
-    Element Should Not Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'3')]
+    ...    ${HOLD_BUTTON}/Text[starts-with(@Name,'1')]
+    ...    200
+    Element Should Not Exist    ${HOLD_BUTTON}/Text[starts-with(@Name,'1')]
 
 Drag And Drop
     Open Drag And Drop Tab
@@ -233,3 +245,12 @@ Click Without Identifier Or Position
 
 Click With Incomplete Position
     Run Keyword And Expect Error    ${EXP_ERR_MSG_BOTH_COORDINATES}    Click    x=100
+
+
+*** Keywords ***
+Hold Duration Should Be Between
+    [Arguments]    ${minimum}    ${maximum}
+    ${NAME}    Get Name From Element    ${HOLD_BUTTON}
+    ${SECONDS}    Evaluate    float("${NAME}".replace(",", "."))
+    Should Be True    ${SECONDS} >= ${minimum}    Hold duration ${SECONDS} is below ${minimum}s (${NAME})
+    Should Be True    ${SECONDS} < ${maximum}    Hold duration ${SECONDS} is not below ${maximum}s (${NAME})

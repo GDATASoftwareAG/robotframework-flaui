@@ -145,7 +145,7 @@ namespace WpfApplication
         private async void EnableButton_Click(object sender, RoutedEventArgs e)
         {
             EnableButton.Content = "Ready to take off";
-            await Task.Delay(2000);
+            await Task.Delay(300);
             DisabledButton.IsEnabled = true;
             EnableButton.IsEnabled = false;
         }
