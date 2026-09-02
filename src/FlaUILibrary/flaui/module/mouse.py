@@ -7,6 +7,7 @@ from FlaUI.Core.Input import Mouse as FlaUIMouse # pylint: disable=import-error
 from FlaUI.Core.Input import MouseButton # pylint: disable=import-error
 from FlaUI.Core.Exceptions import NoClickablePointException  # pylint: disable=import-error
 from System import Exception as CSharpException  # pylint: disable=import-error
+from System.Drawing import Point as DrawingPoint  # pylint: disable=import-error
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.moduleinterface import ModuleInterface
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
@@ -264,9 +265,31 @@ class Mouse(ModuleInterface):
             raise FlaUiError(FlaUiError.ElementNotClickable) from None
 
     @staticmethod
+    def _to_drawing_point(point: Point) -> DrawingPoint:
+        """
+        Convert a Python point to a System.Drawing.Point.
+
+        Args:
+            point (Point): Target screen coordinates.
+        """
+        return DrawingPoint(point.x, point.y)
+
+    @staticmethod
+    def _set_position(point: Point) -> None:
+        """
+        Set the mouse cursor to the given Python point without interpolating movement.
+
+        Args:
+            point (Point): Target screen coordinates.
+        """
+        FlaUI.Core.Input.Mouse.Position = Mouse._to_drawing_point(point)
+
+    @staticmethod
     def _move_to_point(point: Point) -> None:
         """
-        Move the mouse cursor to the given Python point.
+        Interpolate the mouse cursor to the given Python point.
+
+        Used only by the Move To keyword.
 
         Args:
             point (Point): Target screen coordinates.
@@ -429,26 +452,26 @@ class Mouse(ModuleInterface):
           - FlaUiError(IdentifierOrCoordinatesRequired) if neither element nor coordinates are provided.
         """
         point = Mouse._resolve_point(container)
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUIMouse.LeftClick()
 
     @staticmethod
     def _click_hold(container: Container) -> None:
         """
-        Moves the mouse to the element's clickable point or coordinates, presses and holds, then releases.
+        Sets the mouse to the element's clickable point or coordinates, presses and holds, then releases.
         Container fields used:
           - element: optional element object exposing `GetClickablePoint()`
           - x, y: absolute screen coordinates or offsets from the element's clickable point
           - hold_time_in_ms (int): how long to hold (milliseconds)
         Behavior:
-          - Move mouse to resolved point.
+          - Set mouse position to resolved point.
           - Mouse.Down(), sleep(hold_time_in_ms), Mouse.Up()
         Raises:
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
         hold_time_in_ms = container["hold_time_in_ms"]
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUI.Core.Input.Mouse.Down()
         if hold_time_in_ms > 0:
             time.sleep(float(hold_time_in_ms) / 1000)
@@ -457,20 +480,20 @@ class Mouse(ModuleInterface):
     @staticmethod
     def _scroll(container: Container) -> None:
         """
-        Moves the mouse to the element's clickable point or coordinates and performs a scroll.
+        Sets the mouse to the element's clickable point or coordinates and performs a scroll.
         Container fields used:
           - element: optional element object exposing `GetClickablePoint()`
           - x, y: absolute screen coordinates or offsets from the element's clickable point
           - scroll_amount (float): amount to scroll (positive/negative)
         Behavior:
-          - Move mouse to resolved point and call Mouse.Scroll(scroll_amount).
+          - Set mouse position to resolved point and call Mouse.Scroll(scroll_amount).
           - If GetClickablePoint fails, the bounding rectangle center is used instead.
         Raises:
           - FlaUiError(ElementNotClickable) if element has no clickable point or bounding rectangle.
         """
         point = Mouse._resolve_point(container, fallback_to_center=True)
         scroll_amount = container["scroll_amount"]
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUI.Core.Input.Mouse.Scroll(float(scroll_amount))
 
     @staticmethod
@@ -484,7 +507,7 @@ class Mouse(ModuleInterface):
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUIMouse.Click(MouseButton.Middle)
 
     @staticmethod
@@ -496,13 +519,13 @@ class Mouse(ModuleInterface):
           - x, y: absolute screen coordinates or offsets from the element's clickable point
           - hold_time_in_ms (int): how long to hold (milliseconds)
         Behavior:
-          - Move to resolved point, Mouse.Down(Middle), sleep(hold_time), Mouse.Up(Middle).
+          - Set position to resolved point, Mouse.Down(Middle), sleep(hold_time), Mouse.Up(Middle).
         Raises:
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
         hold_time_in_ms = container["hold_time_in_ms"]
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUI.Core.Input.Mouse.Down(FlaUI.Core.Input.MouseButton.Middle)
         if hold_time_in_ms > 0:
             time.sleep(float(hold_time_in_ms) / 1000)
@@ -519,7 +542,7 @@ class Mouse(ModuleInterface):
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUIMouse.RightClick()
 
     @staticmethod
@@ -531,13 +554,13 @@ class Mouse(ModuleInterface):
           - x, y: absolute screen coordinates or offsets from the element's clickable point
           - hold_time_in_ms (int): how long to hold (milliseconds)
         Behavior:
-          - Move to resolved point, Mouse.Down(Right), sleep(hold_time), Mouse.Up(Right).
+          - Set position to resolved point, Mouse.Down(Right), sleep(hold_time), Mouse.Up(Right).
         Raises:
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
         hold_time_in_ms = container["hold_time_in_ms"]
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUI.Core.Input.Mouse.Down(FlaUI.Core.Input.MouseButton.Right)
         if hold_time_in_ms > 0:
             time.sleep(float(hold_time_in_ms) / 1000)
@@ -554,7 +577,7 @@ class Mouse(ModuleInterface):
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUIMouse.LeftDoubleClick()
 
     @staticmethod
@@ -566,13 +589,13 @@ class Mouse(ModuleInterface):
           - x, y: absolute screen coordinates or offsets from the element's clickable point
           - hold_time_in_ms (int): how long to hold after the second down (milliseconds)
         Behavior:
-          - Move to resolved point, emulate double-click (Down/Up, Down, optional sleep, Up).
+          - Set position to resolved point, emulate double-click (Down/Up, Down, optional sleep, Up).
         Raises:
           - FlaUiError(ElementNotClickable) if element has no clickable point.
         """
         point = Mouse._resolve_point(container)
         hold_time_in_ms = container["hold_time_in_ms"]
-        Mouse._move_to_point(point)
+        Mouse._set_position(point)
         FlaUI.Core.Input.Mouse.Down()
         FlaUI.Core.Input.Mouse.Up()
         FlaUI.Core.Input.Mouse.Down()
@@ -605,7 +628,7 @@ class Mouse(ModuleInterface):
           - x, y: absolute screen coordinates or offsets for the drag start
           - second_x, second_y: absolute screen coordinates or offsets for the drag target
         Behavior:
-          - Move to start point, Mouse.Down(), move to target point, Mouse.Up()
+          - Set position to start point, Mouse.Down(), set position to target point, Mouse.Up()
         Raises:
           - FlaUiError(ElementNotClickable) if either element has no clickable point.
         """
@@ -614,7 +637,7 @@ class Mouse(ModuleInterface):
                                           element_key="second_element",
                                           x_key="second_x",
                                           y_key="second_y")
-        Mouse._move_to_point(element_from)
+        Mouse._set_position(element_from)
         FlaUI.Core.Input.Mouse.Down()
-        Mouse._move_to_point(element_to)
+        Mouse._set_position(element_to)
         FlaUI.Core.Input.Mouse.Up()
