@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Fixed
+
+- [#270](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/270) Visible mouse movement between mouse keywords since 5.0.2
+  - Interpolated `MoveTo` is only used by the `Move To` keyword
+  - Click, hold, scroll and drag-and-drop set the cursor position instantly before the action
+
 ## [Release][5.2.0] [5.2.0][5.1.1-5.2.0] - 2026-08-30
 
 ### Changed
