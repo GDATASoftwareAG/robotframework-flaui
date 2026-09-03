@@ -7,6 +7,8 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+## [Release][5.2.1] [5.2.1][5.2.0-5.2.1] - 2026-09-03
+
 ### Fixed
 
 - [#270](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/270) Visible mouse movement between mouse keywords since 5.0.2
@@ -1044,7 +1046,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.2.0...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.2.1...main
+
+[5.2.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.2.1
+
+[5.2.0-5.2.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/5.2.0...5.2.1
 
 [5.2.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/5.2.0
 
