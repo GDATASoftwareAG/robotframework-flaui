@@ -23,6 +23,9 @@
 [py314x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.14%20x86/main?label=3.14&style=flat-square
 [py314x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.14%20x64/main?label=3.14&style=flat-square
 
+[py315x86]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.15%20x86/main?label=3.15&style=flat-square
+[py315x64]: https://img.shields.io/appveyor/job/build/GDATACyberDefenseAG/robotframework-flaui/Python%203.15%20x64/main?label=3.15&style=flat-square
+
 [tests]: https://img.shields.io/appveyor/tests/GDATACyberDefenseAG/robotframework-flaui/main?style=flat-square
 [tests_url]: https://ci.appveyor.com/project/GDATACyberDefenseAG/robotframework-flaui/build/tests
 
@@ -36,6 +39,7 @@
 [python_312]: https://img.shields.io/badge/Python-3.12-blue
 [python_313]: https://img.shields.io/badge/Python-3.13-blue
 [python_314]: https://img.shields.io/badge/Python-3.14-blue
+[python_315]: https://img.shields.io/badge/Python-3.15-blue
 
 [rf3]: https://img.shields.io/badge/3-Supported-blue
 [rf4]: https://img.shields.io/badge/4-Supported-blue
@@ -46,10 +50,10 @@
 |                     |                                                                                                         |
 |---------------------|---------------------------------------------------------------------------------------------------------|
 | License             | ![][license]                                                                                            |
-| Python Builds (x86) | ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86] ![][py312x86] ![][py313x86] ![][py314x86]         |
-| Python Builds (x64) | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64] ![][py312x64] ![][py313x64] ![][py314x64]         |
+| Python Builds (x86) | ![][py38x86] ![][py39x86] ![][py310x86] ![][py311x86] ![][py312x86] ![][py313x86] ![][py314x86] ![][py315x86]         |
+| Python Builds (x64) | ![][py38x64] ![][py39x64] ![][py310x64] ![][py311x64] ![][py312x64] ![][py313x64] ![][py314x64] ![][py315x64]         |
 | Tests               | [![][tests]][tests_url]                                                                                 |
-| Python              | ![][python_38] ![][python_39] ![][python_310] ![][python_311] ![][python_312] ![][python_313] ![][python_314] |
+| Python              | ![][python_38] ![][python_39] ![][python_310] ![][python_311] ![python_312] ![python_313] ![python_314] ![python_315] |
 | Robotframework      | ![][rf3] ![][rf4] ![][rf5] ![][rf6] ![][rf7]                                                            |
 | PyPi                | [![][pypi]][pypi_url]                                                                                   |
 
