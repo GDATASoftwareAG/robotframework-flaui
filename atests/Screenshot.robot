@@ -8,6 +8,7 @@ Library             Process
 Library             String
 Library             StringFormat
 Library             FlaUILibrary    uia=${UIA}    screenshot_on_failure=True
+Library             util/screenshotlog.py
 Resource            util/Common.resource
 Resource            util/Error.resource
 Resource            util/XPath.resource
@@ -69,6 +70,15 @@ Take No Screenshot If Module Is Disabled
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     [Teardown]    Reset Screenshot Environment To Default
 
+Failure Screenshot Is Embedded In The Log
+    Set Screenshot Directory    ${SCREENSHOT_FOLDER}
+    ${FILENAME}    Get Expected Filename    ${TEST_NAME}
+    ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
+    Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
+    Wait Until Created    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}    1s
+    Log Should Contain Screenshot    screenshots/default
+    [Teardown]    Reset Screenshot Environment To Default
+
 Take Screenshot If XPath Not Found Multiple Times Default Folder
     Set Screenshot Directory    ${None}
     FOR    ${_}    IN RANGE    1    3
@@ -99,6 +109,7 @@ Take Manual Screenshot By Keyword
     File Should Not Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
     Take Screenshot
     Wait Until Keyword Succeeds    50x    100ms    File Should Exist    ${OUTPUT DIR}/${SCREENSHOT_FOLDER}/${FILENAME}
+    Log Should Contain Screenshot    screenshots/default
     [Teardown]    Reset Screenshot Environment To Default
 
 Test Case 1234: Something to Test
@@ -144,6 +155,7 @@ Take Screenshot As Base64
     ${base64}    Take Screenshot
     Should Not Be Equal    ${base64}    ${None}    Returned base64 image is 'None'
     Should Not Be Empty    ${base64}    Returned base64 image is empty
+    Log Should Contain Screenshot    data:image/png;base64,
     [Teardown]    Reset Screenshot Environment To Default
 
 Take Screenshot Of Window As Base64

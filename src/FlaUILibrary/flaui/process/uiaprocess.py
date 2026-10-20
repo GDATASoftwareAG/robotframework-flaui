@@ -13,6 +13,7 @@ from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.interface.valuecontainer import ValueContainer
 from FlaUILibrary.flaui.process.elementcodec import ElementCodec
 from FlaUILibrary.flaui.process.uiaworker import UiaWorker
+from FlaUILibrary.robotframework import robotlog
 
 
 class UiaProcess:
@@ -64,12 +65,21 @@ class UiaProcess:
             raise FlaUiError(f"{self._identifier} helper process is not running")
         try:
             self._channel.send(UiaWorker.dumps(request))
-            status, payload = UiaWorker.loads(self._channel.receive())
+            response = UiaWorker.loads(self._channel.receive())
         except Exception as error:  # pylint: disable=broad-except
             raise FlaUiError(f"{self._identifier} helper process failed: {error}") from error
+        status, payload, logs = UiaProcess._unpack_response(response)
+        robotlog.publish_screenshot_logs(logs)
         if status == "error":
             raise FlaUiError(payload)
         return payload
+
+    @staticmethod
+    def _unpack_response(response):
+        status = response[0]
+        payload = response[1]
+        logs = response[2] if len(response) > 2 else ()
+        return status, payload, logs
 
     def _start_worker(self,
                       gateway,

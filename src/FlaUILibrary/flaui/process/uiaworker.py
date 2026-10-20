@@ -3,6 +3,7 @@ from typing import Any
 
 from FlaUILibrary.flaui.exception.flauierror import FlaUiError
 from FlaUILibrary.flaui.process.elementcodec import ElementCodec
+from FlaUILibrary.flaui.process.screenshotlogbuffer import ScreenshotLogBuffer
 from FlaUILibrary.flaui.process.uiafactory import UiaFactory
 from FlaUILibrary.robotframework import robotlog
 
@@ -13,7 +14,9 @@ class UiaWorker:
     def __init__(self, identifier: str, retry_timeout_in_milliseconds: int, channel, output_dir: str = None):
         self._channel = channel
         self._codec = ElementCodec()
+        self._screenshot_logs = ScreenshotLogBuffer()
         self._bind_output_dir(output_dir)
+        self._bind_screenshot_logging()
         self._module = UiaFactory.create(identifier, retry_timeout_in_milliseconds)
 
     def run(self) -> None:
@@ -23,13 +26,16 @@ class UiaWorker:
             operation = request[0]
             if operation == "shutdown":
                 break
-            try:
-                result = self._dispatch(operation, request)
-                self._channel.send(UiaWorker.dumps(("ok", result)))
-            except FlaUiError as error:
-                self._channel.send(UiaWorker.dumps(("error", str(error))))
-            except Exception as error:  # pylint: disable=broad-except
-                self._channel.send(UiaWorker.dumps(("error", str(error))))
+            self._channel.send(UiaWorker.dumps(self._execute(operation, request)))
+
+    def _execute(self, operation: str, request):
+        try:
+            status, payload = "ok", self._dispatch(operation, request)
+        except FlaUiError as error:
+            status, payload = "error", str(error)
+        except Exception as error:  # pylint: disable=broad-except
+            status, payload = "error", str(error)
+        return status, payload, self._screenshot_logs.take()
 
     def _dispatch(self, operation: str, request) -> Any:
         if operation == "get_element":
@@ -49,6 +55,11 @@ class UiaWorker:
     def loads(value: bytes) -> Any:
         """Deserialize a request or response from the execnet channel."""
         return pickle.loads(value)
+
+    def _bind_screenshot_logging(self) -> None:
+        """Send screenshot messages back with the action result instead of logging them here."""
+        robotlog.log_screenshot = self._screenshot_logs.add_file
+        robotlog.log_screenshot_base64 = self._screenshot_logs.add_base64
 
     @staticmethod
     def _bind_output_dir(output_dir: str) -> None:

@@ -11,6 +11,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 - Python 3.15 support
 
+### Fixed
+
+- [#272](https://github.com/GDATASoftwareAG/robotframework-flaui/issues/272) Failure screenshots are embedded in log.html again
+  - Since 5.0, screenshots are captured in the UIA helper process, which does not write to the Robot log
+  - File and Base64 screenshot messages are returned to the Robot process and logged on the keyword that captured them
+
 ## [Release][5.2.1] [5.2.1][5.2.0-5.2.1] - 2026-09-03
 
 ### Fixed
