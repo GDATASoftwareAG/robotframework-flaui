@@ -25,6 +25,9 @@ Take Screenshot Of Window As Base64 From Library Import
     [Teardown]    Run Keyword And Ignore Error    Stop Application    ${PID}
 
 Failure Screenshot Is Embedded In The Log
+    Reset Log Listener
     ${EXP_ERR_MSG}    StringFormat.Format String    ${EXP_ERR_MSG_XPATH_NOT_FOUND}    ${XPATH_NOT_EXISTS}
     Run Keyword And Expect Error    ${EXP_ERR_MSG}    Click    ${XPATH_NOT_EXISTS}
     Log Should Contain Screenshot    data:image/png;base64,
+    Log Listener Should Have Received    FlaUiError
+    Log Listener Should Not Have Received    data:image/png;base64,

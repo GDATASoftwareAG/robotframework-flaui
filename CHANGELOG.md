@@ -7,6 +7,11 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Fixed
+
+- Base64 failure screenshots stay in log.html and are no longer sent to consoles or log listeners
+  - The raw HTML message, including the Base64 string, was printed by listeners such as the RobotCode debug console
+
 ## [Release][6.0.0] [6.0.0][5.2.1-6.0.0] - 2026-10-20
 
 ### Added

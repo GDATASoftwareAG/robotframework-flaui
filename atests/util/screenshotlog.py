@@ -1,5 +1,47 @@
 from robot.running.context import EXECUTION_CONTEXTS
 
+from loglistener import LogListener
+
+
+_CONSOLE = LogListener()
+ROBOT_LIBRARY_LISTENER = _CONSOLE
+
+
+def reset_log_listener():
+    """Clear messages observed by the log listener."""
+    _CONSOLE.reset()
+
+
+def publish_base64_screenshot(image):
+    """Log a Base64 screenshot the same way a captured screenshot is logged."""
+    from FlaUILibrary.robotframework import robotlog  # pylint: disable=import-outside-toplevel
+
+    robotlog.log_screenshot_base64(image)
+
+
+def publish_file_screenshot(filepath):
+    """Log a file screenshot the same way a captured screenshot is logged."""
+    from FlaUILibrary.robotframework import robotlog  # pylint: disable=import-outside-toplevel
+
+    robotlog.log_screenshot(filepath)
+
+
+def log_listener_should_have_received(fragment):
+    """Fail when no listener message contains ``fragment``."""
+    if _CONSOLE.received(fragment):
+        return
+    raise AssertionError(
+        f"Listener did not receive '{fragment}'. Saw {len(_CONSOLE.messages)} message(s)."
+    )
+
+
+def log_listener_should_not_have_received(fragment):
+    """Fail when a listener message contains ``fragment``."""
+    for message in _CONSOLE.messages:
+        if fragment in message:
+            preview = message if len(message) < 180 else message[:180] + "..."
+            raise AssertionError(f"Screenshot was published to a log listener: {preview}")
+
 
 def log_should_contain_screenshot(fragment):
     """
