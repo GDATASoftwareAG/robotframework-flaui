@@ -549,16 +549,21 @@ class ElementKeywords:
         """
         Find one element from given xpath.
         Runs immediately and without retrying later.
-        Returns an AutomationElement which contains properties to Xpath.
-        If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
+        Returns an AutomationElement.
+        Name, ClassName and AutomationId are the raw property values.
+        Xpath is the positional locator.
+        XpathName, XpathClassName and XpathAutomationId locate the same element by that property.
+        When the property exists, it replaces the positional index on the last segment.
+        A missing property returns an empty string for the raw value and for its xpath.
 
-        | Example usage AutomationElement                                        |
-        | Xpath        --> /Window[1]/Tab/TabItem[1]                             |
-        | AutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"] |
-        | Name         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]       |
-        | ClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]          |
-
-        If any property is not set empty string value will be returned.
+        | Example usage AutomationElement                                              |
+        | Xpath             --> /Window[1]/Tab/TabItem[1]                              |
+        | XpathAutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]  |
+        | XpathName         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]        |
+        | XpathClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]           |
+        | AutomationId      --> SimpleControl                                          |
+        | Name              --> Simple Controls                                        |
+        | ClassName         --> TabItem                                                |
 
         XPath syntax is explained in `XPath locator`.
 
@@ -583,16 +588,21 @@ class ElementKeywords:
         """
         Find all elements from given xpath.
         Runs immediately and without retrying later.
-        Returns an AutomationElement list which contains properties to Xpath.
-        If AutomationId, ClassName or Name is set. Xpath can be used by these values and will be returned.
+        Returns an AutomationElement list.
+        Name, ClassName and AutomationId are the raw property values.
+        Xpath is the positional locator.
+        XpathName, XpathClassName and XpathAutomationId locate the same element by that property.
+        When the property exists, it replaces the positional index on the last segment.
+        A missing property returns an empty string for the raw value and for its xpath.
 
-        | Example usage AutomationElement                                        |
-        | Xpath        --> /Window[1]/Tab/TabItem[1]                             |
-        | AutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"] |
-        | Name         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]       |
-        | ClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]          |
-
-        If any property is not set empty string value will be returned.
+        | Example usage AutomationElement                                              |
+        | Xpath             --> /Window[1]/Tab/TabItem[1]                              |
+        | XpathAutomationId --> /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]  |
+        | XpathName         --> /Window[1]/Tab/TabItem[@Name="Simple Controls"]        |
+        | XpathClassName    --> /Window[1]/Tab/TabItem[@ClassName="TabItem"]           |
+        | AutomationId      --> SimpleControl                                          |
+        | Name              --> Simple Controls                                        |
+        | ClassName         --> TabItem                                                |
 
         XPaths syntax is explained in `XPath locator`.
 
@@ -602,11 +612,14 @@ class ElementKeywords:
         | msg        | string | Custom error message                                                  |
 
         Example:
-        | ${elements}  Find All Elements  <XPATH>             |
-        | ${Xpath}  Set Variable  ${element[0].Xpath}         |
-        | ${Id}  Set Variable  ${element[0].AutomationId}     |
-        | ${Name}  Set Variable  ${element[0].Name}           |
-        | ${ClassName}  Set Variable  ${element[0].ClassName} |
+        | ${elements}  Find All Elements  <XPATH>                    |
+        | ${Xpath}  Set Variable  ${elements[0].Xpath}                |
+        | ${XpathId}  Set Variable  ${elements[0].XpathAutomationId}  |
+        | ${XpathName}  Set Variable  ${elements[0].XpathName}        |
+        | ${XpathClass}  Set Variable  ${elements[0].XpathClassName}  |
+        | ${Id}  Set Variable  ${elements[0].AutomationId}            |
+        | ${Name}  Set Variable  ${elements[0].Name}                  |
+        | ${ClassName}  Set Variable  ${elements[0].ClassName}        |
         """
         module = self._container.create_or_get_module()
         return module.action(Element.Action.FIND_ALL_ELEMENTS,
