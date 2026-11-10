@@ -7,6 +7,12 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
+### Changed
+
+- `Find One Element` and `Find All Elements` return raw `Name`, `ClassName` and `AutomationId` values
+  - Locator strings are `XpathName`, `XpathClassName` and `XpathAutomationId`
+  - When the property exists, it is used on the last segment instead of the positional index, for example `TabItem[1]` becomes `TabItem[@Name="Simple Controls"]`
+
 ## [Release][6.0.1] [6.0.1][6.0.0-6.0.1] - 2026-11-04
 
 ### Fixed

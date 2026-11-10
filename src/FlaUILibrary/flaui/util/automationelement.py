@@ -2,7 +2,14 @@ import re
 
 
 class AutomationElement:
-    """ AutomationElement wrapper class which contains data about automation elements. """
+    """Automation element data returned by Find One Element and Find All Elements.
+
+    ``Name``, ``ClassName`` and ``AutomationId`` are the raw property values.
+    ``Xpath`` is the positional locator. When a property exists, ``XpathName``,
+    ``XpathClassName`` and ``XpathAutomationId`` use that property on the last segment
+    instead of its positional index.
+    A missing property is an empty string on the raw field and on its xpath field.
+    """
 
     def __init__(self, automation_id: str, name: str, class_name: str, xpath: str):
         """
@@ -10,27 +17,29 @@ class AutomationElement:
             ``automation_id`` Automation ID if set by element.
             ``name`` Name if set by element.
             ``class_name`` Class Name from element.
-            ``xpath`` Xpath from element.
+            ``xpath`` Positional xpath from element.
         """
         # pylint: disable=C0103
-        self.Xpath = xpath
-        self.AutomationId = ""
-        self.Name = ""
-        self.ClassName = ""
-
-        if automation_id:
-            self.AutomationId = self._get_argument_in_xpath(self.Xpath, "[@AutomationId=\"" + automation_id + "\"]")
-
-        if name:
-            self.Name = self._get_argument_in_xpath(self.Xpath, "[@Name=\"" + name + "\"]")
-
-        if class_name:
-            self.ClassName = self._get_argument_in_xpath(self.Xpath, "[@ClassName=\"" + class_name + "\"]")
+        self.Xpath = xpath or ""
+        self.AutomationId = str(automation_id) if automation_id else ""
+        self.Name = str(name) if name else ""
+        self.ClassName = str(class_name) if class_name else ""
+        self.XpathAutomationId = self._property_xpath(self.Xpath, "AutomationId", self.AutomationId)
+        self.XpathClassName = self._property_xpath(self.Xpath, "ClassName", self.ClassName)
+        self.XpathName = self._property_xpath(self.Xpath, "Name", self.Name)
         # pylint: enable=C0103
 
     @staticmethod
-    def _get_argument_in_xpath(xpath, argument) -> str:
-        xpaths = xpath.split("/")
-        # Callable repl avoids re.sub treating backslashes in argument as replacement escapes.
-        xpaths[-1] = re.sub(r"\[\d+]", lambda _: argument, xpaths[-1])
-        return "/".join(xpaths)
+    def _property_xpath(xpath: str, attribute: str, value: str) -> str:
+        """Put one property on the last segment when that property exists.
+
+        ``/Window[1]/Tab/TabItem[1]`` with Name ``Simple Controls`` becomes
+        ``/Window[1]/Tab/TabItem[@Name="Simple Controls"]``.
+        A positional index on the last segment is replaced. Earlier segments stay unchanged.
+        """
+        if not value:
+            return ""
+        segments = xpath.split("/")
+        last = re.sub(r"\[\d+]", "", segments[-1])
+        segments[-1] = f'{last}[@{attribute}="{value}"]'
+        return "/".join(segments)

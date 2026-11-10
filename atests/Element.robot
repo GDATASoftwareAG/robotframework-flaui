@@ -139,47 +139,55 @@ Find All Elements
         ${Id}    Set Variable    ${element.AutomationId}
         ${Name}    Set Variable    ${element.Name}
         ${ClassName}    Set Variable    ${element.ClassName}
+        Should Be Equal    ${ClassName}    TabItem
+        Should Contain    ${element.XpathClassName}    /Tab/TabItem[@ClassName="TabItem"]
 
         IF    ${index} == ${0}
             Should Contain    ${Xpath}    /Tab/TabItem[1]
-            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="SimpleControl"]
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Simple Controls"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Equal    ${Id}    SimpleControl
+            Should Be Equal    ${Name}    Simple Controls
+            Should Contain    ${element.XpathAutomationId}    /Tab/TabItem[@AutomationId="SimpleControl"]
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Simple Controls"]
         END
 
         IF    ${index} == ${1}
             Should Contain    ${Xpath}    /Tab/TabItem[2]
-            Should Contain    ${Id}    ${EMPTY}
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Complex Controls"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Empty    ${Id}
+            Should Be Empty    ${element.XpathAutomationId}
+            Should Be Equal    ${Name}    Complex Controls
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Complex Controls"]
         END
 
         IF    ${index} == ${2}
             Should Contain    ${Xpath}    /Tab/TabItem[3]
-            Should Contain    ${Id}    ${EMPTY}
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Keyboard Controls"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Empty    ${Id}
+            Should Be Empty    ${element.XpathAutomationId}
+            Should Be Equal    ${Name}    Keyboard Controls
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Keyboard Controls"]
         END
 
         IF    ${index} == ${3}
             Should Contain    ${Xpath}    /Tab/TabItem[4]
-            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="DragAndDropControl"]
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Drag And Drop"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Equal    ${Id}    DragAndDropControl
+            Should Be Equal    ${Name}    Drag And Drop
+            Should Contain    ${element.XpathAutomationId}    /Tab/TabItem[@AutomationId="DragAndDropControl"]
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Drag And Drop"]
         END
 
         IF    ${index} == ${4}
             Should Contain    ${Xpath}    /Tab/TabItem[5]
-            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="DataGridControl"]
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Data Grid"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Equal    ${Id}    DataGridControl
+            Should Be Equal    ${Name}    Data Grid
+            Should Contain    ${element.XpathAutomationId}    /Tab/TabItem[@AutomationId="DataGridControl"]
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Data Grid"]
         END
 
         IF    ${index} == ${5}
             Should Contain    ${Xpath}    /Tab/TabItem[6]
-            Should Contain    ${Id}    /Tab/TabItem[@AutomationId="DynamicPropertiesControl"]
-            Should Contain    ${Name}    /Tab/TabItem[@Name="Dynamic Properties"]
-            Should Contain    ${ClassName}    /Tab/TabItem[@ClassName="TabItem"]
+            Should Be Equal    ${Id}    DynamicPropertiesControl
+            Should Be Equal    ${Name}    Dynamic Properties
+            Should Contain    ${element.XpathAutomationId}    /Tab/TabItem[@AutomationId="DynamicPropertiesControl"]
+            Should Contain    ${element.XpathName}    /Tab/TabItem[@Name="Dynamic Properties"]
         END
 
         ${index}    Set Variable    ${index + 1}
@@ -211,8 +219,11 @@ Find All Elements Not Supported Exception Should Return Empty String
         IF    ${index} == ${0}
             Should Not Be Empty    ${Xpath}
             Should Be Empty    ${Id}
-            Should Not Be Empty    ${Name}
+            Should Be Empty    ${element.XpathAutomationId}
+            Should Be Equal    ${Name}    File
+            Should Contain    ${element.XpathName}    [@Name="File"]
             Should Be Empty    ${ClassName}
+            Should Be Empty    ${element.XpathClassName}
         END
 
         ${index}    Set Variable    ${index + 1}
@@ -226,23 +237,28 @@ Find All Elements If Xpath Is Wrong
 Find All Elements With Backslash In Name
     ${elements}    Find All Elements    ${XPATH_BACKSLASH_NAME}
     Length Should Be    ${elements}    1
-    Should Contain    ${elements[0].Name}    [@Name="Adresse: C:\\Windows"]
-    Element Should Not Be Offscreen    ${elements[0]}
+    Should Be Equal    ${elements[0].Name}    Adresse: C:\\Windows
+    Should Contain    ${elements[0].XpathName}    [@Name="Adresse: C:\\Windows"]
+    Element Should Not Be Offscreen    ${elements}[0]
 
 Find All Elements With Backslash In AutomationId
     ${elements}    Find All Elements    ${XPATH_BACKSLASH_AUTOMATION_ID}
     Length Should Be    ${elements}    1
-    Should Contain    ${elements[0].AutomationId}    [@AutomationId="Table\\1;1"]
-    Element Should Not Be Offscreen    ${elements[0]}
+    Should Be Equal    ${elements[0].AutomationId}    Table\\1;1
+    Should Contain    ${elements[0].XpathAutomationId}    [@AutomationId="Table\\1;1"]
+    Element Should Not Be Offscreen    ${elements}[0]
 
 Find One Element
     ${element}    Find One Element    ${XPATH_ENABLE_ELEMENT}
 
     ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
 
-    Should Be Equal    ${element.AutomationId}    ${window_xpath}/Tab/TabItem[1]/Button[@AutomationId="EnableButton"]
-    Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Button[@ClassName="Button"]
-    Should Be Equal    ${element.Name}    ${window_xpath}/Tab/TabItem[1]/Button[@Name="Enable Button"]
+    Should Be Equal    ${element.AutomationId}    EnableButton
+    Should Be Equal    ${element.ClassName}    Button
+    Should Be Equal    ${element.Name}    Enable Button
+    Should Be Equal    ${element.XpathAutomationId}    ${window_xpath}/Tab/TabItem[1]/Button[@AutomationId="EnableButton"]
+    Should Be Equal    ${element.XpathClassName}    ${window_xpath}/Tab/TabItem[1]/Button[@ClassName="Button"]
+    Should Be Equal    ${element.XpathName}    ${window_xpath}/Tab/TabItem[1]/Button[@Name="Enable Button"]
     Should Be Equal    ${element.Xpath}    ${window_xpath}/Tab/TabItem[1]/Button[6]
 
 Find One Element Not Supported Exception Should Return Empty String
@@ -251,8 +267,11 @@ Find One Element Not Supported Exception Should Return Empty String
     ${window_xpath}    Evaluate    '${element.Xpath}'.split("/Tab")[0]
 
     Should Be Empty    ${element.AutomationId}
-    Should Be Equal    ${element.ClassName}    ${window_xpath}/Tab/TabItem[1]/Text[@ClassName="Text"]
-    Should Be Equal    ${element.Name}    ${window_xpath}/Tab/TabItem[1]/Text[@Name="Test Label"]
+    Should Be Empty    ${element.XpathAutomationId}
+    Should Be Equal    ${element.ClassName}    Text
+    Should Be Equal    ${element.XpathClassName}    ${window_xpath}/Tab/TabItem[1]/Text[@ClassName="Text"]
+    Should Be Equal    ${element.Name}    Test Label
+    Should Be Equal    ${element.XpathName}    ${window_xpath}/Tab/TabItem[1]/Text[@Name="Test Label"]
     Should Be Equal    ${element.Xpath}    ${window_xpath}/Tab/TabItem[1]/Text[2]
 
 Find One Element Xpath Usage Can Be Used To Any Keyword
@@ -269,13 +288,66 @@ Find One Element If Xpath Is Wrong
 
 Find One Element With Backslash In Name
     ${element}    Find One Element    ${XPATH_BACKSLASH_NAME}
-    Should Contain    ${element.Name}    [@Name="Adresse: C:\\Windows"]
+    Should Be Equal    ${element.Name}    Adresse: C:\\Windows
+    Should Contain    ${element.XpathName}    [@Name="Adresse: C:\\Windows"]
     Element Should Not Be Offscreen    ${element}
 
 Find One Element With Backslash In AutomationId
     ${element}    Find One Element    ${XPATH_BACKSLASH_AUTOMATION_ID}
-    Should Contain    ${element.AutomationId}    [@AutomationId="Table\\1;1"]
+    Should Be Equal    ${element.AutomationId}    Table\\1;1
+    Should Contain    ${element.XpathAutomationId}    [@AutomationId="Table\\1;1"]
     Element Should Not Be Offscreen    ${element}
+
+Property Xpath Uses Property On Last Segment Without Index
+    [Documentation]    A property that exists is placed on the last segment when that segment has no index.
+    ${element}    Evaluate
+    ...    importlib.import_module("FlaUILibrary.flaui.util.automationelement").AutomationElement("StartId", "Start", "Button", "/Window[1]/Window/Tab/TabItem[1]/Custom/DataGrid/DataItem[1]/Custom[3]/Button")
+    ...    modules=importlib
+    Should Be Equal    ${element.Name}    Start
+    Should Be Equal    ${element.ClassName}    Button
+    Should Be Equal    ${element.AutomationId}    StartId
+    Should Be Equal    ${element.Xpath}    /Window[1]/Window/Tab/TabItem[1]/Custom/DataGrid/DataItem[1]/Custom[3]/Button
+    Should Be Equal    ${element.XpathName}    /Window[1]/Window/Tab/TabItem[1]/Custom/DataGrid/DataItem[1]/Custom[3]/Button[@Name="Start"]
+    Should Be Equal    ${element.XpathClassName}    /Window[1]/Window/Tab/TabItem[1]/Custom/DataGrid/DataItem[1]/Custom[3]/Button[@ClassName="Button"]
+    Should Be Equal    ${element.XpathAutomationId}    /Window[1]/Window/Tab/TabItem[1]/Custom/DataGrid/DataItem[1]/Custom[3]/Button[@AutomationId="StartId"]
+
+Property Xpath Replaces Index On Last Segment
+    [Documentation]    The positional index of the last segment is replaced by the property.
+    ...    Earlier segments keep their indexes.
+    ${element}    Evaluate
+    ...    importlib.import_module("FlaUILibrary.flaui.util.automationelement").AutomationElement("SimpleControl", "Simple Controls", "TabItem", "/Window[1]/Tab/TabItem[1]")
+    ...    modules=importlib
+    Should Be Equal    ${element.Xpath}    /Window[1]/Tab/TabItem[1]
+    Should Be Equal    ${element.AutomationId}    SimpleControl
+    Should Be Equal    ${element.Name}    Simple Controls
+    Should Be Equal    ${element.ClassName}    TabItem
+    Should Be Equal    ${element.XpathAutomationId}    /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]
+    Should Be Equal    ${element.XpathName}    /Window[1]/Tab/TabItem[@Name="Simple Controls"]
+    Should Be Equal    ${element.XpathClassName}    /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+
+Missing Properties Stay Empty On Raw Value And Xpath
+    [Documentation]    An unset property stays empty and does not fall back to the positional xpath.
+    ${element}    Evaluate
+    ...    importlib.import_module("FlaUILibrary.flaui.util.automationelement").AutomationElement("", "Test Label", None, "/Window[1]/Tab/TabItem[1]/Text[2]")
+    ...    modules=importlib
+    Should Be Empty    ${element.AutomationId}
+    Should Be Empty    ${element.XpathAutomationId}
+    Should Be Empty    ${element.ClassName}
+    Should Be Empty    ${element.XpathClassName}
+    Should Be Equal    ${element.Name}    Test Label
+    Should Be Equal    ${element.XpathName}    /Window[1]/Tab/TabItem[1]/Text[@Name="Test Label"]
+
+Property Xpath Keeps Backslash In Value
+    [Documentation]    A backslash in a property value stays a single backslash in the locator.
+    ${element}    Evaluate
+    ...    importlib.import_module("FlaUILibrary.flaui.util.automationelement").AutomationElement("Table" + chr(92) + "1;1", "Adresse: C:" + chr(92) + "Windows", "", "/Window[1]/Text[1]")
+    ...    modules=importlib
+    Should Be Equal    ${element.Name}    Adresse: C:\\Windows
+    Should Be Equal    ${element.AutomationId}    Table\\1;1
+    Should Be Equal    ${element.XpathName}    /Window[1]/Text[@Name="Adresse: C:\\Windows"]
+    Should Be Equal    ${element.XpathAutomationId}    /Window[1]/Text[@AutomationId="Table\\1;1"]
+    Should Be Empty    ${element.ClassName}
+    Should Be Empty    ${element.XpathClassName}
 
 Is Element Offscreen
     ${IS_OFFSCREEN}    Is Element Offscreen    ${XPATH_ELEMENT}
