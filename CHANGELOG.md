@@ -7,11 +7,49 @@ This document follows the conventions laid out in [Keep a CHANGELOG][].
 
 ## [Unreleased][]
 
-### Changed
+## [Release][7.0.0] [7.0.0][6.0.1-7.0.0] - 2026-11-10
+
+### Breaking
 
 - `Find One Element` and `Find All Elements` return raw `Name`, `ClassName` and `AutomationId` values
   - Locator strings are `XpathName`, `XpathClassName` and `XpathAutomationId`
   - When the property exists, it is used on the last segment instead of the positional index, for example `TabItem[1]` becomes `TabItem[@Name="Simple Controls"]`
+  - A missing property is an empty string for the raw value and for its xpath
+  - `Xpath` stays the positional locator
+
+  Before:
+
+  ```robotframework
+  ${element}    Find One Element    ${XPATH}
+  ${name}    Set Variable    ${element.Name}
+  # /Window[1]/Tab/TabItem[@Name="Simple Controls"]
+  ${id}    Set Variable    ${element.AutomationId}
+  # /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]
+  ${class}    Set Variable    ${element.ClassName}
+  # /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+  Click    ${element.Name}
+  ```
+
+  New:
+
+  ```robotframework
+  ${element}    Find One Element    ${XPATH}
+  ${name}    Set Variable    ${element.Name}
+  # Simple Controls
+  ${xpath_name}    Set Variable    ${element.XpathName}
+  # /Window[1]/Tab/TabItem[@Name="Simple Controls"]
+  ${id}    Set Variable    ${element.AutomationId}
+  # SimpleControl
+  ${xpath_id}    Set Variable    ${element.XpathAutomationId}
+  # /Window[1]/Tab/TabItem[@AutomationId="SimpleControl"]
+  ${class}    Set Variable    ${element.ClassName}
+  # TabItem
+  ${xpath_class}    Set Variable    ${element.XpathClassName}
+  # /Window[1]/Tab/TabItem[@ClassName="TabItem"]
+  Click    ${element.XpathName}
+  ```
+
+  `Find All Elements` uses the same fields on each item, for example `${elements}[0].Name` and `${elements}[0].XpathName`.
 
 ## [Release][6.0.1] [6.0.1][6.0.0-6.0.1] - 2026-11-04
 
@@ -1071,7 +1109,11 @@ General bugfixing from keywords and improvements from artifact building and test
 
 [github.io]: https://gdatasoftwareag.github.io/robotframework-flaui
 
-[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/6.0.1...main
+[unreleased]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/7.0.0...main
+
+[7.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/7.0.0
+
+[6.0.1-7.0.0]: https://github.com/GDATASoftwareAG/robotframework-flaui/compare/6.0.1...7.0.0
 
 [6.0.1]: https://github.com/GDATASoftwareAG/robotframework-flaui/releases/tag/6.0.1
 
