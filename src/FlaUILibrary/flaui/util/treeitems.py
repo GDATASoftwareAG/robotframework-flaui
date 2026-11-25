@@ -69,7 +69,15 @@ class TreeItems:
 
         for node in nodes:
             names.append(node.Name)
-            if node.ExpandCollapseState in (ExpandCollapseState.Expanded, ExpandCollapseState.PartiallyExpanded):
+            if node.Patterns.ExpandCollapse.IsSupported:
+                is_expanded = node.ExpandCollapseState in (
+                    ExpandCollapseState.Expanded, ExpandCollapseState.PartiallyExpanded
+                )
+            else:
+                state = node.Patterns.LegacyIAccessible.Pattern.State.Value
+                is_expanded = bool(int(state) & 0x200)  # MSAA STATE_SYSTEM_EXPANDED
+
+            if is_expanded:
                 names.extend(TreeItems.get_all_names_from_tree_nodes(node.Items))
 
         return names
